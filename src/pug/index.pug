@@ -1,0 +1,25 @@
+html( lang="ko" )
+    head
+        meta( charset="utf-8" )
+    body
+        ul
+            // 상품
+            for item in product
+                li( data-product-id=`${ item.id }`)= item.name
+                    span= item.price
+        section.hiddenValue
+            // 상품의 옵션
+            - let productOptionObj= {};
+            for item in productOption
+                - ( !productOptionObj[item.option_category] ) && ( productOptionObj[item.option_category]= []);
+                - productOptionObj[`${ item.option_category }`].push( { name: item.option_name, price: item.option_price, discount: item.option_discount, option_id: item.option_id } );
+            - console.log( productOptionObj );
+            ul
+                for i, v in productOptionObj
+                    li= v
+                        ul
+                            for item in productOptionObj[v]
+                                li( data-productOption-id=`${ item.option_id }`)
+                                    span= item.name
+                                    span= item.price
+                                    span= item.discount
