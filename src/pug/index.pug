@@ -1,27 +1,62 @@
 html( lang="ko" )
     head
         meta( charset="utf-8" )
-        link( rel="stylesheet", href="./css/style.css" )
+        link( rel="stylesheet", href="./css/mainPage.css" )
+        link( rel="preconnect" href="https://fonts.googleapis.com" )
+        link( rel="preconnect" href="https://fonts.gstatic.com" crossorigin )
+        link( href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" )
+        link(rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css")
+        script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
     body
-        ul
-            // 상품
-            for item in product
-                li( data-product-id=`${ item.id }`)= item.name
-                    span= item.price
-        section.hiddenValue
-            // 상품의 옵션
-            - let productOptionObj= {};
-            for item in productOption
-                - ( !productOptionObj[item.option_category] ) && ( productOptionObj[item.option_category]= []);
-                - productOptionObj[`${ item.option_category }`].push( { name: item.option_name, price: item.option_price, discount: item.option_discount, option_id: item.option_id } );
-            - console.log( productOptionObj );
-            ul
-                for i, v in productOptionObj
-                    li= v
-                        ul
-                            for item in productOptionObj[v]
-                                li( data-productOption-id=`${ item.option_id }`)
-                                    span= item.name
-                                    span= item.price
-                                    span= item.discount
+        main.main 
+            section.left 
+                header.header_name
+                    img.logo(src="./images/sulbingLogo.png", alt="설빙로고", title="설빙로고")
+                    p.exp KOREAN DESSERT CAFE
+                section.menu
+                    nav.menu_list
+                    div.line
+                    section.fix1 
+                        div.wrap1 
+                            article.page1
+                                div.wrap2 
+                                    article.pageA
+                                        -for (let i=0; i<12; i++)
+                                            div.menuCard
+                                                img.product(src="./images/bingsoo_kingMango.png", alt="망고빙수", title="망고빙수")
+                                                p.prod_name 오레오초코몬스터
+                                                p.prod_price 13,900원
+                                    article.pageB 
+                                    article.pageC
+                            article.page2 
+                            article.page3
+            section.right
+                header.header_ban 
+                    aside.banner
+                section.order
+                    header.header_order 
+                        p.orderN 주문내역
+                    div.line 
+                    section.orderList
+                        div.wrap3 
+                            -for (let i=0; i<15; i++)
+                                div.orderCard
+                                    button.close
+                                        i.xi-close-min(style="color: rgb(220, 220, 220);")
+                                    img.selectedProd(src="./images/bingsoo_kingMango.png", alt="망고빙수", title="망고빙수")
+                                    div.line
+                                    p.sProd_name 오레오초코몬스터
+                                    p.sProd_price 13,900원
+                                    -for(let i=0; i<2; i++)
+                                        div.sProd_topping
+                                            p.topp_name 연유
+                                            p.topp_price 1,000원
+                                    div.amount 
+                                        p.word_amount 수량
+                                        button.minus
+                                            i.xi-minus-min
+                                        input.num_amount
+                                        button.plus
+                                            i.xi-plus-min
+                    footer.order_ready
         script( src="./js/index.js" )
