@@ -35,14 +35,14 @@ $border-small: 1rem;
                 position: relative;
                 width: 9rem;
                 height: 5.75rem;
-                top: 10%; left: 39%;
+                top: 10%; left: 22.5rem;
             }
             .exp {
                 position: relative;
                 width: 11.5rem;
                 color: $color-sub1-font;
                 font-size: 1rem;
-                top: 15%; left: 36.3%;
+                top: 15%; left: 21.25rem;
             }
         }
         .menu {
@@ -54,6 +54,40 @@ $border-small: 1rem;
             .menu_list {
                 width: 42rem;
                 height: 5.95rem;
+                //background: green;
+
+                .product_main {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-evenly;
+                    list-style: none;
+
+                    .main_category {
+                        font-size: 1.75rem;
+                        margin-top: 0.5rem;
+                        color: $color-sub2-font;
+                        font-weight: bolder;
+
+                        .product_sub {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-evenly;
+                            list-style: none;
+                            position: absolute;
+                            width: 35rem;
+                            margin-top: 1rem;
+                        }
+                        .sub1 {
+                            margin-left: -1.5rem;
+                        }
+                        .sub2 {
+                            margin-left: -9.6rem;
+                        }
+                        .sub3 {
+                            margin-left: -17.8rem;
+                        }
+                    }
+                }
             }
             .line {
                 @include line;
@@ -62,7 +96,7 @@ $border-small: 1rem;
             }
             .fix1 {
                 width: 42rem;
-                height: 80rem;
+                height: 61rem;
                 //background: gold;
                 overflow: hidden;
                 border-radius: 0 0 0 0;
@@ -75,7 +109,7 @@ $border-small: 1rem;
 
                     .page1 {
                         width: 42rem;
-                        height: 80rem;
+                        height: 61rem;
                         //background: pink;
                         overflow: hidden;
 
@@ -87,8 +121,8 @@ $border-small: 1rem;
 
                             .pageA {
                                 width: 42rem;
-                                height: 60rem;
-                                background: pink;
+                                height: 61rem;
+                                //background: pink;
                                 display: flex;
                                 flex-direction: row;
                                 flex-wrap: wrap;
@@ -102,7 +136,7 @@ $border-small: 1rem;
                                     border-radius: $border-small;
                                     box-shadow: 0.1rem 0.25rem 0.5em 0 $color-line;
                                     text-align: center;
-                                    margin-top: 3%;
+                                    margin-top: 5%;
 
                                     .product {
                                         position: relative;
@@ -129,24 +163,24 @@ $border-small: 1rem;
                             }
                             .pageB {
                                 width: 42rem;
-                                height: 80rem;
+                                height: 61rem;
                                 background: purple;
                             }
                             .pageC {
                                 width: 42rem;
-                                height: 80rem;
+                                height: 61rem;
                                 background: salmon;
                             }
                         }
                     }
                     .page2 {
                         width: 42rem;
-                        height: 80rem;
+                        height: 60rem;
                         background: red;
                     }
                     .page3 {
                         width: 42rem;
-                        height: 80rem;
+                        height: 60rem;
                         background: blue;
                     }
                 }
@@ -160,14 +194,6 @@ $border-small: 1rem;
         .header_ban {
             width: 12rem;
             height: 16rem;
-
-            .banner {
-                position: relative;
-                width: 10rem;
-                height: 14rem;
-                top: 6.25%; left: 8.3%;
-                background: black;
-            }
         }
         .order {
             width: 12rem;
@@ -211,11 +237,12 @@ $border-small: 1rem;
 
                     .orderCard {
                         width: 10rem;
+                        height: 17.6rem;
                         background: $color-main;
                         border-radius: $border-small;
                         box-shadow: 0.1rem 0.25rem 0.5em 0 $color-sub2-font;
                         text-align: center;
-                        margin-top: 5%;
+                        margin-top: 7%;
 
                         .close {
                             position: relative;
@@ -239,25 +266,27 @@ $border-small: 1rem;
                         }
                         .sProd_name {
                             color: $color-main-font;
+                            font-size: 1.2rem;
+                            margin-top: 0.5rem;
                         }
                         .sProd_price {
                             color: $color-main-font;
+                            font-size: 1.1rem;
+                            margin-bottom: 1rem;
                         }
                         .sProd_topping {
                             width: 10rem;
                             //background: pink;
                             display: flex;
                             flex-direction: row;
-                            justify-content: flex-end;
-
+                            justify-content: space-evenly;
+                            align-items: flex-end;
+                            
                             .topp_name {
                                 color: $color-sub2-font;
-                                margin-right: 1rem;
-                                font-size: 0.5rem;
                             }
                             .topp_price {
                                 color: $color-sub2-font;
-                                margin-right: 1rem;
                             }
                         }
                         .amount {
@@ -268,6 +297,7 @@ $border-small: 1rem;
                             display: flex;
                             flex-direction: row;
                             justify-content: space-evenly;
+                            margin-top: 1rem;
 
                             .word_amount {
                                 color: $color-main-font;
@@ -278,7 +308,8 @@ $border-small: 1rem;
                                 height: 1.5rem;
                                 margin-top: 0.25rem;
                                 line-height: 1rem;
-                                border: none;
+                                border-radius: 50%;
+                                border: 1px solid $color-line;
                                 background: transparent;
                             }
                             .num_amount {
@@ -286,13 +317,19 @@ $border-small: 1rem;
                                 height: 1.5rem;
                                 margin-top: 0.25rem;
                                 outline: none;
+                                border-top: 0 solid $color-mainH;
+                                border-right: 0 solid $color-mainH;
+                                border-bottom: 1px solid $color-mainH;
+                                border-left: 0 solid $color-mainH;
+                                text-align: center; 
                             }
                             .plus {
                                 width: 1.5rem;
                                 height: 1.5rem;
                                 margin-top: 0.25rem;
                                 line-height: 1rem;
-                                border: none;
+                                border-radius: 50%;
+                                border: 1px solid $color-line;
                                 background: transparent;
                             }
                         }
@@ -302,7 +339,47 @@ $border-small: 1rem;
             .order_ready {
                 width: 12rem;
                 height: 15rem;
-                background: green;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                border-top: 1px solid $color-sub1;
+
+                .total_amount {
+                    color: $color-sub1-font;
+                    font-size: 1.5rem;
+                    margin-left: 0.2rem;
+                }
+                .total_price {
+                    color: $color-sub1-font;
+                    font-size: 2rem;
+                    margin-left: 3rem;
+                }
+                @mixin orderBtn {
+                    width: 10rem;
+                    height: 3rem;
+                    background: $color-main;
+                    border-radius: 0.5rem;
+                    border:none;
+                    margin-left: 1rem;
+                    font-size: 1.5rem;
+                    text-align: center;
+                    line-height: 3rem;
+                    color: $color-main-font;
+                }
+                .payment {
+                    @include orderBtn;
+                    display: flex;
+                    flex-direction: row;
+                    
+                    .pay_word {
+                        font-size: 1.5rem;
+                        margin-left: 2rem;
+                    }
+                }
+                .full_reset {
+                    @include orderBtn;
+                }
+
             }
         }
     }

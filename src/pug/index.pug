@@ -15,13 +15,34 @@ html( lang="ko" )
                     p.exp KOREAN DESSERT CAFE
                 section.menu
                     nav.menu_list
+                        ul.product_main 
+                            li.main_category 빙수
+                                ul.product_sub.sub1
+                                    li.sub_category ALL
+                                    li.sub_category 프리미엄과일빙수
+                                    li.sub_category 전통빙수
+                                    li.sub_category 스페셜빙수
+                            li.main_category 음료
+                                ul.product_sub.sub2
+                                    li.sub_category ALL
+                                    li.sub_category 커피
+                                    li.sub_category 열매음료
+                                    li.sub_category 라떼
+                                    li.sub_category 스무디
+                            li.main_category 디저트
+                                ul.product_sub.sub3 
+                                    li.sub_category ALL
+                                    li.sub_category 베이커리
+                                    li.sub_category 떡
+                                    li.sub_category 분식
+                            li.main_category 세트메뉴
                     div.line
                     section.fix1 
                         div.wrap1 
                             article.page1
                                 div.wrap2 
                                     article.pageA
-                                        -for (let i=0; i<12; i++)
+                                        -for (let i=0; i<9; i++)
                                             div.menuCard
                                                 img.product(src="./images/bingsoo_kingMango.png", alt="망고빙수", title="망고빙수")
                                                 p.prod_name 오레오초코몬스터
@@ -32,7 +53,6 @@ html( lang="ko" )
                             article.page3
             section.right
                 header.header_ban 
-                    aside.banner
                 section.order
                     header.header_order 
                         p.orderN 주문내역
@@ -47,10 +67,16 @@ html( lang="ko" )
                                     div.line
                                     p.sProd_name 오레오초코몬스터
                                     p.sProd_price 13,900원
-                                    -for(let i=0; i<2; i++)
+                                    -var name = { topp_name: '연유' }
+                                    -var price = { topp_price: '1,000' }
+                                    -var condition = 1
+                                    -for(let i=0; i<1; i++)
                                         div.sProd_topping
-                                            p.topp_name 연유
-                                            p.topp_price 1,000원
+                                            if (i = condition)
+                                                p. ...
+                                            else
+                                                p.topp_name 연유
+                                                p.topp_price 1,000원
                                     div.amount 
                                         p.word_amount 수량
                                         button.minus
@@ -59,4 +85,12 @@ html( lang="ko" )
                                         button.plus
                                             i.xi-plus-min
                     footer.order_ready
+                        p
+                            strong.total_amount 총 수량 (0)
+                        p
+                            strong.total_price 15,900 원
+                        div.payment 
+                            i.xi-credit-card.xi-2x(style="position: relative; left: 2rem;")
+                            p.pay_word 결제
+                        div.full_reset 전체 초기화
         script( src="./js/index.js" )
