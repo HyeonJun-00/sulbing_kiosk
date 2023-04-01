@@ -16,20 +16,19 @@ con.connect( err => {
     if( err ) throw err;
     app.get( `/`, ( req, res ) => {
         console.log( `connected sql server!` );
-        let sqlGetProduct= `select * from product;`;
-        let sqlGetOption= `
-        select
-            A.id, A.price, A.discount,
-            B.id option_id, 
-            C.category option_category, C.name option_name, C.price option_price, C.discount option_discount
-        from
-            product A
-        join product_option B on A.id= B.product_id
-        join product_option_cmm C on B.product_option_cmm_id = C.id;`;
+        let sqlGetMenu= `select * from v_menu;`;
+        let sqlGetMenuInProduct= `select * from v_menu_in_product;`;
+        let sqlGetProduct= `select * from v_product;`;
+        let sqlGetProductOption= `select * from v_product_option;`;
 
-        con.query( sqlGetProduct + sqlGetOption, ( err, result ) => {
+        con.query( sqlGetMenu, sqlGetMenuInProduct, sqlGetProduct, sqlGetProductOption, ( err, result ) => {
             if( err ) throw err;
-            res.render( `index`, { product: result[0], productOption: result[1] } );
+            res.render( `index`, {
+                menu: result[0],
+                menuInProduct: result[1],
+                product: result[2],
+                productOption: result[3]
+            } );
         });
     });
 });
