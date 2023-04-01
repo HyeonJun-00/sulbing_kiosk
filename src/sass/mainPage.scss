@@ -239,7 +239,6 @@ $border-small: 1rem;
 
                     .orderCard {
                         width: 10rem;
-                        height: 17.6rem;
                         background: $color-main;
                         border-radius: $border-small;
                         box-shadow: 0.1rem 0.25rem 0.5em 0 $color-sub2-font;
@@ -287,12 +286,10 @@ $border-small: 1rem;
                             .topp_name {
                                 color: $color-sub2-font;
                             }
-                            .topp_price {
+                            .topp_amount {
                                 color: $color-sub2-font;
                             }
-                            .topp_else {
-                                color: $color-sub2-font;
-                            }
+                    
                         }
                         .amount {
                             width: 10rem;

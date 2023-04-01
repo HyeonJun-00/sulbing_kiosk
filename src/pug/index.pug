@@ -68,16 +68,10 @@ html( lang="ko" )
                                     p.sProd_name 오레오초코몬스터
                                     p.sProd_price 13,900원
                                     -for(let i=0; i<10; i++)
-                                        -var prod = { topp_name: '연유', topp_price: '1,000원', topp_else: '...' }
-                                        if i==0
+                                        -var prod = { topp_name: '큐브치즈케이크', topp_amount: '2개' }
                                             div.sProd_topping
                                                 p.topp_name= prod.topp_name
-                                                p.topp_price= prod.topp_price 
-                                        else if i==1
-                                            div.sProd_topping 
-                                                p.topp_else= prod.topp_else 
-                                        else 
-                                            div.sProd_topping(style="display: none;")
+                                                p.topp_amount= prod.topp_amount 
                                     div.amount 
                                         p.word_amount 수량
                                         button.minus
