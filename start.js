@@ -21,7 +21,7 @@ con.connect( err => {
         let sqlGetProduct= `select * from v_product;`;
         let sqlGetProductOption= `select * from v_product_option;`;
 
-        con.query( sqlGetMenu, sqlGetMenuInProduct, sqlGetProduct, sqlGetProductOption, ( err, result ) => {
+        con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption, ( err, result ) => {
             if( err ) throw err;
             res.render( `index`, {
                 menu: result[0],
