@@ -67,16 +67,17 @@ html( lang="ko" )
                                     div.line
                                     p.sProd_name 오레오초코몬스터
                                     p.sProd_price 13,900원
-                                    -var name = { topp_name: '연유' }
-                                    -var price = { topp_price: '1,000' }
-                                    -var condition = 1
-                                    -for(let i=0; i<1; i++)
-                                        div.sProd_topping
-                                            if (i = condition)
-                                                p. ...
-                                            else
-                                                p.topp_name 연유
-                                                p.topp_price 1,000원
+                                    -for(let i=0; i<10; i++)
+                                        -var prod = { topp_name: '연유', topp_price: '1,000원', topp_else: '...' }
+                                        if i==0
+                                            div.sProd_topping
+                                                p.topp_name= prod.topp_name
+                                                p.topp_price= prod.topp_price 
+                                        else if i==1
+                                            div.sProd_topping 
+                                                p.topp_else= prod.topp_else 
+                                        else 
+                                            div.sProd_topping(style="display: none;")
                                     div.amount 
                                         p.word_amount 수량
                                         button.minus

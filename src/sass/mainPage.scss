@@ -82,9 +82,11 @@ $border-small: 1rem;
                         }
                         .sub2 {
                             margin-left: -9.6rem;
+                            display: none;
                         }
                         .sub3 {
                             margin-left: -17.8rem;
+                            display: none;
                         }
                     }
                 }
@@ -286,6 +288,9 @@ $border-small: 1rem;
                                 color: $color-sub2-font;
                             }
                             .topp_price {
+                                color: $color-sub2-font;
+                            }
+                            .topp_else {
                                 color: $color-sub2-font;
                             }
                         }
