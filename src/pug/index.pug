@@ -34,10 +34,15 @@ html( lang="ko" )
                                                 if mapping.menu_id == row.lv1_id + '_all' 
                                                     for item in product 
                                                         if item.product_id == mapping.product_id 
-                                                            div(id='menu_' + item.product_id, class='menuCard')
-                                                                img.product(src="./images/" + item.image_path, alt="")
+                                                            -var price= item.price - (item.price / 100 * item.discount)
+                                                            div(id='menu_all_' + item.product_id, class='menuCard', onclick='fn_showTopping(' + item.product_id + ')')
+                                                                img.product(src="./images/" + item.image_path, alt="제품이미지")
                                                                 p.prod_name= item.name
-                                                                p.prod_price= item.price
+                                                                p.prod_price= price
+                                                                p.prod_discription= item.discription
+                                                                p.prod_allergy= item.allergy
+                                                                for optionItem in productOption 
+                                                                if optionItem.product_id === item.product_id
                                                             - break
                                         for subRow in menu
                                             if subRow.lv1_id == row.lv1_id && subRow.lv2_id != null
@@ -46,11 +51,13 @@ html( lang="ko" )
                                                         if mapping.menu_id == subRow.lv2_id 
                                                             for item in product 
                                                                 if item.product_id == mapping.product_id 
+                                                                    -var price= item.price - (item.price / 100 * item.discount)
                                                                     div(id='menu_' + item.product_id, class='menuCard')
-                                                                        img.product(src="./images/" + item.image_path, alt="")
+                                                                        img.product(src="./images/" + item.image_path, alt="제품이미지")
                                                                         p.prod_name= item.name
-                                                                        p.prod_price= item.price
+                                                                        p.prod_price= price
                                                                     - break
+                    footer.empty
             section.right
                 header.header_ban 
                 section.order

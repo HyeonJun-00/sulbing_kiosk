@@ -20,7 +20,7 @@ con.connect( err => {
         let sqlGetMenuInProduct= `select * from v_menu_in_product;`;
         let sqlGetProduct= `select * from v_product;`;
         let sqlGetProductOption= `select * from v_product_option;`;
-        let menuCategory= `select id as lv1_id, name as lv1_name from menu where pid is null;`;
+        let menuCategory= `select id as lv1_id, name as lv1_name from menu where pid is null and deleted_date is null;`;
 
         con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption + menuCategory, ( err, result ) => {
             if( err ) throw err;

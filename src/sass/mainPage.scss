@@ -16,9 +16,11 @@ $border-small: 1rem;
     border: 0.05rem solid $color-line;
 }
 .main {
+    position: absolute;
     width: 54rem;
     height: 96rem;
-    margin: 0 auto;
+    left: 50%;
+    transform: translate(-50%);
     background: $color-mainH;
     display: flex;
     align-items: flex-end;
@@ -113,9 +115,9 @@ $border-small: 1rem;
             }
             .fix1 {
                 width: 42rem;
-                height: 80rem;
+                height: 78rem;
                 //background: gold;
-                //overflow: hidden;
+                overflow: hidden;
                 border-radius: 0 0 0 0;
 
                 .wrap1 {
@@ -126,14 +128,20 @@ $border-small: 1rem;
                     .mainCategory_1, .mainCategory_2, .mainCategory_3, .mainCategory_4 {
                         width: 42rem;
                         height: 100%;
-                        background: pink;
-                        //overflow: hidden;
+                        //background: pink;
+                        overflow: hidden;
 
                         .wrap2_1 {
                             width: 168rem;
                             height: 100%;
                             //background: skyblue;
                             display: flex;
+                            overflow-y: scroll;
+                            align-items: self-start;
+
+                            &::-webkit-scrollbar {
+                                display: none;
+                            }
 
                             .subCategoryAll, .subCategoryEach{ 
                                 width: 42rem;
@@ -141,8 +149,6 @@ $border-small: 1rem;
                                 display: flex;
                                 flex-direction: row;
                                 flex-wrap: wrap;
-                                justify-content: space-evenly;
-                                align-content: flex-start;
 
                                 .menuCard {
                                     width: 11rem;
@@ -151,7 +157,9 @@ $border-small: 1rem;
                                     border-radius: $border-small;
                                     box-shadow: 0.1rem 0.25rem 0.5em 0 $color-line;
                                     text-align: center;
-                                    margin-top: 5%;
+                                    margin-top: 2.25rem;
+                                    margin-left: 2.25rem;
+                                    margin-bottom: 1rem;
 
                                     .product {
                                         position: relative;
@@ -174,6 +182,15 @@ $border-small: 1rem;
                                         //background: green;
                                         top: 3rem; 
                                     }
+                                    /*
+                                    .prod_discription {
+                                        display: none;
+                                    }
+                                    .prod_allergy {
+                                        display: none;
+                                    }
+                                    */
+                                    
                                 }
                             }
                             .subCategoryEach {
@@ -185,6 +202,12 @@ $border-small: 1rem;
                             height: 100%;
                             //background: skyblue;
                             display: flex;
+                            overflow: scroll;
+                            align-items: self-start;
+
+                            &::-webkit-scrollbar {
+                                display: none;
+                            }
 
                             .subCategoryAll, .subCategoryEach{ 
                                 width: 42rem;
@@ -194,6 +217,7 @@ $border-small: 1rem;
                                 flex-wrap: wrap;
                                 justify-content: space-evenly;
                                 align-content: flex-start;
+                                
 
                                 .menuCard {
                                     width: 11rem;
@@ -233,6 +257,12 @@ $border-small: 1rem;
                             height: 100%;
                             //background: skyblue;
                             display: flex;
+                            overflow: scroll;
+                            align-items: self-start;
+
+                            &::-webkit-scrollbar {
+                                display: none;
+                            }
 
                             .subCategoryAll, .subCategoryEach{ 
                                 width: 42rem;
@@ -281,6 +311,12 @@ $border-small: 1rem;
                             height: 100%;
                             //background: skyblue;
                             display: flex;
+                            overflow: scroll;
+                            align-items: self-start;
+
+                            &::-webkit-scrollbar {
+                                display: none;
+                            }
 
                             .subCategoryAll, .subCategoryEach{ 
                                 width: 42rem;
@@ -289,7 +325,7 @@ $border-small: 1rem;
                                 flex-direction: row;
                                 flex-wrap: wrap;
                                 justify-content: space-evenly;
-                                align-content: flex-start;
+                                align-content: space-around;
 
                                 .menuCard {
                                     width: 11rem;
@@ -325,6 +361,11 @@ $border-small: 1rem;
                             }
                         }
                     }
+                    /*
+                    .mainCategory_1 {
+                        display: none;
+                    }
+                    */
                     .mainCategory_2 {
                         background: blue;
                         display: none;
@@ -338,6 +379,10 @@ $border-small: 1rem;
                         display: none;
                     }
                 }
+            }
+            .empty {
+                width: 42rem;
+                height: 2rem;
             }
         }
     }
