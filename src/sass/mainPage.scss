@@ -59,37 +59,52 @@ $border-small: 1rem;
                 .product_main {
                     display: flex;
                     flex-direction: row;
+                    flex-wrap: nowrap;
                     justify-content: space-evenly;
                     list-style: none;
 
                     .main_category {
                         font-size: 1.75rem;
-                        margin-top: 0.5rem;
                         color: $color-sub2-font;
                         font-weight: bolder;
+                        margin-top: 0.5rem;
 
                         .product_sub {
+                            position: absolute;
                             display: flex;
                             flex-direction: row;
+                            flex-wrap: nowrap;
                             justify-content: space-evenly;
                             list-style: none;
-                            position: absolute;
-                            width: 35rem;
-                            margin-top: 1rem;
+                            width: 42rem;
+                            margin-left: -5rem;
+
+                            .sub_category {
+                                font-size: 1.5rem;
+                                color: $color-main-font;
+                                font-weight: bold;
+                                margin-top: 0.5rem;
+                            }
                         }
-                        .sub1 {
-                            margin-left: -1.5rem;
-                        }
-                        .sub2 {
-                            margin-left: -9.6rem;
+                        //&:first-child .product_sub {
+                            //display: none;
+                        //}
+                        &:nth-child(2) .product_sub {
                             display: none;
+                            margin-left: -14rem;
                         }
-                        .sub3 {
-                            margin-left: -17.8rem;
+                        &:nth-child(3) .product_sub {
                             display: none;
+                            margin-left: -22.65rem;
+                        }
+                        &:last-child .product_sub {
+                            display: none;
+                            margin-left: -47.45rem;
                         }
                     }
+
                 }
+                
             }
             .line {
                 @include line;
@@ -98,32 +113,30 @@ $border-small: 1rem;
             }
             .fix1 {
                 width: 42rem;
-                height: 61rem;
+                height: 80rem;
                 //background: gold;
-                overflow: hidden;
+                //overflow: hidden;
                 border-radius: 0 0 0 0;
 
                 .wrap1 {
-                    width: 126rem;
                     height: 100%;
                     //background: green;
                     display: flex;
 
-                    .page1 {
+                    .mainCategory_1, .mainCategory_2, .mainCategory_3, .mainCategory_4 {
                         width: 42rem;
-                        height: 61rem;
-                        //background: pink;
-                        overflow: hidden;
+                        height: 100%;
+                        background: pink;
+                        //overflow: hidden;
 
-                        .wrap2 {
-                            width: 126rem;
+                        .wrap2_1 {
+                            width: 168rem;
                             height: 100%;
                             //background: skyblue;
                             display: flex;
 
-                            .pageA {
+                            .subCategoryAll, .subCategoryEach{ 
                                 width: 42rem;
-                                height: 61rem;
                                 //background: pink;
                                 display: flex;
                                 flex-direction: row;
@@ -163,27 +176,166 @@ $border-small: 1rem;
                                     }
                                 }
                             }
-                            .pageB {
-                                width: 42rem;
-                                height: 61rem;
-                                background: purple;
+                            .subCategoryEach {
+                                background: plum;
                             }
-                            .pageC {
+                        }
+                        .wrap2_2 {
+                            width: 210rem;
+                            height: 100%;
+                            //background: skyblue;
+                            display: flex;
+
+                            .subCategoryAll, .subCategoryEach{ 
                                 width: 42rem;
-                                height: 61rem;
-                                background: salmon;
+                                //background: pink;
+                                display: flex;
+                                flex-direction: row;
+                                flex-wrap: wrap;
+                                justify-content: space-evenly;
+                                align-content: flex-start;
+
+                                .menuCard {
+                                    width: 11rem;
+                                    height: 18rem;
+                                    background: $color-main;
+                                    border-radius: $border-small;
+                                    box-shadow: 0.1rem 0.25rem 0.5em 0 $color-line;
+                                    text-align: center;
+                                    margin-top: 5%;
+
+                                    .product {
+                                        position: relative;
+                                        width: 10rem;
+                                        height: 10rem;
+                                        //background: pink;
+                                        top: 1.5rem;
+                                    }
+                                    .prod_name {
+                                        position: relative;
+                                        font-size: 1.25rem;
+                                        color: $color-sub2-font;
+                                        //background: pink;
+                                        top: 3rem; 
+                                    }
+                                    .prod_price {
+                                        position: relative;
+                                        font-size: 1rem;
+                                        color: $color-sub2-font;
+                                        //background: green;
+                                        top: 3rem; 
+                                    }
+                                }
+                            }
+                        }
+                        .wrap2_3 {
+                            width: 168rem;
+                            height: 100%;
+                            //background: skyblue;
+                            display: flex;
+
+                            .subCategoryAll, .subCategoryEach{ 
+                                width: 42rem;
+                                //background: pink;
+                                display: flex;
+                                flex-direction: row;
+                                flex-wrap: wrap;
+                                justify-content: space-evenly;
+                                align-content: flex-start;
+
+                                .menuCard {
+                                    width: 11rem;
+                                    height: 18rem;
+                                    background: $color-main;
+                                    border-radius: $border-small;
+                                    box-shadow: 0.1rem 0.25rem 0.5em 0 $color-line;
+                                    text-align: center;
+                                    margin-top: 5%;
+
+                                    .product {
+                                        position: relative;
+                                        width: 10rem;
+                                        height: 10rem;
+                                        //background: pink;
+                                        top: 1.5rem;
+                                    }
+                                    .prod_name {
+                                        position: relative;
+                                        font-size: 1.25rem;
+                                        color: $color-sub2-font;
+                                        //background: pink;
+                                        top: 3rem; 
+                                    }
+                                    .prod_price {
+                                        position: relative;
+                                        font-size: 1rem;
+                                        color: $color-sub2-font;
+                                        //background: green;
+                                        top: 3rem; 
+                                    }
+                                }
+                            }
+                        }
+                        .wrap2_4 {
+                            width: 42rem;
+                            height: 100%;
+                            //background: skyblue;
+                            display: flex;
+
+                            .subCategoryAll, .subCategoryEach{ 
+                                width: 42rem;
+                                //background: pink;
+                                display: flex;
+                                flex-direction: row;
+                                flex-wrap: wrap;
+                                justify-content: space-evenly;
+                                align-content: flex-start;
+
+                                .menuCard {
+                                    width: 11rem;
+                                    height: 18rem;
+                                    background: $color-main;
+                                    border-radius: $border-small;
+                                    box-shadow: 0.1rem 0.25rem 0.5em 0 $color-line;
+                                    text-align: center;
+                                    margin-top: 5%;
+
+                                    .product {
+                                        position: relative;
+                                        width: 10rem;
+                                        height: 10rem;
+                                        //background: pink;
+                                        top: 1.5rem;
+                                    }
+                                    .prod_name {
+                                        position: relative;
+                                        font-size: 1.25rem;
+                                        color: $color-sub2-font;
+                                        //background: pink;
+                                        top: 3rem; 
+                                    }
+                                    .prod_price {
+                                        position: relative;
+                                        font-size: 1rem;
+                                        color: $color-sub2-font;
+                                        //background: green;
+                                        top: 3rem; 
+                                    }
+                                }
                             }
                         }
                     }
-                    .page2 {
-                        width: 42rem;
-                        height: 60rem;
-                        background: red;
-                    }
-                    .page3 {
-                        width: 42rem;
-                        height: 60rem;
+                    .mainCategory_2 {
                         background: blue;
+                        display: none;
+                    }
+                    .mainCategory_3 {
+                        background: green;
+                        display: none;
+                    }
+                    .mainCategory_4 {
+                        background: gold;
+                        display: none;
                     }
                 }
             }

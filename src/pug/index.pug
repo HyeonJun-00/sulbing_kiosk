@@ -15,42 +15,42 @@ html( lang="ko" )
                     p.exp KOREAN DESSERT CAFE
                 section.menu
                     nav.menu_list
-                        ul.product_main 
-                            li.main_category 빙수
-                                ul.product_sub.sub1
-                                    li.sub_category ALL
-                                    li.sub_category 프리미엄과일빙수
-                                    li.sub_category 전통빙수
-                                    li.sub_category 스페셜빙수
-                            li.main_category 음료
-                                ul.product_sub.sub2
-                                    li.sub_category ALL
-                                    li.sub_category 커피
-                                    li.sub_category 열매음료
-                                    li.sub_category 라떼
-                                    li.sub_category 스무디
-                            li.main_category 디저트
-                                ul.product_sub.sub3 
-                                    li.sub_category ALL
-                                    li.sub_category 베이커리
-                                    li.sub_category 떡
-                                    li.sub_category 분식
-                            li.main_category 세트메뉴
+                        ul.product_main
+                            for row in menuCategory
+                                li.main_category(id='mainCategory_' + row.lv1_id)= row.lv1_name
+                                    ul.product_sub
+                                        li.sub_category(id='all_' + row.lv1_id) ALL
+                                        for subRow in menu
+                                            if row.lv1_id == subRow.lv1_id && subRow.lv2_id != null
+                                                li.sub_category(id='subCategory_' + subRow.lv2_id)= subRow.lv2_name
                     div.line
                     section.fix1 
                         div.wrap1 
-                            article.page1
-                                div.wrap2 
-                                    article.pageA
-                                        -for (let i=0; i<9; i++)
-                                            div.menuCard
-                                                img.product(src="./images/bingsoo_kingMango.png", alt="망고빙수", title="망고빙수")
-                                                p.prod_name 오레오초코몬스터
-                                                p.prod_price 13,900원
-                                    article.pageB 
-                                    article.pageC
-                            article.page2 
-                            article.page3
+                            for row in menuCategory
+                                article(id='mainCategory_' + row.lv1_id, class='mainCategory_' + row.lv1_id )
+                                    div(id='wrap2_' + row.lv1_id, class='wrap2_' + row.lv1_id)
+                                        article(id='subCategory_all_' + row.lv1_id, class='subCategory_' + row.lv1_id + ' subCategoryAll') 
+                                            for mapping in menuInProduct 
+                                                if mapping.menu_id == row.lv1_id + '_all' 
+                                                    for item in product 
+                                                        if item.product_id == mapping.product_id 
+                                                            div(id='menu_' + item.product_id, class='menuCard')
+                                                                img.product(src="./images/" + item.image_path, alt="")
+                                                                p.prod_name= item.name
+                                                                p.prod_price= item.price
+                                                            - break
+                                        for subRow in menu
+                                            if subRow.lv1_id == row.lv1_id && subRow.lv2_id != null
+                                                article(id='subCategory_' + subRow.lv2_id, class='subCategory_' + subRow.lv2_id + ' subCategoryEach')
+                                                    for mapping in menuInProduct 
+                                                        if mapping.menu_id == subRow.lv2_id 
+                                                            for item in product 
+                                                                if item.product_id == mapping.product_id 
+                                                                    div(id='menu_' + item.product_id, class='menuCard')
+                                                                        img.product(src="./images/" + item.image_path, alt="")
+                                                                        p.prod_name= item.name
+                                                                        p.prod_price= item.price
+                                                                    - break
             section.right
                 header.header_ban 
                 section.order
@@ -71,7 +71,7 @@ html( lang="ko" )
                                         -var prod = { topp_name: '큐브치즈케이크', topp_amount: '2개' }
                                             div.sProd_topping
                                                 p.topp_name= prod.topp_name
-                                                p.topp_amount= prod.topp_amount 
+                                                p.topp_amount= prod.topp_amount
                                     div.amount 
                                         p.word_amount 수량
                                         button.minus
