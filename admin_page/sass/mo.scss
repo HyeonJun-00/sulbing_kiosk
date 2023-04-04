@@ -282,6 +282,22 @@ body {
         font-size: 3rem;
         content: "회원";
     }
+    .adminPage5 {
+        .headFrame {}
+        .mainContent {
+            ul { list-style-type: none; }
+            ul.userRowSet {
+                li {
+                    ul.userColSet {
+                        li {
+
+                        }
+                    }
+                }
+            }
+        }
+        .footerPaging {}
+    }
 }
 
 .displayFlag {
