@@ -4,36 +4,44 @@
     border: 0;
     font-size: 10px;
     font-family: 'Noto Sans KR', sans-serif;
-} 
-html, body {
+}
+
+html,
+body {
     background-color: #eaeaea;
 }
-@mixin mainManue {
+
+@mixin mainMenu {
     transition: all 1s ease-in-out .1s;
     display: none;
     width: 105rem;
     height: 100%;
     background-color: #fff;
 }
+
 @mixin rightAndLeftBox {
-        margin: 0 1rem 0 1rem;
-        width: 42.5rem;
-        height: 80rem;
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem;
 }
+
 @mixin flexCenter {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-@mixin topBorderRadius {
-}
+
+@mixin topBorderRadius {}
+
 .mainDisplay {
     width: 100%;
     height: 100%;
     @include flexCenter();
 }
- .adminPage1{
-    @include mainManue();
+
+.adminPage1 {
+    @include mainMenu();
+
     & .leftBox {
         @include topBorderRadius();
         @include rightAndLeftBox();
@@ -41,42 +49,51 @@ html, body {
         height: 100%;
         margin-left: 1.8rem;
         overflow: hidden;
+
         & .orderBox {
             border: 1px solid black;
             @include flexCenter();
             display: inline-flex;
             margin: 1.2rem;
             border-radius: 1rem;
-            & > div {
+
+            &>div {
                 width: 31rem;
                 height: 30rem;
+
                 & div:nth-child(1) {
                     @include flexCenter();
                     justify-content: space-between;
                     height: 20%;
+
                     & p {
                         font-size: 2rem;
                         margin: 2rem;
                     }
                 }
+
                 & div:nth-child(2) {
                     height: 60%;
                     @include flexCenter();
-                    & > div {
+
+                    &>div {
                         width: 27rem;
                         height: 80%;
                         border: 1px solid #ddd;
                     }
                 }
+
                 & div:nth-child(3) {
                     @include flexCenter();
                     height: 20%;
                     justify-content: space-between;
+
                     & p {
                         font-size: 2rem;
-                        margin: 2rem;  
-                        padding: 1rem;                     
+                        margin: 2rem;
+                        padding: 1rem;
                     }
+
                     & button {
                         border-radius: 1rem;
                         cursor: pointer;
@@ -84,7 +101,8 @@ html, body {
                         border: 1px solid #aaa;
                         width: 8rem;
                         font-size: 2rem;
-                        margin: 2rem;  
+                        margin: 2rem;
+
                         &:hover {
                             background-color: #fde363;
                         }
@@ -92,81 +110,130 @@ html, body {
                 }
             }
         }
-    &::before {
+
+        &::before {
             @include topBorderRadius();
             @include flexCenter();
+            width: 101.5rem;
             color: white;
             background-color: #0bd96c;
             font-size: 3rem;
             content: "주문현황";
-    }
+        }
     }
 }
- .adminPage2{
-    @include mainManue();
+
+.adminPage2 {
+    @include mainMenu();
+
     & .leftBox {
+        @include topBorderRadius();
         @include rightAndLeftBox();
+        width: 120rem;
+        height: 100%;
+        margin-left: 1.8rem;
+        overflow: hidden;
+
+        .productInventory {}
+
+        &::before {
+            @include topBorderRadius();
+            @include flexCenter();
+            width: 101.5rem;
+            color: white;
+            background-color: #0bd96c;
+            font-size: 3rem;
+            content: "상품재고";
+        }
     }
+}
+
+.adminPage3 {
+    @include mainMenu();
+
     & .rightBox {
         @include rightAndLeftBox();
     }
-    &::after {
-        position: absolute;
-        font-size: 3rem;
-        top: 2rem;
-        content: "상품 재고";
-    }
-}
- .adminPage3{
-    @include mainManue();
-    @include mainManue();
+
     & .leftBox {
         @include rightAndLeftBox();
+        width: 120rem;
+        height: 100%;
+        margin-left: 1.8rem;
+        overflow: hidden;
     }
-    & .rightBox {
-        @include rightAndLeftBox();
-    }
-    &::after {
+
+    &::before {
+        top: 0;
         position: absolute;
+        @include flexCenter();
+        width: 101.5rem;
+        color: white;
+        background-color: #0bd96c;
         font-size: 3rem;
-        top: 2rem;
         content: "매출";
     }
 }
- .adminPage4{
-    @include mainManue();
-    & .leftBox {
-        @include rightAndLeftBox();
-    }
+
+.adminPage4 {
+    @include mainMenu();
+
     & .rightBox {
         @include rightAndLeftBox();
     }
-    &::after {
+
+    & .leftBox {
+        @include rightAndLeftBox();
+        width: 120rem;
+        height: 100%;
+        margin-left: 1.8rem;
+        overflow: hidden;
+    }
+
+    &::before {
+        top: 0;
         position: absolute;
+        @include flexCenter();
+        width: 101.5rem;
+        color: white;
+        background-color: #0bd96c;
         font-size: 3rem;
-        top: 2rem;
-        content: "메뉴바";
+        content: "메뉴관리";
     }
 }
- .adminPage5{
-    @include mainManue();
-    & .leftBox {
-        @include rightAndLeftBox();
-    }
+
+.adminPage5 {
+    @include mainMenu();
+
     & .rightBox {
         @include rightAndLeftBox();
     }
-    &::after {
+
+    & .leftBox {
+        @include rightAndLeftBox();
+        width: 120rem;
+        height: 100%;
+        margin-left: 1.8rem;
+        overflow: hidden;
+    }
+
+    &::before {
+        top: 0;
         position: absolute;
+        @include flexCenter();
+        width: 101.5rem;
+        color: white;
+        background-color: #0bd96c;
         font-size: 3rem;
-        top: 2rem;
         content: "회원";
     }
 }
+
 .displayFlag {
     @include flexCenter();
     display: inline-flex;
 }
+
 .mainMenu {
     top: 1rem;
     list-style: none;
@@ -177,7 +244,7 @@ html, body {
     width: 15rem;
     background-color: rgba(#000000, 0.3);
 
-    & li:nth-child(1){
+    & li:nth-child(1) {
         width: 6rem;
         height: 6rem;
         font-size: 3rem;
@@ -187,6 +254,7 @@ html, body {
         border-radius: 50%;
         cursor: pointer;
     }
+
     & li:nth-child(n + 2) {
         cursor: pointer;
         height: 5rem;
@@ -194,6 +262,7 @@ html, body {
         @include flexCenter();
         font-size: 1.5rem;
         color: white;
+
         &:hover {
             background-color: rgba(#000000, 0.1);
         }
