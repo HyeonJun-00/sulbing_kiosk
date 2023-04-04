@@ -116,7 +116,7 @@ body {
             @include flexCenter();
             width: 101.5rem;
             color: white;
-            background-color: #0bd96c;
+            background-color: #2E1F1A;
             font-size: 3rem;
             content: "주문현황";
         }
@@ -129,22 +129,77 @@ body {
     & .leftBox {
         @include topBorderRadius();
         @include rightAndLeftBox();
+        @include flexCenter();
         width: 120rem;
         height: 100%;
         margin-left: 1.8rem;
         overflow: hidden;
 
-        .productInventory {}
+        .productInventory {
+            width: 100rem;
+            aspect-ratio: 8 / 5.5;
+            margin-top: 5rem;
+            border: 1px solid #aaa;
+                border-radius: 0 1rem 1rem 1rem;
 
-        &::before {
-            @include topBorderRadius();
-            @include flexCenter();
-            width: 101.5rem;
-            color: white;
-            background-color: #0bd96c;
-            font-size: 3rem;
-            content: "상품재고";
+            & div:nth-child(1) {
+                display: flex;
+                position: absolute;
+                margin-top: -5rem;
+                width: 80rem;
+                height: 5rem;
+
+                & button {
+                    margin-left: -0.1rem;
+                    cursor: pointer;
+                    background-color: #fff;
+                    border-radius: 1rem 1rem 0 0;
+                    aspect-ratio: 8 / 7;
+                    border: 1px solid #aaa;
+                    font-size: 1.2rem;
+                    color: #555;
+                    &:hover {
+                        background-color: #eee;
+                    }
+                }
+                & button.borderFlag {
+                    border-bottom: 0;
+                }
+                & button:nth-child(1) {}
+
+                & button:nth-child(2) {}
+
+                & button:nth-child(3) {}
+
+                & button:nth-child(4) {}
+            }
+
+            & div:nth-child(1) {
+
+            }
+            & div:nth-child(2) {
+
+            }
+            & div:nth-child(3) {
+
+            }
+            & div:nth-child(4) {
+
+            }
+
         }
+    }
+
+    &::before {
+        position: absolute;
+        top: 0;
+        @include topBorderRadius();
+        @include flexCenter();
+        width: 101.5rem;
+        color: white;
+        background-color: #2E1F1A;
+        font-size: 3rem;
+        content: "상품재고";
     }
 }
 
@@ -169,7 +224,7 @@ body {
         @include flexCenter();
         width: 101.5rem;
         color: white;
-        background-color: #0bd96c;
+        background-color: #2E1F1A;
         font-size: 3rem;
         content: "매출";
     }
@@ -196,7 +251,7 @@ body {
         @include flexCenter();
         width: 101.5rem;
         color: white;
-        background-color: #0bd96c;
+        background-color: #2E1F1A;
         font-size: 3rem;
         content: "메뉴관리";
     }
@@ -223,7 +278,7 @@ body {
         @include flexCenter();
         width: 101.5rem;
         color: white;
-        background-color: #0bd96c;
+        background-color: #2E1F1A;
         font-size: 3rem;
         content: "회원";
     }
@@ -242,9 +297,10 @@ body {
     align-items: center;
     height: 100%;
     width: 15rem;
-    background-color: rgba(#000000, 0.3);
+    background-color: rgba(#000000, 0.6);
 
     & li:nth-child(1) {
+        margin-top: 1rem;
         width: 6rem;
         height: 6rem;
         font-size: 3rem;
@@ -264,7 +320,10 @@ body {
         color: white;
 
         &:hover {
-            background-color: rgba(#000000, 0.1);
+            background-color: rgba(#000000, 0.2);
+        }
+        &.backgroundFlag {
+            background-color: rgba(#000000, 0.2);
         }
     }
 }
