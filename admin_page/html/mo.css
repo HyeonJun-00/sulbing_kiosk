@@ -1,0 +1,214 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 10px;
+  font-family: 'Noto Sans KR', sans-serif; }
+
+html, body {
+  background-color: #eaeaea; }
+
+.mainDisplay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.adminPage1 {
+  transition: all 1s ease-in-out .1s;
+  display: none;
+  width: 105rem;
+  height: 100%;
+  background-color: #fff; }
+  .adminPage1 .leftBox {
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem;
+    width: 120rem;
+    height: 100%;
+    margin-left: 1.8rem;
+    overflow: hidden; }
+    .adminPage1 .leftBox .orderBox {
+      border: 1px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: inline-flex;
+      margin: 1.2rem;
+      border-radius: 1rem; }
+      .adminPage1 .leftBox .orderBox > div {
+        width: 31rem;
+        height: 30rem; }
+        .adminPage1 .leftBox .orderBox > div div:nth-child(1) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          justify-content: space-between;
+          height: 20%; }
+          .adminPage1 .leftBox .orderBox > div div:nth-child(1) p {
+            font-size: 2rem;
+            margin: 2rem; }
+        .adminPage1 .leftBox .orderBox > div div:nth-child(2) {
+          height: 60%;
+          display: flex;
+          justify-content: center;
+          align-items: center; }
+          .adminPage1 .leftBox .orderBox > div div:nth-child(2) > div {
+            width: 27rem;
+            height: 80%;
+            border: 1px solid #ddd; }
+        .adminPage1 .leftBox .orderBox > div div:nth-child(3) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 20%;
+          justify-content: space-between; }
+          .adminPage1 .leftBox .orderBox > div div:nth-child(3) p {
+            font-size: 2rem;
+            margin: 2rem;
+            padding: 1rem; }
+          .adminPage1 .leftBox .orderBox > div div:nth-child(3) button {
+            border-radius: 1rem;
+            cursor: pointer;
+            background-color: #f2da5e;
+            border: 1px solid #aaa;
+            width: 8rem;
+            font-size: 2rem;
+            margin: 2rem; }
+            .adminPage1 .leftBox .orderBox > div div:nth-child(3) button:hover {
+              background-color: #fde363; }
+    .adminPage1 .leftBox::before {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background-color: #0bd96c;
+      font-size: 3rem;
+      content: "주문현황"; }
+
+.adminPage2 {
+  transition: all 1s ease-in-out .1s;
+  display: none;
+  width: 105rem;
+  height: 100%;
+  background-color: #fff; }
+  .adminPage2 .leftBox {
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem; }
+  .adminPage2 .rightBox {
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem; }
+  .adminPage2::after {
+    position: absolute;
+    font-size: 3rem;
+    top: 2rem;
+    content: "상품 재고"; }
+
+.adminPage3 {
+  transition: all 1s ease-in-out .1s;
+  display: none;
+  width: 105rem;
+  height: 100%;
+  background-color: #fff;
+  transition: all 1s ease-in-out .1s;
+  display: none;
+  width: 105rem;
+  height: 100%;
+  background-color: #fff; }
+  .adminPage3 .leftBox {
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem; }
+  .adminPage3 .rightBox {
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem; }
+  .adminPage3::after {
+    position: absolute;
+    font-size: 3rem;
+    top: 2rem;
+    content: "매출"; }
+
+.adminPage4 {
+  transition: all 1s ease-in-out .1s;
+  display: none;
+  width: 105rem;
+  height: 100%;
+  background-color: #fff; }
+  .adminPage4 .leftBox {
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem; }
+  .adminPage4 .rightBox {
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem; }
+  .adminPage4::after {
+    position: absolute;
+    font-size: 3rem;
+    top: 2rem;
+    content: "메뉴바"; }
+
+.adminPage5 {
+  transition: all 1s ease-in-out .1s;
+  display: none;
+  width: 105rem;
+  height: 100%;
+  background-color: #fff; }
+  .adminPage5 .leftBox {
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem; }
+  .adminPage5 .rightBox {
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem; }
+  .adminPage5::after {
+    position: absolute;
+    font-size: 3rem;
+    top: 2rem;
+    content: "회원"; }
+
+.displayFlag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex; }
+
+.mainMenu {
+  top: 1rem;
+  list-style: none;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 15rem;
+  background-color: rgba(0, 0, 0, 0.3); }
+  .mainMenu li:nth-child(1) {
+    width: 6rem;
+    height: 6rem;
+    font-size: 3rem;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    border-radius: 50%;
+    cursor: pointer; }
+  .mainMenu li:nth-child(n + 2) {
+    cursor: pointer;
+    height: 5rem;
+    width: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: white; }
+    .mainMenu li:nth-child(n + 2):hover {
+      background-color: rgba(0, 0, 0, 0.1); }
+
+/*# sourceMappingURL=mo.css.map */

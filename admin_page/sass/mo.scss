@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+} 
+html, body {
+    background-color: #eaeaea;
+}
+@mixin mainManue {
+    transition: all 1s ease-in-out .1s;
+    display: none;
+    width: 105rem;
+    height: 100%;
+    background-color: #fff;
+}
+@mixin rightAndLeftBox {
+        margin: 0 1rem 0 1rem;
+        width: 42.5rem;
+        height: 80rem;
+}
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin topBorderRadius {
+}
+.mainDisplay {
+    width: 100%;
+    height: 100%;
+    @include flexCenter();
+}
+ .adminPage1{
+    @include mainManue();
+    & .leftBox {
+        @include topBorderRadius();
+        @include rightAndLeftBox();
+        width: 120rem;
+        height: 100%;
+        margin-left: 1.8rem;
+        overflow: hidden;
+        & .orderBox {
+            border: 1px solid black;
+            @include flexCenter();
+            display: inline-flex;
+            margin: 1.2rem;
+            border-radius: 1rem;
+            & > div {
+                width: 31rem;
+                height: 30rem;
+                & div:nth-child(1) {
+                    @include flexCenter();
+                    justify-content: space-between;
+                    height: 20%;
+                    & p {
+                        font-size: 2rem;
+                        margin: 2rem;
+                    }
+                }
+                & div:nth-child(2) {
+                    height: 60%;
+                    @include flexCenter();
+                    & > div {
+                        width: 27rem;
+                        height: 80%;
+                        border: 1px solid #ddd;
+                    }
+                }
+                & div:nth-child(3) {
+                    @include flexCenter();
+                    height: 20%;
+                    justify-content: space-between;
+                    & p {
+                        font-size: 2rem;
+                        margin: 2rem;  
+                        padding: 1rem;                     
+                    }
+                    & button {
+                        border-radius: 1rem;
+                        cursor: pointer;
+                        background-color: #f2da5e;
+                        border: 1px solid #aaa;
+                        width: 8rem;
+                        font-size: 2rem;
+                        margin: 2rem;  
+                        &:hover {
+                            background-color: #fde363;
+                        }
+                    }
+                }
+            }
+        }
+    &::before {
+            @include topBorderRadius();
+            @include flexCenter();
+            color: white;
+            background-color: #0bd96c;
+            font-size: 3rem;
+            content: "주문현황";
+    }
+    }
+}
+ .adminPage2{
+    @include mainManue();
+    & .leftBox {
+        @include rightAndLeftBox();
+    }
+    & .rightBox {
+        @include rightAndLeftBox();
+    }
+    &::after {
+        position: absolute;
+        font-size: 3rem;
+        top: 2rem;
+        content: "상품 재고";
+    }
+}
+ .adminPage3{
+    @include mainManue();
+    @include mainManue();
+    & .leftBox {
+        @include rightAndLeftBox();
+    }
+    & .rightBox {
+        @include rightAndLeftBox();
+    }
+    &::after {
+        position: absolute;
+        font-size: 3rem;
+        top: 2rem;
+        content: "매출";
+    }
+}
+ .adminPage4{
+    @include mainManue();
+    & .leftBox {
+        @include rightAndLeftBox();
+    }
+    & .rightBox {
+        @include rightAndLeftBox();
+    }
+    &::after {
+        position: absolute;
+        font-size: 3rem;
+        top: 2rem;
+        content: "메뉴바";
+    }
+}
+ .adminPage5{
+    @include mainManue();
+    & .leftBox {
+        @include rightAndLeftBox();
+    }
+    & .rightBox {
+        @include rightAndLeftBox();
+    }
+    &::after {
+        position: absolute;
+        font-size: 3rem;
+        top: 2rem;
+        content: "회원";
+    }
+}
+.displayFlag {
+    @include flexCenter();
+    display: inline-flex;
+}
+.mainMenu {
+    top: 1rem;
+    list-style: none;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 15rem;
+    background-color: rgba(#000000, 0.3);
+
+    & li:nth-child(1){
+        width: 6rem;
+        height: 6rem;
+        font-size: 3rem;
+        border: 1px solid black;
+        @include flexCenter();
+        display: inline-flex;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    & li:nth-child(n + 2) {
+        cursor: pointer;
+        height: 5rem;
+        width: 15rem;
+        @include flexCenter();
+        font-size: 1.5rem;
+        color: white;
+        &:hover {
+            background-color: rgba(#000000, 0.1);
+        }
+    }
+}

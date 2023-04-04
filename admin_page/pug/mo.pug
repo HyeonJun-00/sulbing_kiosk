@@ -1,0 +1,45 @@
+hmtl
+    head 
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js'
+        integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='
+        crossorigin='anonymous')
+        script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
+        link(rel="preconnect" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet")
+        link(rel="stylesheet", href="mo.css")
+    body
+        main.mainDisplay
+            ul.mainMenu
+                li 설빙
+                li 주문현황
+                li 상품재고
+                li 매출
+                li 메뉴관리
+                li 회원
+            section.adminPage1.displayFlag
+                div.leftBox
+                    -for(let i = 0; i < 7 ; i++)
+                        div.orderBox
+                            div
+                                div 
+                                    p 킹망고빙수
+                                    p 1243
+                                div 
+                                    div
+                                div
+                                    p 19,400
+                                    button 완료
+            section.adminPage2
+                div.leftBox
+                div.rightBox
+            section.adminPage3
+                div.leftBox
+                div.rightBox
+            section.adminPage4
+                div.leftBox
+                div.rightBox
+            section.adminPage5
+                div.leftBox
+                div.rightBox
+        script(src="mo.js") 
