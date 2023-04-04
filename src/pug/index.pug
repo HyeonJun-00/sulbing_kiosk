@@ -19,7 +19,7 @@ html( lang="ko" )
                     nav.menu_list
                         ul.product_main
                             for row in menuCategory
-                                li.main_category(id='mainCategory_' + row.lv1_id)= row.lv1_name
+                                li.main_category(id='mainCategory_' + row.lv1_id, onclick="fn_mainTabSelect(" + row.lv1_id + ")")= row.lv1_name
                                     ul.product_sub
                                         li.sub_category(id='all_' + row.lv1_id) ALL
                                         for subRow in menu
@@ -29,7 +29,7 @@ html( lang="ko" )
                     section.fix1 
                         div.wrap1 
                             for row in menuCategory
-                                article(id='mainCategory_' + row.lv1_id, class='mainCategory_' + row.lv1_id )
+                                article(id='mainCategoryTab_' + row.lv1_id, class='mainCategory_' + row.lv1_id )
                                     div(id='wrap2_' + row.lv1_id, class='wrap2_' + row.lv1_id)
                                         article(id='subCategory_all_' + row.lv1_id, class='subCategory_' + row.lv1_id + ' subCategoryAll') 
                                             for mapping in menuInProduct 
@@ -37,19 +37,42 @@ html( lang="ko" )
                                                     for item in product 
                                                         if item.product_id == mapping.product_id 
                                                             -var price= item.price - (item.price / 100 * item.discount)
-                                                            div(id='menu_all_' + item.product_id, class='menuCard')
+                                                            div(id='menu_all_' + item.product_id, class='menuCard' onclick="fn_showModal(" + item.product_id + ")")
                                                                 img.product(src="./images/" + item.image_path, alt="제품이미지")
                                                                 p.prod_name= item.name
                                                                 p.prod_price= price
-                                                                p.prod_discription= item.discription
-                                                                p.prod_allergy= item.allergy
-                                                                for optionItem in productOption 
-                                                                    if optionItem.product_id == item.product_id
-                                                                        -var toppPrice= optionItem.option_price - (optionItem.option_price / 100 * optionItem.option_discount)
-                                                                        p.option_id= optionItem.option_id
-                                                                        p.option_category= optionItem.option_category
-                                                                        p.option_name= optionItem.option_name
-                                                                        p.option_price= toppPrice    
+                                                                    div(class="toppModal", id="toppModal_" + item.product_id)
+                                                                        div(class="optionModal", id="optionModal_" + item.product_id)
+                                                                            section
+                                                                                button#close
+                                                                            div.option_modal_up
+                                                                                img.mProd_img(src="./images/" + item.image_path, alt="제품이미지")
+                                                                                div.option_modal_text
+                                                                                    p.mProd_name= item.name
+                                                                                    p.mProd_price= price
+                                                                                    p.mProd_discription= item.discription
+                                                                                    p.mProd_allergy= '알러지정보: ' + item.allergy
+                                                                                div.totalPrice
+                                                                                    div 
+                                                                                        hr
+                                                                                        p 상품의 옵션을 선택하세요.
+                                                                                        hr
+                                                                                    p 합계:  
+                                                                                    p 0원
+                                                                                    hr 
+                                                                            div.option_modal_down
+                                                                                div.option_modal_source
+                                                                                    ul
+                                                                                        for optionCategoryItem in optionCategory
+                                                                                            if optionCategoryItem.product_id == item.product_id
+                                                                                                li= optionCategoryItem.option_category 
+                                                                                                    for optionItem in productOption
+                                                                                                        if optionItem.product_id == item.product_id && optionItem.option_category == optionCategoryItem.option_category 
+                                                                                                            -var toppPrice= optionItem.option_price - (optionItem.option_price / 100 * optionItem.option_discount)
+                                                                                                            button.source= optionItem.option_name
+                                                                                div.option_modal_basket
+                                                                                    button.cansel 취소
+                                                                                    button.putin 주문담기
                                                             - break
                                         for subRow in menu
                                             if subRow.lv1_id == row.lv1_id && subRow.lv2_id != null
@@ -59,7 +82,7 @@ html( lang="ko" )
                                                             for item in product 
                                                                 if item.product_id == mapping.product_id 
                                                                     -var price= item.price - (item.price / 100 * item.discount)
-                                                                    div(id='menu_' + item.product_id, class='menuCard')
+                                                                    div(id='menu_' + item.product_id, class='menuCard', onclick="")
                                                                         img.product(src="./images/" + item.image_path, alt="제품이미지")
                                                                         p.prod_name= item.name
                                                                         p.prod_price= price
@@ -111,37 +134,6 @@ html( lang="ko" )
                             i.xi-credit-card.xi-2x(style="position: relative; left: 2rem;")
                             p.pay_word 결제
                         div.full_reset 전체 초기화
-        div.toppModalBack#toppModalBack
-            div.option_modal_main
-                section
-                    button#close
-                div.option_modal_up
-                    div.optionImg
-                    div.option_modal_text
-                        p.mProd_name 
-                        p 13,900원
-                        p 달콤한 망고와 바삭한 시리얼까지 들어간 혜자메뉴
-                        p 알레르기정보 : 우유, 대두, 계란, 밀
-                    div.totalPrice
-                        div 
-                            hr
-                            p 상품의 옵션을 선택하세요.
-                            hr
-                        p 합계:  
-                        p 0원
-                        hr 
-                div.option_modal_down
-                    div.option_modal_source
-                        p 소스 
-                        button.source 연유 +500원
-                        button.source 초코소스 +1,000원
-                        button.source 생크림 +1,000원
-                        button.source 망고소스 +1,000원
-                        button.source 딸기소스 +1,000원
-                        button.source 블루베리쨈 +1,000원
-                    div.option_modal_basket
-                        button.cansel 취소
-                        button.putin 주문담기
+        div#toppModalBack.toppModalBack
         script( src="./js/index.js" )
-        
         

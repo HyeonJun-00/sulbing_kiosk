@@ -22,15 +22,16 @@ app.get( `/`, ( req, res ) => {
     let sqlGetProduct= `select * from v_product;`;
     let sqlGetProductOption= `select * from v_product_option;`;
     let menuCategory= `select id as lv1_id, name as lv1_name from menu where pid is null and deleted_date is null;`;
-
-    con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption + menuCategory, ( err, result ) => {
+    let optionCategory= `SELECT distinct product_id, option_category FROM line_sulbing_kiosk.v_product_option order by 1, 2;`
+    con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption + menuCategory + optionCategory, ( err, result ) => {
         if( err ) throw err;
         res.render( `index`, {
             menu: result[0],
             menuInProduct: result[1],
             product: result[2],
             productOption: result[3],
-            menuCategory: result[4]
+            menuCategory: result[4],
+            optionCategory: result[5]
         } );
     });
 });

@@ -11,9 +11,24 @@ $color-line: rgb(220, 220, 220);
 $border-large: 5rem;
 $border-medium: 1.5rem;
 $border-small: 1rem; 
-@mixin line {
-    position: relative;
-    border: 0.05rem solid $color-line;
+
+@mixin menuCard {
+    width: 11rem;
+    height: 18rem;
+    background: $color-main;
+    border-radius: $border-small;
+    box-shadow: 0.1rem 0.25rem 0.5rem 0 $color-line;
+    text-align: center;
+    margin-top: 2.25rem;
+    margin-left: 2.25rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+@mixin subCategory {
+    width: 42rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .main {
     position: absolute;
@@ -67,9 +82,10 @@ $border-small: 1rem;
 
                     .main_category {
                         font-size: 1.75rem;
-                        color: $color-sub2-font;
+                        color: $color-main-font;
                         font-weight: bolder;
                         margin-top: 0.5rem;
+                        cursor: pointer;
 
                         .product_sub {
                             position: absolute;
@@ -82,8 +98,8 @@ $border-small: 1rem;
                             margin-left: -5rem;
 
                             .sub_category {
-                                font-size: 1.5rem;
-                                color: $color-main-font;
+                                font-size: 1.25rem;
+                                color: $color-sub2-font;
                                 font-weight: bold;
                                 margin-top: 0.5rem;
                             }
@@ -104,12 +120,12 @@ $border-small: 1rem;
                             margin-left: -47.45rem;
                         }
                     }
-
                 }
                 
             }
             .line {
-                @include line;
+                position: relative;
+                border: 0.05rem solid $color-line;
                 width: 40rem;
                 left: 2.38%;
             }
@@ -144,22 +160,10 @@ $border-small: 1rem;
                             }
 
                             .subCategoryAll, .subCategoryEach{ 
-                                width: 42rem;
-                                //background: pink;
-                                display: flex;
-                                flex-direction: row;
-                                flex-wrap: wrap;
+                                @include subCategory;
 
                                 .menuCard {
-                                    width: 11rem;
-                                    height: 18rem;
-                                    background: $color-main;
-                                    border-radius: $border-small;
-                                    box-shadow: 0.1rem 0.25rem 0.5em 0 $color-line;
-                                    text-align: center;
-                                    margin-top: 2.25rem;
-                                    margin-left: 2.25rem;
-                                    margin-bottom: 1rem;
+                                    @include menuCard;
 
                                     .product {
                                         position: relative;
@@ -188,22 +192,7 @@ $border-small: 1rem;
                                     .prod_allergy {
                                         display: none;
                                     }
-                                    .option_id {
-                                        display: none;
-                                    }
-                                    .option_category {
-                                        display: none;
-                                    }
-                                    .option_name {
-                                        display: none;
-                                    }
-                                    .option_price {
-                                        display: none;
-                                    }
                                 }
-                            }
-                            .subCategoryEach {
-                                background: plum;
                             }
                         }
                         .wrap2_2 {
@@ -217,49 +206,6 @@ $border-small: 1rem;
                             &::-webkit-scrollbar {
                                 display: none;
                             }
-
-                            .subCategoryAll, .subCategoryEach{ 
-                                width: 42rem;
-                                //background: pink;
-                                display: flex;
-                                flex-direction: row;
-                                flex-wrap: wrap;
-                                justify-content: space-evenly;
-                                align-content: flex-start;
-                                
-
-                                .menuCard {
-                                    width: 11rem;
-                                    height: 18rem;
-                                    background: $color-main;
-                                    border-radius: $border-small;
-                                    box-shadow: 0.1rem 0.25rem 0.5em 0 $color-line;
-                                    text-align: center;
-                                    margin-top: 5%;
-
-                                    .product {
-                                        position: relative;
-                                        width: 10rem;
-                                        height: 10rem;
-                                        //background: pink;
-                                        top: 1.5rem;
-                                    }
-                                    .prod_name {
-                                        position: relative;
-                                        font-size: 1.25rem;
-                                        color: $color-sub2-font;
-                                        //background: pink;
-                                        top: 3rem; 
-                                    }
-                                    .prod_price {
-                                        position: relative;
-                                        font-size: 1rem;
-                                        color: $color-sub2-font;
-                                        //background: green;
-                                        top: 3rem; 
-                                    }
-                                }
-                            }
                         }
                         .wrap2_3 {
                             width: 168rem;
@@ -268,52 +214,6 @@ $border-small: 1rem;
                             display: flex;
                             overflow: scroll;
                             align-items: self-start;
-
-                            &::-webkit-scrollbar {
-                                display: none;
-                            }
-
-                            .subCategoryAll, .subCategoryEach{ 
-                                width: 42rem;
-                                //background: pink;
-                                display: flex;
-                                flex-direction: row;
-                                flex-wrap: wrap;
-                                justify-content: space-evenly;
-                                align-content: flex-start;
-
-                                .menuCard {
-                                    width: 11rem;
-                                    height: 18rem;
-                                    background: $color-main;
-                                    border-radius: $border-small;
-                                    box-shadow: 0.1rem 0.25rem 0.5em 0 $color-line;
-                                    text-align: center;
-                                    margin-top: 5%;
-
-                                    .product {
-                                        position: relative;
-                                        width: 10rem;
-                                        height: 10rem;
-                                        //background: pink;
-                                        top: 1.5rem;
-                                    }
-                                    .prod_name {
-                                        position: relative;
-                                        font-size: 1.25rem;
-                                        color: $color-sub2-font;
-                                        //background: pink;
-                                        top: 3rem; 
-                                    }
-                                    .prod_price {
-                                        position: relative;
-                                        font-size: 1rem;
-                                        color: $color-sub2-font;
-                                        //background: green;
-                                        top: 3rem; 
-                                    }
-                                }
-                            }
                         }
                         .wrap2_4 {
                             width: 42rem;
@@ -322,58 +222,6 @@ $border-small: 1rem;
                             display: flex;
                             overflow: scroll;
                             align-items: self-start;
-
-                            &::-webkit-scrollbar {
-                                display: none;
-                            }
-
-                            .subCategoryAll, .subCategoryEach{ 
-                                width: 42rem;
-                                //background: pink;
-                                display: flex;
-                                flex-direction: row;
-                                flex-wrap: wrap;
-                                justify-content: space-evenly;
-                                align-content: space-around;
-
-                                .menuCard {
-                                    width: 11rem;
-                                    height: 18rem;
-                                    background: $color-main;
-                                    border-radius: $border-small;
-                                    box-shadow: 0.1rem 0.25rem 0.5em 0 $color-line;
-                                    text-align: center;
-                                    margin-top: 5%;
-
-                                    .product {
-                                        position: relative;
-                                        width: 10rem;
-                                        height: 10rem;
-                                        //background: pink;
-                                        top: 1.5rem;
-                                    }
-                                    .prod_name {
-                                        position: relative;
-                                        font-size: 1.25rem;
-                                        color: $color-sub2-font;
-                                        //background: pink;
-                                        top: 3rem; 
-                                    }
-                                    .prod_price {
-                                        position: relative;
-                                        font-size: 1rem;
-                                        color: $color-sub2-font;
-                                        //background: green;
-                                        top: 3rem; 
-                                    }
-                                    .prod_discription {
-                                        display: none;
-                                    }
-                                    .prod_allergy {
-                                        display: none;
-                                    }
-                                }
-                            }
                         }
                     }
                     /*
@@ -382,15 +230,15 @@ $border-small: 1rem;
                     }
                     */
                     .mainCategory_2 {
-                        background: blue;
+                        //background: blue;
                         display: none;
                     }
                     .mainCategory_3 {
-                        background: green;
+                        //background: green;
                         display: none;
                     }
                     .mainCategory_4 {
-                        background: gold;
+                        //background: gold;
                         display: none;
                     }
                 }
@@ -432,7 +280,7 @@ $border-small: 1rem;
             .line {
                 position: relative;
                 border: 0.05rem solid $color-sub1-font;
-                width: 11rem; left: 0.5rem;
+                width: 10rem; left: 1rem;
             }
             .orderList {
                 width: 12rem;
@@ -456,6 +304,7 @@ $border-small: 1rem;
                         box-shadow: 0.1rem 0.25rem 0.5em 0 $color-sub2-font;
                         text-align: center;
                         margin-top: 7%;
+                        cursor: pointer;
 
                         .close {
                             position: relative;
@@ -473,7 +322,8 @@ $border-small: 1rem;
                             left: -0.8rem;
                         }
                         .line {
-                            @include line;
+                            position: relative;
+                            border: 0.05rem solid $color-line;
                             width: 8rem;
                             left: 1rem;
                         }
@@ -556,7 +406,7 @@ $border-small: 1rem;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-evenly;
-                border-top: 1px solid $color-sub1;
+                border-top: 1px solid #888;
 
                 .total_amount {
                     color: $color-sub1-font;
@@ -579,6 +429,7 @@ $border-small: 1rem;
                     text-align: center;
                     line-height: 3rem;
                     color: $color-main-font;
+                    cursor: pointer;
                 }
                 .payment {
                     @include orderBtn;
@@ -597,4 +448,13 @@ $border-small: 1rem;
             }
         }
     }
+}
+.toppModalBack {
+    width: 54rem;
+    height: 96rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    background: rgba(84, 84, 84, 0.8);
+    display: none;
 }
