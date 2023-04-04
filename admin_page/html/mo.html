@@ -162,7 +162,7 @@
                 <li>tel</li>
                 <li>성별</li>
                 <li>생년월일</li>
-                <li>보유스탬프</li>
+                <li>스탬프</li>
                 <li>권한</li>
                 <li>최초구매일</li>
                 <li>회원가입일</li>
@@ -170,6 +170,67 @@
                 <li>수정</li>
                 <li>삭제</li>
               </ul>
+            </li>
+            <li>
+              <ul class="userColSet">
+                <li>1</li>
+                <li>GDDD</li>
+                <li>01044445555</li>
+                <li>F</li>
+                <li>2001-10-10</li>
+                <li>10</li>
+                <li>N</li>
+                <li>2023-01-01</li>
+                <li>2023-02-01</li>
+                <li>ㅋㅋㅋ</li>
+                <li>
+                  <input class="userUpdateBtn" type="button" value="수정"/>
+                </li>
+                <li>
+                  <input class="userDeleteBtn" type="button" value="삭제"/>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <form>
+                <ul class="userColSet">
+                  <li></li>
+                  <li>
+                    <input type="text" name="name" require="require"/>
+                  </li>
+                  <li>
+                    <input type="text" name="tel" require="require"/>
+                  </li>
+                  <li>
+                    <select name="auth">
+                      <option value="M">남</option>
+                      <option value="F">여</option>
+                    </select>
+                  </li>
+                  <li>
+                    <input type="date" name="birth_date" require="require"/>
+                  </li>
+                  <li></li>
+                  <li>
+                    <select name="auth">
+                      <option value="N">일반회원</option>
+                      <option value="G">미가입자</option>
+                      <option value="S">관리자</option>
+                    </select>
+                  </li>
+                  <li></li>
+                  <li></li>
+                  <li>
+                    <input type="text" name="remark"/>
+                  </li>
+                  <li>
+                    <input class="userInsertBtn" type="button" value="추가"/>
+                  </li>
+                  <li>
+                    <input class="userResetBtn" type="button" value="지우기"/>
+                  </li>
+                </ul>
+              </form>
             </li>
           </ul>
         </section>

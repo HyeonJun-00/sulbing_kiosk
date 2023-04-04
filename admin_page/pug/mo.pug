@@ -59,12 +59,56 @@ hmtl
                                 li tel
                                 li 성별
                                 li 생년월일
-                                li 보유스탬프
+                                li 스탬프
                                 li 권한
                                 li 최초구매일
                                 li 회원가입일
                                 li 메모
                                 li 수정
                                 li 삭제
+                        li
+                            ul.userColSet
+                                li 1
+                                li GDDD
+                                li 01044445555
+                                li F
+                                li 2001-10-10
+                                li 10
+                                li N
+                                li 2023-01-01
+                                li 2023-02-01
+                                li ㅋㅋㅋ
+                                li
+                                    input.userUpdateBtn( type="button" value="수정" )
+                                li
+                                    input.userDeleteBtn( type="button" value="삭제" )
+                        li
+                            form
+                                ul.userColSet
+                                    li
+                                    li
+                                        input( type="text", name="name", require )
+                                    li
+                                        input( type="text", name="tel", require )
+                                    li
+                                        select( name="auth" )
+                                            option( value="M" ) 남
+                                            option( value="F" ) 여
+                                    li
+                                        input( type="date", name="birth_date", require )
+                                    li
+                                    li
+                                        select( name="auth" )
+                                            option( value="N" ) 일반회원
+                                            option( value="G" ) 미가입자
+                                            option( value="S" ) 관리자
+                                    li
+                                    li
+                                    li
+                                        input( type="text", name="remark" )
+                                    li
+                                        input.userInsertBtn( type="button" value="추가" )
+                                    li
+                                        input.userResetBtn( type="button" value="지우기" )
                 section.footerPaging
         script(src="mo.js")
