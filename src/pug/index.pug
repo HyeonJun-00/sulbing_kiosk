@@ -2,6 +2,7 @@ html( lang="ko" )
     head
         meta( charset="utf-8" )
         link( rel="stylesheet", href="./css/mainPage.css" )
+        link( rel="stylesheet", href="./css/optionmodal.css")
         link( rel="preconnect" href="https://fonts.googleapis.com" )
         link( rel="preconnect" href="https://fonts.gstatic.com" crossorigin )
         link( href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" )
@@ -35,14 +36,19 @@ html( lang="ko" )
                                                     for item in product 
                                                         if item.product_id == mapping.product_id 
                                                             -var price= item.price - (item.price / 100 * item.discount)
-                                                            div(id='menu_all_' + item.product_id, class='menuCard', onclick='fn_showTopping(' + item.product_id + ')')
+                                                            div(id='menu_all_' + item.product_id, class='menuCard', onclick='inputElement();')
                                                                 img.product(src="./images/" + item.image_path, alt="제품이미지")
                                                                 p.prod_name= item.name
                                                                 p.prod_price= price
                                                                 p.prod_discription= item.discription
                                                                 p.prod_allergy= item.allergy
                                                                 for optionItem in productOption 
-                                                                if optionItem.product_id === item.product_id
+                                                                    if optionItem.product_id == item.product_id
+                                                                        -var toppPrice= optionItem.option_price - (optionItem.option_price / 100 * optionItem.option_discount)
+                                                                        p.option_id= optionItem.option_id
+                                                                        p.option_category= optionItem.option_category
+                                                                        p.option_name= optionItem.option_name
+                                                                        p.option_price= toppPrice    
                                                             - break
                                         for subRow in menu
                                             if subRow.lv1_id == row.lv1_id && subRow.lv2_id != null
@@ -56,6 +62,15 @@ html( lang="ko" )
                                                                         img.product(src="./images/" + item.image_path, alt="제품이미지")
                                                                         p.prod_name= item.name
                                                                         p.prod_price= price
+                                                                        p.prod_discription= item.discription
+                                                                        p.prod_allergy= item.allergy
+                                                                        for optionItem in productOption 
+                                                                            if optionItem.product_id == item.product_id
+                                                                                -var toppPrice= optionItem.option_price - (optionItem.option_price / 100 * optionItem.option_discount)
+                                                                                p.option_id= optionItem.option_id
+                                                                                p.option_category= optionItem.option_category
+                                                                                p.option_name= optionItem.option_name
+                                                                                p.option_price= toppPrice 
                                                                     - break
                     footer.empty
             section.right
@@ -95,4 +110,37 @@ html( lang="ko" )
                             i.xi-credit-card.xi-2x(style="position: relative; left: 2rem;")
                             p.pay_word 결제
                         div.full_reset 전체 초기화
+        div.toppModalBack#toppModalBack
+            div.option_modal_main
+                section
+                    button#close
+                div.option_modal_up
+                    div.optionImg
+                    div.option_modal_text
+                        p.mProd_name 
+                        p 13,900원
+                        p 달콤한 망고와 바삭한 시리얼까지 들어간 혜자메뉴
+                        p 알레르기정보 : 우유, 대두, 계란, 밀
+                    div.totalPrice
+                        div 
+                            hr
+                            p 상품의 옵션을 선택하세요.
+                            hr
+                        p 합계:  
+                        p 0원
+                        hr 
+                div.option_modal_down
+                    div.option_modal_source
+                        p 소스 
+                        button.source 연유 +500원
+                        button.source 초코소스 +1,000원
+                        button.source 생크림 +1,000원
+                        button.source 망고소스 +1,000원
+                        button.source 딸기소스 +1,000원
+                        button.source 블루베리쨈 +1,000원
+                    div.option_modal_basket
+                        button.cansel 취소
+                        button.putin 주문담기
         script( src="./js/index.js" )
+        script( src="./js/mainPage.js")
+        

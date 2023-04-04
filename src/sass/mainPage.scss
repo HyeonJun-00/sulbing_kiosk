@@ -182,15 +182,24 @@ $border-small: 1rem;
                                         //background: green;
                                         top: 3rem; 
                                     }
-                                    /*
                                     .prod_discription {
                                         display: none;
                                     }
                                     .prod_allergy {
                                         display: none;
                                     }
-                                    */
-                                    
+                                    .option_id {
+                                        display: none;
+                                    }
+                                    .option_category {
+                                        display: none;
+                                    }
+                                    .option_name {
+                                        display: none;
+                                    }
+                                    .option_price {
+                                        display: none;
+                                    }
                                 }
                             }
                             .subCategoryEach {
@@ -356,6 +365,12 @@ $border-small: 1rem;
                                         color: $color-sub2-font;
                                         //background: green;
                                         top: 3rem; 
+                                    }
+                                    .prod_discription {
+                                        display: none;
+                                    }
+                                    .prod_allergy {
+                                        display: none;
                                     }
                                 }
                             }

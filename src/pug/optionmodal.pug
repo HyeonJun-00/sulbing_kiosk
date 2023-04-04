@@ -5,32 +5,33 @@ html
         link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet")
     body
-        div.option_modal_main
-            section.header
-                button#close
-                
-            div.option_modal_up
-                for item in product
-                    img.optionImg(src='./images/' + item.image_path, alt='제품이미지')
-                    div.option_modal_text
-                        p 킹망고빙수
-                        p 13,900원
-                        p 달콤한 망고와 바삭한 시리얼까지 들어간 혜자메뉴
-                        p 알레르기정보 : 우유, 대두, 계란, 밀
-                    div.totalPrice
-                        div 
-                            hr
-                            p 상품의 옵션을 선택하세요.
-                            hr
-                        p 합계:  
-                        p 0원
-                        hr 
-            div.option_modal_down
-                div.option_modal_source
-                    p 소스 
-                    button.source 연유 +500원
-                    button.source 초코소스 +1,000원
-                    button.source 생크림 +1,000원
-                    button.source 망고소스 +1,000원
-                    button.source 딸기소스 +1,000원
-                    button.source 블루베리쨈 +1,000원
+        div.modalBack#modalBack
+            div.option_modal_main
+                section.header
+                    button#close
+                    
+                div.option_modal_up
+                    for item in product
+                        img.optionImg(src='./images/' + item.image_path, alt='제품이미지')
+                        div.option_modal_text
+                            p 킹망고빙수
+                            p 13,900원
+                            p 달콤한 망고와 바삭한 시리얼까지 들어간 혜자메뉴
+                            p 알레르기정보 : 우유, 대두, 계란, 밀
+                        div.totalPrice
+                            div 
+                                hr
+                                p 상품의 옵션을 선택하세요.
+                                hr
+                            p 합계:  
+                            p 0원
+                            hr 
+                div.option_modal_down
+                    div.option_modal_source
+                        p 소스 
+                        button.source 연유 +500원
+                        button.source 초코소스 +1,000원
+                        button.source 생크림 +1,000원
+                        button.source 망고소스 +1,000원
+                        button.source 딸기소스 +1,000원
+                        button.source 블루베리쨈 +1,000원

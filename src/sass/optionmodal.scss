@@ -1,15 +1,23 @@
 * { margin: 0; padding: 0; border: 0; font-size: 10px; }
+
 button {
     cursor: pointer;
+}
+.toppModalBack {
+    width: 54rem;
+    height: 96rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    background: rgba(84, 84, 84, 0.8);
+    display: none;
 }
 .option_modal_main {
     width: 45rem;
     height: 70rem;
     border-radius: 2rem;
-    //border: 3px solid #2e1f1a;
     position: relative;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     background: white;
     
@@ -37,11 +45,12 @@ button {
         height: 22rem;
         position: relative;
         .optionImg {
-            width: 15rem;
-            height: 15rem;
+            width: 13rem;
+            height: 13rem;
             position: absolute;
             left: 50%;
             transform: translate(-50%, -57%);
+            background: black;
         }
         .option_modal_text {
             width: 100%;
