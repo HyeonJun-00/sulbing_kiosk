@@ -8,6 +8,7 @@ html( lang="ko" )
         link( href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" )
         link(rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css")
         script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
+        script( src="./js/mainPage.js")
     body
         main.main 
             section.left 
@@ -36,7 +37,7 @@ html( lang="ko" )
                                                     for item in product 
                                                         if item.product_id == mapping.product_id 
                                                             -var price= item.price - (item.price / 100 * item.discount)
-                                                            div(id='menu_all_' + item.product_id, class='menuCard', onclick='inputElement();')
+                                                            div(id='menu_all_' + item.product_id, class='menuCard')
                                                                 img.product(src="./images/" + item.image_path, alt="제품이미지")
                                                                 p.prod_name= item.name
                                                                 p.prod_price= price
@@ -142,5 +143,5 @@ html( lang="ko" )
                         button.cansel 취소
                         button.putin 주문담기
         script( src="./js/index.js" )
-        script( src="./js/mainPage.js")
+        
         
