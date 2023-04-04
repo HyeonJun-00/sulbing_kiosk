@@ -1,9 +1,12 @@
 const express= require( `express` );
-const mysql= require( `mysql` );
-const DBConnect= require( `./config/DBConnect.js` );
-
 const app= express();
-const con= mysql.createConnection( DBConnect );
+
+const indexRouter= require( `./routes` );
+const adminMenuRouter= require( `./routes/admin/menu` );
+const adminOrderRouter= require( `./routes/admin/menu` );
+const adminProductRouter= require( `./routes/admin/product` );
+const adminSalesRouter= require( `./routes/admin/sales` );
+const adminUserRouter= require( `./routes/admin/user` );
 
 app.set( `view engine`, `pug` );
 app.set( `views`, `./src/pug` );
