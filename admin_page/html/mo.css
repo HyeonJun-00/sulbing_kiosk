@@ -109,7 +109,7 @@ body {
     margin-left: 1.8rem;
     overflow: hidden; }
     .adminPage2 .leftBox .productInventory {
-      width: 100rem;
+      width: 85rem;
       height: 70%;
       margin-top: 5rem;
       border: 1px solid #aaa;
@@ -142,49 +142,55 @@ body {
           cursor: pointer;
           color: #ddd;
           background-color: #40497A;
-          font-size: 1.7rem;
-          margin: 1rem;
+          font-size: 1.5rem;
+          margin: 1.5rem;
+          margin-left: 3.5rem;
           width: 10rem;
           height: 6rem; }
         .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section {
-          margin-left: 1rem;
-          width: 98rem; }
+          margin-left: 3.5rem;
+          width: 78rem; }
           .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article {
             display: flex;
             justify-content: center;
-            align-items: center;
-            justify-content: space-around;
-            border-bottom: 1px solid #ddd; }
+            align-items: center; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p {
-              font-size: 2rem; }
-            .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article button {
-              font-size: 2rem; }
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 3.5rem;
+              font-size: 1.8rem;
+              border: 0.01rem solid #ddd;
+              border-left: transparent;
+              border-right: transparent;
+              border-top: transparent; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(1) {
-              width: 10%; }
+              width: 7%; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(2) {
-              width: 24%; }
+              width: 23%; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(3) {
-              width: 10%; }
+              width: 15%; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(4) {
-              width: 8%; }
-            .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(5) {
-              width: 8%; }
-            .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(6) {
               width: 10%; }
+            .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(5) {
+              width: 15%; }
+            .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(6) {
+              width: 15%; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(7) {
               text-align: center;
-              width: 21.5%; }
+              width: 15%; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article button {
               cursor: pointer;
-              width: 10%; }
+              width: 7.6%;
+              height: 3.7rem;
+              font-size: 1.8rem;
+              border: 0.01rem solid #ddd; }
               .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article button:hover {
                 background-color: #dadada; }
           .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article:nth-child(1) {
-            border-bottom: 1px solid #ddd;
-            background-color: rgba(22, 26, 46, 0.4); }
+            border-bottom: 1px solid #ddd; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article:nth-child(1) p {
-              color: #fff;
-              font-size: 2rem; }
+              font-size: 1.5rem; }
       .adminPage2 .leftBox .productInventory div.displayFlag {
         display: block; }
   .adminPage2::before {
@@ -289,67 +295,63 @@ body {
     font-size: 3rem;
     content: "회원"; }
   .adminPage5 .mainContent {
-    width: 90%;
+    width: 95%;
     height: 80%; }
     .adminPage5 .mainContent ul {
       list-style-type: none; }
     .adminPage5 .mainContent ul.userRowSet {
       display: flex;
       flex-direction: column; }
-      .adminPage5 .mainContent ul.userRowSet li {
-        border: 0.01rem solid transparent; }
-        .adminPage5 .mainContent ul.userRowSet li.userReadRow:hover {
-          border: 0.01rem solid #f2da5e; }
-        .adminPage5 .mainContent ul.userRowSet li ul.userColSet {
-          display: flex; }
-          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li {
-            display: inline-flex;
-            justify-content: flex-start;
-            align-items: center;
-            border: 0.01rem solid #ddd;
-            width: 10%;
-            height: 3rem; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input, .adminPage5 .mainContent ul.userRowSet li ul.userColSet li select {
-              width: 100%;
-              height: 100%; }
-              .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input[type=button], .adminPage5 .mainContent ul.userRowSet li ul.userColSet li select[type=button] {
-                cursor: pointer; }
-              .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input[type=number], .adminPage5 .mainContent ul.userRowSet li ul.userColSet li select[type=number] {
-                text-align: center; }
-              .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input[disabled], .adminPage5 .mainContent ul.userRowSet li ul.userColSet li select[disabled] {
-                color: black;
-                cursor: auto; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input::-webkit-outer-spin-button,
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input::-webkit-inner-spin-button {
-              -webkit-appearance: none;
-              margin: 0; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(1) {
-              width: 3%;
-              justify-content: center; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(2) {
-              width: 10%; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(3) {
-              width: 13%; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(4) {
-              width: 5%; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(6) {
-              width: 4%; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(7) {
-              width: 7%; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(10) {
-              width: 17%; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(11) {
-              width: 5%; }
-            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(12) {
-              width: 5%; }
-        .adminPage5 .mainContent ul.userRowSet li:nth-of-type(1) > ul > li {
-          justify-content: center; }
-        .adminPage5 .mainContent ul.userRowSet li.userInsertRow {
-          margin: 0.5rem 0; }
-          .adminPage5 .mainContent ul.userRowSet li.userInsertRow form ul .userColEmpty {
-            border: 0.01rem solid transparent;
-            display: flex;
+      .adminPage5 .mainContent ul.userRowSet li ul.userColSet {
+        display: flex; }
+        .adminPage5 .mainContent ul.userRowSet li ul.userColSet li {
+          display: inline-flex;
+          justify-content: flex-start;
+          align-items: center;
+          border: 0.01rem solid #ddd;
+          width: 10%;
+          height: 3rem; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input, .adminPage5 .mainContent ul.userRowSet li ul.userColSet li select {
+            width: 100%;
+            height: 100%; }
+            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input[type=button], .adminPage5 .mainContent ul.userRowSet li ul.userColSet li select[type=button] {
+              cursor: pointer; }
+            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input[type=number], .adminPage5 .mainContent ul.userRowSet li ul.userColSet li select[type=number] {
+              text-align: center; }
+            .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input[disabled], .adminPage5 .mainContent ul.userRowSet li ul.userColSet li select[disabled] {
+              color: black;
+              cursor: auto; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input::-webkit-outer-spin-button,
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(1) {
+            width: 3%;
             justify-content: center; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(2) {
+            width: 10%; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(3) {
+            width: 13%; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(4) {
+            width: 5%; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(6) {
+            width: 4%; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(7) {
+            width: 7%; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(10) {
+            width: 17%; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(11) {
+            width: 5%; }
+          .adminPage5 .mainContent ul.userRowSet li ul.userColSet li:nth-of-type(12) {
+            width: 5%; }
+      .adminPage5 .mainContent ul.userRowSet li:nth-of-type(1) > ul > li {
+        justify-content: center; }
+      .adminPage5 .mainContent ul.userRowSet li.userInsertRow {
+        margin: 0.5rem 0; }
+        .adminPage5 .mainContent ul.userRowSet li.userInsertRow form ul .userColEmpty {
+          border: 0.01rem solid transparent;
+          display: flex;
+          justify-content: center; }
 
 .displayFlag {
   display: flex;

@@ -133,11 +133,11 @@ body {
         overflow: hidden;
 
         .productInventory {
-            width: 100rem;
+            width: 85rem;
             height: 70%;
             margin-top: 5rem;
             border: 1px solid #aaa;
-                border-radius: 0 1rem 1rem 1rem;
+            border-radius: 0 1rem 1rem 1rem;
 
             & div:nth-child(1) {
                 display: flex;
@@ -180,49 +180,54 @@ body {
                     cursor: pointer;
                     color: #ddd;
                     background-color: #40497A;
-                    font-size: 1.7rem;
-                    margin: 1rem;
+                    font-size: 1.5rem;
+                    margin: 1.5rem;
+                    margin-left: 3.5rem;
                     width: 10rem;
                     height: 6rem;
                 }
                 & section {
-                    margin-left: 1rem;
-                    width: 98rem;
+                    margin-left: 3.5rem;
+                    width: 78rem;
                     & article {
                         @include flexCenter();
-                        justify-content: space-around;
-                        border-bottom: 1px solid #ddd;
                         & p {
-                            font-size: 2rem;
-                        }
-                        & button {
-                            font-size: 2rem;
+                            @include flexCenter();
+                            height: 3.5rem;
+                            font-size: 1.8rem;
+                            border: 0.01rem solid #ddd;
+                            border-left: transparent;
+                            border-right: transparent;
+                            border-top: transparent;
                         }
                         & p:nth-child(1) {
-                            width: 10%;
+                            width: 7%;
                         }
                         & p:nth-child(2) {
-                            width: 24%;
+                            width: 23%;
                         }
                         & p:nth-child(3) {
-                            width: 10%;
+                            width: 15%;
                         }
                         & p:nth-child(4) {
-                            width: 8%;
+                            width: 10%;
                         }
                         & p:nth-child(5) {
-                            width: 8%;
+                            width: 15%;
                         }
                         & p:nth-child(6) {
-                            width: 10%;
+                            width: 15%;
                         }
                         & p:nth-child(7) {
                             text-align: center;
-                            width: 21.5%;
+                            width: 15%;
                         }
                         & button {
                             cursor: pointer;
-                            width: 10%;
+                            width: 7.6%;
+                            height: 3.7rem;
+                            font-size: 1.8rem;
+                            border: 0.01rem solid #ddd;
                             &:hover {
                                 background-color: #dadada;
                             }
@@ -230,10 +235,8 @@ body {
                     }
                     & article:nth-child(1) {
                         border-bottom: 1px solid #ddd;
-                        background-color: rgba(#161A2E, 0.4);
                         & p {
-                            color: #fff;
-                            font-size: 2rem;
+                            font-size: 1.5rem;
                         }
                     }
 
@@ -348,15 +351,11 @@ body {
 
     .headFrame {}
     .mainContent {
-        width: 90%; height: 80%;
+        width: 95%; height: 80%;
         ul { list-style-type: none; }
         ul.userRowSet {
             display: flex; flex-direction: column;
             li {
-                border: 0.01rem solid transparent;
-                &.userReadRow {
-                    &:hover { border: 0.01rem solid #f2da5e; }
-                }
                 ul.userColSet {
                     display: flex;
                     li {
