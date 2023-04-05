@@ -35,14 +35,31 @@ app.get( `/`, ( req, res ) => {
     });
 });
 
-app.get ( `/admin_menu`, ( req, res, next ) => {
-    res.render( `adminMenu` );
+app.get( `/admin_menu`, ( req, res, next ) => {
+    let sqlGetMenu= `select * from v_menu;`;
+    con.query( sqlGetMenu, ( err, result ) => {
+       if( err ) throw err;
+       res.render( `adminMenu`, { menu: result } );
+    });
 });
 app.get ( `/admin_order`, ( req, res, next ) => {
     res.render(`adminOrder`);
 });
 app.get ( `/admin_product`, ( req, res, next ) => {
-    res.render(`adminProduct`);
+    let sqlGetMenu= `select * from v_menu;`;
+    let sqlGetMenuInProduct= `select * from v_menu_in_product;`;
+    let sqlGetProduct= `select * from v_product;`;
+    let sqlGetProductOption= `select * from v_product_option;`;
+
+    con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption, ( err, result ) => {
+        if( err ) throw err;
+        res.render( `adminProduct`, {
+            menu: result[0],
+            menuInProduct: result[1],
+            product: result[2],
+            productOption: result[3]
+        });
+    });
 });
 app.get ( `/admin_sales`, ( req, res, next ) => {
     res.render(`adminSales`);
