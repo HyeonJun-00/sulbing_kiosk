@@ -35,8 +35,20 @@ app.get( `/`, ( req, res ) => {
     });
 });
 
-app.get ( `/admin`, ( req, res, next ) => {
-    res.render( `mo` );
+app.get ( `/admin_menu`, ( req, res, next ) => {
+    res.render( `adminMenu` );
+});
+app.get ( `/admin_order`, ( req, res, next ) => {
+    res.render(`adminOrder`);
+});
+app.get ( `/admin_product`, ( req, res, next ) => {
+    res.render(`adminProduct`);
+});
+app.get ( `/admin_sales`, ( req, res, next ) => {
+    res.render(`adminSales`);
+});
+app.get ( `/admin_user`, ( req, res, next ) => {
+    res.render(`adminUser`);
 });
 
 app.listen( port, () => {
