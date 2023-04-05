@@ -471,30 +471,10 @@
                 <li>삭제</li>
               </ul>
             </li>
-            <li>
-              <ul class="userColSet">
-                <li>1</li>
-                <li>GDDD</li>
-                <li>01044445555</li>
-                <li>F</li>
-                <li>2001-10-10</li>
-                <li>10</li>
-                <li>N</li>
-                <li>2023-01-01</li>
-                <li>2023-02-01</li>
-                <li>ㅋㅋㅋ</li>
-                <li>
-                  <input class="userUpdateBtn" type="button" value="수정"/>
-                </li>
-                <li>
-                  <input class="userDeleteBtn" type="button" value="삭제"/>
-                </li>
-              </ul>
-            </li>
-            <li>
+            <li class="userInsertRow">
               <form>
                 <ul class="userColSet">
-                  <li></li>
+                  <li class="userColEmpty">new</li>
                   <li>
                     <input type="text" name="name" require="require"/>
                   </li>
@@ -502,15 +482,15 @@
                     <input type="text" name="tel" require="require"/>
                   </li>
                   <li>
-                    <select name="auth">
+                    <select name="sex">
                       <option value="M">남</option>
                       <option value="F">여</option>
                     </select>
                   </li>
                   <li>
-                    <input type="date" name="birth_date" require="require"/>
+                    <input type="date" name="birth_date"/>
                   </li>
-                  <li></li>
+                  <li class="userColEmpty">-</li>
                   <li>
                     <select name="auth">
                       <option value="N">일반회원</option>
@@ -518,8 +498,8 @@
                       <option value="S">관리자</option>
                     </select>
                   </li>
-                  <li></li>
-                  <li></li>
+                  <li class="userColEmpty">-</li>
+                  <li class="userColEmpty">-</li>
                   <li>
                     <input type="text" name="remark"/>
                   </li>
@@ -528,6 +508,98 @@
                   </li>
                   <li>
                     <input class="userResetBtn" type="button" value="지우기"/>
+                  </li>
+                </ul>
+              </form>
+            </li>
+            <li class="userReadRow">
+              <form>
+                <ul class="userColSet">
+                  <li>
+                    <input type="number" value="1" disabled="disabled"/>
+                    <input type="hidden" value="1"/>
+                  </li>
+                  <li>
+                    <input type="text" name="name" value="dsdsds" require="require" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <input type="text" name="tel" value="01022228888" require="require" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <select name="sex" disabled="disabled">
+                      <option value="M" selected="selected">남</option>
+                      <option value="F">여</option>
+                    </select>
+                  </li>
+                  <li>
+                    <input type="date" name="birth_date" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <input type="number" name="stamp" value="0" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <select name="auth" disabled="disabled">
+                      <option value="G">미가입자</option>
+                      <option value="N" selected="selected">일반회원</option>
+                      <option value="S">관리자</option>
+                    </select>
+                  </li>
+                  <li>2023-01-01</li>
+                  <li>2023-02-01</li>
+                  <li>
+                    <input type="text" name="remark" value="ㅋㅋㅋㅋㅋㅋ" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <input class="userUpdateBtn" type="button" value="수정" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <input class="userDeleteBtn" type="button" value="삭제"/>
+                  </li>
+                </ul>
+              </form>
+            </li>
+            <li class="userReadRow">
+              <form>
+                <ul class="userColSet">
+                  <li>
+                    <input type="number" value="2" disabled="disabled"/>
+                    <input type="hidden" value="2"/>
+                  </li>
+                  <li>
+                    <input type="text" name="name" value="dsdsds" require="require" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <input type="text" name="tel" value="01022228888" require="require" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <select name="sex" disabled="disabled">
+                      <option value="M" selected="selected">남</option>
+                      <option value="F">여</option>
+                    </select>
+                  </li>
+                  <li>
+                    <input type="date" name="birth_date" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <input type="number" name="stamp" value="0" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <select name="auth" disabled="disabled">
+                      <option value="G">미가입자</option>
+                      <option value="N" selected="selected">일반회원</option>
+                      <option value="S">관리자</option>
+                    </select>
+                  </li>
+                  <li>2023-01-01</li>
+                  <li>2023-02-01</li>
+                  <li>
+                    <input type="text" name="remark" value="ㅋㅋㅋㅋㅋㅋ" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <input class="userUpdateBtn" type="button" value="수정" disabled="disabled"/>
+                  </li>
+                  <li>
+                    <input class="userDeleteBtn" type="button" value="삭제"/>
                   </li>
                 </ul>
               </form>

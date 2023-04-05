@@ -138,49 +138,95 @@ hmtl
                                 li 메모
                                 li 수정
                                 li 삭제
-                        li
-                            ul.userColSet
-                                li 1
-                                li GDDD
-                                li 01044445555
-                                li F
-                                li 2001-10-10
-                                li 10
-                                li N
-                                li 2023-01-01
-                                li 2023-02-01
-                                li ㅋㅋㅋ
-                                li
-                                    input.userUpdateBtn( type="button" value="수정" )
-                                li
-                                    input.userDeleteBtn( type="button" value="삭제" )
-                        li
+                        li.userInsertRow
                             form
                                 ul.userColSet
-                                    li
+                                    li.userColEmpty new
                                     li
                                         input( type="text", name="name", require )
                                     li
                                         input( type="text", name="tel", require )
                                     li
-                                        select( name="auth" )
+                                        select( name="sex" )
                                             option( value="M" ) 남
                                             option( value="F" ) 여
                                     li
-                                        input( type="date", name="birth_date", require )
-                                    li
+                                        input( type="date", name="birth_date" )
+                                    li.userColEmpty -
                                     li
                                         select( name="auth" )
                                             option( value="N" ) 일반회원
                                             option( value="G" ) 미가입자
                                             option( value="S" ) 관리자
-                                    li
-                                    li
+                                    li.userColEmpty -
+                                    li.userColEmpty -
                                     li
                                         input( type="text", name="remark" )
                                     li
                                         input.userInsertBtn( type="button" value="추가" )
                                     li
                                         input.userResetBtn( type="button" value="지우기" )
+                        li.userReadRow
+                            form
+                                ul.userColSet
+                                    li
+                                        input( type="number" value=1 disabled )
+                                        input( type="hidden" value=1 )
+                                    li
+                                        input( type="text", name="name", value="dsdsds", require, disabled )
+                                    li
+                                        input( type="text", name="tel", value="01022228888", require, disabled )
+                                    li
+                                        select( name="sex", disabled )
+                                            option( value="M", selected ) 남
+                                            option( value="F" ) 여
+                                    li
+                                        input( type="date", name="birth_date", disabled )
+                                    li
+                                        input( type="number", name="stamp", value=0, disabled )
+                                    li
+                                        select( name="auth", disabled )
+                                            option( value="G" ) 미가입자
+                                            option( value="N", selected ) 일반회원
+                                            option( value="S" ) 관리자
+                                    li 2023-01-01
+                                    li 2023-02-01
+                                    li
+                                        input( type="text", name="remark", value="ㅋㅋㅋㅋㅋㅋ", disabled )
+                                    li
+                                        input.userUpdateBtn( type="button" value="수정", disabled )
+                                    li
+                                        input.userDeleteBtn( type="button" value="삭제" )
+                        li.userReadRow
+                           form
+                               ul.userColSet
+                                   li
+                                       input( type="number" value=2 disabled )
+                                       input( type="hidden" value=2 )
+                                   li
+                                       input( type="text", name="name", value="dsdsds", require, disabled )
+                                   li
+                                       input( type="text", name="tel", value="01022228888", require, disabled )
+                                   li
+                                       select( name="sex", disabled )
+                                           option( value="M", selected ) 남
+                                           option( value="F" ) 여
+                                   li
+                                       input( type="date", name="birth_date", disabled )
+                                   li
+                                       input( type="number", name="stamp", value=0, disabled )
+                                   li
+                                       select( name="auth", disabled )
+                                           option( value="G" ) 미가입자
+                                           option( value="N", selected ) 일반회원
+                                           option( value="S" ) 관리자
+                                   li 2023-01-01
+                                   li 2023-02-01
+                                   li
+                                       input( type="text", name="remark", value="ㅋㅋㅋㅋㅋㅋ", disabled )
+                                   li
+                                       input.userUpdateBtn( type="button" value="수정", disabled )
+                                   li
+                                       input.userDeleteBtn( type="button" value="삭제" )
                 section.footerPaging
         script(src="mo.js") 
