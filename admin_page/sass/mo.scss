@@ -8,7 +8,7 @@
 
 html,
 body {
-    background-color: #fafaea;
+    background-color: rgba(#fafaea, 0.5);
 }
 
 @mixin mainMenu {
@@ -31,7 +31,6 @@ body {
     align-items: center;
 }
 
-@mixin topBorderRadius {}
 
 .mainDisplay {
     width: 100%;
@@ -43,7 +42,6 @@ body {
     @include mainMenu();
 
     & .leftBox {
-        @include topBorderRadius();
         @include rightAndLeftBox();
         width: 120rem;
         height: 100%;
@@ -112,8 +110,8 @@ body {
         }
 
         &::before {
-            @include topBorderRadius();
             @include flexCenter();
+            margin-bottom: 4rem;
             width: 101.5rem;
             color: white;
             background-color: #2E1F1A;
@@ -127,7 +125,6 @@ body {
     @include mainMenu();
 
     & .leftBox {
-        @include topBorderRadius();
         @include rightAndLeftBox();
         @include flexCenter();
         width: 120rem;
@@ -137,7 +134,7 @@ body {
 
         .productInventory {
             width: 100rem;
-            aspect-ratio: 8 / 5.5;
+            height: 70%;
             margin-top: 5rem;
             border: 1px solid #aaa;
                 border-radius: 0 1rem 1rem 1rem;
@@ -174,17 +171,81 @@ body {
                 & button:nth-child(4) {}
             }
 
-            & div:nth-child(1) {
+            & div:nth-child(n + 2) {
+                width: 100%;
+                height: 100%;
+                display: none;
+                border-radius: 0 1rem 1rem 1rem;
+                & > button {
+                    cursor: pointer;
+                    color: #ddd;
+                    background-color: #40497A;
+                    font-size: 1.7rem;
+                    margin: 1rem;
+                    width: 10rem;
+                    height: 6rem;
+                }
+                & section {
+                    margin-left: 1rem;
+                    width: 98rem;
+                    & article {
+                        @include flexCenter();
+                        justify-content: space-around;
+                        border-bottom: 1px solid #ddd;
+                        & p {
+                            font-size: 2rem;
+                        }
+                        & button {
+                            font-size: 2rem;
+                        }
+                        & p:nth-child(1) {
+                            width: 10%;
+                        }
+                        & p:nth-child(2) {
+                            width: 20%;
+                        }
+                        & p:nth-child(3) {
+                            width: 20%;
+                        }
+                        & p:nth-child(4) {
+                            width: 10%;
+                        }
+                        & p:nth-child(5) {
+                            width: 10%;
+                        }
+                        & p:nth-child(6) {
+                            text-align: center;
+                            width: 21.5%;
+                        }
+                        & button {
+                            cursor: pointer;
+                            width: 10%;
+                            &:hover {
+                                background-color: #dadada;
+                            }
+                        }
+                    }
+                    & article:nth-child(1) {
+                        border-bottom: 1px solid #ddd;
+                        background-color: rgba(#161A2E, 0.4);
+                        & p {
+                            color: #fff;
+                            font-size: 2rem;
+                        }
+                    }
 
+                }
             }
             & div:nth-child(2) {
-
             }
             & div:nth-child(3) {
-
             }
             & div:nth-child(4) {
-
+            }
+            & div:nth-child(5) {
+            }
+            & div.displayFlag{
+                display: block;
             }
 
         }
@@ -193,7 +254,6 @@ body {
     &::before {
         position: absolute;
         top: 0;
-        @include topBorderRadius();
         @include flexCenter();
         width: 101.5rem;
         color: white;
@@ -318,6 +378,7 @@ body {
     }
     .footerPaging {}
 
+
 }
 
 .displayFlag {
@@ -333,10 +394,11 @@ body {
     align-items: center;
     height: 100%;
     width: 15rem;
-    background-color: rgba(#000000, 0.6);
+    background-color: rgba(#161A2E, 0.6);
 
     & li:nth-child(1) {
         margin-top: 1rem;
+        margin-bottom: 1rem;
         width: 6rem;
         height: 6rem;
         font-size: 3rem;

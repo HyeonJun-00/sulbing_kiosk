@@ -16,7 +16,7 @@ hmtl
                 li 상품재고
                 li 매출
                 li 메뉴관리
-                li 회원
+                li 회원관리
             section.adminPage1.displayFlag
                 div.leftBox
                     -for(let i = 0; i < 7 ; i++)
@@ -35,13 +35,85 @@ hmtl
                     div.productInventory
                         div
                             button.borderFlag 빙수
-                            button 음류
+                            button 음료
                             button 디저트
                             button 세트메뉴
-                        div
+                        div.displayFlag
+                            button 제품 추가
+                            section
+                                article
+                                    p 번호
+                                    p 제품
+                                    p 가격
+                                    p 대분류
+                                    p 소분류
+                                    p 기능
+                                -for(let i = 0; i < 5; i++)
+                                    article 
+                                        p #{i + 1}
+                                        p 킹망고빙수
+                                        p 14,900
+                                        p 빙수
+                                        p 과일빙수
+                                        button 수정
+                                        button 삭제
                         div 
+                            button 제품 추가
+                            section
+                                article
+                                    p 번호
+                                    p 제품
+                                    p 가격
+                                    p 대분류
+                                    p 소분류
+                                    p 기능
+                                -for(let i = 0; i < 12; i++)
+                                    article 
+                                        p #{i + 1}
+                                        p 아이스 아메리카노
+                                        p 1,900
+                                        p 음료
+                                        p 커피
+                                        button 수정
+                                        button 삭제
                         div 
+                            button 제품 추가
+                            section
+                                article
+                                    p 번호
+                                    p 제품
+                                    p 가격
+                                    p 대분류
+                                    p 소분류
+                                    p 기능
+                                -for(let i = 0; i < 8; i++)
+                                    article 
+                                        p #{i + 1}
+                                        p 허니브레드
+                                        p 9,900
+                                        p 디저트
+                                        p 빵
+                                        button 수정
+                                        button 삭제
                         div 
+                            button 제품 추가
+                            section
+                                article
+                                    p 번호
+                                    p 제품
+                                    p 가격
+                                    p 대분류
+                                    p 소분류
+                                    p 기능
+                                -for(let i = 0; i < 3; i++)
+                                    article 
+                                        p #{i + 1}
+                                        p 아이스 아메리카노
+                                        p 1,900
+                                        p 커피
+                                        p 원두커피
+                                        button 수정
+                                        button 삭제
             section.adminPage3
                 div.leftBox
                 div.rightBox
@@ -111,4 +183,4 @@ hmtl
                                     li
                                         input.userResetBtn( type="button" value="지우기" )
                 section.footerPaging
-        script(src="mo.js")
+        script(src="mo.js") 
