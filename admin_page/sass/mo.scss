@@ -195,10 +195,7 @@ body {
                             @include flexCenter();
                             height: 3.5rem;
                             font-size: 1.8rem;
-                            border: 0.01rem solid #ddd;
-                            border-left: transparent;
-                            border-right: transparent;
-                            border-top: transparent;
+                            border-bottom: 1px solid #ddd;
                         }
                         & p:nth-child(1) {
                             width: 7%;
@@ -234,6 +231,7 @@ body {
                         }
                     }
                     & article:nth-child(1) {
+                        border-top: 1px solid #ddd;
                         border-bottom: 1px solid #ddd;
                         & p {
                             font-size: 1.5rem;

@@ -160,10 +160,7 @@ body {
               align-items: center;
               height: 3.5rem;
               font-size: 1.8rem;
-              border: 0.01rem solid #ddd;
-              border-left: transparent;
-              border-right: transparent;
-              border-top: transparent; }
+              border-bottom: 1px solid #ddd; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(1) {
               width: 7%; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article p:nth-child(2) {
@@ -188,6 +185,7 @@ body {
               .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article button:hover {
                 background-color: #dadada; }
           .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article:nth-child(1) {
+            border-top: 1px solid #ddd;
             border-bottom: 1px solid #ddd; }
             .adminPage2 .leftBox .productInventory div:nth-child(n + 2) section article:nth-child(1) p {
               font-size: 1.5rem; }
