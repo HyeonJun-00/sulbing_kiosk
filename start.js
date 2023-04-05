@@ -35,7 +35,9 @@ app.get( `/`, ( req, res ) => {
     });
 });
 
-
+app.get ( `/admin`, ( req, res, next ) => {
+    res.render( `mo` );
+});
 
 app.listen( port, () => {
     console.log( `connected ${ port } port!` );
