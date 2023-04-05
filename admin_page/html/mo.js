@@ -19,37 +19,5 @@
             $(".productInventory div").eq($(this).index() + 1).addClass("displayFlag");
         });
     }
-
-
-    $( `.userResetBtn` ).on( `click`, e => { // 추가 셀 내용 삭제
-        $( `.userInsertRow [name=name]` ).val( `` );
-        $( `.userInsertRow [name=tel]` ).val( `` );
-        $( `.userInsertRow [name=sex]` ).val( `M` ).prop( `selected`, true );
-        $( `.userInsertRow [name=birth_date]` ).val( `` );
-        $( `.userInsertRow [name=auth]` ).val( `N` ).prop( `selected`, true );
-        $( `.userInsertRow [name=remark]` ).val( `` );
-    });
-
-    document.querySelector( `.userInsertBtn` )
-        .addEventListener( `click`, e => { // 회원 추가
-       alert();
-    });
-
-    [...document.querySelectorAll( `.userReadRow` )].forEach( v => {
-        v.querySelector( `.userUpdateBtn` ).disabled= true;
-        v.addEventListener( `dblclick`, e => {
-            let target = e.currentTarget.querySelector( `.userUpdateBtn` );
-            target.disabled = false;
-        })
-    });
-
-    document.querySelector( `.userUpdateBtn` )
-        .addEventListener( `click`, e => { // 사용자 수정 완료
-
-        });
-    document.querySelector( `.userDeleteBtn` )
-        .addEventListener( `click`, e => { // 사용자 삭제
-
-    });
 })();
 
