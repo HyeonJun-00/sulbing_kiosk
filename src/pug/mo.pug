@@ -7,7 +7,7 @@ hmtl
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet")
-        link(rel="stylesheet", href="mo.css")
+        link(rel="stylesheet", href="./css/mo.css")
     body
         main.mainDisplay
             ul.mainMenu
@@ -144,8 +144,7 @@ hmtl
                                 li 최초구매일
                                 li 회원가입일
                                 li 메모
-                                li 수정
-                                li 삭제
+                                li 기능
                         li.userInsertRow
                             form
                                 ul.userColSet
@@ -177,8 +176,7 @@ hmtl
                         li.userReadRow
                             form
                                 ul.userColSet
-                                    li
-                                        input( type="number" value=1 disabled )
+                                    li 1
                                         input( type="hidden" value=1 )
                                     li
                                         input( type="text", name="name", value="dsdsds", require, disabled )
@@ -208,8 +206,7 @@ hmtl
                         li.userReadRow
                            form
                                ul.userColSet
-                                   li
-                                       input( type="number" value=2 disabled )
+                                   li 2
                                        input( type="hidden" value=2 )
                                    li
                                        input( type="text", name="name", value="dsdsds", require, disabled )
@@ -237,4 +234,4 @@ hmtl
                                    li
                                        input.userDeleteBtn( type="button" value="삭제" )
                 section.footerPaging
-        script(src="mo.js") 
+        script(src="./js/mo.js")
