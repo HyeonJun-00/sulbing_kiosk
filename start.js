@@ -15,10 +15,6 @@ app.use( express.static( `./public/html` ) );
 
 const port= 4191;
 
-con.connect( err => {
-    console.log( `connected sql server!` );
-    if( err ) throw err;
-});
 app.get( `/`, ( req, res ) => {
     let sqlGetMenu= `select * from v_menu;`;
     let sqlGetMenuInProduct= `select * from v_menu_in_product;`;
