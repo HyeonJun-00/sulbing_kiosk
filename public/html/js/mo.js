@@ -1,4 +1,5 @@
 (() => {
+    /*
     const   mainMenu = $(".mainMenu li");
     const   productInventory = $(".productInventory div:first-child > button");
     for (i = 1; i < mainMenu.length; i++) {
@@ -17,9 +18,7 @@
             $(".productInventory div").removeClass("displayFlag");
             $(".productInventory div").eq($(this).index() + 1).addClass("displayFlag");
         });
-    }
-
-
+    }*/
 
     $( `.userResetBtn` ).on( `click`, e => { // 추가 셀 내용 삭제
         $( `.userInsertRow [name=name]` ).val( `` );
@@ -35,12 +34,31 @@
        alert();
     });
 
-    [...document.querySelectorAll( `.userReadRow` )].forEach( v => {
-        v.querySelector( `.userUpdateBtn` ).disabled= true;
+    [...document.querySelectorAll( `.userReadRow` )].forEach( ( v, i, a) => {
         v.addEventListener( `dblclick`, e => {
-            let target = e.currentTarget.querySelector( `.userUpdateBtn` );
-            target.disabled = false;
-        })
+            a.forEach( vRow => {
+                [...vRow.querySelectorAll( `input:not( .fixCol ), select` )].forEach( vi => {
+                    vi.disabled = true;
+                    vi.value= vi.getAttribute( `data-origin-value` );
+                    vRow.classList.remove( `modifyMode` );
+                });
+            });
+            [...e.currentTarget.querySelectorAll( `input:not( .fixCol ), select` )].forEach( vi => {
+                vi.disabled = false;
+                v.classList.add( `modifyMode` );
+            });
+        });
+        v.addEventListener( `click`, e => {
+            if( !e.currentTarget.classList.contains( `modifyMode` ) ) {
+                a.forEach( vRow => {
+                    [...vRow.querySelectorAll( `input:not( .fixCol ), select` )].forEach( vi => {
+                        vi.disabled = true;
+                        vi.value= vi.getAttribute( `data-origin-value` );
+                        vRow.classList.remove( `modifyMode` );
+                    });
+                });
+            }
+        });
     });
     document.querySelector( `.userUpdateBtn` )
         .addEventListener( `click`, e => { // 사용자 수정 완료

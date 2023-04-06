@@ -8,7 +8,22 @@ con.connect( err => {
 });
 
 router.get ( `/`, ( req, res, next ) => {
-    res.render(`adminUser`);
+    let sqlUserTotCnt= `select count( * ) cnt from user where deleted_date is null;`;
+    let sqlReadPost= `
+                    select
+                          id, tel, name, sex,
+                          date_format( birth_date, '%Y-%m-%d' ) birth_date,
+                          auth, remark,
+                          date_format( created_date, '%Y-%m-%d %H:%i' ) created_date,
+                          date_format( join_date, '%Y-%m-%d %H:%i' ) join_date
+                      from user
+                      where deleted_date is null
+                          limit 20 offset ${ Number( req.query.page ) * 20 };`;
+
+    con.query( sqlUserTotCnt + sqlReadPost, ( err, result ) => {
+       if( err ) throw err;
+        res.render(`adminUser`, { userTotCnt: result[0], readPost: result[1], nowPage: req.query.page });
+    });
 });
 
 module.exports= router;

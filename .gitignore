@@ -107,3 +107,4 @@ config/
 .idea/
 .sass-cache
 .vscode
+.css

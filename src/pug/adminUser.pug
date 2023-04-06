@@ -1,4 +1,4 @@
-hmtl
+html
     head 
         script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js'
         integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='
@@ -11,227 +11,112 @@ hmtl
     body
         main.mainDisplay
             ul.mainMenu
-                li 설빙
-                li.backgroundFlag 주문현황
-                li 상품재고
-                li 매출
-                li 메뉴관리
-                li 회원관리
-            section.adminPage1.displayFlag
-                div.leftBox
-                    -for(let i = 0; i < 7 ; i++)
-                        div.orderBox
-                            div
-                                div 
-                                    p 킹망고빙수
-                                    p 1243
-                                div 
-                                    div
-                                div
-                                    p 19,400
-                                    button 완료
-            section.adminPage2
-                div.leftBox
-                    div.productInventory
-                        div
-                            button.borderFlag 빙수
-                            button 음료
-                            button 디저트
-                            button 세트메뉴
-                        div.displayFlag
-                            button 제품 추가
-                            section
-                                article
-                                    p No
-                                    p 제품
-                                    p 가격
-                                    p 재고
-                                    p 대분류
-                                    p 소분류
-                                    p 기능
-                                -for(let i = 0; i < 5; i++)
-                                    article 
-                                        p #{i + 1}
-                                        p 킹망고빙수
-                                        p 14,900
-                                        p 10
-                                        p 빙수
-                                        p 과일빙수
-                                        button 수정
-                                        button 삭제
-                        div 
-                            button 제품 추가
-                            section
-                                article
-                                    p No
-                                    p 제품
-                                    p 가격
-                                    p 재고
-                                    p 대분류
-                                    p 소분류
-                                    p 기능
-                                -for(let i = 0; i < 12; i++)
-                                    article 
-                                        p #{i + 1}
-                                        p 아이스 아메리카노
-                                        p 1,900
-                                        p 21
-                                        p 음료
-                                        p 커피
-                                        button 수정
-                                        button 삭제
-                        div 
-                            button 제품 추가
-                            section
-                                article
-                                    p No
-                                    p 제품
-                                    p 가격
-                                    p 재고
-                                    p 대분류
-                                    p 소분류
-                                    p 기능
-                                -for(let i = 0; i < 8; i++)
-                                    article 
-                                        p #{i + 1}
-                                        p 허니브레드
-                                        p 9,900
-                                        p 8
-                                        p 디저트
-                                        p 빵
-                                        button 수정
-                                        button 삭제
-                        div 
-                            button 제품 추가
-                            section
-                                article
-                                    p No
-                                    p 제품
-                                    p 가격
-                                    p 재고
-                                    p 대분류
-                                    p 소분류
-                                    p 기능
-                                -for(let i = 0; i < 3; i++)
-                                    article 
-                                        p #{i + 1}
-                                        p 아이스 아메리카노
-                                        p 1,900
-                                        p 24
-                                        p 커피
-                                        p 원두커피
-                                        button 수정
-                                        button 삭제
-            section.adminPage3
-                div.leftBox
-                div.rightBox
-            section.adminPage4
-                div.leftBox
-                div.rightBox
-            section.adminPage5
+                li
+                    a( href="/admin_order" )
+                        img.logo(src="./images/sulbingLogo.png", alt="설빙로고", title="설빙로고")
+                li
+                    a( href="/admin_order" ) 주문현황
+                li
+                    a( href="/admin_product" ) 상품재고
+                li
+                    a( href="/admin_sales" ) 매출
+                li
+                    a( href="/admin_menu" ) 메뉴관리
+                li
+                    a( href="/admin_user?page=0" ) 회원관리
+            section.adminPage
                 section.headFrame
+                    h1 회원관리
                 section.mainContent
-                    ul.userRowSet
-                        li
-                            ul.userColSet
-                                li No
-                                li 이름
-                                li tel
-                                li 성별
-                                li 생년월일
-                                li 스탬프
-                                li 권한
-                                li 최초구매일
-                                li 회원가입일
-                                li 메모
-                                li 기능
-                        li.userInsertRow
-                            form
+                    section.searchBox
+                        form
+                            i.xe-search
+                            input
+                    section.postTable
+                        ul.userRowSet
+                            li
                                 ul.userColSet
-                                    li.userColEmpty new
-                                    li
-                                        input( type="text", name="name", require )
-                                    li
-                                        input( type="text", name="tel", require )
-                                    li
-                                        select( name="sex" )
-                                            option( value="M" ) 남
-                                            option( value="F" ) 여
-                                    li
-                                        input( type="date", name="birth_date" )
-                                    li.userColEmpty -
-                                    li
-                                        select( name="auth" )
-                                            option( value="N" ) 일반회원
-                                            option( value="G" ) 미가입자
-                                            option( value="S" ) 관리자
-                                    li.userColEmpty -
-                                    li.userColEmpty -
-                                    li
-                                        input( type="text", name="remark" )
-                                    li
-                                        input.userInsertBtn( type="button" value="추가" )
-                                    li
-                                        input.userResetBtn( type="button" value="지우기" )
-                        li.userReadRow
-                            form
-                                ul.userColSet
-                                    li 1
-                                        input( type="hidden" value=1 )
-                                    li
-                                        input( type="text", name="name", value="dsdsds", require, disabled )
-                                    li
-                                        input( type="text", name="tel", value="01022228888", require, disabled )
-                                    li
-                                        select( name="sex", disabled )
-                                            option( value="M", selected ) 남
-                                            option( value="F" ) 여
-                                    li
-                                        input( type="date", name="birth_date", disabled )
-                                    li
-                                        input( type="number", name="stamp", value=0, disabled )
-                                    li
-                                        select( name="auth", disabled )
-                                            option( value="G" ) 미가입자
-                                            option( value="N", selected ) 일반회원
-                                            option( value="S" ) 관리자
-                                    li 2023-01-01
-                                    li 2023-02-01
-                                    li
-                                        input( type="text", name="remark", value="ㅋㅋㅋㅋㅋㅋ", disabled )
-                                    li
-                                        input.userUpdateBtn( type="button" value="수정", disabled )
-                                    li
-                                        input.userDeleteBtn( type="button" value="삭제" )
-                        li.userReadRow
-                           form
-                               ul.userColSet
-                                   li 2
-                                       input( type="hidden" value=2 )
-                                   li
-                                       input( type="text", name="name", value="dsdsds", require, disabled )
-                                   li
-                                       input( type="text", name="tel", value="01022228888", require, disabled )
-                                   li
-                                       select( name="sex", disabled )
-                                           option( value="M", selected ) 남
-                                           option( value="F" ) 여
-                                   li
-                                       input( type="date", name="birth_date", disabled )
-                                   li
-                                       input( type="number", name="stamp", value=0, disabled )
-                                   li
-                                       select( name="auth", disabled )
-                                           option( value="G" ) 미가입자
-                                           option( value="N", selected ) 일반회원
-                                           option( value="S" ) 관리자
-                                   li 2023-01-01
-                                   li 2023-02-01
-                                   li
-                                       input( type="text", name="remark", value="ㅋㅋㅋㅋㅋㅋ", disabled )
-                                   li
-                                       input.userUpdateBtn( type="button" value="수정", disabled )
-                                   li
-                                       input.userDeleteBtn( type="button" value="삭제" )
-                section.footerPaging
+                                    li No
+                                    li 이름
+                                    li tel
+                                    li 성별
+                                    li 생년월일
+                                    li 스탬프
+                                    li 권한
+                                    li 등록일
+                                    li 가입일
+                                    li 메모
+                                    li 기능
+                            li.userInsertRow
+                                form
+                                    ul.userColSet
+                                        li.userColEmpty new
+                                        li
+                                            input( type="text", name="name", require )
+                                        li
+                                            input( type="text", name="tel", require )
+                                        li
+                                            select( name="sex" )
+                                                option( value="M" ) 남
+                                                option( value="F" ) 여
+                                        li
+                                            input( type="date", name="birth_date" )
+                                        li.userColEmpty -
+                                        li
+                                            select( name="auth" )
+                                                option( value="N" ) 일반회원
+                                                option( value="G" ) 미가입자
+                                                option( value="S" ) 관리자
+                                        li.userColEmpty -
+                                        li.userColEmpty -
+                                        li
+                                            input( type="text", name="remark" )
+                                        li
+                                            input.userInsertBtn( type="button" value="추가" )
+                                        li
+                                            input.userResetBtn( type="button" value="지우기" )
+                            for item, i in readPost
+                                li.userReadRow
+                                   form.userSetForm
+                                       ul.userColSet
+                                           li= i+1
+                                               input( type="hidden" value=`${ item.id }` )
+                                           li
+                                               input( type="text", name="name", data-origin-value=`${ ( item.name )? item.name: '' }`, value=`${ ( item.name )? item.name: '' }`, require, disabled )
+                                           li
+                                               input( type="text", name="tel", data-origin-value=`${ item.tel }`, value=`${ item.tel }`, require, disabled )
+                                           li
+                                               select( name="sex", data-origin-value=`${ item.sex }`, disabled )
+                                                   - let sexArr= [ { K: '남', V: 'M' }, { K: '여', V: 'F' } ];
+                                                   option( value=``, selected )
+                                                   each v, k in sexArr
+                                                       if v.V == item.sex
+                                                           option( value=`${ v.V }`, selected ) #{ v.K }
+                                                       else
+                                                           option( value=`${ v.V }` ) #{ v.K }
+                                           li
+                                               input( type="date", name="birth_date", data-origin-value=`${ item.birth_date }`, value=`${ item.birth_date }`, disabled )
+                                           li
+                                               input( type="number", class="fixCol", name="stamp", data-origin-value=`${ item.stamp }`, value=`${ item.stamp }`, disabled )
+                                           li
+                                               select( name="auth", data-origin-value=`${ item.auth }`, disabled )
+                                                   - let authArr= [ { K: '미가입자', V: 'G' }, { K: '일반회원', V: 'N' }, { K: '관리자', V: 'S' } ];
+                                                   each v, k in authArr
+                                                       if v.V == item.auth
+                                                           option( value=`${ v.V }`, selected ) #{ v.K }
+                                                       else
+                                                           option( value=`${ v.V }` ) #{ v.K }
+                                           li= item.created_date
+                                           li= item.join_date
+                                           li
+                                               input( type="text", name="remark", data-origin-value=`${ ( item.remark )? item.remark: '' }`, value=`${ ( item.remark )? item.remark: '' }`, disabled )
+                                           li
+                                               input.userUpdateBtn( type="button" data-origin-value="수정", value="수정", disabled )
+                                           li
+                                               input.userDeleteBtn( class="fixCol", type="button" value="삭제" )
+                    section.tablePaging
+                        - for( let i= 0; i < ( ( userTotCnt[0].cnt )/10 ) - 1; i++ )
+                            a( href=`./admin_user?page=${ i }`, data-page=`${ i == nowPage }` )= i + 1
+                    section.modalConfirm
+                section.footer
         script(src="./js/mo.js")

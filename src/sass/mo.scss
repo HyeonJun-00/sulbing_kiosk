@@ -6,6 +6,12 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+a { color: inherit; text-decoration: none; font-size: 1rem; }
+a:link { }
+a:visited { }
+a:hover { }
+a:active { }
+
 html,
 body {
     background-color: rgba(#fafaea, 0.5);
@@ -13,7 +19,6 @@ body {
 
 @mixin mainMenu {
     transition: all 1s ease-in-out .1s;
-    display: none;
     width: 105rem;
     height: 100%;
     background-color: #fff;
@@ -38,401 +43,115 @@ body {
     @include flexCenter();
 }
 
-.adminPage1 {
+.adminPage {
     @include mainMenu();
+    display: flex; flex-direction: column;
+    align-items: center;
 
-    & .leftBox {
-        @include rightAndLeftBox();
-        width: 120rem;
-        height: 100%;
-        margin-left: 1.8rem;
-        overflow: hidden;
-
-        & .orderBox {
-            border: 1px solid black;
-            @include flexCenter();
-            display: inline-flex;
-            margin: 1.2rem;
-            border-radius: 1rem;
-
-            &>div {
-                width: 31rem;
-                height: 25rem;
-
-                & div:nth-child(1) {
-                    @include flexCenter();
-                    justify-content: space-between;
-                    height: 20%;
-
-                    & p {
-                        font-size: 2rem;
-                        margin: 2rem;
-                    }
-                }
-
-                & div:nth-child(2) {
-                    height: 60%;
-                    @include flexCenter();
-
-                    &>div {
-                        width: 27rem;
-                        height: 80%;
-                        border: 1px solid #ddd;
-                    }
-                }
-
-                & div:nth-child(3) {
-                    @include flexCenter();
-                    height: 20%;
-                    justify-content: space-between;
-
-                    & p {
-                        font-size: 2rem;
-                        margin: 2rem;
-                        padding: 1rem;
-                    }
-
-                    & button {
-                        border-radius: 1rem;
-                        cursor: pointer;
-                        background-color: #f2da5e;
-                        border: 1px solid #fde363;
-                        width: 8rem;
-                        font-size: 2rem;
-                        margin: 2rem;
-
-                        &:hover {
-                            background-color: #fde363;
-                        }
-                    }
-                }
-            }
-        }
-
-        &::before {
-            @include flexCenter();
-            margin-bottom: 4rem;
-            width: 101.5rem;
-            color: white;
-            background-color: #2E1F1A;
-            font-size: 3rem;
-            content: "주문현황";
+    .headFrame {
+        width: 100%; height: 4rem;
+        display: flex;
+        justify-content: flex-start; align-items: center;
+        h1 {
+            font-size: 2rem;
+            padding-left: 2rem;
         }
     }
-}
-
-.adminPage2 {
-    @include mainMenu();
-
-    & .leftBox {
-        @include rightAndLeftBox();
-        @include flexCenter();
-        width: 120rem;
-        height: 100%;
-        margin-left: 1.8rem;
-        overflow: hidden;
-
-        .productInventory {
-            width: 85rem;
-            height: 70%;
-            margin-top: 5rem;
-            border: 1px solid #aaa;
-            border-radius: 0 1rem 1rem 1rem;
-
-            & div:nth-child(1) {
-                display: flex;
-                position: absolute;
-                margin-top: -5rem;
-                width: 80rem;
-                height: 5rem;
-
-                & button {
-                    margin-left: -0.1rem;
-                    cursor: pointer;
-                    background-color: #fff;
-                    border-radius: 1rem 1rem 0 0;
-                    aspect-ratio: 8 / 7;
-                    border: 1px solid #aaa;
-                    font-size: 1.2rem;
-                    color: #555;
-                    &:hover {
-                        background-color: #eee;
-                    }
-                }
-                & button.borderFlag {
-                    border-bottom: 0;
-                }
-                & button:nth-child(1) {}
-
-                & button:nth-child(2) {}
-
-                & button:nth-child(3) {}
-
-                & button:nth-child(4) {}
-            }
-
-            & div:nth-child(n + 2) {
-                width: 100%;
-                height: 100%;
-                display: none;
-                border-radius: 0 1rem 1rem 1rem;
-                & > button {
-                    cursor: pointer;
-                    color: #ddd;
-                    background-color: #40497A;
-                    font-size: 1.5rem;
-                    margin: 1.5rem;
-                    margin-left: 3.5rem;
-                    width: 10rem;
-                    height: 6rem;
-                }
-                & section {
-                    margin-left: 3.5rem;
-                    width: 78rem;
-                    & article {
-                        @include flexCenter();
-                        justify-content: space-around;
-                        border-bottom: 1px solid #ddd;
-                        & p {
-                            @include flexCenter();
-                            height: 3.5rem;
-                            font-size: 1.8rem;
-                            border-bottom: 1px solid #ddd;
-                        }
-                        & p:nth-child(1) {
-                            width: 7%;
-                        }
-                        & p:nth-child(2) {
-                            width: 23%;
-                        }
-                        & p:nth-child(3) {
-                            width: 15%;
-                        }
-                        & p:nth-child(4) {
-                            width: 10%;
-                        }
-                        & p:nth-child(5) {
-                            width: 15%;
-                        }
-                        & p:nth-child(6) {
-                            width: 15%;
-                        }
-                        & p:nth-child(7) {
-                            text-align: center;
-                            width: 15%;
-                        }
-                        & button {
-                            cursor: pointer;
-                            width: 7.6%;
-                            height: 3.7rem;
-                            font-size: 1.8rem;
-                            border: 0.01rem solid #ddd;
-                            &:hover {
-                                background-color: #dadada;
-                            }
-                        }
-                    }
-                    & article:nth-child(1) {
-                        border-top: 1px solid #ddd;
-                        border-bottom: 1px solid #ddd;
-                        & p {
-                            font-size: 1.5rem;
-                        }
-                    }
-
-                }
-            }
-            & div:nth-child(2) {
-            }
-            & div:nth-child(3) {
-            }
-            & div:nth-child(4) {
-            }
-            & div:nth-child(5) {
-            }
-            & div.displayFlag{
-                display: block;
-            }
-
-        }
-    }
-
-    &::before {
-        position: absolute;
-        top: 0;
-        @include flexCenter();
-        width: 101.5rem;
-        color: white;
-        background-color: #2E1F1A;
-        font-size: 3rem;
-        content: "상품재고";
-    }
-}
-
-.adminPage3 {
-    @include mainMenu();
-
-    & .rightBox {
-        @include rightAndLeftBox();
-    }
-
-    & .leftBox {
-        @include rightAndLeftBox();
-        width: 120rem;
-        height: 100%;
-        margin-left: 1.8rem;
-        overflow: hidden;
-    }
-
-    &::before {
-        top: 0;
-        position: absolute;
-        @include flexCenter();
-        width: 101.5rem;
-        color: white;
-        background-color: #2E1F1A;
-        font-size: 3rem;
-        content: "매출";
-    }
-}
-
-.adminPage4 {
-    @include mainMenu();
-
-    & .rightBox {
-        @include rightAndLeftBox();
-    }
-
-    & .leftBox {
-        @include rightAndLeftBox();
-        width: 120rem;
-        height: 100%;
-        margin-left: 1.8rem;
-        overflow: hidden;
-    }
-
-    &::before {
-        top: 0;
-        position: absolute;
-        @include flexCenter();
-        width: 101.5rem;
-        color: white;
-        background-color: #2E1F1A;
-        font-size: 3rem;
-        content: "메뉴관리";
-    }
-}
-
-.adminPage5 {
-     @include mainMenu();
-
-    & .rightBox {
-        @include rightAndLeftBox();
-    }
-
-    & .leftBox {
-        @include rightAndLeftBox();
-        width: 120rem;
-        height: 100%;
-        margin-left: 1.8rem;
-        overflow: hidden;
-    }
-
-    &::before {
-        top: 0;
-        position: absolute;
-        @include flexCenter();
-        width: 101.5rem;
-        color: white;
-        background-color: #2E1F1A;
-        font-size: 3rem;
-        content: "회원";
-    }
-
-    .headFrame {}
     .mainContent {
         width: 95%; height: 80%;
-        ul { list-style-type: none; }
-        ul.userRowSet {
-            display: flex; flex-direction: column;
-            li {
-                &.userReadRow {
-                    border-top: 0.01rem solid #ddd;
-                    border-bottom: 0.01rem solid #ddd;
-                    border-left: 0.01rem solid transparent;
-                    border-right: 0.01rem solid transparent;
-                    cursor: pointer;
-                    input[disabled] { cursor: pointer; }
-                    &:hover { border: 0.01rem solid #f2da5e; }
-                }
-                ul.userColSet {
-                    display: flex;
-                    li {
-                        display: inline-flex;
-                        justify-content: flex-start; align-items: center;
-                        //border-top: 0.01rem solid #ddd;
-                        //border-bottom: 0.01rem solid #ddd;
-                        width: 10%; height: 3rem;
-                        input, select {
-                            width: 100%; height: 100%;
-                            border: 0.01rem solid #ddd;
-                            &[type=button] {
-                                cursor: pointer;
-                            }
-                            &[type=number] {
-                                text-align: center;
-                            }
-                            &[disabled] {
-                                border: transparent;
-                                color: black;
-                                cursor: auto;
-                            }
-                        }
-                        input::-webkit-outer-spin-button,
-                        input::-webkit-inner-spin-button {
-                            -webkit-appearance: none;
-                            margin: 0;
-                        }
-                        &:nth-of-type(1) { width: 3%; justify-content: center; }
-                        &:nth-of-type(2) { width: 10%; }
-                        &:nth-of-type(3) { width: 13%; }
-                        &:nth-of-type(4) { width: 5%; }
-                        &:nth-of-type(5) {}
-                        &:nth-of-type(6) { width: 4%; }
-                        &:nth-of-type(7) { width: 7%; }
-                        &:nth-of-type(8) {}
-                        &:nth-of-type(9) {}
-                        &:nth-of-type(10) { width: 18%; }
-                        &:nth-of-type(11) { width: 5%; }
-                        &:nth-of-type(12) { width: 5%; }
+        section.searchBox { width: 100%; height: 2rem; }
+        section.postTable {
+            ul { list-style-type: none; }
+            ul.userRowSet {
+                display: flex; flex-direction: column;
+                li {
+                    &.userReadRow {
+                        border-top: 0.01rem solid #ddd;
+                        border-bottom: 0.01rem solid #ddd;
+                        border-left: 0.01rem solid transparent;
+                        border-right: 0.01rem solid transparent;
+                        cursor: pointer;
+                        input[disabled] { cursor: pointer; }
+                        &:hover { border: 0.01rem solid black; }
                     }
-                }
-                &:nth-of-type(1) > ul > li {
-                    justify-content: center;
-                    &:nth-of-type(11) { width: 10%; }
-                }
-                &.userInsertRow {
-                    margin: 0.5rem 0;
-                    form {
-                        ul {
-                            li {
+                    ul.userColSet {
+                        display: flex;
+                        li {
+                            display: inline-flex;
+                            justify-content: flex-start; align-items: center;
+                            //border-top: 0.01rem solid #ddd;
+                            //border-bottom: 0.01rem solid #ddd;
+                            width: 10%; height: 3rem;
+                            input, select {
+                                width: 100%; height: 100%;
+                                border: 0.01rem solid #ddd;
+                                &[type=button] {
+                                    cursor: pointer;
+                                }
+                                &[type=number] {
+                                    text-align: center;
+                                }
+                                &[disabled] {
+                                    border: transparent;
+                                    color: black;
+                                    cursor: auto;
+                                }
                             }
-                            .userColEmpty {
-                                border: 0.01rem solid transparent;
-                                display: flex; justify-content: center;
+                            input::-webkit-outer-spin-button,
+                            input::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
                             }
+                            &:nth-of-type(1) { width: 3%; justify-content: center; }
+                            &:nth-of-type(2) { width: 10%; }
+                            &:nth-of-type(3) { width: 13%; }
+                            &:nth-of-type(4) { width: 5%; }
+                            &:nth-of-type(5) {}
+                            &:nth-of-type(6) { width: 4%; }
+                            &:nth-of-type(7) { width: 7%; }
+                            &:nth-of-type(8) {}
+                            &:nth-of-type(9) {}
+                            &:nth-of-type(10) { width: 18%; }
+                            &:nth-of-type(11) { width: 5%; }
+                            &:nth-of-type(12) { width: 5%; }
                         }
                     }
+                    &:nth-of-type(1) > ul > li {
+                        justify-content: center;
+                        &:nth-of-type(11) { width: 10%; }
+                    }
+                    &.userInsertRow {
+                        margin: 0.5rem 0;
+                        form {
+                            ul {
+                                li {
+                                }
+                                .userColEmpty {
+                                    border: 0.01rem solid transparent;
+                                    display: flex; justify-content: center;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        section.tablePaging {
+            display: flex; align-items: center;
+            width: calc( 100% - 2rem ); height: 2rem;
+            padding: 1rem;
+            a {
+                display: inline-block;
+                width: 2rem; height: 2rem;
+                text-align: center; line-height: 2rem;
+                cursor: pointer;
+                &[data-page=true] {
+                    color: rgb( 181, 51, 60);
                 }
             }
         }
     }
     .footerPaging {}
-}
-
-.displayFlag {
-    @include flexCenter();
-    display: inline-flex;
 }
 
 .mainMenu {
@@ -443,22 +162,23 @@ body {
     align-items: center;
     height: 100%;
     width: 15rem;
-    background-color: rgba(#161A2E, 0.6);
+    background-color: rgb(46, 31, 26);
 
-    & li:nth-child(1) {
+    .logo { width: 100%; }
+
+    & li:nth-child(1) a {
         margin-top: 1rem;
         margin-bottom: 1rem;
         width: 6rem;
         height: 6rem;
         font-size: 3rem;
-        border: 1px solid black;
         @include flexCenter();
         display: inline-flex;
         border-radius: 50%;
         cursor: pointer;
     }
 
-    & li:nth-child(n + 2) {
+    & li:nth-child(n + 2) a {
         cursor: pointer;
         height: 5rem;
         width: 15rem;
