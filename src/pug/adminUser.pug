@@ -25,7 +25,7 @@ html
                 li
                     a( href="/admin_menu" ) 메뉴관리
                 li
-                    a( href="/admin_user?page=0" ) 회원관리
+                    a( href="/admin_user" ) 회원관리
             section.adminPage
                 section.headFrame
                     h1 회원관리
@@ -35,7 +35,7 @@ html
                             label tel
                             input.searchInput#searchTel( type="text", name="tel" )
                             button
-                                i.xi-searcㅁh
+                                i.xi-search
                             i.xi-refresh( onclick="location.reload();" )
                     section.postTable
                         ul.userRowSet
