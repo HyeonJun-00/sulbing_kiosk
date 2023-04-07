@@ -3,11 +3,12 @@ html
         script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js'
         integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='
         crossorigin='anonymous')
+        link( rel="stylesheet", href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" )
         script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet")
-        link(rel="stylesheet", href="./css/mo.css")
+        link(rel="stylesheet", href="./css/admin.css")
     body
         main.mainDisplay
             ul.mainMenu
@@ -29,9 +30,11 @@ html
                     h1 회원관리
                 section.mainContent
                     section.searchBox
-                        form
-                            i.xe-search
-                            input
+                        form( method="get", action="admin_user" )
+                            label tel
+                            input.searchInput( type="text", name="searchTel" )
+                            button
+                                i.xi-search
                     section.postTable
                         ul.userRowSet
                             li
@@ -75,7 +78,7 @@ html
                                             input.userInsertBtn( type="button" value="추가" )
                                         li
                                             input.userResetBtn( type="button" value="지우기" )
-                            for item, i in readPost
+                            each  item, i in readPost
                                 li.userReadRow
                                    form.userSetForm
                                        ul.userColSet
@@ -114,9 +117,12 @@ html
                                                input.userUpdateBtn( type="button" data-origin-value="수정", value="수정", disabled )
                                            li
                                                input.userDeleteBtn( class="fixCol", type="button" value="삭제" )
+                            else
+                                li.emptyRow 게시물이 존재하지 않습니다.
                     section.tablePaging
-                        - for( let i= 0; i < ( ( userTotCnt[0].cnt )/10 ) - 1; i++ )
+                        - let pageCnt= ( ( userTotCnt[0].cnt / 10 ) < 1 )? 1 : ( userTotCnt[0].cnt / 10 ) - 1;
+                        - for( let i= 0; i < pageCnt; i++ )
                             a( href=`./admin_user?page=${ i }`, data-page=`${ i == nowPage }` )= i + 1
                     section.modalConfirm
                 section.footer
-        script(src="./js/mo.js")
+        script(src="./js/admin.js")

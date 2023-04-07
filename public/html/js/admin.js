@@ -29,6 +29,7 @@
         $( `.userInsertRow [name=remark]` ).val( `` );
     });
 
+    //////////////////////////////////////////////////////////////////////////// 회원 관리
     document.querySelector( `.userInsertBtn` )
         .addEventListener( `click`, e => { // 회원 추가
        alert();
