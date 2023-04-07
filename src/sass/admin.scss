@@ -68,10 +68,10 @@ body {
         }
         section.postTable {
             ul { list-style-type: none; }
-            ul.userRowSet {
+            ul.userRowSet, ul.userReadRowSet {
                 display: flex; flex-direction: column;
                 li {
-                    &.userReadRow {
+                    &.userReadRow, ul.userReadRowSet {
                         border-top: 0.01rem solid #ddd;
                         border-bottom: 0.01rem solid #ddd;
                         border-left: 0.01rem solid transparent;

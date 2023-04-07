@@ -31,11 +31,12 @@ html
                     h1 회원관리
                 section.mainContent
                     section.searchBox
-                        form#searchTelForm
+                        form#searchTelForm( data-search-is=false )
                             label tel
                             input.searchInput#searchTel( type="text", name="tel" )
                             button
-                                i.xi-search
+                                i.xi-searcㅁh
+                            i.xi-refresh( onclick="location.reload();" )
                     section.postTable
                         ul.userRowSet
                             li
@@ -79,7 +80,7 @@ html
                                             input.userInsertBtn( type="button" value="추가" )
                                         li
                                             input.userResetBtn( type="button" value="지우기" )
-
+                        ul.userReadRowSet
                             each item, i in readPost
                                 li.userReadRow
                                    form.userSetForm
@@ -124,7 +125,7 @@ html
                     section.tablePaging
                         - let pageCnt= ( ( userTotCnt[0].cnt / 10 ) < 1 )? 1 : ( userTotCnt[0].cnt / 10 ) - 1;
                         - for( let i= 0; i < pageCnt; i++ )
-                            a( href=`./admin_user?page=${ i }`, data-page=`${ i == nowPage }` )= i + 1
+                            a( data-page-idx=`${ i }`, data-page=`${ i == nowPage }` )= i + 1
                     section.modalConfirmBak#modalConfirmBak
                         section.modalConfirm
                             p 수정하시겠습니까
@@ -133,4 +134,4 @@ html
                                 button.modalBtn( data-modal-confirm="false" ) CANCEL
     section.footer
     script( src="https://unpkg.com/axios/dist/axios.min.js")
-    script( src="./js/admin.js" )
+    script( src="./js/adminUser.js" )

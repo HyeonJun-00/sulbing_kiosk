@@ -7,10 +7,17 @@
 
         try {
             const res= await axios.post( `/admin_user/getSearchTel`, { searchTel } );
-            console.log( res.data );
-            console.log( res.data.readPost, res.data.nowPage, res.data.userTotCnt );
+            document.querySelector( `#searchTelForm` ).setAttribute( `data-search-is`, true );
             document.querySelector( `.userReadRowSet` ).innerHTML= ``;
             let tempHtml= ``;
+            let tempSex= `<option value="" ${ ( res.data.readPost[0].sex == null )? 'selected': '' }></option>`;
+            [ { K: '남', V: 'M' }, { K: '여', V: 'F' } ].forEach( v => {
+                tempSex += `<option value=${ v.V } ${ ( res.data.readPost[0].sex == v.V )? 'selected': '' }>${ v.K }</option>`;
+            });
+            let tempAuth = ``;
+            [ { K: '미가입자', V: 'G' }, { K: '일반회원', V: 'N' }, { K: '관리자', V: 'S' } ].forEach( v => {
+                tempAuth += `<option value=${ v.V } ${ ( res.data.readPost[0].auth == v.V )? 'selected': '' }>${ v.K }</option>`;
+            });
             res.data.readPost.forEach( ( v, i ) => {
                 tempHtml +=
                     `<li class="userReadRow">
@@ -20,26 +27,47 @@
                                     <input type="hidden" name="id" data-origin-value=${v.id} value=${v.id}> 
                                 </li>                        
                                 <li>
-                                    <input type="text" name="name" data-origin-value=${(v.name) ? v.name : ''}, value=${(v.name) ? v.name : ''} require disabled>
+                                    <input type="text" name="name" data-origin-value=${(v.name) ? v.name : ''} value=${(v.name) ? v.name : ''} require disabled>
                                 </li>
                                 <li>
-                                    <input> 
+                                    <input type="text" name="tel" data-origin-value=${v.tel} value=${v.tel} require disabled>
                                 </li>
                                 <li>
+                                    <select name="sex" data-origin-value=${v.sex} disabled>
+                                        ${tempSex}
+                                    </select>
                                 </li>
                                 <li>
+                                    <input type="date" name="birth_date" data-origin-value=${ v.birth_date } value=${ v.birth_date } disabled>
                                 </li>
                                 <li>
-                                <li>
-                                
+                                    <input type="number" class="fixCol" name="stamp" data-origin-value=${ v.stamp } value=${ v.stamp } disabled>
                                 </li>
                                 <li>
+                                    <select name="auth" data-origin-value=${v.auth} disabled>
+                                        ${ tempAuth }    
+                                    </select>
+                                </li>
+                                <li>${ ( v.created_date )? v.created_date: '' }</li>
+                                <li>${ ( v.join_date )? v.join_date: '' }</li>
+                                <li>
+                                    <input type="text" name="remark" data-origin-value=${ ( v.remark )? v.remark: '' } value=${ ( v.remark )? v.remark: '' } disabled>
+                                </li>
+                                <li>
+                                    <input class="userUpdateBtn" type="button" data-origin-value="수정" value="수정" disabled>                            
+                                </li>
+                                <li>
+                                    <input class="userDeleteBtn fixCol" type="button" data-origin-value="삭제" value="삭제" disabled>                            
                                 </li>
                             </ul>
                         </form>
                     </li>`;
             });
             document.querySelector( `.userReadRowSet` ).innerHTML= tempHtml;
+            document.querySelector( `.tablePaging` ).innerHTML= ``;
+            for( let i= 0; i < res.data.userTotCnt; i++ ) {
+                document.querySelector( `.tablePaging` ).innerHTML+= `<a data-page-idx=${ i } data-page=${ i == res.data.nowPage }>${ i + 1 }</a>`;
+            }
         } catch ( err ) {
             console.error( err );
         }
