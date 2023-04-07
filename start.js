@@ -12,6 +12,8 @@ app.set( `view engine`, `pug` );
 app.set( `views`, `./src/pug` );
 
 app.use( express.static( `./public/html` ) );
+app.use( express.json() );
+app.use( express.urlencoded({ extended: false }) );
 
 const port= 4191;
 

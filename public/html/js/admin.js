@@ -20,6 +20,19 @@
         });
     }*/
 
+    //////////////////////////////////////////////////////////////////////////// 회원 관리
+    document.querySelector( `#searchTelForm` ).addEventListener( `submit`, async e => {
+        e.preventDefault();
+        const searchTel= e.target.querySelector( `#searchTel` ).value;
+
+        try {
+            const res= await axios.post( `/admin_user/getSearchTel`, { searchTel } );
+            console.log( res.data );
+        } catch ( err ) {
+            console.error( err );
+        }
+    });
+
     $( `.userResetBtn` ).on( `click`, e => { // 추가 셀 내용 삭제
         $( `.userInsertRow [name=name]` ).val( `` );
         $( `.userInsertRow [name=tel]` ).val( `` );
@@ -29,7 +42,6 @@
         $( `.userInsertRow [name=remark]` ).val( `` );
     });
 
-    //////////////////////////////////////////////////////////////////////////// 회원 관리
     document.querySelector( `.userInsertBtn` )
         .addEventListener( `click`, e => { // 회원 추가
        alert();
@@ -61,13 +73,29 @@
             }
         });
     });
-    document.querySelector( `.userUpdateBtn` )
-        .addEventListener( `click`, e => { // 사용자 수정 완료
-
+    [...document.querySelectorAll( `.userUpdateBtn` )].forEach( ( v, i, a ) => {
+        v.addEventListener( `click`, async e => { // 사용자 수정 완료
+            modalCon( `사용자 정보를 수정하시겠습니까?` );
+            const targetValue= {};
+            [...document.querySelectorAll( `.modifyMode input, .modifyMode select` )].forEach( v => { targetValue[ v.getAttribute( `name` )] = v.value } );
+            console.log( targetValue );
+            //const res= await axios.post( `/admin_user/update`, targetValue );
         });
+    });
     document.querySelector( `.userDeleteBtn` )
         .addEventListener( `click`, e => { // 사용자 삭제
 
     });
+    let modalCon= ( tCon ) => {
+        document.querySelector( `#modalConfirmBak > .modalConfirm > p` ).innerText= tCon;
+        document.querySelector( `#modalConfirmBak` ).style.display= `block`;
+
+        let conResult= () => {
+            document.querySelector(`.modalBtn` ).addEventListener(`click`, e => {
+                alert(1);
+            });
+        }
+        conResult();
+    }
 })();
 

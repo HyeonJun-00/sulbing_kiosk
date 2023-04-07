@@ -1,5 +1,6 @@
 html
-    head 
+    head
+        title 설빙 - 관리자 페이지
         script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js'
         integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='
         crossorigin='anonymous')
@@ -30,9 +31,9 @@ html
                     h1 회원관리
                 section.mainContent
                     section.searchBox
-                        form( method="get", action="admin_user" )
+                        form#searchTelForm
                             label tel
-                            input.searchInput( type="text", name="searchTel" )
+                            input.searchInput#searchTel( type="text", name="tel" )
                             button
                                 i.xi-search
                     section.postTable
@@ -78,12 +79,13 @@ html
                                             input.userInsertBtn( type="button" value="추가" )
                                         li
                                             input.userResetBtn( type="button" value="지우기" )
-                            each  item, i in readPost
+
+                            each item, i in readPost
                                 li.userReadRow
                                    form.userSetForm
                                        ul.userColSet
                                            li= i+1
-                                               input( type="hidden" value=`${ item.id }` )
+                                               input( type="hidden" name="id" data-origin-value=`${ item.id }`, value=`${ item.id }` )
                                            li
                                                input( type="text", name="name", data-origin-value=`${ ( item.name )? item.name: '' }`, value=`${ ( item.name )? item.name: '' }`, require, disabled )
                                            li
@@ -123,6 +125,12 @@ html
                         - let pageCnt= ( ( userTotCnt[0].cnt / 10 ) < 1 )? 1 : ( userTotCnt[0].cnt / 10 ) - 1;
                         - for( let i= 0; i < pageCnt; i++ )
                             a( href=`./admin_user?page=${ i }`, data-page=`${ i == nowPage }` )= i + 1
-                    section.modalConfirm
-                section.footer
-        script(src="./js/admin.js")
+                    section.modalConfirmBak#modalConfirmBak
+                        section.modalConfirm
+                            p 수정하시겠습니까
+                            .modalBtnSet
+                                button.modalBtn( data-modal-confirm="true" ) YES
+                                button.modalBtn( data-modal-confirm="false" ) CANCEL
+    section.footer
+    script( src="https://unpkg.com/axios/dist/axios.min.js")
+    script( src="./js/admin.js" )
