@@ -116,7 +116,7 @@ html
                                            li
                                                input.userUpdateBtn( type="button" data-origin-value="수정", value="수정", disabled )
                                            li
-                                               input.userDeleteBtn( class="fixCol", type="button" value="삭제" )
+                                               input.userDeleteBtn( class="fixCol", type="button" data-origin-value="삭제",  value="삭제" )
                             else
                                 li.emptyRow 게시물이 존재하지 않습니다.
                     section.tablePaging
@@ -127,8 +127,8 @@ html
                         section.modalConfirm
                             p 수정하시겠습니까
                             .modalBtnSet
-                                button.modalBtn( data-modal-confirm="true" ) YES
-                                button.modalBtn( data-modal-confirm="false" ) CANCEL
+                                button.modalBtn( data-modal-confirm=true ) YES
+                                button.modalBtn( data-modal-confirm=false ) CANCEL
     section.footer
     script( src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js'
         integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='

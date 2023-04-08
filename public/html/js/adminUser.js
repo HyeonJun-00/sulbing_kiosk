@@ -54,7 +54,7 @@
                                     <input class="userUpdateBtn" type="button" data-origin-value="수정" value="수정" disabled>                            
                                 </li>
                                 <li>
-                                    <input class="userDeleteBtn fixCol" type="button" data-origin-value="삭제" value="삭제" disabled>                            
+                                    <input class="userDeleteBtn fixCol" type="button" data-origin-value="삭제" value="삭제">                            
                                 </li>
                             </ul>
                         </form>
@@ -127,27 +127,39 @@
     });
     [...document.querySelectorAll( `.userUpdateBtn` )].forEach( ( v, i, a ) => {
         v.addEventListener( `click`, async e => { // 사용자 수정 완료
-            modalCon( `사용자 정보를 수정하시겠습니까?` );
-            const targetValue= {};
-            [...document.querySelectorAll( `.modifyMode input, .modifyMode select` )].forEach( v => { targetValue[ v.getAttribute( `name` )] = v.value } );
-            console.log( targetValue );
-            //const res= await axios.post( `/admin_user/update`, targetValue );
+            console.log(modalCon(``));
+            //if ( modalCon(`사용자 정보를 수정하시겠습니까?`) ) {
+                const targetValue = {};
+                [...document.querySelectorAll(`.modifyMode input, .modifyMode select`)].forEach(v => {
+                    targetValue[v.getAttribute(`name`)] = v.value
+                });
+                console.log(targetValue);
+                //const res= await axios.post( `/admin_user/update`, targetValue );
+            //}
         });
     });
-    document.querySelector( `.userDeleteBtn` )
-        .addEventListener( `click`, e => { // 사용자 삭제
-
+    [...document.querySelectorAll( `.userDeleteBtn` )].forEach( v => {
+        v.addEventListener(`click`, e => { // 사용자 삭제
+            alert(1);
+        });
     });
     let modalCon= ( tCon ) => {
         document.querySelector( `#modalConfirmBak > .modalConfirm > p` ).innerText= tCon;
         document.querySelector( `#modalConfirmBak` ).style.display= `block`;
 
-        let conResult= () => {
-            document.querySelector(`.modalBtn` ).addEventListener(`click`, e => {
-                alert(1);
-            });
-        }
-        conResult();
-    }
-})();
+        console.log( resultCon() );
+    };
 
+    let resultCon= () => {
+        let result;
+        [...document.querySelectorAll(`.modalBtn`)].forEach( v => {
+            v.addEventListener( `click`, e => {
+            document.querySelector(`#modalConfirmBak`).style.display = `none`;
+                result= ( e.target.getAttribute(`data-modal-confirm`) )? true: false;
+                return;
+            });
+        });
+        console.log( result );
+    }
+
+})();

@@ -49,7 +49,7 @@ router.post( `/`, async ( req, res ) => {
     con.query( sqlUserTotCnt + sqlReadPost, ( err, result ) => {
         if( err ) throw err;
         res.status( 201 ).json( {
-            userTotCnt: result[0],
+            userTotCnt: result[0] ?? 0,
             readPost: result[1],
             nowPage: nowPage } );
     });
