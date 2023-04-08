@@ -1,6 +1,7 @@
 html( lang="ko" )
     head
         meta( charset="utf-8" )
+        script(src="http://code.jquery.com/jquery-latest.min.js")
         link( rel="stylesheet", href="./css/mainPage.css" )
         link( rel="stylesheet", href="./css/optionmodal.css")
         link( rel="preconnect" href="https://fonts.googleapis.com" )
@@ -8,132 +9,44 @@ html( lang="ko" )
         link( href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" )
         link(rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css")
         script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
-        script( src="./js/mainPage.js")
     body
         main.main 
-            section.left 
-                header.header_name
-                    img.logo(src="./images/sulbingLogo.png", alt="설빙로고", title="설빙로고")
-                    p.exp KOREAN DESSERT CAFE
-                section.menu
-                    nav.menu_list
-                        ul.product_main
-                            for row in menuCategory
-                                li.main_category(id='mainCategory_' + row.lv1_id, onclick="fn_mainTabSelect(" + row.lv1_id + ")")= row.lv1_name
-                                    ul.product_sub
-                                        li.sub_category(id='all_' + row.lv1_id) ALL
-                                        for subRow in menu
-                                            if row.lv1_id == subRow.lv1_id && subRow.lv2_id != null
-                                                li.sub_category(id='subCategory_' + subRow.lv2_id)= subRow.lv2_name
-                    div.line
-                    section.fix1 
-                        div.wrap1 
-                            for row in menuCategory
-                                article(id='mainCategoryTab_' + row.lv1_id, class='mainCategory_' + row.lv1_id )
-                                    div(id='wrap2_' + row.lv1_id, class='wrap2_' + row.lv1_id)
-                                        article(id='subCategory_all_' + row.lv1_id, class='subCategory_' + row.lv1_id + ' subCategoryAll') 
-                                            for mapping in menuInProduct 
-                                                if mapping.menu_id == row.lv1_id + '_all' 
-                                                    for item in product 
-                                                        if item.product_id == mapping.product_id 
-                                                            -var price= item.price - (item.price / 100 * item.discount)
-                                                            div(id='menu_all_' + item.product_id, class='menuCard' onclick="fn_showModal(" + item.product_id + ")")
-                                                                img.product(src="./images/" + item.image_path, alt="제품이미지")
-                                                                p.prod_name= item.name
-                                                                p.prod_price= price
-                                                                    div(class="toppModal", id="toppModal_" + item.product_id)
-                                                                        div(class="optionModal", id="optionModal_" + item.product_id)
-                                                                            section
-                                                                                button#close
-                                                                            div.option_modal_up
-                                                                                img.mProd_img(src="./images/" + item.image_path, alt="제품이미지")
-                                                                                div.option_modal_text
-                                                                                    p.mProd_name= item.name
-                                                                                    p.mProd_price= price
-                                                                                    p.mProd_discription= item.discription
-                                                                                    p.mProd_allergy= '알러지정보: ' + item.allergy
-                                                                                div.totalPrice
-                                                                                    div 
-                                                                                        hr
-                                                                                        p 상품의 옵션을 선택하세요.
-                                                                                        hr
-                                                                                    p 합계:  
-                                                                                    p 0원
-                                                                                    hr 
-                                                                            div.option_modal_down
-                                                                                div.option_modal_source
-                                                                                    ul
-                                                                                        for optionCategoryItem in optionCategory
-                                                                                            if optionCategoryItem.product_id == item.product_id
-                                                                                                li= optionCategoryItem.option_category 
-                                                                                                    for optionItem in productOption
-                                                                                                        if optionItem.product_id == item.product_id && optionItem.option_category == optionCategoryItem.option_category 
-                                                                                                            -var toppPrice= optionItem.option_price - (optionItem.option_price / 100 * optionItem.option_discount)
-                                                                                                            button.source= optionItem.option_name
-                                                                                div.option_modal_basket
-                                                                                    button.cansel 취소
-                                                                                    button.putin 주문담기
-                                                            - break
-                                        for subRow in menu
-                                            if subRow.lv1_id == row.lv1_id && subRow.lv2_id != null
-                                                article(id='subCategory_' + subRow.lv2_id, class='subCategory_' + subRow.lv2_id + ' subCategoryEach')
-                                                    for mapping in menuInProduct 
-                                                        if mapping.menu_id == subRow.lv2_id 
-                                                            for item in product 
-                                                                if item.product_id == mapping.product_id 
-                                                                    -var price= item.price - (item.price / 100 * item.discount)
-                                                                    div(id='menu_' + item.product_id, class='menuCard', onclick="")
-                                                                        img.product(src="./images/" + item.image_path, alt="제품이미지")
-                                                                        p.prod_name= item.name
-                                                                        p.prod_price= price
-                                                                        p.prod_discription= item.discription
-                                                                        p.prod_allergy= item.allergy
-                                                                        for optionItem in productOption 
-                                                                            if optionItem.product_id == item.product_id
-                                                                                -var toppPrice= optionItem.option_price - (optionItem.option_price / 100 * optionItem.option_discount)
-                                                                                p.option_id= optionItem.option_id
-                                                                                p.option_category= optionItem.option_category
-                                                                                p.option_name= optionItem.option_name
-                                                                                p.option_price= toppPrice 
-                                                                    - break
-                    footer.empty
-            section.right
-                header.header_ban 
-                section.order
-                    header.header_order 
-                        p.orderN 주문내역
-                    div.line 
-                    section.orderList
-                        div.wrap3 
-                            -for (let i=0; i<15; i++)
-                                div.orderCard
-                                    button.close
-                                        i.xi-close-min(style="color: rgb(220, 220, 220);")
-                                    img.selectedProd(src="./images/bingsoo_kingMango.png", alt="망고빙수", title="망고빙수")
-                                    div.line
-                                    p.sProd_name 오레오초코몬스터
-                                    p.sProd_price 13,900원
-                                    -for(let i=0; i<10; i++)
-                                        -var prod = { topp_name: '큐브치즈케이크', topp_amount: '2개' }
-                                            div.sProd_topping
-                                                p.topp_name= prod.topp_name
-                                                p.topp_amount= prod.topp_amount
-                                    div.amount 
-                                        p.word_amount 수량
-                                        button.minus
-                                            i.xi-minus-min
-                                        input.num_amount
-                                        button.plus
-                                            i.xi-plus-min
-                    footer.order_ready
-                        p
-                            strong.total_amount 총 수량 (0)
-                        p
-                            strong.total_price 15,900 원
-                        div.payment 
-                            i.xi-credit-card.xi-2x(style="position: relative; left: 2rem;")
-                            p.pay_word 결제
-                        div.full_reset 전체 초기화
-        div#toppModalBack.toppModalBack
-        script( src="./js/index.js" )
-        
+            section.logoBox
+                img(src="./images/sulbingLogo.png", alt="")
+            section.showProduct
+                ul.menuBar1
+                    li  빙수
+                    li  음료
+                    li  디저트
+                    li  세트메뉴
+                ul.menuBar2
+                    li.displayFlag
+                        div All
+                        div 과일빙수
+                        div 인절미/흑임자
+                        div 초코빙수
+                    li
+                        div All
+                        div 과일쥬스
+                        div 커피
+                        div 초코
+                    li
+                        div All
+                        div 빵
+                        div 초콜릿
+                        div 젤리
+                    li
+                        div All
+                        div 과일빙수
+                        div 인절미/흑임자
+                        div 초코빙수
+                hr.menuBarLine
+                section 
+                    article.productListBox 
+                        - for(let i = 0 ; i < 20; i++)
+                            div
+            section.orderHistory
+                section 
+                div
+                
+        script(src="./js/mainPage.js")
