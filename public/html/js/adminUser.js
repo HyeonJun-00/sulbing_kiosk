@@ -1,57 +1,54 @@
-(() => {
-
+( loadJs= () => {
     //////////////////////////////////////////////////////////////////////////// 회원 관리
-    document.querySelector( `#searchTelForm` ).addEventListener( `submit`, async e => {
-        e.preventDefault();
-        const searchTel= e.target.querySelector( `#searchTel` ).value;
-
+    let searchPaging= async ( targetPaging= 0 ) => {
+        const searchTel= document.querySelector( `#searchTel` ).value.trim();
         try {
-            const res= await axios.post( `/admin_user/getSearchTel`, { searchTel } );
-            document.querySelector( `#searchTelForm` ).setAttribute( `data-search-is`, true );
+            const res= await axios.post( `/admin_user`, { searchTel, targetPaging } );
             document.querySelector( `.userReadRowSet` ).innerHTML= ``;
             let tempHtml= ``;
-            let tempSex= `<option value="" ${ ( res.data.readPost[0].sex == null )? 'selected': '' }></option>`;
-            [ { K: '남', V: 'M' }, { K: '여', V: 'F' } ].forEach( v => {
-                tempSex += `<option value=${ v.V } ${ ( res.data.readPost[0].sex == v.V )? 'selected': '' }>${ v.K }</option>`;
-            });
-            let tempAuth = ``;
-            [ { K: '미가입자', V: 'G' }, { K: '일반회원', V: 'N' }, { K: '관리자', V: 'S' } ].forEach( v => {
-                tempAuth += `<option value=${ v.V } ${ ( res.data.readPost[0].auth == v.V )? 'selected': '' }>${ v.K }</option>`;
-            });
-            res.data.readPost.forEach( ( v, i ) => {
-                tempHtml +=
-                    `<li class="userReadRow">
+            if( res.data.readPost.length > 0 ) {
+                res.data.readPost.forEach((v, i) => {
+                    let tempSex = `<option value="" ${(v.sex == null) ? 'selected' : ''}></option>`;
+                    [{K: '남', V: 'M'}, {K: '여', V: 'F'}].forEach(vo => {
+                        tempSex += `<option value=${vo.V} ${(v.sex == vo.V) ? 'selected' : ''}>${vo.K}</option>`;
+                    });
+                    let tempAuth = ``;
+                    [{K: '미가입자', V: 'G'}, {K: '일반회원', V: 'N'}, {K: '관리자', V: 'S'}].forEach(vo => {
+                        tempAuth += `<option value=${vo.V} ${(v.auth == vo.V) ? 'selected' : ''}>${vo.K}</option>`;
+                    });
+                    tempHtml +=
+                        `<li class="userReadRow">
                         <form>
                             <ul class="userColSet">
-                                <li> ${ i + 1 }
-                                    <input type="hidden" name="id" data-origin-value=${v.id} value=${v.id}> 
+                                <li> ${i + 1}
+                                    <input type="hidden" name="id" data-origin-value="${v.id}" value="${v.id}"> 
                                 </li>                        
                                 <li>
-                                    <input type="text" name="name" data-origin-value=${(v.name) ? v.name : ''} value=${(v.name) ? v.name : ''} require disabled>
+                                    <input type="text" name="name" data-origin-value="${(v.name) ? v.name : ''}" value="${(v.name) ? v.name : ''}" require disabled>
                                 </li>
                                 <li>
-                                    <input type="text" name="tel" data-origin-value=${v.tel} value=${v.tel} require disabled>
+                                    <input type="text" name="tel" data-origin-value="${v.tel}" value="${v.tel}" require disabled>
                                 </li>
                                 <li>
-                                    <select name="sex" data-origin-value=${v.sex} disabled>
+                                    <select name="sex" data-origin-value="${v.sex}" disabled>
                                         ${tempSex}
                                     </select>
                                 </li>
                                 <li>
-                                    <input type="date" name="birth_date" data-origin-value=${ v.birth_date } value=${ v.birth_date } disabled>
+                                    <input type="date" name="birth_date" data-origin-value="${v.birth_date}" value="${v.birth_date}" disabled>
                                 </li>
                                 <li>
-                                    <input type="number" class="fixCol" name="stamp" data-origin-value=${ v.stamp } value=${ v.stamp } disabled>
+                                    <input type="number" class="fixCol" name="stamp" data-origin-value="${v.stamp}" value="${v.stamp}" disabled>
                                 </li>
                                 <li>
-                                    <select name="auth" data-origin-value=${v.auth} disabled>
-                                        ${ tempAuth }    
+                                    <select name="auth" data-origin-value="${v.auth}" disabled>
+                                        ${tempAuth}    
                                     </select>
                                 </li>
-                                <li>${ ( v.created_date )? v.created_date: '' }</li>
-                                <li>${ ( v.join_date )? v.join_date: '' }</li>
+                                <li>${(v.created_date) ? v.created_date : ''}</li>
+                                <li>${(v.join_date) ? v.join_date : ''}</li>
                                 <li>
-                                    <input type="text" name="remark" data-origin-value=${ ( v.remark )? v.remark: '' } value=${ ( v.remark )? v.remark: '' } disabled>
+                                    <input type="text" name="remark" data-origin-value="${(v.remark) ? v.remark : ''}" value="${(v.remark) ? v.remark : ''}" disabled>
                                 </li>
                                 <li>
                                     <input class="userUpdateBtn" type="button" data-origin-value="수정" value="수정" disabled>                            
@@ -62,15 +59,30 @@
                             </ul>
                         </form>
                     </li>`;
-            });
+                });
+            } else {
+                tempHtml= `<li class="emptyRow">게시물이 존재하지 않습니다.</li>`;
+            }
             document.querySelector( `.userReadRowSet` ).innerHTML= tempHtml;
             document.querySelector( `.tablePaging` ).innerHTML= ``;
-            for( let i= 0; i < res.data.userTotCnt; i++ ) {
+            let pageCnt= ( ( res.data.userTotCnt[0].cnt / 10 ) < 1 )? 1 : ( res.data.userTotCnt[0].cnt / 10 ) - 1;
+            for( let i= 0; i < pageCnt; i++ ) {
                 document.querySelector( `.tablePaging` ).innerHTML+= `<a data-page-idx=${ i } data-page=${ i == res.data.nowPage }>${ i + 1 }</a>`;
             }
+            loadJs();
         } catch ( err ) {
             console.error( err );
         }
+    }
+    document.querySelector( `#searchTelForm` ).addEventListener( `submit`, e => {
+        e.preventDefault();
+        searchPaging();
+    });
+
+    [...document.querySelectorAll( `a[data-page-idx]` )].forEach( v => {
+        v.addEventListener(`click`, e => {
+            searchPaging( e.target.getAttribute(`data-page-idx`) );
+        });
     });
 
     $( `.userResetBtn` ).on( `click`, e => { // 추가 셀 내용 삭제

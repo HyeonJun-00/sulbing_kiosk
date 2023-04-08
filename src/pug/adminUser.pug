@@ -1,9 +1,6 @@
 html
     head
         title 설빙 - 관리자 페이지
-        script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js'
-        integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='
-        crossorigin='anonymous')
         link( rel="stylesheet", href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" )
         script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
         link(rel="preconnect" href="https://fonts.googleapis.com")
@@ -31,7 +28,7 @@ html
                     h1 회원관리
                 section.mainContent
                     section.searchBox
-                        form#searchTelForm( data-search-is=false )
+                        form#searchTelForm
                             label tel
                             input.searchInput#searchTel( type="text", name="tel" )
                             button
@@ -133,5 +130,8 @@ html
                                 button.modalBtn( data-modal-confirm="true" ) YES
                                 button.modalBtn( data-modal-confirm="false" ) CANCEL
     section.footer
+    script( src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js'
+        integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='
+        crossorigin='anonymous')
     script( src="https://unpkg.com/axios/dist/axios.min.js")
     script( src="./js/adminUser.js" )
