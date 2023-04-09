@@ -74,15 +74,15 @@
             console.error( err );
         }
     }
-    document.querySelector( `#searchTelForm` ).addEventListener( `submit`, e => {
+    document.querySelector( `#searchTelForm` ).onsubmit= e => {
         e.preventDefault();
         searchPaging();
-    });
+    };
 
     [...document.querySelectorAll( `a[data-page-idx]` )].forEach( v => {
-        v.addEventListener(`click`, e => {
+        v.onclick= e => {
             searchPaging( e.target.getAttribute(`data-page-idx`) );
-        });
+        }
     });
 
     $( `.userResetBtn` ).on( `click`, e => { // 추가 셀 내용 삭제
@@ -95,12 +95,12 @@
     });
 
     document.querySelector( `.userInsertBtn` )
-        .addEventListener( `click`, e => { // 회원 추가
+        .onclick= e => { // 회원 추가
        alert();
-    });
+    }
 
     [...document.querySelectorAll( `.userReadRow` )].forEach( ( v, i, a) => {
-        v.addEventListener( `dblclick`, e => {
+        v.ondblclick= e => {
             a.forEach( vRow => {
                 [...vRow.querySelectorAll( `input:not( .fixCol ), select` )].forEach( vi => {
                     vi.disabled = true;
@@ -112,8 +112,8 @@
                 vi.disabled = false;
                 v.classList.add( `modifyMode` );
             });
-        });
-        v.addEventListener( `click`, e => {
+        }
+        v.onclick= e => {
             if( !e.currentTarget.classList.contains( `modifyMode` ) ) {
                 a.forEach( vRow => {
                     [...vRow.querySelectorAll( `input:not( .fixCol ), select` )].forEach( vi => {
@@ -123,43 +123,71 @@
                     });
                 });
             }
-        });
+        }
     });
+
     [...document.querySelectorAll( `.userUpdateBtn` )].forEach( ( v, i, a ) => {
-        v.addEventListener( `click`, async e => { // 사용자 수정 완료
-            console.log(modalCon(``));
-            //if ( modalCon(`사용자 정보를 수정하시겠습니까?`) ) {
-                const targetValue = {};
-                [...document.querySelectorAll(`.modifyMode input, .modifyMode select`)].forEach(v => {
-                    targetValue[v.getAttribute(`name`)] = v.value
-                });
-                console.log(targetValue);
-                //const res= await axios.post( `/admin_user/update`, targetValue );
-            //}
-        });
+        v.onclick= e => { // 사용자 수정 완료
+            modalCon(`사용자 정보를 수정하시겠습니까?`);
+            resultCon(`update`);
+        }
     });
-    [...document.querySelectorAll( `.userDeleteBtn` )].forEach( v => {
-        v.addEventListener(`click`, e => { // 사용자 삭제
-            alert(1);
-        });
+
+    [...document.querySelectorAll( `.userDeleteBtn` )].forEach( ( v, i ) => {
+        v.onclick = e => { // 사용자 삭제
+            modalCon(`사용자 정보를 삭제하시겠습니까?`);
+            resultCon( `delete`, document.querySelector( `.userReadRow:nth-of-type( ${ i + 1 } ) [name=id]` ).value );
+        };
     });
-    let modalCon= ( tCon ) => {
+    let modalCon= ( tCon, conM= true ) => { // 모달
         document.querySelector( `#modalConfirmBak > .modalConfirm > p` ).innerText= tCon;
         document.querySelector( `#modalConfirmBak` ).style.display= `block`;
-
-        console.log( resultCon() );
+        document.querySelector( `.modalBtn[data-modal-confirm]` ).style.display= 'block';
+        ( !conM ) && ( document.querySelector( `.modalBtn[data-modal-confirm]` ).style.display= 'none' );
     };
 
-    let resultCon= () => {
-        let result;
+    let resultCon= ( qMode, tId= null ) => {
         [...document.querySelectorAll(`.modalBtn`)].forEach( v => {
-            v.addEventListener( `click`, e => {
+            v.onclick= async e => {
             document.querySelector(`#modalConfirmBak`).style.display = `none`;
-                result= ( e.target.getAttribute(`data-modal-confirm`) )? true: false;
-                return;
-            });
+                if( e.target.getAttribute(`data-modal-confirm`) ) {
+                    switch ( qMode ) {
+                        case `update`:
+                            let targetValue = {};
+                            [...document.querySelectorAll(`.modifyMode input, .modifyMode select`)].forEach(v => {
+                                targetValue[v.getAttribute(`name`)] = v.value
+                            });
+                            const isTel= await axios.post( `/admin_user/isTel`, { id: targetValue.id ,tel: targetValue.tel } );
+                            console.log( isTel.data[0].cnt );
+                            if( isTel.data[0].cnt > 0 ) {
+                                modalCon( `이미 사용중인 연락처입니다.`, false );
+                                return false;
+                            } else {
+                                if( await axios.post( `/admin_user/update`, targetValue ) ) {
+                                    [...document.querySelectorAll(`.modifyMode input:not( .fixCol ), .modifyMode select`)].forEach(v => {
+                                        ( v.getAttribute(`name`) == `name` ) && ( v.setAttribute(`data-origin-value`, targetValue.name ));
+                                        ( v.getAttribute(`name`) == `tel` ) && ( v.setAttribute(`data-origin-value`, targetValue.tel ));
+                                        ( v.getAttribute(`name`) == `sex` ) && ( v.setAttribute(`data-origin-value`, targetValue.sex ));
+                                        ( v.getAttribute(`name`) == `birth_date` ) && ( v.setAttribute(`data-origin-value`, targetValue.birth_date ));
+                                        ( v.getAttribute(`name`) == `auth` ) && ( v.setAttribute(`data-origin-value`, targetValue.auth ));
+                                        ( v.getAttribute(`name`) == `remark` ) && ( v.setAttribute(`data-origin-value`, targetValue.remark ));
+                                        v.disabled = true;
+                                        v.value = v.getAttribute(`data-origin-value`);
+                                    });
+                                    document.querySelector(`.modifyMode`).classList.remove(`modifyMode`);
+                                }
+                            }
+                            break;
+                        case 'delete':
+                            axios.post( `/admin_user/delete`, { id: tId } );
+                            location.reload();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
         });
-        console.log( result );
     }
 
 })();

@@ -55,9 +55,65 @@ router.post( `/`, async ( req, res ) => {
     });
 });
 
+router.post( `/isTel`, async ( req, res ) => {
+    let id= await req.body.id;
+    let tel= await req.body.tel;
+
+    let sql= `
+        select 
+            count( * ) cnt
+        from user 
+        where deleted_date is null 
+            and id != ${ id }
+            and tel = '${ tel }'
+        ;`;
+    con.query( sql, ( err, result ) => {
+        if( err ) throw err;
+        res.status( 201 ).json( result );
+    });
+});
+
 router.post( `/update`, async ( req, res ) => {
-    let targetValue= await req.body;
-    console.log( targetValue );
-})
+    const targetValue= await req.body;
+    const id= targetValue.id;
+    const name= ( targetValue.name.trim() == '' )? null: '\'' + targetValue.name.trim() + '\'';
+    const tel= ( targetValue.tel.trim() == '' )? null: '\'' + targetValue.tel.trim() + '\'';
+    const sex= ( targetValue.sex == '' )? null: '\'' + targetValue.sex + '\'';
+    const birth_date= ( targetValue.birth_date == '' )? null: '\'' + targetValue.birth_date + '\'';
+    const auth= ( targetValue.auth == '' )? null: '\'' + targetValue.auth + '\'';
+    const remark= ( targetValue.remark.trim() == '' )? null: '\'' + targetValue.remark.trim() + '\'';
+
+    sql= `update user set 
+                name= ${ name },
+                tel= ${ tel },
+                sex= ${ sex },
+                birth_date= ${ birth_date },
+                auth= ${ auth },
+                remark= ${ remark } 
+            where id= ${ id };`;
+    con.query( sql, ( err, result ) => {
+        if( err ) throw err;
+        res.status( 201 ).json( result );
+    });
+});
+
+router.post( `/delete`, ( req, res) => {
+    const id= req.body.id;
+    sql= `update user set 
+                name= null,
+                tel= null,
+                sex= null,
+                birth_date= null,
+                stamp= 0,
+                auth= 'G',
+                remark= null,
+                deleted_date= now()
+            where id= ${ id };`;
+    console.log( sql );
+    con.query( sql, ( err, result ) => {
+        if( err ) throw err;
+        res.status( 201 ).json( result );
+    });
+});
 
 module.exports= router;
