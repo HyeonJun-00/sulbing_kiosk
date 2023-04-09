@@ -8,7 +8,7 @@
   * ::-webkit-scrollbar {
     display: none; }
 
-img {
+.a {
   position: absolute;
   height: 96rem; }
 
@@ -109,27 +109,42 @@ img {
     width: 95%;
     background-color: #ddd;
     margin-top: 1rem; }
-  .showProduct > section {
+  .showProduct .productListWrapBox {
+    display: none;
     overflow: scroll;
     height: 78rem; }
-    .showProduct > section .productListBox {
+    .showProduct .productListWrapBox .productListBox {
       border-top: 1px solid transparent;
       position: relative;
       left: 50%;
       transform: translate(-50%);
       width: 95%;
       gap: 3.5%;
-      display: flex;
+      display: none;
       flex-wrap: wrap;
       margin-bottom: 1rem; }
-      .showProduct > section .productListBox > div {
+      .showProduct .productListWrapBox .productListBox > div {
         cursor: pointer;
         box-shadow: 0.2rem 0.2rem 0 0 rgba(136, 136, 136, 0.2);
         margin-top: 1.2rem;
         width: 12.3rem;
         height: 18.8rem;
         background-color: #fff;
-        border-radius: 0.8rem; }
+        border-radius: 0.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; }
+        .showProduct .productListWrapBox .productListBox > div > img {
+          width: 100%; }
+        .showProduct .productListWrapBox .productListBox > div p:nth-child(2) {
+          font-size: 1.2rem; }
+        .showProduct .productListWrapBox .productListBox > div p {
+          color: #444; }
+      .showProduct .productListWrapBox .productListBox.displayFlag {
+        display: flex; }
+    .showProduct .productListWrapBox.displayFlag {
+      display: block; }
 
 .orderHistory {
   display: inline-block;
@@ -139,7 +154,7 @@ img {
   left: 42rem;
   height: 79rem;
   border-radius: 0 2rem 0 0;
-  background-color: #7f7f7f; }
+  background-color: rgba(197, 197, 197, 0.4); }
   .orderHistory::before {
     display: flex;
     justify-content: center;
@@ -153,6 +168,26 @@ img {
     height: 60rem; }
   .orderHistory > div {
     height: 14rem;
-    width: 100%; }
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-items: end; }
+    .orderHistory > div > p {
+      margin-right: 1.3rem;
+      color: #fff; }
+    .orderHistory > div > p:nth-child(2) {
+      font-size: 1.7rem; }
+    .orderHistory > div > button {
+      border-radius: 0.2rem;
+      font-size: 1.7rem;
+      margin: 0.5rem;
+      margin-right: 1.2rem;
+      width: 80%;
+      height: 3.5rem;
+      color: #444; }
+      .orderHistory > div > button:nth-child(3) {
+        background-color: #f2da5e; }
 
 /*# sourceMappingURL=mainPage.css.map */

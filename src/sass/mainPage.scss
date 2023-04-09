@@ -22,7 +22,7 @@ $color-line: rgb(220, 220, 220);
     align-items: center;
 }
 
-img {
+.a {
     position: absolute;
     height: 96rem;
 }
@@ -150,8 +150,8 @@ img {
         margin-top: 1rem;
     }
 
-    &>section {
-
+    & .productListWrapBox {
+        display: none;
         overflow: scroll;
         height: 78rem;
 
@@ -160,10 +160,9 @@ img {
             position: relative;
             left: 50%;
             transform: translate(-50%);
-            //height: 80rem;
             width: 95%;
             gap: 3.5%;
-            display: flex;
+            display: none;
             flex-wrap: wrap;
             margin-bottom: 1rem;
 
@@ -175,8 +174,25 @@ img {
                 height: 18.8rem;
                 background-color: #fff;
                 border-radius: 0.8rem;
+                @include flexCenter();
+                flex-direction: column;
+                & > img {
+                    width: 100%;
+                }
+                & p:nth-child(2) {
+                    font-size: 1.2rem;
+                }
+                & p {
+                    color: #444;
+                }
+            }
+            &.displayFlag {
+                display: flex;
             }
         }
+        &.displayFlag {
+            display: block;
+        }       
     }
 }
 
@@ -188,7 +204,7 @@ img {
     left: 42rem;
     height: 79rem;
     border-radius: 0 2rem 0 0;
-    background-color: $color-sub2;
+    background-color: rgba(197, 197, 197, 0.4);
 
     &::before {
         @include flexCenter;
@@ -205,5 +221,27 @@ img {
     & > div {
         height: 14rem;
         width: 100%;
+        @include flexCenter();
+        flex-direction: column;
+        align-items: end;
+        & > p {
+            margin-right: 1.3rem;
+            color: #fff;
+        }
+        & > p:nth-child(2) {
+            font-size: 1.7rem;
+        }
+        & > button {
+            border-radius: 0.2rem;
+            font-size: 1.7rem;
+            margin: 0.5rem;
+            margin-right: 1.2rem;
+            width: 80%;
+            height: 3.5rem;
+            color: #444;
+            &:nth-child(3) {
+                background-color: rgb(242, 218, 94);
+            }
+        }
     }
 }

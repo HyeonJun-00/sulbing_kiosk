@@ -14,6 +14,7 @@ router.get( `/`, ( req, res ) => {
 
     con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption, ( err, result ) => {
         if( err ) throw err;
+        console.log(result[1]);
         res.render( `index`, {
             menu: result[0],
             menuInProduct: result[1],

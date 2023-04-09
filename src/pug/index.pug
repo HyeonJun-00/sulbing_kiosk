@@ -10,43 +10,59 @@ html( lang="ko" )
         link(rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css")
         script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
     body
+        img(src="./images/aaa.jpg", alt="" class="a")
         main.main 
             section.logoBox
                 img(src="./images/sulbingLogo.png", alt="")
             section.showProduct
                 ul.menuBar1
-                    li  빙수
-                    li  음료
-                    li  디저트
-                    li  세트메뉴
+                    - let check = 0;
+                    - for (let i = 0; i < menu.length; i++)
+                        -if (menu[i].lv1_id != check)
+                            li  #{menu[i].lv1_name}
+                            - check = menu[i].lv1_id
                 ul.menuBar2
-                    li.displayFlag
-                        div All
-                        div 과일빙수
-                        div 인절미/흑임자
-                        div 초코빙수
-                    li
-                        div All
-                        div 과일쥬스
-                        div 커피
-                        div 초코
-                    li
-                        div All
-                        div 빵
-                        div 초콜릿
-                        div 젤리
-                    li
-                        div All
-                        div 과일빙수
-                        div 인절미/흑임자
-                        div 초코빙수
+                    - let menuIndex = [];
+                    - let pageNum = 0;
+                    - check = 0;
+                    - for (let i = 0; i < menu.length; i++)
+                        -if (menu[i].lv1_id != check)
+                            li
+                                -for(let j = 0; j < menu.length; j++)
+                                    -if (j == 0)
+                                        - menuIndex.push([`${pageNum + 1}_all`]);
+                                        div All
+                                    -if (menu[j].lv1_id == 1 + check)
+                                        div #{menu[j].lv2_name}
+                                        - menuIndex[pageNum].push(menu[j].lv2_id);
+                            - check = menu[i].lv1_id
+                            - pageNum++;
                 hr.menuBarLine
-                section 
-                    article.productListBox 
-                        - for(let i = 0 ; i < 20; i++)
-                            div
+                - pageNum = 1;
+                - check = 0;
+                - for (let i = 0; i < menu.length; i++)
+                    - if (menu[i].lv1_id != check)
+                        section.productListWrapBox
+                            - let lv2Index = 0;
+                            - for(let v = 0; v < menuIndex[pageNum - 1].length; v++)
+                                article.productListBox
+                                    - for (let j = 0; j < menuInProduct.length; j++)
+                                        -if (menuInProduct[j].menu_id == menuIndex[pageNum - 1][lv2Index])
+                                            - for (let k = 0; k < product.length; k++)
+                                                - if (menuInProduct[j].product_id == product[k].product_id)
+                                                    div
+                                                        img(src=`images/${product[k].image_path}`, alt="")
+                                                        p #{product[k].name}
+                                                        p #{product[k].price}원
+                                    - lv2Index++
+                        - check = menu[i].lv1_id
+                        - pageNum++;
+
             section.orderHistory
-                section 
+                section
                 div
-                
+                    p 총 수량(0)
+                    p 13,900 원
+                    button 결제
+                    button 초기화
         script(src="./js/mainPage.js")
