@@ -56,7 +56,7 @@ router.post( `/`, async ( req, res ) => {
 });
 
 router.post( `/isTel`, async ( req, res ) => {
-    let id= await req.body.id;
+    let id= await req.body.id ?? 0;
     let tel= await req.body.tel;
 
     let sql= `
@@ -73,6 +73,28 @@ router.post( `/isTel`, async ( req, res ) => {
     });
 });
 
+router.post( `/insert`, ( req, res ) => {
+    const targetValue= req.body;
+    const name= ( targetValue.name.trim() == '' )? null: '\'' + targetValue.name.trim() + '\'';
+    const tel= ( targetValue.tel.trim() == '' )? null: '\'' + targetValue.tel.trim() + '\'';
+    const sex= ( targetValue.sex == '' )? null: '\'' + targetValue.sex + '\'';
+    const birth_date= ( targetValue.birth_date == '' )? null: '\'' + targetValue.birth_date + '\'';
+    const auth= ( targetValue.auth == '' )? null: '\'' + targetValue.auth + '\'';
+    const remark= ( targetValue.remark.trim() == '' )? null: '\'' + targetValue.remark.trim() + '\'';
+
+    let sql= `
+        insert into user (
+                          id, tel, name, sex, birth_date, 
+                          stamp, auth, remark, created_date, join_date)
+        values (
+                null, ${ tel }, ${ name }, ${ sex }, ${ birth_date },
+                0, ${ auth }, ${ remark }, now(),
+                case when
+                    ${ auth } in ( 'N', 'S' ) and join_date is null then now()
+                    else null end
+               );`;
+});
+
 router.post( `/update`, async ( req, res ) => {
     const targetValue= await req.body;
     const id= targetValue.id;
@@ -83,14 +105,19 @@ router.post( `/update`, async ( req, res ) => {
     const auth= ( targetValue.auth == '' )? null: '\'' + targetValue.auth + '\'';
     const remark= ( targetValue.remark.trim() == '' )? null: '\'' + targetValue.remark.trim() + '\'';
 
-    sql= `update user set 
+    let sql= `update user set 
                 name= ${ name },
                 tel= ${ tel },
                 sex= ${ sex },
                 birth_date= ${ birth_date },
                 auth= ${ auth },
+                join_date = 
+                    case when
+                        ${ auth } in ( 'N', 'S' ) and join_date is null then now() 
+                        else join_date end, 
                 remark= ${ remark } 
             where id= ${ id };`;
+    console.log( sql );
     con.query( sql, ( err, result ) => {
         if( err ) throw err;
         res.status( 201 ).json( result );
@@ -99,7 +126,7 @@ router.post( `/update`, async ( req, res ) => {
 
 router.post( `/delete`, ( req, res) => {
     const id= req.body.id;
-    sql= `update user set 
+    let sql= `update user set 
                 name= null,
                 tel= null,
                 sex= null,
