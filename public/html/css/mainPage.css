@@ -205,6 +205,8 @@
   background-color: rgba(17, 17, 17, 0.3);
   position: absolute;
   display: none; }
+  .modalBackground.displayFlag {
+    display: block; }
 
 .option_modal_main {
   background-color: #fff;

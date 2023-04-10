@@ -50,11 +50,13 @@ html( lang="ko" )
                                         -if (menuInProduct[j].menu_id == menuIndex[pageNum - 1][lv2Index])
                                             - for (let k = 0; k < product.length; k++)
                                                 - if (menuInProduct[j].product_id == product[k].product_id)
-                                                    div
+                                                    div.productItem
                                                         img(src=`images/${product[k].image_path}`, alt="")
                                                         p #{product[k].name}
                                                         p #{product[k].price - (product[k].price / 100 * product[k].discount)}원
                                                         div
+                                                            section 
+                                                                button.option_modal_x_button
                                                             div.option_modal_up
                                                                 img.optionImg(src=`images/${product[k].image_path}` alt='mangoBingsoo')
                                                                 div.option_modal_text
@@ -82,7 +84,7 @@ html( lang="ko" )
                                                                                     - che = productOptionArray[product[k].product_id][i][0]
                                                                     - else
                                                                             div.option_modal_basket
-                                                                                button 취소
+                                                                                button.option_modal_x_button 취소
                                                                                 button 주문담기
 
                                     - lv2Index++
@@ -99,57 +101,5 @@ html( lang="ko" )
                             div.modalBack#modalBack
             div.modalBackground
                 div.option_modal_main
-                    section 
-                        button 
-                    div.option_modal_up
-                        img.optionImg(src='./img/bingsoo_img/bingsoo_kingMango.png' alt='mangoBingsoo')
-                        div.option_modal_text
-                            p 킹망고빙수
-                            p 13,900원
-                            p 달콤한 망고와 바삭한 시리얼까지 들어간 혜자메뉴
-                            p 알레르기정보 : 우유, 대두, 계란, 밀
-                        div.totalPrice
-                            div 
-                                hr
-                                p 상품의 옵션을 선택하세요.
-                                hr
-                            p 합계:  
-                            p 0원
-                            hr 
-                    div.option_modal_down
-                        div
-                            p 소스 
-                            button 연유 +500원
-                            button 초코소스 +1,000원
-                            button 생크림 +1,000원
-                            button 망고소스 +1,000원
-                            button 딸기소스 +1,000원
-                            button 블루베리쨈 +1,000원
-                        div
-                            p 아이스크림 
-                            button 바닐라 +2,000원
-                            button 녹차 +2,000원
-                            button 민트초코 +2,000원
-                            button 요거트 +2,000원
-                            button 망고요거트 +2,000원
-                            button 스윗캔디구슬 +3,000원
-                        div
-                            p 과일 
-                            button 애플망고 +2,000원
-                            button 하프망고 +1,500원
-                            button 블루베리쨈 +2,000원
-                        div
-                            p 전통토핑
-                            button 팥 +1000원
-                            button 인절미 +1,500원
-                            button 찹쌀떡 +1,000원
-                            button 찹쌀떡 +1,000원
-                        div
-                            p 기타토핑 
-                            button 브라우니 +2,000원
-                            button 티라미수 +2,000원
-                            button 큐브치즈케이크 +2,000원
-                        div.option_modal_basket
-                            button 취소
-                            button 주문담기
+
         script(src="./js/mainPage.js")

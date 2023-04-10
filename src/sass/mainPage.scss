@@ -262,6 +262,9 @@ $color-line: rgb(220, 220, 220);
     background-color: rgba(#111, .3);
     position: absolute;
     display: none;
+    &.displayFlag {
+        display: block;
+    }
 }
 .option_modal_main {  // main modal 창 전체
     background-color: #fff;
