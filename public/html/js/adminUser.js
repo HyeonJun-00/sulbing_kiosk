@@ -96,7 +96,8 @@
 
     document.querySelector( `.userInsertBtn` )
         .onclick= e => { // 회원 추가
-       alert();
+        modalCon(`사용자 정보를 등록하시겠습니까?`);
+        resultCon(`insert`);
     }
 
     [...document.querySelectorAll( `.userReadRow` )].forEach( ( v, i, a) => {
@@ -151,14 +152,46 @@
             v.onclick= async e => {
             document.querySelector(`#modalConfirmBak`).style.display = `none`;
                 if( e.target.getAttribute(`data-modal-confirm`) ) {
+                    let targetValue, isTel;
                     switch ( qMode ) {
+                        case `insert`:
+                            targetValue = {};
+                            [...document.querySelectorAll(`.userInsertRow input, .userInsertRow select`)].forEach(v => {
+                                targetValue[v.getAttribute(`name`)] = v.value
+                            });
+                            if( targetValue.tel.trim() == '' ) {
+                                modalCon( `연락처를 입력해주세요.`, false );
+                                return false;
+                            }
+                            if( targetValue.tel.match( /\D/g ) ) {
+                                modalCon( `연락처에 숫자만 입력해주세요.`, false );
+                                return false;
+                            }
+                            console.log( targetValue );
+                            isTel= await axios.post( `/admin_user/isTel`, { tel: targetValue.tel } );
+                            if( isTel.data[0].cnt > 0 ) {
+                                modalCon( `이미 사용중인 연락처입니다.`, false );
+                                return false;
+                            } else {
+                                if( await axios.post( `/admin_user/insert`, targetValue ) ) {
+
+                                }
+                            }
+                            break;
                         case `update`:
-                            let targetValue = {};
+                            targetValue = {};
                             [...document.querySelectorAll(`.modifyMode input, .modifyMode select`)].forEach(v => {
                                 targetValue[v.getAttribute(`name`)] = v.value
                             });
-                            const isTel= await axios.post( `/admin_user/isTel`, { id: targetValue.id ,tel: targetValue.tel } );
-                            console.log( isTel.data[0].cnt );
+                            if( targetValue.tel.trim() == '' ) {
+                                modalCon( `연락처를 입력해주세요.`, false );
+                                return false;
+                            }
+                            if( targetValue.tel.match( /\D/g ) ) {
+                                modalCon( `연락처에 숫자만 입력해주세요.`, false );
+                                return false;
+                            }
+                            isTel= await axios.post( `/admin_user/isTel`, { id: targetValue.id ,tel: targetValue.tel } );
                             if( isTel.data[0].cnt > 0 ) {
                                 modalCon( `이미 사용중인 연락처입니다.`, false );
                                 return false;
