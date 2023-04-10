@@ -14,12 +14,25 @@ router.get( `/`, ( req, res ) => {
 
     con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption, ( err, result ) => {
         if( err ) throw err;
-        console.log(result[1]);
+        let     productOptionArray = [];        
+
+
+        for (let i = 0; i < result[2].length; i++) {
+            productOptionArray[result[2][i].product_id] = [];
+            for (let j = 0; j < result[3].length; j++) {
+                if (result[2][i].product_id == result[3][j].product_id) {
+                    productOptionArray[result[2][i].product_id].push([result[3][j].option_category , result[3][j].option_name, result[3][j].option_price, result[3][j].option_discount]); 
+                }
+            }
+        }
+
+        console.log(productOptionArray[1]);
         res.render( `index`, {
             menu: result[0],
             menuInProduct: result[1],
             product: result[2],
-            productOption: result[3]
+            productOption: result[3],
+            productOptionArray: productOptionArray
         } );
     });
 });
