@@ -93,6 +93,10 @@ router.post( `/insert`, ( req, res ) => {
                     ${ auth } in ( 'N', 'S' ) and join_date is null then now()
                     else null end
                );`;
+    con.query( sql, ( err, result ) => {
+        if( err ) throw err;
+        res.status( 201 ).json( result );
+    });
 });
 
 router.post( `/update`, async ( req, res ) => {
