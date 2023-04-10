@@ -174,7 +174,7 @@
                                 return false;
                             } else {
                                 if( await axios.post( `/admin_user/insert`, targetValue ) ) {
-
+                                    location.reload();
                                 }
                             }
                             break;
