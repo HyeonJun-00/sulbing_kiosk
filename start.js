@@ -3,7 +3,7 @@ const app= express();
 
 const indexRouter= require( `./routes` );
 const adminMenuRouter= require( `./routes/admin/menu` );
-const adminOrderRouter= require( `./routes/admin/menu` );
+const adminOrderRouter= require( `./routes/admin/order` );
 const adminProductRouter= require( `./routes/admin/product` );
 const adminSalesRouter= require( `./routes/admin/sales` );
 const adminUserRouter= require( `./routes/admin/user` );

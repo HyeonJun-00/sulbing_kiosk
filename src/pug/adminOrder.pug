@@ -8,7 +8,7 @@ hmtl
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet")
-        link(rel="stylesheet", href="./css/admin.css")
+        link(rel="stylesheet", href="./css/admin_order.css")
     body
         main.mainDisplay
             ul.mainMenu
@@ -30,15 +30,36 @@ hmtl
                     h1 주문현황
                 section.mainContent
                     section.searchBox
-                    -for(let i = 0; i < 7 ; i++)
-                        div.orderBox
-                            div
-                                div 
-                                    p 킹망고빙수
-                                    p 1243
-                                div 
-                                    div
-                                div
-                                    p 19,400
-                                    button 완료
+                        //form#searchForm
+                            label tel
+                            input.searchInput#searchTel( type="text", name="tel" )
+                            button
+                                i.xi-search
+                            i.xi-refresh( onclick="location.reload();" )
+                    section.postTable
+                        ul.salesRowSet
+                            li
+                                ul.salesColSet
+                                    li No
+                                    li 주문번호
+                                    li 합계
+                                    li 할인율
+                                    li 스탬프
+                                    li 최종 금액
+                                    li 스탬프 적립
+                                    li 등록일
+                                    li 가입일
+                                    li 메모
+                                    li 기능
+                    section.tablePaging
+                        //- let pageCnt= ( ( userTotCnt[0].cnt / 10 ) < 1 )? 1 : ( userTotCnt[0].cnt / 10 ) - 1;
+                        //- for( let i= 0; i < pageCnt; i++ )
+                        //a( data-page-idx=`${i}`, data-page=`${i == nowPage}` )= i + 1
+                    section.modalConfirmBak#modalConfirmBak
+                        section.modalConfirm
+                            p 수정하시겠습니까
+                            .modalBtnSet
+                                button.modalBtn( data-modal-confirm=true ) YES
+                                button.modalBtn( data-modal-confirm=false ) CANCEL
+                section.footer
         script(src="./js/admin.js")

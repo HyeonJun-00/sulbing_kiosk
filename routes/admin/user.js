@@ -43,7 +43,7 @@ router.post( `/`, async ( req, res ) => {
                         date_format( join_date, '%Y-%m-%d %H:%i' ) join_date
                     from user
                     where deleted_date is null
-                        and tel like '${ tel }%'
+                        and tel like '%${ tel }%'
                         order by id desc
                         limit 20 offset ${ nowPage * 20 };`;
     con.query( sqlUserTotCnt + sqlReadPost, ( err, result ) => {
