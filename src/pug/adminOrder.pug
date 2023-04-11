@@ -37,24 +37,57 @@ hmtl
                                 i.xi-search
                             i.xi-refresh( onclick="location.reload();" )
                     section.postTable
-                        ul.salesRowSet
+                        ul.orderRowSet
                             li
-                                ul.salesColSet
+                                ul.orderColSet
                                     li No
                                     li 주문번호
-                                    li 합계
-                                    li 할인율
+                                    li 상태
+                                    li 합계(원)
+                                    li 할인율(%)
+                                    li 수수료(%)
                                     li 스탬프
-                                    li 최종 금액
-                                    li 스탬프 적립
-                                    li 등록일
-                                    li 가입일
+                                    li 최종금액(원)
+                                    li 적립
+                                    li 주문 형태
                                     li 메모
+                                    li 주문자
+                                    li 결제일
+                                    li 환불일
                                     li 기능
+                        ul.orderReadRowSet
+                            each item, i in readPost
+                                li.orderReadRow
+                                    form.orderSetForm
+                                        ul.orderColSet( class=`${ ( item.status == 'wait' )? 'orderWait': ( item.status == 'refund' )? 'orderRefund': '' }` )
+                                            li= i + 1
+                                                input( type="hidden" name="id" data-origin-value=`${item.id}`, value=`${item.id}` )
+                                            li= item.id.toString().slice( -3 ).padStart( 3, '0' )
+                                            - let statusObj= { wait: '대기', complete: '완료', refund: '환불' };
+                                            li= statusObj[item.status]
+                                            li= item.total_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                            li= item.total_discount
+                                            li= item.total_charge
+                                            li= ( item.use_stamp )? 'Y': '-'
+                                            li= item.final_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                            li= ( item.save_stamp )? item.save_stamp: '-'
+                                            li= ( item.take_out == '' )? '매장': '포장'
+                                            li
+                                                input( data-origin-value=`${ ( item.remark )? item.remark: '' }`, value=`${ ( item.remark )? item.remark: '' }` )
+                                                input.remarkUpdateBtn( type="button", value="수정" )
+                                            li= ( item.user_tel )? item.user_tel: '-'
+                                            li= item.purchase_date
+                                            li= ( item.refund_date )? item.refund_date: '-'
+                                            li
+                                                input.completeBtn( type="button", value="완료" )
+                                            li
+                                                input.waitBtn( type="button", value="대기" )
+                                            li
+                                                input.refundBtn( type="button", value="환불" )
                     section.tablePaging
-                        //- let pageCnt= ( ( userTotCnt[0].cnt / 10 ) < 1 )? 1 : ( userTotCnt[0].cnt / 10 ) - 1;
-                        //- for( let i= 0; i < pageCnt; i++ )
-                        //a( data-page-idx=`${i}`, data-page=`${i == nowPage}` )= i + 1
+                        - let pageCnt= ( ( orderTotCnt[0].cnt / 10 ) < 1 )? 1 : ( orderTotCnt[0].cnt / 10 ) - 1;
+                        - for( let i= 0; i < pageCnt; i++ )
+                            a( data-page-idx=`${i}`, data-page=`${i == nowPage}` )= i + 1
                     section.modalConfirmBak#modalConfirmBak
                         section.modalConfirm
                             p 수정하시겠습니까
@@ -62,4 +95,4 @@ hmtl
                                 button.modalBtn( data-modal-confirm=true ) YES
                                 button.modalBtn( data-modal-confirm=false ) CANCEL
                 section.footer
-        script(src="./js/admin.js")
+        script(src="./js/adminOrder.js")

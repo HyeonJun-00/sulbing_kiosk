@@ -85,15 +85,19 @@ body {
                     }
                     ul.orderColSet {
                         display: flex;
+                        background-color: pink;
+                        &.orderWait { color: red; li { color: red !important; } }
+                        &.orderRefund { color: gray; li { color: gray !important; } }
                         li {
                             display: inline-flex;
-                            justify-content: flex-start; align-items: center;
+                            justify-content: center; align-items: center;
                             //border-top: 0.01rem solid #ddd;
                             //border-bottom: 0.01rem solid #ddd;
-                            width: 10%; height: 3rem;
+                            height: 3rem;
                             input, select {
                                 width: 100%; height: 100%;
                                 border: 0.01rem solid #ddd;
+                                &.remarkUpdateBtn { width: 30%; }
                                 &[type=button] {
                                     cursor: pointer;
                                 }
@@ -111,23 +115,32 @@ body {
                                 -webkit-appearance: none;
                                 margin: 0;
                             }
-                            &:nth-of-type(1) { width: 3%; justify-content: center; }
-                            &:nth-of-type(2) { width: 10%; }
-                            &:nth-of-type(3) { width: 13%; }
-                            &:nth-of-type(4) { width: 5%; }
-                            &:nth-of-type(5) {}
-                            &:nth-of-type(6) { width: 4%; }
-                            &:nth-of-type(7) { width: 7%; }
-                            &:nth-of-type(8) {}
-                            &:nth-of-type(9) {}
-                            &:nth-of-type(10) { width: 18%; }
-                            &:nth-of-type(11) { width: 5%; }
-                            &:nth-of-type(12) { width: 5%; }
+                            &:nth-of-type(1) { width: 3%; justify-content: center; } // idx
+                            &:nth-of-type(2) { width: 5%; justify-content: center; } // 주문번호
+                            &:nth-of-type(3) { width: 5%; justify-content: center; } // 상태
+                            &:nth-of-type(4) { width: 5%; justify-content: flex-end; } // 합계
+                            &:nth-of-type(5) { width: 4%; justify-content: flex-end; } // 할인율
+                            &:nth-of-type(6) { width: 4%; justify-content: flex-end; } // 수수료
+                            &:nth-of-type(7) { width: 4%; justify-content: center; } // 스탬프
+                            &:nth-of-type(8) { width: 5%; justify-content: flex-end; color: #0000c9; font-weight: bold; } // 최종 금액
+                            &:nth-of-type(9) { width: 4%; justify-content: center; } // 적립
+                            &:nth-of-type(10) { width: 5%; justify-content: center; } // 주문형태
+                            &:nth-of-type(11) { width: 18%; }// 메모
+                            &:nth-of-type(12) { width: 9%; } // 주문자
+                            &:nth-of-type(13) { width: 10%; } // 결제일
+                            &:nth-of-type(14) { width: 10%; } // 환불일
+                            &:nth-of-type(15) { width: 3%; } // 완료
+                            &:nth-of-type(16) { width: 3%; } // 대기
+                            &:nth-of-type(17) { width: 3%; } // 환불
                         }
                     }
                     &:nth-of-type(1) > ul > li {
-                        justify-content: center;
-                        &:nth-of-type(11) { width: 10%; }
+                        justify-content: center !important;
+                        &:nth-of-type(4) { justify-content: flex-end !important; }
+                        &:nth-of-type(5) { text-align: end; }
+                        &:nth-of-type(6) { text-align: end; }
+                        &:nth-of-type(8) { text-align: end; }
+                        &:nth-of-type(15) { width: 9%; }
                     }
                     &.orderInsertRow {
                         margin: 0.5rem 0;
