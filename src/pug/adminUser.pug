@@ -100,7 +100,7 @@ html
                                            li
                                                input( type="date", name="birth_date", data-origin-value=`${ item.birth_date }`, value=`${ item.birth_date }`, disabled )
                                            li
-                                               input( type="number", class="fixCol", name="stamp", data-origin-value=`${ item.stamp }`, value=`${ item.stamp }`, disabled )
+                                               input.fixCol( type="number", name="stamp", data-origin-value=`${ item.stamp }`, value=`${ item.stamp }`, disabled )
                                            li
                                                select( name="auth", data-origin-value=`${ item.auth }`, disabled )
                                                    - let authArr= [ { K: '미가입자', V: 'G' }, { K: '일반회원', V: 'N' }, { K: '관리자', V: 'S' } ];
@@ -116,7 +116,7 @@ html
                                            li
                                                input.userUpdateBtn( type="button" data-origin-value="수정", value="수정", disabled )
                                            li
-                                               input.userDeleteBtn( class="fixCol", type="button" data-origin-value="삭제",  value="삭제" )
+                                               input.userDeleteBtn.fixCol( type="button" data-origin-value="삭제",  value="삭제" )
                             else
                                 li.emptyRow 게시물이 존재하지 않습니다.
                     section.tablePaging
