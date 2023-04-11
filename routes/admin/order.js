@@ -25,17 +25,22 @@ router.get ( `/`, ( req, res, next ) => {
         order by id desc
             limit 20 offset 0;`;
     let sqlProductPost= `
-        select A.id, 
-               C.name product_name, C.price product_price, 
+        select A.id,
+               C.name product_name, C.price product_price,
                B.difference_item_id item_id, D.name option_name, D.price option_name
-        from ( select id from purchase order by id desc limit 20 ) A
-        right outer join purchase_item B on A.id= B.purchase_id
-        left outer join product C on B.product_id = C.id
-        left outer join product_option_cmm D on B.product_option_id = D.id
+        from ( select id from purchase order by id desc limit 20 offset 0 ) A
+                 right outer join purchase_item B on A.id= B.purchase_id
+                 left outer join product C on B.product_id = C.id
+                 left outer join product_option_cmm D on B.product_option_id = D.id
         where not A.id is null
         order by id desc
     `;
-    let sqlPaymentPost = ``;
+    let sqlPaymentPost = `
+        select A.id, C.category, C.name, B.amount, B.discount, B.charge
+        from ( select id from purchase order by id desc limit 25 ) A
+        right outer join purchase_payment B on A.id = B.purchase_id
+        left outer join payment_method C on B.payment_method_id = C.id
+    `;
     console.log( sqlOrderTotCnt + sqlReadPost );
     con.query( sqlOrderTotCnt + sqlReadPost + sqlProductPost, ( err, result ) => {
         if( err ) throw err;
