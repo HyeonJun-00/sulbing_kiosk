@@ -21,12 +21,11 @@ router.get( `/`, ( req, res ) => {
             productOptionArray[result[2][i].product_id] = [];
             for (let j = 0; j < result[3].length; j++) {
                 if (result[2][i].product_id == result[3][j].product_id) {
-                    productOptionArray[result[2][i].product_id].push([result[3][j].option_category , result[3][j].option_name, result[3][j].option_price, result[3][j].option_discount]); 
+                    productOptionArray[result[2][i].product_id].push([result[3][j].option_category , result[3][j].option_name, result[3][j].option_price, result[3][j].option_discount, result[3][j].option_id]); 
                 }
             }
         }
 
-        console.log(productOptionArray[1]);
         res.render( `index`, {
             menu: result[0],
             menuInProduct: result[1],

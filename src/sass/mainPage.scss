@@ -213,7 +213,7 @@ $color-line: rgb(220, 220, 220);
     left: 42rem;
     height: 79rem;
     border-radius: 0 2rem 0 0;
-    background-color: rgba(197, 197, 197, 0.4);
+    background-color: rgba(#fff, 0.2);
 
     &::before {
         @include flexCenter;
@@ -225,7 +225,85 @@ $color-line: rgb(220, 220, 220);
     & > section {
         width: 100%;
         height: 60rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: scroll;
         //background-color: #fff;
+        & > div {
+            @include flexCenter();
+            flex-direction: column;
+            border-radius: 0.5rem;
+            margin: 0.5rem;
+            margin-top: 1.5rem;
+            width: 80%;
+            //height: 18.5rem;
+            padding: 1rem 0 1rem 0;
+            background-color: #fff;
+            & > button {
+                width: 0;
+                height: 0;
+                &::before {
+                    @include flexCenter();
+                    height: 1.5rem;
+                    width: 1.5rem;
+                    margin-top: -.5rem;
+                    margin-left: 2.5rem;
+                    border-radius: 50%;
+                    border: 1px solid #ccc;
+                    position: relative;
+                    content: "\00d7";
+                }
+            }
+            & > img {
+                width: 90%;
+            }
+            & > p {
+                @include flexCenter();
+                text-align: center;
+                width: 90%;
+                color: #666;
+                margin: 0.1rem;
+                &:nth-child(3) {
+                    height: 3rem;
+                }
+                &:nth-child(5) {
+                    margin: 0.5rem 0 0.5rem 0;
+                    font-size: 1.3rem;
+                    color: #333;
+                }
+            }
+            & > div:nth-child(4) {
+                & > p {
+                    text-align: center;
+                    font-size: .5rem;
+                    color: #666;
+                    zoom: 0.8;
+                }
+            }
+            & > div:nth-child(6) {
+                margin-top: 0.5rem;
+                @include flexCenter();
+                & > div {
+                    @include flexCenter();
+                    & > p {
+                        text-align: center;
+                        height: 100%;
+                        border: 1px solid #bbb;
+                        width: 3rem;
+                    }
+                    & > button {
+                        @include flexCenter();
+                        border-radius: 50%;
+                        border: 1px solid #ccc;
+                        background-color: #fff;
+                        margin: 0.2rem;
+                        width: 1.5rem;
+                        height: 1.5rem;
+                    }
+                }
+            }
+        }
     }
     & > div {
         height: 14rem;
@@ -271,7 +349,6 @@ $color-line: rgb(220, 220, 220);
     width: 45rem;
     height: 73rem;
     border-radius: 2rem;
-    border: 3px solid #2e1f1a;
     position: relative;
     top: 50%;
     left: 50%;
@@ -280,7 +357,6 @@ $color-line: rgb(220, 220, 220);
     & section:nth-child(1) { 
         width: 100%;
         height: 7.5rem;
-        background-color: #2e1f1a;
         border-radius: 1.5rem 1.5rem 0 0;
 
         & > button { // 상부 모달창 종료 x 버튼
@@ -290,7 +366,7 @@ $color-line: rgb(220, 220, 220);
             background-color: transparent;
 
             &::after {
-                color: #f1f1f1;
+                color: #2e1f1a;
                 font-size: 4rem;
                 content: "\00d7";
             }
@@ -409,12 +485,16 @@ $color-line: rgb(220, 220, 220);
                 font-weight: bold;
             }
             & > button {
+                border-radius: .3rem;
                 font-size: 1rem;
                 color: #333;
                 margin: 0.5rem;
-                border: 1px solid gray;
+                border: 1px solid #ddd;
                 background-color: white;
-                padding: 0.3rem;
+                padding: 0.3rem 0.6rem 0.3rem 0.6rem;
+                &.backgroundFlag {
+                    background-color:#f2da5e;
+                }
             }
 
         }
@@ -430,7 +510,7 @@ $color-line: rgb(220, 220, 220);
                 height: 4rem;
                 width: 15rem;
                 margin: 1rem;
-                border-radius: 1rem;
+                border-radius: 0.6rem;
             }
             & > button:nth-child(1) {
                 background-color: white;
