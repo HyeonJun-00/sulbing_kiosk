@@ -24,10 +24,42 @@ hmtl
                 li
                     a( href="/admin_menu" ) 메뉴관리
                 li
-                    a( href="/admin_user?page=0" ) 회원관리
+                    a( href="/admin_user" ) 회원관리
             section.adminPage
                 section.headFrame
                     h1 매출
                 section.mainContent
                     section.searchBox
+                        //form#searchForm
+                            label tel
+                            input.searchInput#searchTel( type="text", name="tel" )
+                            button
+                                i.xi-search
+                            i.xi-refresh( onclick="location.reload();" )
+                    section.postTable
+                        ul.salesRowSet
+                            li
+                                ul.salesColSet
+                                    li No
+                                    li 주문번호
+                                    li 합계
+                                    li 할인율
+                                    li 스탬프
+                                    li 최종 금액
+                                    li 스탬프 적립
+                                    li 등록일
+                                    li 가입일
+                                    li 메모
+                                    li 기능
+                    section.tablePaging
+                        //- let pageCnt= ( ( userTotCnt[0].cnt / 10 ) < 1 )? 1 : ( userTotCnt[0].cnt / 10 ) - 1;
+                        //- for( let i= 0; i < pageCnt; i++ )
+                        //a( data-page-idx=`${i}`, data-page=`${i == nowPage}` )= i + 1
+                    section.modalConfirmBak#modalConfirmBak
+                        section.modalConfirm
+                            p 수정하시겠습니까
+                            .modalBtnSet
+                                button.modalBtn( data-modal-confirm=true ) YES
+                                button.modalBtn( data-modal-confirm=false ) CANCEL
+                section.footer
         script(src="./js/admin.js")

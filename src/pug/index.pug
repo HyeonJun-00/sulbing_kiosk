@@ -50,19 +50,56 @@ html( lang="ko" )
                                         -if (menuInProduct[j].menu_id == menuIndex[pageNum - 1][lv2Index])
                                             - for (let k = 0; k < product.length; k++)
                                                 - if (menuInProduct[j].product_id == product[k].product_id)
-                                                    div
+                                                    div.productItem
                                                         img(src=`images/${product[k].image_path}`, alt="")
                                                         p #{product[k].name}
-                                                        p #{product[k].price}원
+                                                        p #{product[k].price - (product[k].price / 100 * product[k].discount)}원
+                                                        div
+                                                            section 
+                                                                button.option_modal_x_button
+                                                            div.option_modal_up
+                                                                img.optionImg(src=`images/${product[k].image_path}` alt='mangoBingsoo')
+                                                                div.option_modal_text
+                                                                    p #{product[k].name}
+                                                                    p #{product[k].price - (product[k].price / 100 * product[k].discount)}원
+                                                                    p #{product[k].discription}
+                                                                    p 알레르기정보 : #{product[k].allergy}
+                                                                div.totalPrice
+                                                                    div 
+                                                                        hr
+                                                                        p 상품의 옵션을 선택하세요.
+                                                                        hr
+                                                                    p 합계:  
+                                                                    p 0원
+                                                                    hr 
+                                                            div.option_modal_down
+                                                                - let che = "a";
+                                                                - for (let i = 0; i <= productOptionArray[product[k].product_id].length; i++)
+                                                                    - if (productOptionArray[product[k].product_id].length > i)
+                                                                            - if (che != productOptionArray[product[k].product_id][i][0])
+                                                                                div
+                                                                                    p #{productOptionArray[product[k].product_id][i][0]} #{product.length}
+                                                                                    - for (let ac = 0; productOptionArray[product[k].product_id].length > ac + i && productOptionArray[product[k].product_id][i][0] == productOptionArray[product[k].product_id][i + ac][0]; ac++ )
+                                                                                        button #{productOptionArray[product[k].product_id][i + ac][1]} #{productOptionArray[product[k].product_id][i + ac][2] - ((productOptionArray[product[k].product_id][i + ac][2]) / 100 * productOptionArray[product[k].product_id][i + ac][3]) }원
+                                                                                    - che = productOptionArray[product[k].product_id][i][0]
+                                                                    - else
+                                                                            div.option_modal_basket
+                                                                                button.option_modal_x_button 취소
+                                                                                button 주문담기
+
                                     - lv2Index++
                         - check = menu[i].lv1_id
                         - pageNum++;
 
             section.orderHistory
-                section
+                section   
                 div
                     p 총 수량(0)
-                    p 13,900 원
+                    p 0 원
                     button 결제
                     button 초기화
+                            div.modalBack#modalBack
+            div.modalBackground
+                div.option_modal_main
+
         script(src="./js/mainPage.js")
