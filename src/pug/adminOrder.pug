@@ -88,13 +88,7 @@ hmtl
                                             li
                                                 input.refundBtn( type="button", value="환불" )
                                         ul.orderColSet.productColSet
-                                            - let productObj= {};
-                                            each product_item, pI in productPost
-                                                - ( !productObj[product_item.id] ) &&  ( productObj[product_item.id]= [] )
-                                                - productObj[product_item.id].push( product_item.id );
-                                                //- productObj[id]= 1;
-                                                -console.log( productObj);
-                                                li= pI.id
+                                            //each pPItem in productPost
                             else
                                 li.emptyRow 게시물이 존재하지 않습니다.
                     section.tablePaging

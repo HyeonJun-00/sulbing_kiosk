@@ -26,8 +26,8 @@ router.get ( `/`, ( req, res, next ) => {
             limit 25 offset 0;`;
     let sqlProductPost= `
         select A.id,
-               C.name product_name, C.price product_price, B.item_cnt,
-               B.difference_item_id item_id, D.name option_name, D.price option_price
+               C.name product_name, C.price - ( ( C.price / 100 ) * C.discount ) product_price, B.item_cnt,
+               B.difference_item_id item_id, D.category option_category, D.name option_name, D.price - ( ( D.price / 100 ) * D.discount ) option_price
         from ( select id from purchase order by id desc limit 25 offset 0 ) A
                  right outer join purchase_item B on A.id= B.purchase_id
                  left outer join product C on B.product_id = C.id
