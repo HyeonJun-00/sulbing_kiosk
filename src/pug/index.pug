@@ -96,10 +96,107 @@ html( lang="ko" )
                 div
                     p#total_number 총 수량(0)
                     p#total_amount 0 원
-                    button 결제
+                    button#result_button 결제
                     button#reset_button 초기화
                             div.modalBack#modalBack
             div.modalBackground
                 div.option_modal_main
+            main.payment_modal
+                div.modal
+                    section 
+                        button.payment_modal_x_button
+                    section
+                        div
+                            button.store_or_packaging.backgroundFlag 매장에서 
+                            button.store_or_packaging 포장하기
+                        div 
+                            p
+                            p 스푼 개수
+                            span 
+                                button.spoon_number_minus -
+                                p 0
+                                button.spoon_number_plus +
+                        div
+                            p
+                            p 드라이아이스
+                            span 
+                                button.dryice_number_minus -
+                                p 0
+                                button.dryice_number_plus +
+                    section 
+                        div.payment_modal_order_box
+                            div.option
+                                p 상품명
+                                p 수량
+                                p 가격
+                            aside
+                            div.option.totalPrice
+                                p 총합:
+                                p 
+                                p#final_amount
+                    section
+                        button#point_payment
+                            img(src="images/pay_img/kakaopay.png", alt="")
+                            p 포인트 적립
+                        button#card_payment
+                            img(src="images/pay_img/kakaopay.png", alt="")
+                            p 카드 결제
+                        button#pay_payment
+                            img(src="images/pay_img/kakaopay.png", alt="")
+                            p 페이 결제
+                        button#voucher_payment
+                            img(src="images/pay_img/kakaopay.png", alt="")
+                            p 기프티콘 결제
+                    section
+                        button.payment_modal_x_button 취소
+                        button 결제하기
+                div.modal2WrapBox
+                    div.modal2
+                        section 
+                            button.modal2_x_button
+                        section.modal2_pay
+                            img(src="images/pay_img/applepayre.png", alt="")
+                        section.modal2_pay
+                            img(src="images/pay_img/kakaopay.png", alt="")
+                        section.modal2_pay 
+                            img(src="images/pay_img/naverpay2.png", alt="")
+                        section.modal2_pay 
+                            img(src="images/pay_img/samsungpay2.png", alt="")
+                        section
+                            button.modal2_x_button 취소하기
+                            button.modal2_o_button 선택하기
+            main.point_modal_background
+                div.point_modal
+                    section 
+                        button.point_modal_x_button
+                    section 
+                        div
+                            input(type="text" placeholder="휴대폰 번호를 입력하세요")
+                            button 조회
+                        div
+                            - const buttonValue = [1,2,3,4,5,6,7,8,9, "010", 0, "<"];
+                            - for(let i = 0; i < 12; i++)
+                                button #{buttonValue[i]}
+                    section 
+                        div
+                            p 보유 스탬프:
+                            p 23/10
+                            hr 
+                            p 적립 스탬프:
+                            p 1개
+                            hr
+                            p 스탬프 사용:
+                            p 5000원 할인[10개 차감]
+                            hr
+                        div
+                            button.point_modal_x_button 취소
+                            button.point_modal_o_button 사용하기
+                div.point_modal_sub
+                    section
+                        div
+                            p 적립 하시겠습니까? 
+                        div
+                            button 취소
+                            button 적립
 
         script(src="./js/mainPage.js")

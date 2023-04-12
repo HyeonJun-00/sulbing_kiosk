@@ -63,10 +63,66 @@
             $(this).addClass("displayFlag");
         });
     $(".option_modal_x_button").on("click", () => $(".modalBackground").removeClass("displayFlag"));
+
+
+    $(".point_modal_x_button").on("click", () => {
+        $(".point_modal_background").removeClass("displayFlag");
+    });
     $("#reset_button").on("click", () => {
         $(".orderBox").html("")
         transferData.item = [];
         totalSet();
+    });
+    $("#point_payment").on("click", () => {
+        $(".point_modal_background").addClass("displayFlag");
+    });
+    $(".modal2_pay").on("click", function () {
+        $(".modal2_pay").removeClass("backgroundFlag");
+        $(this).addClass("backgroundFlag");
+    });
+    $(".modal2_x_button").on("click", () => {
+        $(".modal2_pay").removeClass("backgroundFlag");
+        $(".modal2WrapBox").removeClass("displayFlag");
+    });
+    $(".modal2_o_button").on("click", () => {
+        $(".modal2WrapBox").removeClass("displayFlag");
+    });
+    $("#pay_payment").on("click", () => {
+        $(".modal2WrapBox").addClass("displayFlag");
+    });
+    $("#result_button").on("click", () => {
+        const orderProduct = $(".orderBox").children("div");
+        let asd = "";
+
+        $("#final_amount").html($("#total_amount").html());
+        for (let i = 0; i < orderProduct.length; i++) {
+            asd += `
+                                 <div class="option">
+                                    <p> ${orderProduct.eq(i).children("p").eq(0).html()} </p>
+                                    <p> ${transferData.item[i].cnt}</p>
+                                    <p> ${orderProduct.eq(i).children("p").eq(1).html()} </p>
+                                </div>           
+            `;
+            for (let j = 0; j < transferData.item[i].option.length; j++) {
+                const a = String(orderProduct.eq(0).children("div").eq(0).children("p").eq(j).html()).split(' ');
+                asd += `
+                                <div class="option addOption">
+                                    <p> ${a[0]}</p>
+                                    <p> ${transferData.item[i].cnt} </p>
+                                    <p></p>
+                                </div>
+                `;
+            }
+        }
+        console.log(orderProduct.eq(0).children("div").eq(0).children("p").eq(0).html());
+        $(".payment_modal_order_box > aside").html("");
+        $(".payment_modal_order_box > aside").append(`
+                                ${asd}
+        `);
+        $(".payment_modal").addClass("displayFlag");
+    });
+    $(".payment_modal_x_button").on("click", () => {
+        $(".payment_modal").removeClass("displayFlag");
     });
     let productPrice = 0; 
 
@@ -156,5 +212,26 @@
             $(".modalBackground").removeClass("displayFlag");
         });
     });
+    $(".store_or_packaging").on("click", function() {
+        $(".store_or_packaging").removeClass("backgroundFlag");
+        $(this).addClass("backgroundFlag");
+    });
+    $(".dryice_number_minus").on("click", function() {
+        const  dryIceNumber = $(this).parent().children("p").html() == 0 ? 0 : $(this).parent().children("p").html() - 5;
+        $(this).parent().children("p").html(dryIceNumber)
+    });
+    $(".dryice_number_plus").on("click", function() {
+        const  dryIceNumber = parseInt($(this).parent().children("p").html()) + 5;
+        $(this).parent().children("p").html(dryIceNumber)
+    });
+    $(".spoon_number_minus").on("click", function() {
+        const  spoonNumber = $(this).parent().children("p").html() == 0 ? 0 : $(this).parent().children("p").html() - 1;
+        $(this).parent().children("p").html(spoonNumber);
+    });
+    $(".spoon_number_plus").on("click", function() {
+        const  spoonNumber = parseInt($(this).parent().children("p").html()) + 1;
+        $(this).parent().children("p").html(spoonNumber);
+    });
+    console.log($(".modal2").children("section").length);
 })();
 

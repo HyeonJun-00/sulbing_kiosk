@@ -9,7 +9,7 @@
 button {
     cursor: pointer;
 }
-.asd {
+.point_modal_background {
     width: 54rem;
     height: 96rem;
     position: absolute;
@@ -19,7 +19,7 @@ button {
     background-color: rgba(0, 0, 0, 0.21);
 }
 
-.modal {
+.point_modal {
     top: 13.5rem;
     left: 50%;
     transform: translate(-50%, 0);
@@ -158,7 +158,7 @@ button {
         }
     }
 }
-.modal2 {
+.point_modal_sub {
     top: 15.5rem;
     left: 50%;
     transform: translate(-50%, 0);
