@@ -1,6 +1,7 @@
 hmtl
     head
         title 설빙 - 관리자 페이지
+        link( rel="stylesheet", href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" )
         script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js'
         integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='
         crossorigin='anonymous')
@@ -30,11 +31,13 @@ hmtl
                     h1 주문현황
                 section.mainContent
                     section.searchBox
-                        //form#searchForm
-                            label tel
-                            input.searchInput#searchTel( type="text", name="tel" )
+                        input.searchAllBtn.targetStatus( type="button", value="전체", data-serch-status="true" )
+                        input.searchWaitBtn( type="button", value="대기", data-serch-status="false" )
+                        input.searchCompleteBtn( type="button", value="완료", data-serch-status="false" )
+                        input.searchRefuncBtn( type="button", value="환불", data-serch-status="false" )
+                        form#searchDayform
+                            input.searchInput#searchDay( type="date", name="day" )
                             button
-                                i.xi-search
                             i.xi-refresh( onclick="location.reload();" )
                     section.postTable
                         ul.orderRowSet
@@ -84,6 +87,16 @@ hmtl
                                                 input.waitBtn( type="button", value="대기" )
                                             li
                                                 input.refundBtn( type="button", value="환불" )
+                                        ul.orderColSet.productColSet
+                                            - let productObj= {};
+                                            each product_item, pI in productPost
+                                                - ( !productObj[product_item.id] ) &&  ( productObj[product_item.id]= [] )
+                                                - productObj[product_item.id].push( product_item.id );
+                                                //- productObj[id]= 1;
+                                                -console.log( productObj);
+                                                li= pI.id
+                            else
+                                li.emptyRow 게시물이 존재하지 않습니다.
                     section.tablePaging
                         - let pageCnt= ( ( orderTotCnt[0].cnt / 10 ) < 1 )? 1 : ( orderTotCnt[0].cnt / 10 ) - 1;
                         - for( let i= 0; i < pageCnt; i++ )
