@@ -6,14 +6,14 @@
     const productItem = $(".productItem");
     const transferData = {
         tel: '',
-            item: [
-            ],
-            stamp: { use: false, save: 0 }, // 사용 10, 적립 2
-            payment: [
-                { id: 0, amount: 0 },
-            ],
-            take_out: true,
-            remark: ''
+        item: [
+        ],
+        stamp: { use: false, save: 0 }, // 사용 10, 적립 2
+        payment: [
+            { id: 0, amount: 0 },
+        ],
+        take_out: true,
+        remark: ''
     };
     const putComma = target => {
         return Number(String(target).replace(/[^0-9]/g, '')).toLocaleString();
@@ -25,78 +25,54 @@
         for (let i = 0; i < transferData.item.length; i++) {
             totalAmount += parseInt(String($(".product_result_price").eq(i).html()).replace(/,/g, ""));
             totalCount += transferData.item[i].cnt
+            $(".product_number").eq(i).html(transferData.item[i].cnt)
         }
         console.log(transferData.item);
         $("#total_number").html(`총 수량(${totalCount})`);
         $("#total_amount").html(`${putComma(totalAmount)} 원`);
     }
-    let   menuBar1_num = 0;
-    let   menuBar2_num = 0;
+    let menuBar1_num = 0;
+    let menuBar2_num = 0;
 
     menuBar1.eq(0).addClass("backgroundFlag");
     menuBar2.eq(0).addClass("displayFlag");
     productListWrapBox.eq(0).addClass("displayFlag");
     productListBox.eq(0).addClass("displayFlag");
     menuBar2.eq(0).children().eq(0).addClass("backgroundFlag");
-         menuBar1.on("click",  function () {
-            menuBar1_num = $(this).index();
-            menuBar1.removeClass("backgroundFlag");
-            $(this).addClass("backgroundFlag");
-            menuBar2.removeClass("displayFlag");
-            menuBar2.eq(menuBar1_num).addClass("displayFlag");
-            menuBar2.children().removeClass("backgroundFlag");
-            menuBar2.eq(menuBar1_num).children().eq(0).addClass("backgroundFlag");
-            productListWrapBox.removeClass("displayFlag");
-            productListWrapBox.eq(menuBar1_num).addClass("displayFlag");
-            productListWrapBox.eq(menuBar1_num).children().removeClass("displayFlag");
-            productListWrapBox.eq(menuBar1_num).children().eq(0).addClass("displayFlag");
-        });   
-        menuBar2.children().on("click", function () {
-            menuBar2_num = $(this).index();
-            menuBar2.children().removeClass("backgroundFlag");
-            $(this).addClass("backgroundFlag");
-            productListWrapBox.eq(menuBar1_num).children().removeClass("displayFlag");
-            productListWrapBox.eq(menuBar1_num).children().eq(menuBar2_num).addClass("displayFlag");
-        });
-        menuBar2.on("click", function () {
-            menuBar2.removeClass("displayFlag");
-            $(this).addClass("displayFlag");
-        });
-    $(".option_modal_x_button").on("click", () => $(".modalBackground").removeClass("displayFlag"));
-
-
-    $(".point_modal_x_button").on("click", () => {
-        $(".point_modal_background").removeClass("displayFlag");
-    });
-    $("#reset_button").on("click", () => {
-        $(".orderBox").html("")
-        transferData.item = [];
-        totalSet();
-    });
-    $("#point_payment").on("click", () => {
-        $(".point_modal_background").addClass("displayFlag");
-    });
-    $(".modal2_pay").on("click", function () {
-        $(".modal2_pay").removeClass("backgroundFlag");
+    menuBar1.on("click", function () {
+        menuBar1_num = $(this).index();
+        menuBar1.removeClass("backgroundFlag");
         $(this).addClass("backgroundFlag");
+        menuBar2.removeClass("displayFlag");
+        menuBar2.eq(menuBar1_num).addClass("displayFlag");
+        menuBar2.children().removeClass("backgroundFlag");
+        menuBar2.eq(menuBar1_num).children().eq(0).addClass("backgroundFlag");
+        productListWrapBox.removeClass("displayFlag");
+        productListWrapBox.eq(menuBar1_num).addClass("displayFlag");
+        productListWrapBox.eq(menuBar1_num).children().removeClass("displayFlag");
+        productListWrapBox.eq(menuBar1_num).children().eq(0).addClass("displayFlag");
     });
-    $(".modal2_x_button").on("click", () => {
-        $(".modal2_pay").removeClass("backgroundFlag");
-        $(".modal2WrapBox").removeClass("displayFlag");
+    menuBar2.children().on("click", function () {
+        menuBar2_num = $(this).index();
+        menuBar2.children().removeClass("backgroundFlag");
+        $(this).addClass("backgroundFlag");
+        productListWrapBox.eq(menuBar1_num).children().removeClass("displayFlag");
+        productListWrapBox.eq(menuBar1_num).children().eq(menuBar2_num).addClass("displayFlag");
     });
-    $(".modal2_o_button").on("click", () => {
-        $(".modal2WrapBox").removeClass("displayFlag");
+    menuBar2.on("click", function () {
+        menuBar2.removeClass("displayFlag");
+        $(this).addClass("displayFlag");
     });
-    $("#pay_payment").on("click", () => {
-        $(".modal2WrapBox").addClass("displayFlag");
-    });
+
     $("#result_button").on("click", () => {
         const orderProduct = $(".orderBox").children("div");
-        let asd = "";
-
+        let optionString = "";
+        if (!transferData.item.length) {
+            return false;
+        }
         $("#final_amount").html($("#total_amount").html());
         for (let i = 0; i < orderProduct.length; i++) {
-            asd += `
+            optionString += `
                                  <div class="option">
                                     <p> ${orderProduct.eq(i).children("p").eq(0).html()} </p>
                                     <p> ${transferData.item[i].cnt}</p>
@@ -104,8 +80,8 @@
                                 </div>           
             `;
             for (let j = 0; j < transferData.item[i].option.length; j++) {
-                const a = String(orderProduct.eq(0).children("div").eq(0).children("p").eq(j).html()).split(' ');
-                asd += `
+                const a = String(orderProduct.eq(i).children("div").eq(0).children("p").eq(j).html()).split(' ');
+                optionString += `
                                 <div class="option addOption">
                                     <p> ${a[0]}</p>
                                     <p> ${transferData.item[i].cnt} </p>
@@ -117,7 +93,7 @@
         console.log(orderProduct.eq(0).children("div").eq(0).children("p").eq(0).html());
         $(".payment_modal_order_box > aside").html("");
         $(".payment_modal_order_box > aside").append(`
-                                ${asd}
+                                ${optionString}
         `);
         $(".payment_modal").addClass("displayFlag");
     });
@@ -145,6 +121,15 @@
         $(".option_modal_x_button").on("click", () => $(".modalBackground").removeClass("displayFlag"));
         $(".add_order_button").on("click", () => {
             const optionId  = [];
+            const arrayComparison = (inputArray1, inputArray2) => {
+                const arrayLength = inputArray1.length > inputArray2.length ? inputArray1.length : inputArray2.length;
+
+                for (let i = 0; i < arrayLength; i++) {
+                    if (inputArray1[i] != inputArray2[i]) return false;
+                }
+                return true;
+            }
+            let duplicationCheck = true;
             let optionString = "";
 
             for (let i = 0; i < $(".optionButton").length; i++) {
@@ -153,6 +138,13 @@
                     optionString += `<p>${$(".optionButton").eq(i).html()}</p>`;
                 }
             }
+            for (let i = 0; i < transferData.item.length; i++) {
+                if ($(".option_modal_main p").eq(0).attr("data-product-id") == transferData.item[i].id && arrayComparison(optionId, transferData.item[i].option)) {
+                    transferData.item[i].cnt++;
+                    duplicationCheck = false ;
+                }
+            }
+            if (duplicationCheck) {
             $(".orderBox").append(`
                     <div>
                         <button class="orderXButton"></button>
@@ -165,7 +157,7 @@
                         <div>
                             <div> 
                                 <button class="product_number_minus"> - </button>
-                                <p> 1 </p>
+                                <p class="product_number"> 1 </p>
                                 <button class="product_number_plus"> + </button>
                             </div> 
                         </div>
@@ -183,7 +175,6 @@
                     return ;
                 } else {
                     productNumber--;
-                    $(this).parent().children("p").html(productNumber);
                     productResultPrice.html(putComma(productNumber * (productResultPrice.html().replace(regex, "") / (productNumber + 1))) + " 원");
                     transferData.item[$(this).parent().parent().parent().index()].cnt = productNumber;
                 }
@@ -193,11 +184,10 @@
                 let productNumber = $(this).parent().children("p").html();
                 const productResultPrice =$(this).parent().parent().parent().children(".product_result_price");
 
-                if ( productNumber == 10) {
+                if ( productNumber == 19999999999999) {
                     return ;
                 } else {
                     productNumber++;
-                    $(this).parent().children("p").html(productNumber);
                     productResultPrice.html(putComma(productNumber * (productResultPrice.html().replace(regex, "") / (productNumber - 1))) + " 원");
                     transferData.item[$(this).parent().parent().parent().index()].cnt = productNumber;
                 }
@@ -208,10 +198,12 @@
                 $(this).parent().remove();
                 totalSet();
             });
+        }
             totalSet();
             $(".modalBackground").removeClass("displayFlag");
         });
     });
+    $(".option_modal_x_button").on("click", () => $(".modalBackground").removeClass("displayFlag"));
     $(".store_or_packaging").on("click", function() {
         $(".store_or_packaging").removeClass("backgroundFlag");
         $(this).addClass("backgroundFlag");
@@ -232,6 +224,30 @@
         const  spoonNumber = parseInt($(this).parent().children("p").html()) + 1;
         $(this).parent().children("p").html(spoonNumber);
     });
-    console.log($(".modal2").children("section").length);
+    $(".modal2_pay").on("click", function () {
+        $(".modal2_pay").removeClass("backgroundFlag");
+        $(this).addClass("backgroundFlag");
+    });
+    $(".point_modal_x_button").on("click", () => {
+        $(".point_modal_background").removeClass("displayFlag");
+    });
+    $("#reset_button").on("click", () => {
+        $(".orderBox").html("")
+        transferData.item = [];
+        totalSet();
+    });
+    $("#point_payment").on("click", () => {
+        $(".point_modal_background").addClass("displayFlag");
+    });
+    $(".modal2_x_button").on("click", () => {
+        $(".modal2_pay").removeClass("backgroundFlag");
+        $(".modal2WrapBox").removeClass("displayFlag");
+    });
+    $(".modal2_o_button").on("click", () => {
+        $(".modal2WrapBox").removeClass("displayFlag");
+    });
+    $("#pay_payment").on("click", () => {
+        $(".modal2WrapBox").addClass("displayFlag");
+    });
 })();
 

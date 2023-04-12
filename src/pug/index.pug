@@ -10,38 +10,39 @@ html( lang="ko" )
         link(rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css")
         script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
     body
-        img(src="./images/aaa.jpg", alt="" class="a")
-        main.main 
+        //img(src="./images/temporary.jpg", alt="" class="temporary_img")
+        main.main_page
             section.logoBox
-                img(src="./images/sulbingLogo.png", alt="")
+                div
+                    img(src="./images/sulbingLogo.png", alt="")
             section.showProduct
                 ul.menuBar1
-                    - let check = 0;
+                    - let menuIdCheck = 0;
                     - for (let i = 0; i < menu.length; i++)
-                        -if (menu[i].lv1_id != check)
+                        -if (menu[i].lv1_id != menuIdCheck)
                             li  #{menu[i].lv1_name}
-                            - check = menu[i].lv1_id
+                            - menuIdCheck = menu[i].lv1_id
                 ul.menuBar2
                     - let menuIndex = [];
                     - let pageNum = 0;
-                    - check = 0;
+                    - menuIdCheck = 0;
                     - for (let i = 0; i < menu.length; i++)
-                        -if (menu[i].lv1_id != check)
+                        -if (menu[i].lv1_id != menuIdCheck)
                             li
                                 -for(let j = 0; j < menu.length; j++)
                                     -if (j == 0)
                                         - menuIndex.push([`${pageNum + 1}_all`]);
                                         div All
-                                    -if (menu[j].lv1_id == 1 + check)
+                                    -if (menu[j].lv1_id == 1 + menuIdCheck)
                                         div #{menu[j].lv2_name}
                                         - menuIndex[pageNum].push(menu[j].lv2_id);
-                            - check = menu[i].lv1_id
+                            - menuIdCheck = menu[i].lv1_id
                             - pageNum++;
                 hr.menuBarLine
                 - pageNum = 1;
-                - check = 0;
+                - menuIdCheck = 0;
                 - for (let i = 0; i < menu.length; i++)
-                    - if (menu[i].lv1_id != check)
+                    - if (menu[i].lv1_id != menuIdCheck)
                         section.productListWrapBox
                             - let lv2Index = 0;
                             - for(let v = 0; v < menuIndex[pageNum - 1].length; v++)
@@ -60,7 +61,7 @@ html( lang="ko" )
                                                             div.option_modal_up
                                                                 img.optionImg(src=`images/${product[k].image_path}` alt='mangoBingsoo')
                                                                 div.option_modal_text
-                                                                    p #{product[k].name}
+                                                                    p(data-product-id = `${product[k].product_id}`) #{product[k].name}
                                                                     p.productPrice #{Number(String(product[k].price - (product[k].price / 100 * product[k].discount)).replace(/[^0-9,]/g, '')).toLocaleString()}원
                                                                     p #{product[k].discription}
                                                                     p 알레르기정보 : #{product[k].allergy}
@@ -73,22 +74,22 @@ html( lang="ko" )
                                                                     p.resultPrice 0원
                                                                     hr 
                                                             div.option_modal_down
-                                                                - let che = "a";
+                                                                - let productOptionCheck = "";
                                                                 - for (let i = 0; i <= productOptionArray[product[k].product_id].length; i++)
                                                                     - if (productOptionArray[product[k].product_id].length > i)
-                                                                            - if (che != productOptionArray[product[k].product_id][i][0])
+                                                                            - if (productOptionCheck != productOptionArray[product[k].product_id][i][0])
                                                                                 div
                                                                                     p #{productOptionArray[product[k].product_id][i][0]}
                                                                                     - for (let ac = 0; productOptionArray[product[k].product_id].length > ac + i && productOptionArray[product[k].product_id][i][0] == productOptionArray[product[k].product_id][i + ac][0]; ac++ )
                                                                                         button.optionButton(data-option-id = `${productOptionArray[product[k].product_id][i + ac][4]}`) #{productOptionArray[product[k].product_id][i + ac][1]} #{productOptionArray[product[k].product_id][i + ac][2] - ((productOptionArray[product[k].product_id][i + ac][2]) / 100 * productOptionArray[product[k].product_id][i + ac][3]) }원
-                                                                                    - che = productOptionArray[product[k].product_id][i][0]
+                                                                                    - productOptionCheck = productOptionArray[product[k].product_id][i][0]
                                                                     - else
                                                                             div.option_modal_basket
                                                                                 button.option_modal_x_button 취소
                                                                                 button.add_order_button 주문담기
 
                                     - lv2Index++
-                        - check = menu[i].lv1_id
+                        - menuIdCheck = menu[i].lv1_id
                         - pageNum++;
 
             section.orderHistory

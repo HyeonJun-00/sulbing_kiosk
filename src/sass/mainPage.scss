@@ -3,10 +3,14 @@
     padding: 0;
     border: 0;
     font-family: 'Noto Sans KR', sans-serif;
+
     ::-webkit-scrollbar {
         display: none;
     }
-    font-size: 10px;
+    font-size: 20px;
+}
+html, body {
+    font-size: 20px;
 }
 
 $color-mainH: rgb(46, 31, 26);
@@ -22,15 +26,15 @@ $color-line: rgb(220, 220, 220);
     align-items: center;
 }
 
-.a {
+/*.temporary_img {
     position: absolute;
     height: 96rem;
-}
+}*/
 
-.main {
+.main_page {
     display: block;
-    border-left: 3rem solid #404040;
-    border-right: 3rem solid #404040;
+    //border-left: 3rem solid #404040;
+    //border-right: 3rem solid #404040;
     position: relative;
     width: 54rem;
     height: 96rem;
@@ -43,21 +47,29 @@ $color-line: rgb(220, 220, 220);
     width: 100%;
     height: 10rem;
 
-    &>img {
-        height: 6rem;
+    &>div {
+        display: inline-block;
+        width: 20%;
         position: relative;
-        left: 21rem;
-        transform: translate(-50%, 15%);
-    }
+        left: 50%;
+        top: 1rem;
+        transform: translate(-50%, 0);
+        &>img {
+            left: 50%;
+            transform: translate(-50%, 0);
+            height: 6rem;
+            position: absolute;
+        }
 
-    &::after {
-        top: 2.8rem;
-        left: 6.5rem;
-        color: $color-sub1;
-        position: relative;
-        content: "KOREAN DESSERT CAFE";
+        &::after {
+            font-size: .7rem;
+            margin-left: 1.6rem;
+            top: 7rem;
+            color: $color-sub1;
+            position: absolute;
+            content: "KOREAN DESSERT CAFE";
+        }
     }
-
 }
 
 .showProduct {
@@ -144,7 +156,7 @@ $color-line: rgb(220, 220, 220);
         position: relative;
         left: 50%;
         transform: translate(-50%);
-        height: 1px;
+        height: .1rem;
         width: 95%;
         background-color: #ddd;
         margin-top: 1rem;
@@ -176,32 +188,40 @@ $color-line: rgb(220, 220, 220);
                 border-radius: 0.8rem;
                 @include flexCenter();
                 flex-direction: column;
-                & > img {
+
+                &>img {
                     width: 100%;
                     margin-bottom: 1rem;
                 }
+
                 & p {
                     color: #444;
+
                     &:nth-child(2) {
                         font-size: 1.2rem;
                     }
+
                     &:nth-child(3) {
+                        font-size: 1rem;
                         margin-bottom: 0.7rem;
                     }
 
 
                 }
-                & > div:nth-child(n + 3) {
+
+                &>div:nth-child(n + 3) {
                     display: none;
                 }
             }
+
             &.displayFlag {
                 display: flex;
             }
         }
+
         &.displayFlag {
             display: block;
-        }       
+        }
     }
 }
 
@@ -222,15 +242,17 @@ $color-line: rgb(220, 220, 220);
         content: "주문내역";
         color: #fff;
     }
-    & > section {
+
+    &>section {
         width: 100%;
         height: 60rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         overflow: scroll;
+
         //background-color: #fff;
-        & > div {
+        &>div {
             @include flexCenter();
             flex-direction: column;
             border-radius: 0.5rem;
@@ -240,9 +262,11 @@ $color-line: rgb(220, 220, 220);
             //height: 18.5rem;
             padding: 1rem 0 1rem 0;
             background-color: #fff;
-            & > button {
+
+            &>button {
                 width: 0;
                 height: 0;
+
                 &::before {
                     @include flexCenter();
                     height: 1.5rem;
@@ -255,44 +279,55 @@ $color-line: rgb(220, 220, 220);
                     content: "\00d7";
                 }
             }
-            & > img {
+
+            &>img {
                 width: 90%;
             }
-            & > p {
+
+            &>p {
                 @include flexCenter();
                 text-align: center;
                 width: 90%;
                 color: #666;
                 margin: 0.1rem;
+
                 &:nth-child(3) {
                     height: 3rem;
+                    font-size: 1rem;
                 }
+
                 &:nth-child(5) {
                     margin: 0.5rem 0 0.5rem 0;
-                    font-size: 1.3rem;
+                    font-size: 1.1rem;
                     color: #333;
                 }
             }
-            & > div:nth-child(4) {
-                & > p {
+
+            &>div:nth-child(4) {
+                &>p {
                     text-align: center;
-                    font-size: .5rem;
+                    font-size: .8rem;
                     color: #666;
                     zoom: 0.8;
                 }
             }
-            & > div:nth-child(6) {
+
+            &>div:nth-child(6) {
                 margin-top: 0.5rem;
                 @include flexCenter();
-                & > div {
+
+                &>div {
                     @include flexCenter();
-                    & > p {
+
+                    &>p {
+                        font-size: 1rem;
                         text-align: center;
                         height: 100%;
                         border: 1px solid #bbb;
                         width: 3rem;
                     }
-                    & > button {
+
+                    &>button {
                         @include flexCenter();
                         border-radius: 50%;
                         border: 1px solid #ccc;
@@ -305,20 +340,25 @@ $color-line: rgb(220, 220, 220);
             }
         }
     }
-    & > div {
+
+    &>div {
         height: 14rem;
         width: 100%;
         @include flexCenter();
         flex-direction: column;
         align-items: end;
-        & > p {
+
+        &>p {
+            font-size: 1rem;
             margin-right: 1.3rem;
             color: #fff;
         }
-        & > p:nth-child(2) {
+
+        &>p:nth-child(2) {
             font-size: 1.7rem;
         }
-        & > button {
+
+        &>button {
             border-radius: 0.2rem;
             font-size: 1.7rem;
             margin: 0.5rem;
@@ -326,12 +366,14 @@ $color-line: rgb(220, 220, 220);
             width: 80%;
             height: 3.5rem;
             color: #444;
+
             &:nth-child(3) {
                 background-color: rgb(242, 218, 94);
             }
         }
     }
 }
+
 .modalBackground {
     top: 0;
     z-index: 99999999;
@@ -340,11 +382,14 @@ $color-line: rgb(220, 220, 220);
     background-color: rgba(#111, .3);
     position: absolute;
     display: none;
+
     &.displayFlag {
         display: block;
     }
 }
-.option_modal_main {  // main modal 창 전체
+
+.option_modal_main {
+    // main modal 창 전체
     background-color: #fff;
     width: 45rem;
     height: 73rem;
@@ -353,13 +398,14 @@ $color-line: rgb(220, 220, 220);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
-    & section:nth-child(1) { 
+
+    & section:nth-child(1) {
         width: 100%;
         height: 7.5rem;
         border-radius: 1.5rem 1.5rem 0 0;
 
-        & > button { // 상부 모달창 종료 x 버튼
+        &>button {
+            // 상부 모달창 종료 x 버튼
             position: absolute;
             top: 0.5rem;
             right: 1.5rem;
@@ -372,11 +418,14 @@ $color-line: rgb(220, 220, 220);
             }
         }
     }
+
     .option_modal_up {
         width: 100%;
         height: 24rem;
         position: relative;
-        .optionImg {   // 상부 이미지 
+
+        .optionImg {
+            // 상부 이미지 
             width: 15rem;
             height: 15rem;
             position: absolute;
@@ -384,7 +433,9 @@ $color-line: rgb(220, 220, 220);
             top: 5%;
             transform: translate(-50%, -50%);
         }
-        .option_modal_text { // image 밑에 문구
+
+        .option_modal_text {
+            // image 밑에 문구
             width: 100%;
             height: 10rem;
             text-align: center;
@@ -395,37 +446,44 @@ $color-line: rgb(220, 220, 220);
             display: flex;
             flex-direction: column;
 
-            & > p {
+            &>p {
                 width: 100%;
                 font-size: 1.5rem;
                 font-weight: bold;
                 color: #444;
                 line-height: 2rem;
             }
-            & > p:nth-child(2) {
+
+            &>p:nth-child(2) {
                 font-size: 1.2rem;
             }
-            & > p:nth-child(3) {
+
+            &>p:nth-child(3) {
                 font-size: 1.2rem;
             }
-            & > p:nth-child(4) {
+
+            &>p:nth-child(4) {
                 font-size: 0.8rem;
             }
         }
+
         .totalPrice {
             width: 100%;
             height: 5rem;
             display: block;
             position: relative;
             top: 35%;
-            & > div:nth-child(1) { // 중앙 텍스트 & 가로 선
+
+            &>div:nth-child(1) {
+                // 중앙 텍스트 & 가로 선
                 width: 100%;
                 border: 1px solid transparent;
                 margin-left: 2rem;
                 transform: translate(-5%, -15%);
                 display: flex;
                 justify-content: center;
-                & > hr {
+
+                &>hr {
                     position: relative;
                     display: inline-block;
                     width: 8.5rem;
@@ -435,7 +493,8 @@ $color-line: rgb(220, 220, 220);
                     opacity: 0.2;
                     padding-left: 1rem solid black;
                 }
-                & > p:nth-child(2) {
+
+                &>p:nth-child(2) {
                     display: inline-block;
                     width: 18rem;
                     font-size: 1.3rem;
@@ -444,14 +503,18 @@ $color-line: rgb(220, 220, 220);
                     color: rgb(241, 196, 15);
                 }
             }
-            & > p:nth-child(2) { // 합계 
+
+            &>p:nth-child(2) {
+                // 합계 
                 width: 30%;
                 font-size: 1.2rem;
                 font-weight: bold;
                 text-align: center;
                 display: inline-block;
             }
-            & > p:nth-child(3) {  // 원
+
+            &>p:nth-child(3) {
+                // 원
                 width: 58%;
                 font-size: 1.2rem;
                 font-weight: bold;
@@ -459,7 +522,9 @@ $color-line: rgb(220, 220, 220);
                 display: inline-block;
                 text-align: right;
             }
-            & > hr {      // 상부 텍스트 마지막 가로 선
+
+            &>hr {
+                // 상부 텍스트 마지막 가로 선
                 display: inline-block;
                 width: 77.7777%;
                 height: 0.1rem;
@@ -471,20 +536,26 @@ $color-line: rgb(220, 220, 220);
             }
         }
     }
-    .option_modal_down {     // 하부 옵션 큰 박스
+
+    .option_modal_down {
+        // 하부 옵션 큰 박스
         width: 100%;
         height: 40rem;
         position: relative;
-        & > div {  // source tap
+
+        &>div {
+            // source tap
             width: 80%;
             margin-left: 5rem;
-            & > p:nth-child(1) {
+
+            &>p:nth-child(1) {
                 font-size: 1.5rem;
                 color: rgb(241, 196, 15);
                 margin-left: 0.5rem;
                 font-weight: bold;
             }
-            & > button {
+
+            &>button {
                 border-radius: .3rem;
                 font-size: 1rem;
                 color: #333;
@@ -492,49 +563,57 @@ $color-line: rgb(220, 220, 220);
                 border: 1px solid #ddd;
                 background-color: white;
                 padding: 0.3rem 0.6rem 0.3rem 0.6rem;
+
                 &.backgroundFlag {
-                    background-color:#f2da5e;
+                    background-color: #f2da5e;
                 }
             }
 
         }
-        .option_modal_basket {  // 마지막 박스 tap
+
+        .option_modal_basket {
+            // 마지막 박스 tap
             display: flex;
             flex-flow: row;
             justify-content: center;
 
-            & > button {
+            &>button {
                 border: 1px solid #ddd;
                 background-color: #f2da5e;
-                font-size: 1.7rem;  
+                font-size: 1.7rem;
                 height: 4rem;
                 width: 15rem;
                 margin: 1rem;
                 border-radius: 0.6rem;
             }
-            & > button:nth-child(1) {
+
+            &>button:nth-child(1) {
                 background-color: white;
             }
         }
     }
 }
+
 @mixin check {
-        display: inline-flex;
+    display: inline-flex;
+
+    &::after {
+        position: absolute;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        width: 10rem;
+        height: 4rem;
+        border-radius: 1rem;
+        content: "";
+    }
+
+    &.backgroundFlag {
         &::after {
-            position: absolute;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            width: 10rem;
-            height: 4rem;
-            border-radius: 1rem;
-            content: "";
+            border: 3px solid #f2da5e;
         }
-        &.backgroundFlag {
-            &::after {
-                border: 3px solid #f2da5e;
-            }
-        }
+    }
 }
+
 .payment_modal {
     top: 0;
     z-index: 99999999;
@@ -543,10 +622,12 @@ $color-line: rgb(220, 220, 220);
     background-color: rgba(#111, .3);
     position: absolute;
     display: none;
+
     &.displayFlag {
         display: block;
     }
 }
+
 .modal {
     top: 13.5rem;
     left: 50%;
@@ -588,9 +669,11 @@ $color-line: rgb(220, 220, 220);
     & section:nth-child(2) {
         height: 11rem;
         @include flexCenter();
+
         & div {
             margin: 0 1rem 0 1rem;
         }
+
         & div:nth-child(1) {
             display: flex;
             flex-direction: column;
@@ -598,18 +681,21 @@ $color-line: rgb(220, 220, 220);
             align-items: center;
             width: 10rem;
             height: 10rem;
-            & > button {
+
+            &>button {
                 border: 1px solid #ccc;
                 background-color: #fff;
                 font-size: 1.7rem;
                 border-radius: 0.2rem;
                 width: 10rem;
                 height: 4rem;
+
                 &.backgroundFlag {
                     background-color: #f2da5e;
                 }
             }
         }
+
         & div:nth-child(2) {
             display: flex;
             flex-direction: column;
@@ -619,9 +705,11 @@ $color-line: rgb(220, 220, 220);
             height: 9rem;
             border: 1px solid #ccc;
             margin-bottom: 0.3rem;
-            border-radius: 4px;
+            border-radius: .4rem;
+
             & p:nth-child(1) {
                 margin: 0.5rem;
+
                 &::after {
                     transform: rotate(-45deg);
                     display: inline-block;
@@ -630,21 +718,25 @@ $color-line: rgb(220, 220, 220);
                     font-size: 3rem;
                 }
             }
+
             & p:nth-child(2) {
                 font-size: 1.2rem;
             }
+
             & span:nth-child(3) {
                 width: 100%;
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
+
                 & p {
                     border: 1px solid #ccc;
                     height: 2rem;
                     width: 4rem;
                     text-align: center;
                 }
+
                 & button {
                     background-color: transparent;
                     font-size: 2rem;
@@ -652,7 +744,7 @@ $color-line: rgb(220, 220, 220);
                 }
             }
         }
-        
+
         & div:nth-child(3) {
             display: flex;
             flex-direction: column;
@@ -662,9 +754,11 @@ $color-line: rgb(220, 220, 220);
             height: 9rem;
             border: 1px solid #999;
             margin-bottom: 0.3rem;
-            border-radius: 4px;
+            border-radius: .4rem;
+
             & p:nth-child(1) {
                 margin: 0.5rem;
+
                 &::after {
                     display: inline-block;
                     content: "\f017";
@@ -672,21 +766,25 @@ $color-line: rgb(220, 220, 220);
                     font-size: 3rem;
                 }
             }
+
             & p:nth-child(2) {
                 font-size: 1.2rem;
             }
+
             & span:nth-child(3) {
                 width: 100%;
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
+
                 & p {
                     border: 1px solid #ccc;
                     height: 2rem;
                     width: 4rem;
                     text-align: center;
                 }
+
                 & button {
                     background-color: transparent;
                     font-size: 2rem;
@@ -695,8 +793,10 @@ $color-line: rgb(220, 220, 220);
             }
         }
     }
+
     & section:nth-child(3) {
         height: 31.5rem;
+
         & .payment_modal_order_box {
             position: relative;
             left: 50%;
@@ -705,73 +805,89 @@ $color-line: rgb(220, 220, 220);
             width: 77%;
             border: 3px solid #ddd;
             border-radius: 1rem;
+
             & .option {
-                    position: relative;
-                    left: 50%;
-                    transform: translate(-50%, 0);
-                    display: flex;
-                    justify-content: center;
-                    & p {
-                        font-size: 1.5rem;
-                    }
-                    & p:nth-child(1) {
-                        text-align: left;
-                        width: 40%;
-                    }
-                    & p:nth-child(2) {
-                        text-align: center;
-                        width: 10%;
-                    }
-                    & p:nth-child(3) {
-                        text-align: right;
-                        width: 40%;
-                    }
+                position: relative;
+                left: 50%;
+                transform: translate(-50%, 0);
+                display: flex;
+                justify-content: center;
+
+                & p {
+                    font-size: 1.5rem;
+                }
+
+                & p:nth-child(1) {
+                    text-align: left;
+                    width: 40%;
+                }
+
+                & p:nth-child(2) {
+                    text-align: center;
+                    width: 10%;
+                }
+
+                & p:nth-child(3) {
+                    text-align: right;
+                    width: 40%;
+                }
             }
+
             aside {
                 overflow: scroll;
                 height: 80%;
             }
-            & .option {
-                width: 90%;
-            }
-            & > .option:nth-child(1) {
-                width: 81%;
-                border-bottom: 1px solid #ddd;
-                & p {
-                    font-size: 1.2rem;
-                    height: 2.2rem;
-                }
-            }
-            & .addOption {
+
+            &>.option {
+                width: 93%;
+                margin: 0.5rem;
+
+                &:nth-child(1) {
+                    width: 81%;
+                    border-bottom: 1px solid #ddd;
+
                     & p {
                         font-size: 1.2rem;
+                        height: 2.2rem;
                     }
-                     & p:nth-child(1) {
-                        text-align: left;
-                        width: 33%;
-                        margin-left: 7%;
-                        &::after {
-                            content: ">";
-                            position: absolute;
-                            left: 2rem;
-                        }
-                    }               
+                }
             }
+
+            & .addOption {
+                & p {
+                    font-size: 1.2rem;
+                }
+
+                & p:nth-child(1) {
+                    text-align: left;
+                    width: 33%;
+                    margin-left: 7%;
+
+                    &::after {
+                        content: ">";
+                        position: absolute;
+                        left: 2rem;
+                    }
+                }
+            }
+
             .totalPrice {
                 width: 85%;
                 border-top: 1px solid #ddd;
-                    & p:nth-child(3) {
-                        color: #e6ce5af2;
-                    }
+
+                & p:nth-child(3) {
+                    color: #e6ce5af2;
+                }
             }
-        }    
+        }
     }
+
     & section:nth-child(4) {
         height: 13rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        
+
         & button {
             margin: 0 0.5rem 0 0.5rem;
             display: flex;
@@ -782,16 +898,20 @@ $color-line: rgb(220, 220, 220);
             height: 8.5rem;
             border: 1px solid #ccc;
             margin-bottom: 0.3rem;
-            border-radius: 4px;
+            border-radius: .4rem;
             background-color: #fff;
+
             & img {
                 width: 100%;
             }
+
             & p {
+                font-size: 1rem;
                 margin-top: 1rem;
             }
         }
     }
+
     & section:nth-child(5) {
         height: 7rem;
         border-radius: 0 0 1.5rem 1.5rem;
@@ -800,28 +920,32 @@ $color-line: rgb(220, 220, 220);
         align-items: center;
 
         & button {
-                border: 1px solid #ccc;
-                background-color: #f2da5e;
-                font-size: 1.7rem;
-                border-radius: 0.2rem;
-                width: 15rem;
-                height: 3rem;
-                margin: 0 1.9rem 2.8rem 1.9rem;
+            border: 1px solid #ccc;
+            background-color: #f2da5e;
+            font-size: 1.7rem;
+            border-radius: 0.2rem;
+            width: 15rem;
+            height: 3rem;
+            margin: 0 1.9rem 2.8rem 1.9rem;
         }
+
         & button:nth-child(1) {
-                background-color: #fff;
+            background-color: #fff;
         }
     }
 }
+
 .modal2WrapBox {
     width: 100%;
     height: 100%;
     position: relative;
     display: none;
+
     &.displayFlag {
         display: block;
     }
 }
+
 .modal2 {
     left: 50%;
     top: 50%;
@@ -831,51 +955,60 @@ $color-line: rgb(220, 220, 220);
     border-radius: 2rem;
     width: 30rem;
     height: 30rem;
-    background-color: #fff;   
-    
+    background-color: #fff;
+
     & section {
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
     & section:nth-child(2) {
         margin: 2rem 3rem 0 4.4rem;
         @include check();
     }
+
     & section:nth-child(3) {
-        margin: 0 3rem 0 1rem ;
+        margin: 0 3rem 0 1rem;
         @include check();
     }
+
     & section:nth-child(4) {
-        margin: 1rem 2rem 0 3.6rem ;
+        margin: 1rem 2rem 0 3.6rem;
         @include check();
     }
+
     & section:nth-child(5) {
         margin: 0 2rem 0 0.5rem;
         @include check();
     }
+
     & section:last-child {
         position: absolute;
         bottom: 0;
         width: 100%;
         height: 10rem;
-         & button {
-                border: 1px solid #ccc;
-                background-color: #f2da5e;
-                font-size: 1.7rem;
-                border-radius: 0.2rem;
-                width: 10rem;
-                height: 3rem;
-                margin: 1.5rem;
+
+        & button {
+            border: 1px solid #ccc;
+            background-color: #f2da5e;
+            font-size: 1.7rem;
+            border-radius: 0.2rem;
+            width: 10rem;
+            height: 3rem;
+            margin: 1.5rem;
         }
+
         & button:nth-child(1) {
-                background-color: #fff;
-        }   
+            background-color: #fff;
+        }
     }
+
     & img {
         height: 3rem;
         margin: 1rem;
     }
+
     & section:nth-child(1) {
         width: 100%;
         height: 7.5rem;
@@ -905,6 +1038,7 @@ $color-line: rgb(220, 220, 220);
         }
     }
 }
+
 .point_modal_background {
     top: 0;
     z-index: 99999999;
@@ -912,6 +1046,7 @@ $color-line: rgb(220, 220, 220);
     height: 100%;
     position: absolute;
     display: none;
+
     &.displayFlag {
         display: block;
     }
@@ -965,7 +1100,7 @@ $color-line: rgb(220, 220, 220);
             display: flex;
             justify-content: center;
 
-           & input {
+            & input {
                 border-radius: 1rem;
                 border: 1px solid #666;
                 width: 22rem;
@@ -974,7 +1109,7 @@ $color-line: rgb(220, 220, 220);
                 text-align: center;
             }
 
-           & button:nth-child(2) {
+            & button:nth-child(2) {
                 margin-left: 2rem;
                 background-color: #f2da5e;
                 font-size: 1.7rem;
@@ -983,13 +1118,15 @@ $color-line: rgb(220, 220, 220);
                 height: 4rem;
             }
         }
+
         & div:nth-child(2) {
             margin-top: 1.5rem;
             height: 22rem;
             width: 30.9rem;
-            position:relative;
+            position: relative;
             left: 50%;
             transform: translate(-50%, 0%);
+
             & button {
                 background-color: white;
                 border: 1px solid #aaa;
@@ -1008,13 +1145,15 @@ $color-line: rgb(220, 220, 220);
         height: 40%;
         background-color: white;
         border-radius: 0 0 2rem 2rem;
+
         & div:nth-child(1) {
             margin-top: 2rem;
             width: 32rem;
             height: 18rem;
-            position:relative;
+            position: relative;
             left: 50%;
             transform: translate(-50%, 0%);
+
             & p:nth-child(3n - 1) {
                 text-align: right;
                 display: inline-block;
@@ -1023,6 +1162,7 @@ $color-line: rgb(220, 220, 220);
                 font-size: 1.7rem;
                 height: 4rem;
             }
+
             & p:nth-child(3n + 1) {
                 display: inline-block;
                 width: 28%;
@@ -1030,16 +1170,19 @@ $color-line: rgb(220, 220, 220);
                 font-size: 1.7rem;
                 height: 4rem;
             }
+
             & hr {
                 background-color: #f2da5e;
                 height: 0.3rem;
             }
         }
+
         & div:nth-child(2) {
             display: flex;
             flex-flow: row;
             justify-content: center;
-           & button {
+
+            & button {
                 border: 1px solid #ddd;
                 margin: 2rem;
                 background-color: #f2da5e;
@@ -1048,12 +1191,14 @@ $color-line: rgb(220, 220, 220);
                 width: 8rem;
                 height: 4rem;
             }
+
             & button:nth-child(1) {
-                background-color: white;   
+                background-color: white;
             }
         }
     }
 }
+
 .point_modal_sub {
     top: 15.5rem;
     left: 50%;
@@ -1062,9 +1207,11 @@ $color-line: rgb(220, 220, 220);
     width: 45rem;
     height: 70rem;
     display: none;
+
     &.displayFlag {
         display: block;
     }
+
     section {
         background-color: #f7f4ec;
         border: 1px solid #777;
@@ -1075,8 +1222,9 @@ $color-line: rgb(220, 220, 220);
         transform: translate(-50%, 0);
         position: relative;
         border-radius: 1.5rem;
+
         & div {
-           & p {
+            & p {
                 border-radius: 1.5rem 1.5rem 0 0;
                 padding-top: 1rem;
                 padding-bottom: 1rem;
@@ -1086,10 +1234,12 @@ $color-line: rgb(220, 220, 220);
                 color: white;
             }
         }
+
         & div:nth-child(2) {
             display: flex;
             justify-content: center;
-            & button{
+
+            & button {
                 border: 1px solid #aaa;
                 margin: 2rem;
                 background-color: #f2da5e;
@@ -1098,6 +1248,7 @@ $color-line: rgb(220, 220, 220);
                 width: 8rem;
                 height: 4rem;
             }
+
             & button:nth-child(1) {
                 background-color: #fff;
             }
