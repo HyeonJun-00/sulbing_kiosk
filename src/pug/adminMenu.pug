@@ -10,6 +10,7 @@ hmtl
         link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet")
         link(rel="stylesheet", href="./css/admin.css")
         script( src="https://unpkg.com/axios/dist/axios.min.js")
+        script(src="./js/adminMenu.js")
     body
         main.mainDisplay
             ul.mainMenu
@@ -54,12 +55,12 @@ hmtl
                                             input(type="hidden" name="nameMenu" value=`${menuList.name}`)
                                             input(type="hidden" name="isMain" value="true")
                                             input(type="hidden" name="checkMenu" value="active")
-                                            input(type="submit" value="AVTIVE")
+                                            input(type="submit" value="ACTIVE")
                                         form(action="/admin_menu/menuCheck" method="POST")
                                             input(type="hidden" name="nameMenu" value=`${menuList.name}`)
                                             input(type="hidden" name="isMain" value="true")
                                             input(type="hidden" name="checkMenu" value="inactive")
-                                            input(type="submit" value="INAVTIVE")
+                                            input(type="submit" value="INACTIVE")
                                 ul
                                     for menuName, j in menu[1]
                                         if menuName.pid == menuList.name
@@ -85,4 +86,3 @@ hmtl
                                                         input(type="hidden" name="nameMenu" value=`${menuName.name}`)
                                                         input(type="hidden" name="checkMenu" value="inactive")
                                                         input(type="submit" value="INACTIVE")
-        script(src="./js/adminMenu.js")
