@@ -66,7 +66,11 @@ hmtl
                                 - ( !pP.dif_id && !pP['option'] ) && ( pP['option'] = [] );
                                 - ( !pP.dif_id ) && ( proPostObj[pP.id].push( pP ) );
                                 - ( pP.dif_id && !optionObj[pP.dif_id] ) && ( optionObj[pP.dif_id]= [] );
-                                - ( pP.dif_id ) && ( optionObj[pP.dif_id].push( pP ) )
+                                - ( pP.dif_id ) && ( optionObj[pP.dif_id].push( pP ) );
+                            - let payPostObj= {};
+                            each pP in paymentPost
+                                - ( !payPostObj[pP.id] ) && ( payPostObj[pP.id]= [] );
+                                - payPostObj[pP.id].push( pP );
                             each item, i in readPost
                                 li.orderReadRow
                                     form.orderSetForm
@@ -106,6 +110,12 @@ hmtl
                                                         li= '- ' + oP.option_name
                                                         li= oP.option_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                                                         li
+                                        each pP in payPostObj[item.id]
+                                            ul.orderColSet.paymentColSet
+                                                li= pP.name
+                                                li= `결제 금액: ` + pP.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                                li= `할인율: ` + pP.discount + `%`
+                                                li= `수수료: ` + pP.charge + `%`
                             else
                                 li.emptyRow 게시물이 존재하지 않습니다.
                     section.tablePaging
@@ -119,4 +129,5 @@ hmtl
                                 button.modalBtn( data-modal-confirm=true ) YES
                                 button.modalBtn( data-modal-confirm=false ) CANCEL
                 section.footer
-        script(src="./js/adminOrder.js")
+    script( src="https://unpkg.com/axios/dist/axios.min.js")
+    script(src="./js/adminOrder.js")

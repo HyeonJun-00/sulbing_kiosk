@@ -160,9 +160,20 @@ body {
                         li {
                             color: gray;
                             align-items: flex-start !important;
-                            &:nth-of-type(1) { width: 80% !important; justify-content: flex-end !important; } // product_name
-                            &:nth-of-type(2) { width: 10% !important; justify-content: flex-end !important; } // product_price
+                            justify-content: flex-end !important;
+                            &:nth-of-type(1) { width: 80% !important; } // product_name
+                            &:nth-of-type(2) { width: 10% !important; } // product_price
                             &:nth-of-type(3) { width: 10% !important; }
+                        }
+                    }
+                    .paymentColSet {
+                        li {
+                            color: #000046;
+                            justify-content: flex-end !important;
+                            &:nth-of-type(1) { width: 60% !important; } // pay
+                            &:nth-of-type(2) { width: 20% !important; } // amount
+                            &:nth-of-type(3) { width: 10% !important; } // discount
+                            &:nth-of-type(4) { width: 10% !important; } // charge
                         }
                     }
                     &:nth-of-type(1) > ul > li {
