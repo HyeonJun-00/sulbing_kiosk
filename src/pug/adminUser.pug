@@ -80,7 +80,7 @@ html
                         ul.userReadRowSet
                             each item, i in readPost
                                 li.userReadRow
-                                   form.userSetForm
+                                   form
                                        ul.userColSet
                                            li= i+1
                                                input( type="hidden" name="id" data-origin-value=`${ item.id }`, value=`${ item.id }` )
