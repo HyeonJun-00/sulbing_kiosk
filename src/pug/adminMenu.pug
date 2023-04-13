@@ -2,13 +2,14 @@ hmtl
     head
         title 설빙 - 관리자 페이지
         script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js'
-        integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='
-        crossorigin='anonymous')
+            integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='
+            crossorigin='anonymous')
         script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet")
         link(rel="stylesheet", href="./css/admin.css")
+        script( src="https://unpkg.com/axios/dist/axios.min.js")
     body
         main.mainDisplay
             ul.mainMenu
@@ -30,4 +31,55 @@ hmtl
                     h1 메뉴관리
                 section.mainContent
                     section.searchBox
-        script(src="./js/admin.js")
+                    section.menuBox
+                        for menuList, i in menu[0]
+                            div.menuWrap
+                                if menuList.deleted_date == NULL
+                                    li(id=`menu${i+1}` data-id = `${menuList.name}` )
+                                        span #{menuList.name}
+                                        form(action="/admin_menu/menuCheck" method="POST")
+                                            input(type="hidden" name="nameMenu" value=`${menuList.name}`)
+                                            input(type="hidden" name="isMain" value=`${menuList.name}`)
+                                            input(type="hidden" name="checkMenu" value="active")
+                                            input(type="submit" value="AVTIVE")
+                                        form(action="/admin_menu/menuCheck" method="POST")
+                                            input(type="hidden" name="nameMenu" value=`${menuList.name}`)
+                                            input(type="hidden" name="checkMenu" value="inactive")
+                                            input(type="submit" value="INAVTIVE")
+                                else
+                                    li(id=`menu${i+1}` data-id = `${menuList.name}` )
+                                        span(style="color:red") #{menuList.name}
+                                        form(action="/admin_menu/menuCheck" method="POST")
+                                            input(type="hidden" name="nameMenu" value=`${menuList.name}`)
+                                            input(type="hidden" name="checkMenu" value="active")
+                                            input(type="submit" value="AVTIVE")
+                                        form(action="/admin_menu/menuCheck" method="POST")
+                                            input(type="hidden" name="nameMenu" value=`${menuList.name}`)
+                                            input(type="hidden" name="checkMenu" value="inactive")
+                                            input(type="submit" value="INAVTIVE")
+                                ul
+                                    for menuName, j in menu[1]
+                                        if menuName.pid == menuList.name
+                                            if menuName.deleted_date == NULL
+                                                li(id=`list${j+1}` data-id = `${menuName.name}`)
+                                                    span #{menuName.name}
+                                                    form(action="/admin_menu/menuCheck" method="POST")
+                                                        input(type="hidden" name="nameMenu" value=`${menuName.name}`)
+                                                        input(type="hidden" name="checkMenu" value="active")
+                                                        input(type="submit" value="AVTIVE")
+                                                    form(action="/admin_menu/menuCheck" method="POST")
+                                                        input(type="hidden" name="nameMenu" value=`${menuName.name}`)
+                                                        input(type="hidden" name="checkMenu" value="inactive")
+                                                        input(type="submit" value="INAVTIVE")
+                                            else
+                                                li(id=`list${j+1}` data-id = `${menuName.name}`)
+                                                    span(style="color:red") #{menuName.name}
+                                                    form(action="/admin_menu/menuCheck" method="POST")
+                                                        input(type="hidden" name="nameMenu" value=`${menuName.name}`)
+                                                        input(type="hidden" name="checkMenu" value="active")
+                                                        input(type="submit" value="AVTIVE")
+                                                    form(action="/admin_menu/menuCheck" method="POST")
+                                                        input(type="hidden" name="nameMenu" value=`${menuName.name}`)
+                                                        input(type="hidden" name="checkMenu" value="inactive")
+                                                        input(type="submit" value="INAVTIVE")
+        script(src="./js/adminMenu.js")
