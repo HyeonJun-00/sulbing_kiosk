@@ -21,7 +21,6 @@ router.post('/menuCheck', (req, res)=>{
     console.log(req.body.checkMenu, req.body.nameMenu, req.body.isMain);
     let sqlActive = `UPDATE menu SET deleted_date = NULL WHERE name Like '${req.body.nameMenu}'`;
     let sqlInactive = `UPDATE menu SET deleted_date = now() WHERE name Like '${req.body.nameMenu}'`;
-    let sqlCheck = `SELECT deleted_date FROM menu WHERE name Like '${req.body.nameMenu}'`;
     let sqlInactiveSub= `UPDATE menu SET deleted_date = now() WHERE pid Like '${req.body.nameMenu}'`;
 
 
@@ -46,16 +45,8 @@ router.post('/menuCheck', (req, res)=>{
                     });
                 });
             } else {
-                con.query(sqlCheck, (err, checker) => {
+                con.query(sqlInactive, (err, result) => {
                     if (err) throw err;
-
-                    if (checker[0].deleted_date == null) {
-                        con.query(sqlInactive, (err, result) => {
-                            if (err) throw err;
-                        });
-                    } else {
-                        console.log('already inactivated!!!');
-                    }
                 });
             }
             break;
