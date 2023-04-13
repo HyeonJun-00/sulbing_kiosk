@@ -1,0 +1,1202 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 20px; }
+  * ::-webkit-scrollbar {
+    display: none; }
+
+html,
+body {
+  font-size: 20px; }
+
+/*.temporary_img {
+    position: absolute;
+    height: 96rem;
+}*/
+.main_page {
+  display: block;
+  position: relative;
+  width: 54rem;
+  height: 96rem;
+  left: 50%;
+  transform: translate(-50%);
+  background: #2e1f1a; }
+
+.logoBox {
+  width: 100%;
+  height: 10rem; }
+  .logoBox > div {
+    display: inline-block;
+    width: 20%;
+    position: relative;
+    left: 50%;
+    top: 1rem;
+    transform: translate(-50%, 0); }
+    .logoBox > div > img {
+      left: 50%;
+      transform: translate(-50%, 0);
+      height: 6rem;
+      position: absolute; }
+    .logoBox > div::after {
+      font-size: .7rem;
+      margin-left: 1.6rem;
+      top: 7rem;
+      color: #f7f4ec;
+      position: absolute;
+      content: "KOREAN DESSERT CAFE"; }
+
+.showProduct {
+  display: inline-block;
+  width: 42rem;
+  height: 86rem;
+  border-radius: 0 3rem 0 0;
+  background-color: #efefef; }
+  .showProduct .menuBar1 {
+    display: flex;
+    width: 80%;
+    height: 4rem;
+    list-style: none;
+    justify-content: space-around; }
+    .showProduct .menuBar1 > li {
+      padding: 0 1.2rem 0.3rem 1.2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #222;
+      padding-top: 0.1rem;
+      font-size: 1.7rem;
+      margin-top: 0.75rem;
+      height: 2.5rem;
+      border-radius: 5rem;
+      /*&:hover {
+          background-color: $color-mainH;
+          color: #fff;
+      }*/ }
+      .showProduct .menuBar1 > li.backgroundFlag {
+        background-color: #2e1f1a;
+        color: #fff; }
+    .showProduct .menuBar1 > li:last-child {
+      margin-right: 4rem; }
+  .showProduct .menuBar2 {
+    display: flex;
+    width: 100%;
+    height: 2rem;
+    list-style: none; }
+    .showProduct .menuBar2 > li {
+      display: none;
+      color: #222;
+      font-size: 1.7rem;
+      flex: auto;
+      height: 2.5rem;
+      padding-left: 2rem;
+      padding-right: 8rem; }
+      .showProduct .menuBar2 > li > div {
+        cursor: pointer;
+        padding-bottom: 0.2rem;
+        font-size: 1.2rem;
+        color: #333;
+        flex: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*&:hover {
+            background-color: rgba(#000, 0.2);
+            border-radius: 5rem;
+        }*/ }
+        .showProduct .menuBar2 > li > div.backgroundFlag {
+          background-color: rgba(0, 0, 0, 0.2);
+          border-radius: 5rem; }
+    .showProduct .menuBar2 > li.displayFlag {
+      gap: 1rem;
+      display: inline-flex; }
+  .showProduct .menuBarLine {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    height: .1rem;
+    width: 95%;
+    background-color: #ddd;
+    margin-top: 1rem; }
+  .showProduct .productListWrapBox {
+    display: none;
+    overflow: scroll;
+    height: 78rem; }
+    .showProduct .productListWrapBox .productListBox {
+      border-top: 1px solid transparent;
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+      width: 95%;
+      gap: 3.5%;
+      display: none;
+      flex-wrap: wrap;
+      margin-bottom: 1rem; }
+      .showProduct .productListWrapBox .productListBox > div {
+        cursor: pointer;
+        box-shadow: 0.2rem 0.2rem 0 0 rgba(136, 136, 136, 0.2);
+        margin-top: 1.2rem;
+        width: 12.3rem;
+        height: 18.8rem;
+        background-color: #fff;
+        border-radius: 0.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; }
+        .showProduct .productListWrapBox .productListBox > div > img {
+          width: 100%;
+          margin-bottom: 1rem; }
+        .showProduct .productListWrapBox .productListBox > div p {
+          color: #444; }
+          .showProduct .productListWrapBox .productListBox > div p:nth-child(2) {
+            font-size: 1.2rem; }
+          .showProduct .productListWrapBox .productListBox > div p:nth-child(3) {
+            font-size: 1rem;
+            margin-bottom: 0.7rem; }
+        .showProduct .productListWrapBox .productListBox > div > div:nth-child(n + 3) {
+          display: none; }
+      .showProduct .productListWrapBox .productListBox.displayFlag {
+        display: flex; }
+    .showProduct .productListWrapBox.displayFlag {
+      display: block; }
+
+.orderHistory {
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  width: 12rem;
+  left: 42rem;
+  height: 79rem;
+  border-radius: 0 2rem 0 0;
+  background-color: rgba(255, 255, 255, 0.2); }
+  .orderHistory::before {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    height: 5rem;
+    content: "주문내역";
+    color: #fff; }
+  .orderHistory > section {
+    width: 100%;
+    height: 60rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll; }
+    .orderHistory > section > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border-radius: 0.5rem;
+      margin: 0.5rem;
+      margin-top: 1.5rem;
+      width: 80%;
+      padding: 1rem 0 1rem 0;
+      background-color: #fff; }
+      .orderHistory > section > div > button {
+        width: 0;
+        height: 0; }
+        .orderHistory > section > div > button::before {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 1.2rem;
+          height: 1.5rem;
+          width: 1.5rem;
+          margin-top: -.5rem;
+          margin-left: 2.5rem;
+          border-radius: 50%;
+          border: 1px solid #ccc;
+          position: relative;
+          content: "\00d7"; }
+      .orderHistory > section > div > img {
+        width: 90%; }
+      .orderHistory > section > div > p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 90%;
+        color: #666;
+        margin: 0.1rem; }
+        .orderHistory > section > div > p:nth-child(3) {
+          height: 3rem;
+          font-size: 1rem; }
+        .orderHistory > section > div > p:nth-child(5) {
+          margin: 0.5rem 0 0.5rem 0;
+          font-size: 1.1rem;
+          color: #333; }
+      .orderHistory > section > div > div:nth-child(4) > p {
+        text-align: center;
+        font-size: .8rem;
+        color: #666;
+        zoom: 0.8; }
+      .orderHistory > section > div > div:nth-child(6) {
+        margin-top: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        .orderHistory > section > div > div:nth-child(6) > div {
+          display: flex;
+          justify-content: center;
+          align-items: center; }
+          .orderHistory > section > div > div:nth-child(6) > div > p {
+            font-size: 1rem;
+            text-align: center;
+            height: 100%;
+            border: 1px solid #bbb;
+            width: 3rem; }
+          .orderHistory > section > div > div:nth-child(6) > div > button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            margin: 0.2rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            font-size: 1.2rem; }
+  .orderHistory > div {
+    height: 14rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-items: end; }
+    .orderHistory > div > p {
+      font-size: 1rem;
+      margin-right: 1.3rem;
+      color: #fff; }
+    .orderHistory > div > p:nth-child(2) {
+      font-size: 1.7rem; }
+    .orderHistory > div > button {
+      border-radius: 0.2rem;
+      font-size: 1.7rem;
+      margin: 0.5rem;
+      margin-right: 1.2rem;
+      width: 80%;
+      height: 3.5rem;
+      color: #444; }
+      .orderHistory > div > button:nth-child(3) {
+        background-color: #f2da5e; }
+
+.modalBackground {
+  top: 0;
+  z-index: 99999999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(17, 17, 17, 0.3);
+  position: absolute;
+  display: none; }
+  .modalBackground.displayFlag {
+    display: block; }
+
+.option_modal_main {
+  background-color: #fff;
+  width: 45rem;
+  height: 73rem;
+  border-radius: 2rem;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  .option_modal_main section:nth-child(1) {
+    width: 100%;
+    height: 7.5rem;
+    border-radius: 1.5rem 1.5rem 0 0; }
+    .option_modal_main section:nth-child(1) > button {
+      position: absolute;
+      top: 0.5rem;
+      right: 1.5rem;
+      background-color: transparent; }
+  .option_modal_main .option_modal_up {
+    width: 100%;
+    height: 24rem;
+    position: relative; }
+    .option_modal_main .option_modal_up .optionImg {
+      width: 15rem;
+      height: 15rem;
+      position: absolute;
+      left: 50%;
+      top: 5%;
+      transform: translate(-50%, -50%); }
+    .option_modal_main .option_modal_up .option_modal_text {
+      width: 100%;
+      height: 10rem;
+      text-align: center;
+      position: relative;
+      top: 14rem;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column; }
+      .option_modal_main .option_modal_up .option_modal_text > p {
+        width: 100%;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #444;
+        line-height: 2rem; }
+      .option_modal_main .option_modal_up .option_modal_text > p:nth-child(2) {
+        font-size: 1.2rem; }
+      .option_modal_main .option_modal_up .option_modal_text > p:nth-child(3) {
+        font-size: 1.2rem; }
+      .option_modal_main .option_modal_up .option_modal_text > p:nth-child(4) {
+        font-size: 0.8rem; }
+    .option_modal_main .option_modal_up .totalPrice {
+      width: 100%;
+      height: 5rem;
+      display: block;
+      position: relative;
+      top: 35%; }
+      .option_modal_main .option_modal_up .totalPrice > div:nth-child(1) {
+        width: 100%;
+        border: 1px solid transparent;
+        margin-left: 2rem;
+        transform: translate(-5%, -15%);
+        display: flex;
+        justify-content: center; }
+        .option_modal_main .option_modal_up .totalPrice > div:nth-child(1) > hr {
+          position: relative;
+          display: inline-block;
+          width: 8.5rem;
+          height: 0.1rem;
+          background-color: #444;
+          top: .7rem;
+          opacity: 0.2;
+          padding-left: 1rem solid black; }
+        .option_modal_main .option_modal_up .totalPrice > div:nth-child(1) > p:nth-child(2) {
+          display: inline-block;
+          width: 18rem;
+          font-size: 1.3rem;
+          font-weight: bold;
+          text-align: center;
+          color: #f1c40f; }
+      .option_modal_main .option_modal_up .totalPrice > p:nth-child(2) {
+        width: 30%;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        display: inline-block; }
+      .option_modal_main .option_modal_up .totalPrice > p:nth-child(3) {
+        width: 58%;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        display: inline-block;
+        text-align: right; }
+      .option_modal_main .option_modal_up .totalPrice > hr {
+        display: inline-block;
+        width: 77.7777%;
+        height: 0.1rem;
+        background-color: #333;
+        position: relative;
+        margin-left: 5rem;
+        margin-top: 1rem;
+        opacity: 0.2; }
+  .option_modal_main .option_modal_down {
+    width: 100%;
+    height: 40rem;
+    position: relative; }
+    .option_modal_main .option_modal_down > div {
+      width: 80%;
+      margin-left: 5rem; }
+      .option_modal_main .option_modal_down > div > p:nth-child(1) {
+        font-size: 1.5rem;
+        color: #f1c40f;
+        margin-left: 0.5rem;
+        font-weight: bold; }
+      .option_modal_main .option_modal_down > div > button {
+        border-radius: .3rem;
+        font-size: 1rem;
+        color: #333;
+        margin: 0.5rem;
+        border: 1px solid #ddd;
+        background-color: white;
+        padding: 0.3rem 0.6rem 0.3rem 0.6rem; }
+        .option_modal_main .option_modal_down > div > button.backgroundFlag {
+          background-color: #f2da5e; }
+    .option_modal_main .option_modal_down .option_modal_basket {
+      display: flex;
+      flex-flow: row;
+      justify-content: center; }
+      .option_modal_main .option_modal_down .option_modal_basket > button {
+        border: 1px solid #ddd;
+        background-color: #f2da5e;
+        font-size: 1.7rem;
+        height: 4rem;
+        width: 15rem;
+        margin: 1rem;
+        border-radius: 0.6rem; }
+      .option_modal_main .option_modal_down .option_modal_basket > button:nth-child(1) {
+        background-color: white; }
+
+.payment_modal {
+  top: 0;
+  z-index: 99999999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(17, 17, 17, 0.3);
+  position: absolute;
+  display: none; }
+  .payment_modal.displayFlag {
+    display: block; }
+
+.modal {
+  top: 13.5rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  position: absolute;
+  border-radius: 2rem;
+  width: 45rem;
+  height: 70rem;
+  background-color: #fff; }
+  .modal section:nth-child(1) {
+    width: 100%;
+    height: 7.5rem;
+    border-radius: 1.5rem 1.5rem 0 0;
+    text-align: center; }
+    .modal section:nth-child(1)::after {
+      position: relative;
+      top: 2rem;
+      color: #2E1F1A;
+      font-size: 2.5rem;
+      content: "옵션과 결제 정보를 선택하세요"; }
+  .modal section:nth-child(2) {
+    height: 11rem;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .modal section:nth-child(2) div {
+      margin: 0 1rem 0 1rem; }
+    .modal section:nth-child(2) div:nth-child(1) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 10rem;
+      height: 10rem; }
+      .modal section:nth-child(2) div:nth-child(1) > button {
+        border: 1px solid #555;
+        background-color: #fff;
+        font-size: 1.7rem;
+        border-radius: 0.2rem;
+        width: 10rem;
+        height: 4rem; }
+        .modal section:nth-child(2) div:nth-child(1) > button.backgroundFlag {
+          background-color: #f2da5e; }
+    .modal section:nth-child(2) div:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 9rem;
+      height: 9rem;
+      border: 1px solid #999;
+      margin-bottom: 0.3rem;
+      border-radius: .4rem; }
+      .modal section:nth-child(2) div:nth-child(2) p:nth-child(1) {
+        margin: 0.5rem; }
+        .modal section:nth-child(2) div:nth-child(2) p:nth-child(1)::after {
+          transform: rotate(0deg);
+          display: inline-block;
+          content: "\f2e5";
+          font: var(--fa-font-solid);
+          font-size: 2.5rem; }
+      .modal section:nth-child(2) div:nth-child(2) p:nth-child(2) {
+        font-size: 1.2rem; }
+      .modal section:nth-child(2) div:nth-child(2) span:nth-child(3) {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center; }
+        .modal section:nth-child(2) div:nth-child(2) span:nth-child(3) p {
+          border: 1px solid #ccc;
+          height: 2rem;
+          width: 4rem;
+          text-align: center; }
+        .modal section:nth-child(2) div:nth-child(2) span:nth-child(3) button {
+          background-color: transparent;
+          font-size: 2rem;
+          margin: 0 1rem 0 1rem; }
+    .modal section:nth-child(2) div:nth-child(3) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 9rem;
+      height: 9rem;
+      border: 1px solid #999;
+      margin-bottom: 0.3rem;
+      border-radius: .4rem; }
+      .modal section:nth-child(2) div:nth-child(3) p:nth-child(1) {
+        margin: 0.5rem; }
+        .modal section:nth-child(2) div:nth-child(3) p:nth-child(1)::after {
+          display: inline-block;
+          content: "\f017";
+          font: var(--fa-font-solid);
+          font-size: 2.5rem; }
+      .modal section:nth-child(2) div:nth-child(3) p:nth-child(2) {
+        font-size: 1.2rem; }
+      .modal section:nth-child(2) div:nth-child(3) span:nth-child(3) {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center; }
+        .modal section:nth-child(2) div:nth-child(3) span:nth-child(3) p {
+          border: 1px solid #ccc;
+          height: 2rem;
+          width: 4rem;
+          text-align: center; }
+        .modal section:nth-child(2) div:nth-child(3) span:nth-child(3) button {
+          background-color: transparent;
+          font-size: 2rem;
+          margin: 0 1rem 0 1rem; }
+  .modal section:nth-child(3) {
+    height: 31.5rem; }
+    .modal section:nth-child(3) .payment_modal_order_box {
+      position: relative;
+      left: 50%;
+      transform: translate(-50%, 1rem);
+      height: 30rem;
+      width: 77%;
+      border: 3px solid #ddd;
+      border-radius: 1rem; }
+      .modal section:nth-child(3) .payment_modal_order_box .option {
+        position: relative;
+        left: 50%;
+        transform: translate(-50%, 0);
+        display: flex;
+        justify-content: center; }
+        .modal section:nth-child(3) .payment_modal_order_box .option p {
+          font-size: 1.5rem; }
+        .modal section:nth-child(3) .payment_modal_order_box .option p:nth-child(1) {
+          text-align: left;
+          width: 40%; }
+        .modal section:nth-child(3) .payment_modal_order_box .option p:nth-child(2) {
+          text-align: center;
+          width: 10%; }
+        .modal section:nth-child(3) .payment_modal_order_box .option p:nth-child(3) {
+          text-align: right;
+          width: 40%; }
+      .modal section:nth-child(3) .payment_modal_order_box aside {
+        overflow: scroll;
+        height: 80%; }
+      .modal section:nth-child(3) .payment_modal_order_box > .option {
+        width: 93%;
+        margin: 0.5rem; }
+        .modal section:nth-child(3) .payment_modal_order_box > .option:nth-child(1) {
+          width: 81%;
+          border-bottom: 1px solid #ddd; }
+          .modal section:nth-child(3) .payment_modal_order_box > .option:nth-child(1) p {
+            font-size: 1.2rem;
+            height: 2.2rem; }
+      .modal section:nth-child(3) .payment_modal_order_box .addOption p {
+        font-size: 1.2rem; }
+      .modal section:nth-child(3) .payment_modal_order_box .addOption p:nth-child(1) {
+        text-align: left;
+        width: 33%;
+        margin-left: 7%; }
+        .modal section:nth-child(3) .payment_modal_order_box .addOption p:nth-child(1)::after {
+          content: ">";
+          position: absolute;
+          left: 2rem; }
+      .modal section:nth-child(3) .payment_modal_order_box .totalPrice {
+        width: 85%;
+        border-top: 1px solid #ddd; }
+        .modal section:nth-child(3) .payment_modal_order_box .totalPrice p:nth-child(3) {
+          color: #e6ce5af2; }
+  .modal section:nth-child(4) {
+    height: 13rem;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .modal section:nth-child(4) button {
+      margin: 0 0.5rem 0 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 8.5rem;
+      height: 8.5rem;
+      border: 1px solid #ccc;
+      margin-bottom: 0.3rem;
+      border-radius: .4rem;
+      background-color: #fff; }
+      .modal section:nth-child(4) button i {
+        font-size: 4rem; }
+      .modal section:nth-child(4) button p {
+        font-size: 1rem;
+        margin-top: 1rem; }
+  .modal section:nth-child(5) {
+    height: 7rem;
+    border-radius: 0 0 1.5rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .modal section:nth-child(5) button {
+      border: 1px solid #ccc;
+      background-color: #f2da5e;
+      font-size: 1.7rem;
+      border-radius: 0.2rem;
+      width: 15rem;
+      height: 4rem;
+      margin: 0 1.9rem 2.8rem 1.9rem; }
+    .modal section:nth-child(5) button:nth-child(1) {
+      background-color: #fff; }
+
+.modal2WrapBox {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: none; }
+  .modal2WrapBox.displayFlag {
+    display: block; }
+
+.modal2 {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border: 1px solid #2E1F1A;
+  border-radius: 2rem;
+  width: 30rem;
+  height: 30rem;
+  background-color: #fff; }
+  .modal2 section {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .modal2 section:nth-child(2) {
+    margin: 2rem 3rem 0 4.4rem;
+    display: inline-flex; }
+    .modal2 section:nth-child(2)::after {
+      position: absolute;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      width: 10rem;
+      height: 4rem;
+      border-radius: 1rem;
+      content: ""; }
+    .modal2 section:nth-child(2).backgroundFlag::after {
+      border: 3px solid #f2da5e; }
+  .modal2 section:nth-child(3) {
+    margin: 0 3rem 0 1rem;
+    display: inline-flex; }
+    .modal2 section:nth-child(3)::after {
+      position: absolute;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      width: 10rem;
+      height: 4rem;
+      border-radius: 1rem;
+      content: ""; }
+    .modal2 section:nth-child(3).backgroundFlag::after {
+      border: 3px solid #f2da5e; }
+  .modal2 section:nth-child(4) {
+    margin: 1rem 2rem 0 3.6rem;
+    display: inline-flex; }
+    .modal2 section:nth-child(4)::after {
+      position: absolute;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      width: 10rem;
+      height: 4rem;
+      border-radius: 1rem;
+      content: ""; }
+    .modal2 section:nth-child(4).backgroundFlag::after {
+      border: 3px solid #f2da5e; }
+  .modal2 section:nth-child(5) {
+    margin: 0 2rem 0 0.5rem;
+    display: inline-flex; }
+    .modal2 section:nth-child(5)::after {
+      position: absolute;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      width: 10rem;
+      height: 4rem;
+      border-radius: 1rem;
+      content: ""; }
+    .modal2 section:nth-child(5).backgroundFlag::after {
+      border: 3px solid #f2da5e; }
+  .modal2 section:last-child {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10rem; }
+    .modal2 section:last-child button {
+      border: 1px solid #ccc;
+      background-color: #f2da5e;
+      font-size: 1.7rem;
+      border-radius: 0.2rem;
+      width: 10rem;
+      height: 3rem;
+      margin: 1.5rem; }
+    .modal2 section:last-child button:nth-child(1) {
+      background-color: #fff; }
+  .modal2 img {
+    height: 3rem;
+    margin: 1rem; }
+  .modal2 section:nth-child(1) {
+    width: 100%;
+    height: 7.5rem;
+    border-radius: 1.5rem 1.5rem 0 0;
+    display: block; }
+    .modal2 section:nth-child(1)::after {
+      left: 5rem;
+      position: relative;
+      top: 2rem;
+      color: #2E1F1A;
+      font-size: 2.5rem;
+      content: "pay를 선택하세요"; }
+    .modal2 section:nth-child(1) button {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background-color: transparent; }
+      .modal2 section:nth-child(1) button::after {
+        color: #2E1F1A;
+        font-size: 3.5rem;
+        content: "\00d7"; }
+
+.point_modal_background {
+  top: 0;
+  z-index: 99999999;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: none; }
+  .point_modal_background.displayFlag {
+    display: block; }
+
+.point_modal {
+  top: 13.5rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  position: absolute;
+  border-radius: 2rem;
+  width: 45rem;
+  height: 70rem;
+  background-color: #fff; }
+  .point_modal section:nth-child(1) {
+    width: 100%;
+    height: 7.5rem;
+    border-radius: 1.5rem 1.5rem 0 0;
+    text-align: center; }
+    .point_modal section:nth-child(1)::after {
+      position: relative;
+      top: 2rem;
+      color: #2E1F1A;
+      font-size: 2.5rem;
+      content: "설빙 스탬프 사용/조회"; }
+    .point_modal section:nth-child(1) button {
+      position: absolute;
+      top: 0.5rem;
+      right: 1.5rem;
+      background-color: transparent; }
+  .point_modal section:nth-child(2) {
+    width: 100%;
+    height: 45%;
+    border: 1px solid transparent; }
+    .point_modal section:nth-child(2) div:nth-child(1) {
+      margin-top: 4rem;
+      display: flex;
+      justify-content: center; }
+      .point_modal section:nth-child(2) div:nth-child(1) input {
+        border-radius: 1rem;
+        border: 1px solid #666;
+        width: 22rem;
+        height: 4rem;
+        font-size: 1.7rem;
+        text-align: center; }
+      .point_modal section:nth-child(2) div:nth-child(1) button:nth-child(2) {
+        margin-left: 2rem;
+        background-color: #f2da5e;
+        font-size: 1.7rem;
+        border-radius: 0.5rem;
+        width: 8rem;
+        height: 4rem; }
+    .point_modal section:nth-child(2) div:nth-child(2) {
+      margin-top: 1.5rem;
+      height: 22rem;
+      width: 30.9rem;
+      position: relative;
+      left: 50%;
+      transform: translate(-50%, 0%); }
+      .point_modal section:nth-child(2) div:nth-child(2) button {
+        background-color: white;
+        border: 1px solid #aaa;
+        border-radius: 1rem;
+        color: #666;
+        width: 8.5rem;
+        height: 5rem;
+        font-size: 2rem;
+        margin: 0.35rem 0.8rem; }
+  .point_modal section:nth-child(3) {
+    width: 100%;
+    height: 40%;
+    background-color: white;
+    border-radius: 0 0 2rem 2rem; }
+    .point_modal section:nth-child(3) div:nth-child(1) {
+      margin-top: 2rem;
+      width: 32rem;
+      height: 18rem;
+      position: relative;
+      left: 50%;
+      transform: translate(-50%, 0%); }
+      .point_modal section:nth-child(3) div:nth-child(1) p:nth-child(3n - 1) {
+        text-align: right;
+        display: inline-block;
+        width: 70%;
+        margin-top: 1rem;
+        font-size: 1.7rem;
+        height: 4rem; }
+      .point_modal section:nth-child(3) div:nth-child(1) p:nth-child(3n + 1) {
+        display: inline-block;
+        width: 28%;
+        margin-top: 1rem;
+        font-size: 1.7rem;
+        height: 4rem; }
+      .point_modal section:nth-child(3) div:nth-child(1) hr {
+        background-color: #f2da5e;
+        height: 0.3rem; }
+    .point_modal section:nth-child(3) div:nth-child(2) {
+      display: flex;
+      flex-flow: row;
+      justify-content: center; }
+      .point_modal section:nth-child(3) div:nth-child(2) button {
+        border: 1px solid #ddd;
+        margin: 2rem;
+        background-color: #f2da5e;
+        font-size: 1.7rem;
+        border-radius: 0.5rem;
+        width: 8rem;
+        height: 4rem; }
+      .point_modal section:nth-child(3) div:nth-child(2) button:nth-child(1) {
+        background-color: white; }
+
+.point_modal_sub {
+  top: 15.5rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  position: relative;
+  width: 45rem;
+  height: 70rem;
+  display: none; }
+  .point_modal_sub.displayFlag {
+    display: block; }
+  .point_modal_sub section {
+    background-color: #f7f4ec;
+    border: 1px solid #777;
+    width: 33rem;
+    height: 15rem;
+    top: 10rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: relative;
+    border-radius: 1.5rem; }
+    .point_modal_sub section div p {
+      border-radius: 1.5rem 1.5rem 0 0;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      background-color: #2E1F1A;
+      text-align: center;
+      font-size: 2rem;
+      color: white; }
+    .point_modal_sub section div:nth-child(2) {
+      display: flex;
+      justify-content: center; }
+      .point_modal_sub section div:nth-child(2) button {
+        border: 1px solid #aaa;
+        margin: 2rem;
+        background-color: #f2da5e;
+        font-size: 1.7rem;
+        border-radius: 0.5rem;
+        width: 8rem;
+        height: 4rem; }
+      .point_modal_sub section div:nth-child(2) button:nth-child(1) {
+        background-color: #fff; }
+
+.paying_modal_background {
+  top: 0;
+  z-index: 99999999;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: none; }
+  .paying_modal_background.displayFlag {
+    display: block; }
+
+.paying_modal {
+  top: 13.5rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  position: absolute;
+  border-radius: 2rem;
+  width: 45rem;
+  height: 70rem;
+  background-color: #fff; }
+  .paying_modal > section:nth-child(1) {
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly; }
+    .paying_modal > section:nth-child(1)::before {
+      color: #666;
+      margin-top: 2rem;
+      position: relative;
+      color: #2E1F1A;
+      font-size: 3.5rem;
+      content: "결제"; }
+    .paying_modal > section:nth-child(1) p {
+      font-weight: bold;
+      margin-top: 2rem;
+      font-size: 2rem; }
+  .paying_modal > section:nth-child(2) {
+    height: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; }
+    .paying_modal > section:nth-child(2) button {
+      width: 15rem;
+      height: 12rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-content: space-around;
+      border-radius: 0.5rem;
+      border: 1px solid #aaa;
+      margin: 0.5rem;
+      background-color: #fff; }
+      .paying_modal > section:nth-child(2) button i {
+        font-size: 4rem; }
+      .paying_modal > section:nth-child(2) button p {
+        font-size: 4rem;
+        margin-right: 7rem; }
+      .paying_modal > section:nth-child(2) button img {
+        height: 4rem; }
+      .paying_modal > section:nth-child(2) button:last-child {
+        width: 65%;
+        color: #ddd;
+        background-color: #1332c5; }
+  .paying_modal > section:nth-child(3) {
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .paying_modal > section:nth-child(3) button {
+      background-color: #fff;
+      border: 1px solid #aaa;
+      height: 40%;
+      width: 40%;
+      font-size: 2rem;
+      margin-bottom: 4rem; }
+
+.voucher_modal_background {
+  top: 0;
+  z-index: 99999999;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: none; }
+  .voucher_modal_background.displayFlag {
+    display: block; }
+
+.voucher_modal {
+  top: 13.5rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  position: absolute;
+  border-radius: 2rem;
+  width: 45rem;
+  height: 70rem;
+  background-color: #fff; }
+  .voucher_modal section:nth-child(1) {
+    height: 13%;
+    width: 100%;
+    border-radius: 1.5rem 1.5rem 0 0;
+    text-align: center; }
+    .voucher_modal section:nth-child(1)::after {
+      position: relative;
+      top: 3rem;
+      color: #2E1F1A;
+      font-size: 2.5rem;
+      content: "기프티콘"; }
+  .voucher_modal section:nth-child(2) {
+    height: 13%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .voucher_modal section:nth-child(2) > button {
+      border: 1px solid #aaa;
+      border-radius: 0.5rem;
+      height: 5rem;
+      width: 70%;
+      font-size: 2.5rem;
+      background-color: #ddd; }
+  .voucher_modal section:nth-child(3) {
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .voucher_modal section:nth-child(3) article {
+      height: 100%; }
+      .voucher_modal section:nth-child(3) article:nth-child(1) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        align-items: end;
+        width: 60%;
+        margin-left: 1rem; }
+        .voucher_modal section:nth-child(3) article:nth-child(1) > .inquiry_box {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          justify-content: space-around;
+          width: 25rem;
+          height: 5rem; }
+          .voucher_modal section:nth-child(3) article:nth-child(1) > .inquiry_box > p {
+            font-size: 1rem;
+            border: 1px solid #999;
+            width: 95%;
+            height: 70%; }
+        .voucher_modal section:nth-child(3) article:nth-child(1) > .inquiry_keypad {
+          width: 24.8rem;
+          height: 22.75rem; }
+          .voucher_modal section:nth-child(3) article:nth-child(1) > .inquiry_keypad button {
+            background-color: white;
+            border: 1px solid #aaa;
+            border-radius: 0.5rem;
+            color: #666;
+            width: 7.5rem;
+            height: 5rem;
+            font-size: 2rem;
+            margin: 0.35rem 0.35rem; }
+            .voucher_modal section:nth-child(3) article:nth-child(1) > .inquiry_keypad button:last-child {
+              transform: rotate(180deg); }
+              .voucher_modal section:nth-child(3) article:nth-child(1) > .inquiry_keypad button:last-child::after {
+                font-family: xeicon;
+                content: "\e9b2"; }
+            .voucher_modal section:nth-child(3) article:nth-child(1) > .inquiry_keypad button:nth-child(10) {
+              font-size: 1.5rem; }
+        .voucher_modal section:nth-child(3) article:nth-child(1) > .inquiry_button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          justify-content: space-around;
+          width: 25rem;
+          height: 5rem; }
+          .voucher_modal section:nth-child(3) article:nth-child(1) > .inquiry_button > button {
+            position: relative;
+            background-color: #f2da5e;
+            border: 1px solid #dbc555;
+            font-size: 1.5rem;
+            width: 15%;
+            width: 95%;
+            height: 70%; }
+      .voucher_modal section:nth-child(3) article:nth-child(2) {
+        width: 45%;
+        margin-right: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        .voucher_modal section:nth-child(3) article:nth-child(2) > .view_window {
+          width: 90%;
+          height: 75%;
+          border: 1px solid #666;
+          display: flex;
+          flex-direction: column;
+          justify-content: start;
+          align-items: center; }
+          .voucher_modal section:nth-child(3) article:nth-child(2) > .view_window > div:nth-child(1) {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center; }
+            .voucher_modal section:nth-child(3) article:nth-child(2) > .view_window > div:nth-child(1)::before {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              content: "기프티콘 목록";
+              height: 3.7rem;
+              font-size: 2rem;
+              border-bottom: 1px solid #aaa; }
+          .voucher_modal section:nth-child(3) article:nth-child(2) > .view_window > div:nth-child(n + 2) {
+            height: 100%;
+            width: 100%;
+            overflow: scroll; }
+            .voucher_modal section:nth-child(3) article:nth-child(2) > .view_window > div:nth-child(n + 2) > .gifticon_element {
+              position: relative;
+              margin: 1rem;
+              margin-left: 10%;
+              width: 80%;
+              height: 6.5rem;
+              border: 1px solid #333;
+              border-radius: 0.5rem;
+              background: linear-gradient(180deg, #efd5b0 33%, #b38959 33%, #b38959 67%, #efd5b0 67%); }
+              .voucher_modal section:nth-child(3) article:nth-child(2) > .view_window > div:nth-child(n + 2) > .gifticon_element > p:nth-child(2) {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                position: absolute;
+                height: 2rem;
+                font-size: 1rem;
+                width: 10rem;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); }
+              .voucher_modal section:nth-child(3) article:nth-child(2) > .view_window > div:nth-child(n + 2) > .gifticon_element > p:nth-child(3) {
+                color: #534139;
+                text-align: left;
+                position: absolute;
+                height: 2rem;
+                font-size: 1rem;
+                bottom: 0;
+                left: 0.5rem; }
+              .voucher_modal section:nth-child(3) article:nth-child(2) > .view_window > div:nth-child(n + 2) > .gifticon_element > p:nth-child(4) {
+                color: #534139;
+                text-align: right;
+                position: absolute;
+                height: 2rem;
+                font-size: 1rem;
+                bottom: 0;
+                right: 0.5rem; }
+              .voucher_modal section:nth-child(3) article:nth-child(2) > .view_window > div:nth-child(n + 2) > .gifticon_element > button {
+                position: absolute;
+                right: .5rem;
+                background-color: transparent; }
+                .voucher_modal section:nth-child(3) article:nth-child(2) > .view_window > div:nth-child(n + 2) > .gifticon_element > button::before {
+                  cursor: pointer;
+                  font-size: 1.5rem;
+                  content: "\00d7"; }
+  .voucher_modal section:nth-child(4) {
+    height: 14%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-items: start; }
+    .voucher_modal section:nth-child(4) button {
+      background-color: #fff;
+      border: 1px solid #aaa;
+      height: 40%;
+      width: 40%;
+      font-size: 2rem;
+      margin: 1rem; }
+      .voucher_modal section:nth-child(4) button:nth-child(2) {
+        background-color: #f2da5e; }
+
+/*# sourceMappingURL=mainPage.css.map */

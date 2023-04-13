@@ -239,7 +239,10 @@
         $(".point_modal_background").addClass("displayFlag");
     });
     $("#voucher_payment").on("click", () => {
-        $(".point_modal_background").addClass("displayFlag");
+        $(".voucher_modal_background").addClass("displayFlag");
+    });
+    $(".voucher_modal section:nth-child(4) button:nth-child(1)").on("click", () => {
+        $(".voucher_modal_background").removeClass("displayFlag");
     });
 
     $("#payment_button").on("click", () => {
