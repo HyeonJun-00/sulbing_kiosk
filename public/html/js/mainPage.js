@@ -4,6 +4,11 @@
     const productListBox = $(".productListBox");
     const productListWrapBox = $(".productListWrapBox");
     const productItem = $(".productItem");
+    const drawNumber = inputString => {
+        const regex = /[^0-9]/g;
+
+        return Number(String(inputString.replace(regex, "")));
+    }
     const transferData = {
         tel: '',
         item: [
@@ -23,9 +28,10 @@
         let totalCount = 0;
 
         for (let i = 0; i < transferData.item.length; i++) {
+            totalCount += transferData.item[i].cnt;
+            $(".product_number").eq(i).html(transferData.item[i].cnt);
+            $(".product_result_price").eq(i).html(putComma($(".product_result_price").eq(i).attr("data-this-price") * transferData.item[i].cnt) + " 원");
             totalAmount += parseInt(String($(".product_result_price").eq(i).html()).replace(/,/g, ""));
-            totalCount += transferData.item[i].cnt
-            $(".product_number").eq(i).html(transferData.item[i].cnt)
         }
         console.log(transferData.item);
         $("#total_number").html(`총 수량(${totalCount})`);
@@ -33,6 +39,7 @@
     }
     let menuBar1_num = 0;
     let menuBar2_num = 0;
+    let productPrice = 0; 
 
     menuBar1.eq(0).addClass("backgroundFlag");
     menuBar2.eq(0).addClass("displayFlag");
@@ -67,30 +74,37 @@
     $("#result_button").on("click", () => {
         const orderProduct = $(".orderBox").children("div");
         let optionString = "";
+        
         if (!transferData.item.length) {
             return false;
         }
         $("#final_amount").html($("#total_amount").html());
         for (let i = 0; i < orderProduct.length; i++) {
+            let optionSubString = "";
+            let optionPrice = 0;
+
+            for (let j = 0; j < transferData.item[i].option.length; j++) {
+                const optionNameString = String(orderProduct.eq(i).children("div").eq(0).children("p").eq(j).html()).split(' ');
+                
+                optionPrice += drawNumber(optionNameString[1]);
+                optionSubString += `
+                                <div class="option addOption">
+                                    <p> ${optionNameString[0]} </p>
+                                    <p> &#10004; </p>
+                                    <p> ${optionNameString[1]} </p>
+                                </div>
+                `;
+                console.log(optionNameString[0]);
+            }
             optionString += `
                                  <div class="option">
                                     <p> ${orderProduct.eq(i).children("p").eq(0).html()} </p>
                                     <p> ${transferData.item[i].cnt}</p>
-                                    <p> ${orderProduct.eq(i).children("p").eq(1).html()} </p>
+                                    <p> ${putComma($(".product_result_price").eq(i).attr("data-this-price") - optionPrice)}원 </p>
                                 </div>           
-            `;
-            for (let j = 0; j < transferData.item[i].option.length; j++) {
-                const a = String(orderProduct.eq(i).children("div").eq(0).children("p").eq(j).html()).split(' ');
-                optionString += `
-                                <div class="option addOption">
-                                    <p> ${a[0]}</p>
-                                    <p> ${transferData.item[i].cnt} </p>
-                                    <p></p>
-                                </div>
-                `;
-            }
+            ` + optionSubString;
         }
-        console.log(orderProduct.eq(0).children("div").eq(0).children("p").eq(0).html());
+        //console.log(orderProduct.eq(0).children("div").eq(0).children("p").eq(0).html());
         $(".payment_modal_order_box > aside").html("");
         $(".payment_modal_order_box > aside").append(`
                                 ${optionString}
@@ -100,18 +114,15 @@
     $(".payment_modal_x_button").on("click", () => {
         $(".payment_modal").removeClass("displayFlag");
     });
-    let productPrice = 0; 
 
     productItem.on("click", function() {
-        const regex = /[^0-9]/g;
-
         productPrice = $(this).find(".productPrice").html();
         $(".modalBackground").addClass("displayFlag");
         $(".option_modal_main").html("");
         $(".option_modal_main").append($(this).children().eq(3).html());
         $(".resultPrice").html(`${putComma(productPrice)} 원`);
         $(".optionButton").on("click", function () {
-            const result = $(this).html().replace(regex, "");
+            const result = drawNumber($(this).html());
 
             if ($(this).hasClass("backgroundFlag")) productPrice = parseInt(String(productPrice).replace(/,/g, "")) - Number(result);
             else productPrice = parseInt(String(productPrice).replace(/,/g, "")) + Number(result);
@@ -153,7 +164,7 @@
                         <div>
                             ${optionString}
                         </div>
-                        <p class="product_result_price"> ${putComma($(".resultPrice").html().replace(regex, ""))} 원 </p>
+                        <p class="product_result_price"  data-this-price = "${drawNumber($(".resultPrice").html())}"> ${putComma(drawNumber($(".resultPrice").html()))} 원 </p>
                         <div>
                             <div> 
                                 <button class="product_number_minus"> - </button>
@@ -168,29 +179,17 @@
             $(".product_number_plus").off();
             $(".orderXButton").off();
             $(".product_number_minus").on("click", function () {
-                let productNumber = parseInt($(this).parent().children("p").html());
-                const productResultPrice =$(this).parent().parent().parent().children(".product_result_price");
+                const   productNumber = $(this).parent().children("p").html();
                 
-                if ( productNumber == 1) {
-                    return ;
-                } else {
-                    productNumber--;
-                    productResultPrice.html(putComma(productNumber * (productResultPrice.html().replace(regex, "") / (productNumber + 1))) + " 원");
-                    transferData.item[$(this).parent().parent().parent().index()].cnt = productNumber;
-                }
+                if ( productNumber == 1) return ;
+                else transferData.item[$(this).parent().parent().parent().index()].cnt--;
                 totalSet();
             });
             $(".product_number_plus").on("click", function () {
-                let productNumber = $(this).parent().children("p").html();
-                const productResultPrice =$(this).parent().parent().parent().children(".product_result_price");
+                const   productNumber = $(this).parent().children("p").html();
 
-                if ( productNumber == 19999999999999) {
-                    return ;
-                } else {
-                    productNumber++;
-                    productResultPrice.html(putComma(productNumber * (productResultPrice.html().replace(regex, "") / (productNumber - 1))) + " 원");
-                    transferData.item[$(this).parent().parent().parent().index()].cnt = productNumber;
-                }
+                if ( productNumber == 99999999) return ;
+                else transferData.item[$(this).parent().parent().parent().index()].cnt++;
                 totalSet();
             });
             $(".orderXButton").on("click", function () {
@@ -239,15 +238,22 @@
     $("#point_payment").on("click", () => {
         $(".point_modal_background").addClass("displayFlag");
     });
+    $("#voucher_payment").on("click", () => {
+        $(".point_modal_background").addClass("displayFlag");
+    });
+
+    $("#payment_button").on("click", () => {
+        $(".paying_modal_background").addClass("displayFlag");
+    });
+    $(".paying_modal section:last-child button").on("click", () => {
+        $(".paying_modal_background").removeClass("displayFlag");
+    });
     $(".modal2_x_button").on("click", () => {
         $(".modal2_pay").removeClass("backgroundFlag");
         $(".modal2WrapBox").removeClass("displayFlag");
     });
     $(".modal2_o_button").on("click", () => {
         $(".modal2WrapBox").removeClass("displayFlag");
-    });
-    $("#pay_payment").on("click", () => {
-        $(".modal2WrapBox").addClass("displayFlag");
     });
 })();
 
