@@ -40,7 +40,24 @@ hmtl
                         ul.salesRowSet
                             li
                                 ul.salesColSet
-                                    li No
+                                    li BEST ITEM
+                                    for bestProduct, index in bestItem
+                                        li #{index+1}. #{bestProduct.name}
+                    section.saleDays
+                        li DAILY SALES
+                        for saleDays in saleDay
+                            li #{saleDays.date}일: #{saleDays.totalPrice}
+                    section.saleMonths
+                        li MONTHLY SALES
+                        for saleMonths in saleMonth
+                            li #{saleMonths.date}월: #{saleMonths.totalPrice}
+                    section.saleYears
+                        li THIS YEAR
+                        for saleYears in saleYear
+                            li #{saleYears.date}년: #{saleYears.totalPrice}
+                        li LAST YEAR
+                        for saleYears in saleLastYear
+                            li #{saleYears.date}년: #{saleYears.totalPrice}
                     section.tablePaging
                         //- let pageCnt= ( ( userTotCnt[0].cnt / 10 ) < 1 )? 1 : ( userTotCnt[0].cnt / 10 ) - 1;
                         //- for( let i= 0; i < pageCnt; i++ )
