@@ -30,34 +30,43 @@ hmtl
                     h1 매출
                 section.mainContent
                     section.searchBox
+                        input(class="tapBtn" id="dailySale" type="button" value="일매출")
+                        input(class="tapBtn" id="monthlySale" type="button" value="월매출")
+                        input(class="tapBtn" id="yearlySale" type="button" value="연매출")
+                        input(class="tapBtn" id="bestMenu" type="button" value="인기메뉴")
                         //form#searchForm
                             label tel
                             input.searchInput#searchTel( type="text", name="tel" )
                             button
                                 i.xi-search
                             i.xi-refresh( onclick="location.reload();" )
+                    section.displayMonthlySale
+                        for saleMonths, index in saleMonth
+                            .dataGraph
+                                .dataValue(id=`dataVal${index}` data-price=`${saleMonths.totalPrice}`)
+                                    span.nameTag #{saleMonths.date}월<br>#{saleMonths.totalPriceComma}
+                    section.displayDailySale
+                        for saleDays, index in saleDay
+                            .dataGraph
+                                .dayValue(id=`dataVal${index}` data-price=`${saleDays.totalPrice}`)
+                                    span.nameTag #{saleDays.date}일<br>#{saleDays.totalPriceComma}
+                    section.displayYearlySale
+                        for saleLastYears, index in saleLastYear
+                            .dataGraph
+                                .lastYearValue(id=`dataVal${index}` data-price=`${saleLastYears.totalPrice}`)
+                                    span.nameTag #{saleLastYears.date}년<br>#{saleLastYears.totalPriceComma}
+                        for saleYears, index in saleYear
+                            .dataGraph
+                                .yearValue(id=`dataVal${index}` data-price=`${saleYears.totalPrice}`)
+                                    span.nameTag #{saleYears.date}년<br>#{saleYears.totalPriceComma}
+                    section.displayBestSale
+                        ul
+                            for bestItems, index in bestItem
+                                li #{index + 1}위 #{bestItems.name} (#{bestItems.purchaseCnt})
                     section.postTable
                         ul.salesRowSet
                             li
                                 ul.salesColSet
-                                    li BEST ITEM
-                                    for bestProduct, index in bestItem
-                                        li #{index+1}. #{bestProduct.name}
-                    section.saleDays
-                        li DAILY SALES
-                        for saleDays in saleDay
-                            li #{saleDays.date}일: #{saleDays.totalPrice}
-                    section.saleMonths
-                        li MONTHLY SALES
-                        for saleMonths in saleMonth
-                            li #{saleMonths.date}월: #{saleMonths.totalPrice}
-                    section.saleYears
-                        li THIS YEAR
-                        for saleYears in saleYear
-                            li #{saleYears.date}년: #{saleYears.totalPrice}
-                        li LAST YEAR
-                        for saleYears in saleLastYear
-                            li #{saleYears.date}년: #{saleYears.totalPrice}
                     section.tablePaging
                         //- let pageCnt= ( ( userTotCnt[0].cnt / 10 ) < 1 )? 1 : ( userTotCnt[0].cnt / 10 ) - 1;
                         //- for( let i= 0; i < pageCnt; i++ )
@@ -69,4 +78,4 @@ hmtl
                                 button.modalBtn( data-modal-confirm=true ) YES
                                 button.modalBtn( data-modal-confirm=false ) CANCEL
                 section.footer
-        script(src="./js/admin.js")
+        script(src="./js/adminSale.js")

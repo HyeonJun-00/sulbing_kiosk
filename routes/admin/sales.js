@@ -13,18 +13,18 @@ router.get ( `/`, ( req, res, next ) => {
     let [year, month, day] = today.split('-');
     month = month.replace(/^0/, "");
     let lastYear = String(Number(year) - 1);
-    let sqlSaleDay = `SELECT DAY(purchase_date) AS date, SUM(total_price) AS totalPrice
+    let sqlSaleDay = `SELECT DAY(purchase_date) AS date, SUM(total_price) AS totalPrice, FORMAT(sum(total_Price) , 0) AS totalPriceComma
                         FROM purchase
                         WHERE MONTH(purchase_date) LIKE '${month}'
                         GROUP BY date
                         ORDER BY date ASC;`;
-    let sqlSaleMonth = `SELECT MONTH(purchase_date) AS date, SUM(total_price) AS totalPrice
+    let sqlSaleMonth = `SELECT MONTH(purchase_date) AS date, SUM(total_price) AS totalPrice,FORMAT(sum(total_Price) , 0) AS totalPriceComma
                         FROM purchase
                         WHERE YEAR(purchase_date) LIKE '${year}'
                         GROUP BY date
                         ORDER BY date ASC;`;
-    let sqlSaleYear = `SELECT YEAR(purchase_date) AS date, sum(total_price) AS totalPrice FROM purchase WHERE YEAR(purchase_date) LIKE '${year}' GROUP BY date`;
-    let sqlSaleLastYear = `SELECT YEAR(purchase_date) AS date, sum(total_price) AS totalPrice FROM purchase WHERE YEAR(purchase_date) LIKE '${lastYear}' GROUP BY date`;
+    let sqlSaleYear = `SELECT YEAR(purchase_date) AS date, sum(total_price) AS totalPrice, FORMAT(sum(total_Price) , 0) AS totalPriceComma FROM purchase WHERE YEAR(purchase_date) LIKE '${year}' GROUP BY date`;
+    let sqlSaleLastYear = `SELECT YEAR(purchase_date) AS date, sum(total_price) AS totalPrice, FORMAT(sum(total_Price) , 0) AS totalPriceComma FROM purchase WHERE YEAR(purchase_date) LIKE '${lastYear}' GROUP BY date`;
     let sqlBestItem = `SELECT pT.name, COUNT(pI.product_id) AS purchaseCnt FROM purchase_item pI INNER JOIN product pT ON pI.product_id = pT.id GROUP BY pI.product_id ORDER BY purchaseCnt DESC LIMIT 10`;
 
     con.query(sqlSaleDay, (err, resultDay)=>{
