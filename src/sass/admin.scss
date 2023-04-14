@@ -345,3 +345,15 @@ body {
         }
     }
 }
+
+//here starts product page
+.productRow{
+    background-color: rebeccapurple;
+
+    &>article{
+        background-color: #dbc555;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+}
