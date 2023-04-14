@@ -1085,15 +1085,15 @@ $color-line: rgb(220, 220, 220);
 
             & p {
                 @include flexCenter();
-                border-radius: 1rem;
+                border-radius: 0.7rem;
                 border: 1px solid #666;
-                width: 22rem;
+                width: 23.5rem;
                 height: 4rem;
                 font-size: 1.7rem;
             }
 
             & button:nth-child(2) {
-                margin-left: 2rem;
+                margin-left: 1.8rem;
                 background-color: #f2da5e;
                 font-size: 1.7rem;
                 border-radius: 0.5rem;
@@ -1105,7 +1105,7 @@ $color-line: rgb(220, 220, 220);
         & div:nth-child(2) {
             margin-top: 1.5rem;
             height: 22rem;
-            width: 30.9rem;
+            width: 33.9rem;
             position: relative;
             left: 50%;
             transform: translate(-50%, 0%);
@@ -1113,12 +1113,12 @@ $color-line: rgb(220, 220, 220);
             & button {
                 background-color: white;
                 border: 1px solid #aaa;
-                border-radius: 1rem;
+                border-radius: 0.3rem;
                 color: #666;
-                width: 8.5rem;
+                width: 10.5rem;
                 height: 5rem;
                 font-size: 2rem;
-                margin: 0.35rem 0.8rem;
+                margin: 0.35rem 0.4rem;
 
                 &:last-child {
                     transform: rotate(180deg);
@@ -1150,11 +1150,16 @@ $color-line: rgb(220, 220, 220);
                 text-align: right;
                 display: inline-block;
                 width: 70%;
-                margin-top: 1rem;
+                margin-top: -0.8rem;
                 font-size: 1.7rem;
                 height: 4rem;
-
-                &>button {
+            }
+            & #stamp_use {
+                right: 0;
+                position: relative;
+                width: 50%;
+            }
+            &>button {
                     display: none;
                     border-radius: 0.2rem;
                     color: #fff;
@@ -1174,7 +1179,6 @@ $color-line: rgb(220, 220, 220);
                         display: inline-block;
                     }
                 }
-            }
 
             & p:nth-child(3n + 1) {
                 display: inline-block;
@@ -1420,7 +1424,6 @@ $color-line: rgb(220, 220, 220);
                                 &::after {
                                     font-family: xeicon;
                                     content: "\e9b2";
-                                    //content: "\e9b1";
                                 }
                             }
 
@@ -1635,12 +1638,11 @@ $color-line: rgb(220, 220, 220);
         border-radius: 1.5rem 1.5rem 0 0;
         text-align: center;
 
-        &::after {
+        & p {
             position: relative;
             top: 3rem;
             color: #2E1F1A;
             font-size: 2.5rem;
-            content: "결제 진행중입니다...";
         }
     }
 
@@ -1666,7 +1668,7 @@ $color-line: rgb(220, 220, 220);
                 border-radius: 0.7rem;
                 animation-name: identifier;
                 animation-timing-function: cubic-bezier(0.96, 0.83, 0.46, 0.88);
-                animation-duration: 4s;
+                animation-duration: 3s;
                 animation-fill-mode: forwards;
             }
             @keyframes identifier {
@@ -1690,9 +1692,12 @@ $color-line: rgb(220, 220, 220);
             border-radius: 0.5rem;
             width: 100%;
             height: 100%;
-            background-color: #80b21d;
+            background-color: #444;
             color: #444;
-            transform: skew(190.2deg, 4.36deg) rotateY(317deg) rotateX(30deg) translateZ(1rem) translateX(-1rem) rotateZ(-4deg);
+            transform: skew(190.2deg, 4.36deg) rotateY(319deg) rotateX(28.5deg) translateZ(1rem) translateX(-1rem) rotateZ(-4deg);
+            &.backgroundFlag {
+                background-color: #80b21d;
+            }
             & > p {
                 @include flexCenter();
                 font-size: 1rem;

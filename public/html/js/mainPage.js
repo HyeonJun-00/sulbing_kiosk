@@ -20,9 +20,10 @@
         remark: ''
     };
     const gifticonId = [];
+    let totalAmount = 0;
     const totalSet = () => {
-        let totalAmount = 0;
         let totalCount = 0;
+        totalAmount = 0;
         transferData.stamp.save = 0;
         for (let i = 0; i < transferData.item.length; i++) {
             totalCount += transferData.item[i].cnt;
@@ -37,15 +38,17 @@
         if (transferData.stamp.use) {
             totalAmount -= 5000;
         }
+        totalAmount = totalAmount < 0 ? 0 : totalAmount; 
         console.log(transferData.payment);
         $("#final_amount").html(`${putComma(totalAmount)} 원`);
         $("#total_number").html(`총 수량(${totalCount})`);
         $("#total_amount").html(`${putComma(totalAmount)} 원`);
     }
-    const resetTimer = (time) => {
+    const resetTimer = time => {
         $("#reset_time_modal").css("background", `conic-gradient(#f2da5e ${time}deg, rgba(245, 245, 245, 0) ${time}deg)`);
-        if (time > 0 && loadTimeValue > 5) setTimeout(resetTimer, 1000 / 6, time - 1);
-        else if (loadTimeValue > 5) location.reload();
+        $("#reset_time_guide").html(`${Math.floor(time / 6 + 0.5)}초 후 시작화면으로 돌아갑니다.`);
+        if (time > 0 && loadTimeValue > 50) setTimeout(resetTimer, 1000 / 6, time - 1);
+        else if (loadTimeValue > 50) location.reload();
     }
     let loadTimeValue = 0;
     const loadTime = () => {
@@ -56,6 +59,10 @@
         loadTimeValue++;
         setTimeout(loadTime, 1000);
     }
+    $("html").on("click", () => {
+        (loadTimeValue == 0) && (loadTime());
+        loadTimeValue = 1;
+    });
     let menuBar1_num = 0;
     let menuBar2_num = 0;
     let productPrice = 0;
@@ -72,7 +79,7 @@
             const res = await axios.post(`/getUserStamp`, { tel });
             if (res.data.length > 0) {
                 $("#have_stamp").html(`${res.data[0].stamp}/10`);
-                (res.data[0].stamp >= 10) && $("#stamp_use_button").addClass("displayFlag");
+                (res.data[0].stamp >= 10) && ($("#stamp_use_button").addClass("displayFlag"), $("#stamp_use").html("5000원 할인"));
             }
             userPhoneNumber = res.data[0].tel;
             console.log(res.data[0]);
@@ -83,10 +90,6 @@
     });
     $("#stamp_use_button").on("click", function () {
         $(this).toggleClass("backgroundFlag");
-    });
-    $("html").on("click", () => {
-        (loadTimeValue == 0) && (loadTime());
-        loadTimeValue = 1;
     });
     $("#inquiry_add_button").on("click", async () => {
         const code = $(`.inquiry_input_box`).val();
@@ -148,14 +151,44 @@
         menuBar2.removeClass("displayFlag");
         $(this).addClass("displayFlag");
     });
+    let cardTerminalCheck = true;
+    let cardTerminal = true;
     $("#card_terminal_modal button").on("click", () => {
         $("#card_terminal_modal_background").removeClass("displayFlag");
-    });
-    $("#card_terminal_modal button").on("click", () => {
-        $("#card_terminal_modal_background").removeClass("displayFlag");
+        $("#card_terminal_price").removeClass("backgroundFlag");
+        cardTerminal = false;
+        cardTerminalCheck = false;
     });
     $("#card_payment_window_button").on("click", () => {
         $("#card_terminal_modal_background").addClass("displayFlag");
+        cardTerminalCheck = true;
+        setTimeout(() => {
+            cardTerminal = true;
+            if (cardTerminal && cardTerminalCheck) {
+                const threeDots = dot => {
+                    let setThreeDots = setTimeout(threeDots, 500, dot + 1);
+                    $("#card_terminal_modal > section > p").html(`결제 진행중입니다${(() => {
+                        let dotString = "";
+
+                        for (let i = 0; i < dot % 4; i++) {
+                            dotString += "."
+                        }
+                        return dotString;
+                    })()}`);
+                    if (dot < 7 && cardTerminal && cardTerminalCheck) {
+                        setThreeDots();
+                    } else if (cardTerminal && cardTerminalCheck) {
+                        location.reload();
+                    } else {
+                        clearTimeout(setThreeDots);
+                        $("#card_terminal_modal > section > p").html(`결제 진행중입니다`);
+                    }
+                };
+                $("#card_terminal_price").addClass("backgroundFlag");
+                $("#card_terminal_price > p").html(`${putComma(totalAmount)}원 결제`);
+                threeDots(1);
+            }
+        }, 3000);
     });
 
     $("#result_button").on("click", () => {
@@ -339,8 +372,9 @@
         $("#point_input_box").html("");
         $("#have_stamp").html(`/10`);
         $("#accumulate_stamp").html(`개`);
-        $("#stamp_use_button").removeClass("displayFlag")
-        $("#stamp_use_button").removeClass("backgroundFlag")
+        $("#stamp_use_button").removeClass("displayFlag");
+        $("#stamp_use_button").removeClass("backgroundFlag");
+        $("#stamp_use").html("");
         $("#point_deduction").remove();
         transferData.stamp.use = false;
         totalSet();
@@ -369,20 +403,21 @@
     });
     transferData.payment.push({ id: 6, amount: 0 });
     $(".voucher_modal section:nth-child(4) button:nth-child(2)").on("click", () => {
-        let ehs = 0;
+        let gifticonNumber = 0;
+
         for (let i = 0; i < transferData.payment.length; i++) {
             if (transferData.payment[i].id == 6) {
                 for (let j = 0; j < $(".gifticon_element").length; j++) {
-                    ehs += drawNumber($(".gifticon_element p:last-child").eq(j).html());
+                    gifticonNumber += drawNumber($(".gifticon_element p:last-child").eq(j).html());
                 }
-                transferData.payment[i].amount = ehs;
+                transferData.payment[i].amount = gifticonNumber;
             }
         }
         const optionString =`
                     <div id = "gifticon_deduction" class="option">
                         <p> 기프티콘 차감 </p>
                         <p> </p>
-                        <p> -${ehs}원 </p>
+                        <p> -${putComma(gifticonNumber)}원 </p>
                     </div> `
             $(".payment_modal_order_box > aside").append(`
                 ${optionString}
@@ -406,7 +441,10 @@
         $(".gifticon_element").remove();
     });
 
-    $("#payment_button").on("click", () => $(".paying_modal_background").addClass("displayFlag"));
+    $("#payment_button").on("click", () => {
+        $(".paying_modal_background").addClass("displayFlag");
+        $(".paying_modal > section > p").html(`결제금액: ${putComma(totalAmount)}원`);
+    });
     $(".paying_modal section:last-child button").on("click", () => $(".paying_modal_background").removeClass("displayFlag"));
     $(".modal2_o_button").on("click", () => $(".modal2WrapBox").removeClass("displayFlag"));
     $(".modal2_x_button").on("click", () => {
