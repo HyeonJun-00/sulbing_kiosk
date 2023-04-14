@@ -8,7 +8,7 @@ con.connect( err => {
     if( err ) throw err;
 });
 
-router.get( `/`, ( req, res, next ) => {
+router.get( `/`, async ( req, res, next ) => {
     let sqlGetMenu= `SELECT * FROM menu WHERE pid IS NULL;`;
     let sqlGetList= `SELECT * FROM menu WHERE pid IS NOT NULL`
     con.query( sqlGetMenu+sqlGetList, ( err, result ) => {
@@ -21,7 +21,7 @@ router.post('/menuCheck', (req, res)=>{
     console.log(req.body.checkMenu, req.body.nameMenu, req.body.isMain);
     let sqlActive = `UPDATE menu SET deleted_date = NULL WHERE name Like '${req.body.nameMenu}'`;
     let sqlInactive = `UPDATE menu SET deleted_date = now() WHERE name Like '${req.body.nameMenu}'`;
-    let sqlInactiveSub= `UPDATE menu SET deleted_date = now() WHERE pid Like '${req.body.nameMenu}'`;
+    //let sqlInactiveSub= `UPDATE menu SET deleted_date = now() WHERE pid Like '${req.body.nameMenu}'`;
 
 
     switch(req.body.checkMenu){
@@ -39,10 +39,11 @@ router.post('/menuCheck', (req, res)=>{
                     if (err) throw err;
                     console.log(req.body.nameMenu);
 
+                    /*
                     con.query(sqlInactiveSub, (err, result2)=>{
                         console.log(sqlInactiveSub);
                         if (err) throw err;
-                    });
+                    });*/
                 });
             } else {
                 con.query(sqlInactive, (err, result) => {
