@@ -8,7 +8,7 @@ con.connect( err => {
     if( err ) throw err;
 });
 
-router.get( `/`, ( req, res, next ) => {
+router.get( `/`, async ( req, res, next ) => {
     let sqlGetMenu= `SELECT * FROM menu WHERE pid IS NULL;`;
     let sqlGetList= `SELECT * FROM menu WHERE pid IS NOT NULL`
     con.query( sqlGetMenu+sqlGetList, ( err, result ) => {
