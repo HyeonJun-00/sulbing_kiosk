@@ -95,18 +95,18 @@ html
                                             li= ( item.refund_date )? item.refund_date: '-'
                                             if item.status == `refund`
                                                 li
-                                                    input.completeBtn.fixCol( type="button", value="완료", disabled )
+                                                    input.fixCol( type="button", data-change-status="complete", value="완료", disabled )
                                                 li
-                                                    input.waitBtn.fixCol( type="button", value="대기", disabled )
+                                                    input.fixCol( type="button", data-change-status="wait", value="대기", disabled )
                                                 li
-                                                    input.refundBtn.fixCol( type="button", value="환불", disabled )
+                                                    input.fixCol( type="button", data-change-status="refund", value="환불", disabled )
                                             else
                                                 li
-                                                    input.completeBtn.fixCol( type="button", value="완료" )
+                                                    input.fixCol( type="button", data-change-status="complete", value="완료" )
                                                 li
-                                                    input.waitBtn.fixCol( type="button", value="대기" )
+                                                    input.fixCol( type="button", data-change-status="wait", value="대기" )
                                                 li
-                                                    input.refundBtn.fixCol( type="button", value="환불" )
+                                                    input.fixCol( type="button", data-change-status="refund", value="환불" )
                                         each pP, pI in proPostObj[item.id]
                                             ul.orderColSet.productColSet
                                                 li= ( pI + 1 ) + `. ` + pP.product_name

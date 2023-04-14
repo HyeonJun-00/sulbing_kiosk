@@ -113,6 +113,9 @@ body {
                                 &.remarkUpdateBtn { width: 30%; }
                                 &[type=button] {
                                     cursor: pointer;
+                                    &[disabled] {
+                                        color: gray;
+                                    }
                                 }
                                 &[type=number] {
                                     text-align: center;

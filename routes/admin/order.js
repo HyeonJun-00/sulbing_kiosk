@@ -112,11 +112,19 @@ router.post ( `/remarkUpdate`, async ( req, res ) => {
     const reqBody= await req.body;
     const id= reqBody.id;
     const remark= ( reqBody.remark == '' )? null: '\'' + reqBody.remark + '\'';
-    console.log(reqBody);
     let sql= `update purchase set remark= ${ remark } where id= ${ id };`;
-    console.log( sql );
     con.query( sql, ( err, result ) => {
         res.status( 201 ).json( result );
+    });
+})
+
+router.post( `/statusUpdate`, async ( req, res ) => {
+    const reqBody= await req.body;
+    const id= reqBody.id;
+    const orderMode= reqBody.orderMode;
+    let sql= `update purchase set status= '${ orderMode}' where id= ${ id }`;
+    con.query( sql, ( err, result ) => {
+       res.status( 201 ).json( result );
     });
 })
 

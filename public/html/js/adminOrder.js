@@ -79,13 +79,13 @@
                                 <li>${v.purchase_date}</li>
                                 <li>${( v.refund_date )? v.refund_date: '-'}</li>
                                 <li>
-                                    <input class="completeBtn fixCol" type="button" value="완료" ${ v.status == 'refund'? 'disabled': '' }>                            
+                                    <input class="fixCol" type="button" value="완료" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                                 <li>
-                                    <input class="waitBtn fixCol" type="button" value="대기" ${ v.status == 'refund'? 'disabled': '' }>                            
+                                    <input class="fixCol" type="button" value="대기" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                                 <li>
-                                    <input class="refundBtn fixCol" type="button" value="환불" ${ v.status == 'refund'? 'disabled': '' }>                            
+                                    <input class="fixCol" type="button" value="환불" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                             </ul>
                             ${ tempChildRow }
@@ -163,6 +163,12 @@
             resultCon(`remarkUpdate`, document.querySelector( `.orderReadRow:nth-of-type( ${ i + 1 } ) [name=id]` ).value );
         }
     });
+    [...document.querySelectorAll( `.orderReadRow .fixCol` )].forEach( ( v, i ) => {
+        v.onclick= e => { // 사용자 수정 완료
+            modalCon(`주문 상태를 ${ e.target.value }로 변경하시겠습니까?`);
+            resultCon( e.target.getAttribute( 'data-change-status' ), e.target.parentElement.parentElement.querySelector( `[name=id]` ).value );
+        }
+    });
     let modalCon= ( tCon, conM= true ) => { // 모달
         document.querySelector( `#modalConfirmBak > .modalConfirm > p` ).innerText= tCon;
         document.querySelector( `#modalConfirmBak` ).style.display= `block`;
@@ -175,6 +181,7 @@
             v.onclick= async e => {
                 document.querySelector(`#modalConfirmBak`).style.display = `none`;
                 if( e.target.getAttribute(`data-modal-confirm`) ) {
+                    let modeClassArr= { wait: `orderWait`, complete: ``, refund: `orderRefund` };
                     switch ( qMode ) {
                         case 'remarkUpdate':
                             let targetElem= document.querySelector( `.modifyMode [name=remark]` );
@@ -186,9 +193,19 @@
                                 document.querySelector(`.modifyMode`).classList.remove(`modifyMode`);
                             }
                             break;
-                        case 'delete':
-                            axios.post( `/admin_order/delete`, { id: tId } );
-                            location.reload();
+                        case 'wait':
+                        case 'complete':
+                        case 'refund':
+                            if( await axios.post( `/admin_order/statusUpdate`, { id: tId, orderMode: qMode } ) ) {
+                                let targetRow= document.querySelector( `.orderReadRow input[name=id][data-origin-value="${ tId }"]` ).parentElement.parentElement;
+                                targetRow.setAttribute( `class`, `orderColSet` );
+                                targetRow.classList.add( modeClassArr[qMode] );
+                                [...targetRow.querySelectorAll( `input.fixCol` )].forEach( v => {
+                                    if( qMode == `refund` ) { v.disabled= true; }
+                                    else { v.removeAttribute( `disabled` ); }
+                                });
+                                loadJs();
+                            }
                             break;
                         default:
                             break;
