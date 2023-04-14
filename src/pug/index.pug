@@ -1,6 +1,8 @@
 html( lang="ko" )
     head
-        meta( charset="utf-8" )
+        meta( charset="utf-8")
+        title 설빙 키오스크
+        link(rel="icon" type="image/png" href="./images/bingsoo_img/preview.png")
         script(src="http://code.jquery.com/jquery-latest.min.js")
         link( rel="stylesheet", href="./css/mainPage.css" )
         link( rel="stylesheet", href="./css/optionmodal.css")
@@ -167,8 +169,8 @@ html( lang="ko" )
                             p#accumulate_stamp 개
                             hr
                             p 스탬프 사용:
-                            p 5000원 할인
-                                button#stamp_use_button 사용하기
+                            p#stamp_use
+                            button#stamp_use_button 사용하기
                             hr
                         div
                             button.point_modal_x_button 취소
@@ -194,12 +196,13 @@ html( lang="ko" )
                 main#card_terminal_modal_background
                     section#card_terminal_modal
                         section 
+                            p 결제 진행중입니다
                         div
                             img(src="images/pay_img/카드단말기.jpg", alt="")
                             div
                                 img(src="images/pay_img/visa_card.png", alt="")
                         div
-                            div
+                            div#card_terminal_price
                                 p 25,000원 결제
                         button 취소하기
             main.voucher_modal_background
@@ -226,7 +229,7 @@ html( lang="ko" )
                         button 적용하기
             main#reset_timer_modal_background
                 section#reset_time_modal 
-                section#reset_time_guide 60초 후 처음화면으로 돌아갑니다.
+                section#reset_time_guide 60초 후 시작화면으로 돌아갑니다.
 
 
         script(src="./js/mainPage.js")
