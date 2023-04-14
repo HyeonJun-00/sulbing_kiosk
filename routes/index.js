@@ -36,32 +36,4 @@ router.get( `/`, ( req, res ) => {
     });
 });
 
-app.post( `/getUserStamp`, async ( req, res, next ) => {
-    let tel= await req.body.tel;
-    let sql= `select id, name, tel, stamp, join_date from user where tel= '${ tel }';`;
-    con.query( sql, ( err, result ) => {
-        if( err ) throw err;
-        res.status( 201 ).json( result );
-    });
-});
-
-app.post( `/getGifticon`, async ( req, res, next ) => {
-    let code= await req.body.code;
-    let sql= `select id, name, code, save_amount from gifticon_info where code= '${ code }' and deleted_date is null;`;
-    con.query( sql , ( err, result ) => {
-        if( err ) throw err;
-        res.status( 201 ).json( result );
-    });
-});
-
-app.post( `/cart`, async ( req, res, next ) => {
-    try {
-        let cartItem= await req.body.jsonData;
-        res.status( 201 ).json( cartItem );
-    } catch ( err ) {
-        console.error( err );
-        next( err );
-    }
-});
-
 module.exports= router;
