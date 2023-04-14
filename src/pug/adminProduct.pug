@@ -1,6 +1,7 @@
 html
     head
         title 설빙 - 관리자 페이지
+        link( rel="stylesheet", href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" )
         script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js'
         integrity='sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw=='
         crossorigin='anonymous')
@@ -30,12 +31,9 @@ html
                     h1 주문현황
                 section.mainContent
                     section.searchBox
-                        input.targetStatus( type="button", value="전체", data-status="all" )
-                        input( type="button", value="대기", data-status="wait" )
-                        input( type="button", value="완료", data-status="complete" )
-                        input( type="button", value="환불", data-status="refund" )
-                        form#searchDayform
-                            input.searchInput#searchDay( type="date", name="day" )
+                        form#searchProductform
+                            label 상품명
+                            input.searchInput#searchProduct( type="text", name="productName" )
                             button
                             i.xi-refresh( onclick="location.reload();" )
                     section.postTable
@@ -66,7 +64,6 @@ html
                                 - menuInProductObj[item.menu_id].push(item);
                             //- console.log( menuInProductObj );
                         section
-                            .productDetail.modalFrame( style="background-color:pink; width: 100px; height: 100px;" )
                             ul.menuLv1
                                 for item, key in menuObjLv1
                                     if key == 1
