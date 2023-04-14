@@ -1083,13 +1083,13 @@ $color-line: rgb(220, 220, 220);
             display: flex;
             justify-content: center;
 
-            & input {
+            & p {
+                @include flexCenter();
                 border-radius: 1rem;
                 border: 1px solid #666;
                 width: 22rem;
                 height: 4rem;
                 font-size: 1.7rem;
-                text-align: center;
             }
 
             & button:nth-child(2) {
@@ -1119,6 +1119,13 @@ $color-line: rgb(220, 220, 220);
                 height: 5rem;
                 font-size: 2rem;
                 margin: 0.35rem 0.8rem;
+                &:last-child {
+                    transform: rotate(180deg);
+                    &::after {
+                        font-family: xeicon;
+                        content: "\e9b2";
+                    }
+                }
             }
         }
     }
@@ -1413,10 +1420,12 @@ $color-line: rgb(220, 220, 220);
                         height: 5rem;
 
                         &>p {
+                            @include flexCenter();
                             font-size: 1rem;
                             border: 1px solid #999;
                             width: 95%;
                             height: 70%;
+                            font-size: 1.5rem;
                         }
 
                     }
@@ -1567,4 +1576,38 @@ $color-line: rgb(220, 220, 220);
             } 
         }
     }
+}
+#reset_timer_modal_background {
+    top: 0;
+    z-index: 99999999;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(#000, 0.4);
+    display: none;
+    &.displayFlag {
+        display: block;
+    }
+}
+#reset_time_modal {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateY(180deg);
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    background: conic-gradient(#f2da5e 360deg, rgba(245, 245, 245, 0) 360deg);
+}
+#reset_time_guide {
+    display: inline-block;
+    position: absolute;
+    top: 63%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    transform: translate(-50%, -50%);   
+    color: #fff;
+    font-size: 2rem;
 }

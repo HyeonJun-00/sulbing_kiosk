@@ -4,11 +4,8 @@
     const productListBox = $(".productListBox");
     const productListWrapBox = $(".productListWrapBox");
     const productItem = $(".productItem");
-    const drawNumber = inputString => {
-        const regex = /[^0-9]/g;
-
-        return Number(String(inputString.replace(regex, "")));
-    }
+    const drawNumber = inputString => Number(String(inputString.replace(/[^0-9]/g, "")));
+    const putComma = inputString => Number(String(inputString).replace(/[^0-9]/g, '')).toLocaleString();
     const transferData = {
         tel: '',
         item: [
@@ -19,9 +16,6 @@
         ],
         take_out: true,
         remark: ''
-    };
-    const putComma = target => {
-        return Number(String(target).replace(/[^0-9]/g, '')).toLocaleString();
     };
     const totalSet = () => {
         let totalAmount = 0;
@@ -37,10 +31,47 @@
         $("#total_number").html(`총 수량(${totalCount})`);
         $("#total_amount").html(`${putComma(totalAmount)} 원`);
     }
+    const resetTimer = (time) => {
+        $("#reset_time_modal").css("background", `conic-gradient(#f2da5e ${time}deg, rgba(245, 245, 245, 0) ${time}deg)`);
+        if (time > 0 && loadTimeValue > 5 ) setTimeout(resetTimer, 1000 / 6, time - 1);
+        else if (loadTimeValue > 5) location.reload();
+    }
+    let loadTimeValue = 0;
+    const loadTime = () => {
+        if (loadTimeValue == 59) {
+            $("#reset_timer_modal_background").addClass("displayFlag");
+            resetTimer(360);
+        }
+        loadTimeValue++;
+        setTimeout(loadTime, 1000);
+    }
+
+    $("#reset_timer_modal_background").on("click", () => {
+        $("#reset_time_modal").css("background", `conic-gradient(#f2da5e 0deg, rgba(245, 245, 245, 0) 0deg)`);
+        $("#reset_timer_modal_background").removeClass("displayFlag");
+    });
+
+
+
+    $("#point_lookup_button").on("click", () => {
+        alert(1);
+    
+    
+    });
+
+
+
+    $("html").on("click", () => {
+        (loadTimeValue == 0) && (loadTime());
+        loadTimeValue = 1;
+    });
+
+    
+    
     let menuBar1_num = 0;
     let menuBar2_num = 0;
     let productPrice = 0; 
-
+    
     menuBar1.eq(0).addClass("backgroundFlag");
     menuBar2.eq(0).addClass("displayFlag");
     productListWrapBox.eq(0).addClass("displayFlag");
@@ -106,15 +137,9 @@
         }
         //console.log(orderProduct.eq(0).children("div").eq(0).children("p").eq(0).html());
         $(".payment_modal_order_box > aside").html("");
-        $(".payment_modal_order_box > aside").append(`
-                                ${optionString}
-        `);
+        $(".payment_modal_order_box > aside").append(`${optionString}`);
         $(".payment_modal").addClass("displayFlag");
     });
-    $(".payment_modal_x_button").on("click", () => {
-        $(".payment_modal").removeClass("displayFlag");
-    });
-
     productItem.on("click", function() {
         productPrice = $(this).find(".productPrice").html();
         $(".modalBackground").addClass("displayFlag");
@@ -202,7 +227,6 @@
             $(".modalBackground").removeClass("displayFlag");
         });
     });
-    $(".option_modal_x_button").on("click", () => $(".modalBackground").removeClass("displayFlag"));
     $(".store_or_packaging").on("click", function() {
         $(".store_or_packaging").removeClass("backgroundFlag");
         $(this).addClass("backgroundFlag");
@@ -227,35 +251,43 @@
         $(".modal2_pay").removeClass("backgroundFlag");
         $(this).addClass("backgroundFlag");
     });
-    $(".point_modal_x_button").on("click", () => {
-        $(".point_modal_background").removeClass("displayFlag");
+    $(".inquiry_keypad button").on("click", function () {
+        if ($(this).html() == "") {
+            let pointPoneNum = $(".inquiry_input_box").html().split("");
+            pointPoneNum.pop();
+            $(".inquiry_input_box").html(pointPoneNum);
+        } else if ($(this).html() == "CLEAR") {
+            $(".inquiry_input_box").html("");
+        } 
+        else if ($(".inquiry_input_box").html().length < 12) {
+            $(".inquiry_input_box").html(($(".inquiry_input_box").html() + $(this).html()));
+        }
+    });
+    $("#point_keypad button").on("click", function () {
+        if ($(this).html() == "") {
+            let pointPoneNum = $("#point_input_box").html().split("");
+            pointPoneNum.pop();
+            $("#point_input_box").html(pointPoneNum);
+        } else if ($("#point_input_box").html().length < 12) {
+            $("#point_input_box").html(($("#point_input_box").html() + $(this).html()));
+        }
     });
     $("#reset_button").on("click", () => {
         $(".orderBox").html("")
         transferData.item = [];
         totalSet();
     });
-    $("#point_payment").on("click", () => {
-        $(".point_modal_background").addClass("displayFlag");
-    });
-    $("#voucher_payment").on("click", () => {
-        $(".voucher_modal_background").addClass("displayFlag");
-    });
-    $(".voucher_modal section:nth-child(4) button:nth-child(1)").on("click", () => {
-        $(".voucher_modal_background").removeClass("displayFlag");
-    });
-
-    $("#payment_button").on("click", () => {
-        $(".paying_modal_background").addClass("displayFlag");
-    });
-    $(".paying_modal section:last-child button").on("click", () => {
-        $(".paying_modal_background").removeClass("displayFlag");
-    });
+    $(".point_modal_x_button").on("click", () => $(".point_modal_background").removeClass("displayFlag"));
+    $(".payment_modal_x_button").on("click", () => $(".payment_modal").removeClass("displayFlag"));
+    $(".option_modal_x_button").on("click", () => $(".modalBackground").removeClass("displayFlag"));
+    $("#point_payment").on("click", () => $(".point_modal_background").addClass("displayFlag"));
+    $("#voucher_payment").on("click", () => $(".voucher_modal_background").addClass("displayFlag"));
+    $(".voucher_modal section:nth-child(4) button:nth-child(1)").on("click", () => $(".voucher_modal_background").removeClass("displayFlag"));
+    $("#payment_button").on("click", () => $(".paying_modal_background").addClass("displayFlag"));
+    $(".paying_modal section:last-child button").on("click", () => $(".paying_modal_background").removeClass("displayFlag") );
+    $(".modal2_o_button").on("click", () => $(".modal2WrapBox").removeClass("displayFlag"));
     $(".modal2_x_button").on("click", () => {
         $(".modal2_pay").removeClass("backgroundFlag");
-        $(".modal2WrapBox").removeClass("displayFlag");
-    });
-    $(".modal2_o_button").on("click", () => {
         $(".modal2WrapBox").removeClass("displayFlag");
     });
 })();

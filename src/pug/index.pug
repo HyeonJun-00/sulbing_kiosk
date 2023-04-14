@@ -151,10 +151,10 @@ html( lang="ko" )
                         button.point_modal_x_button
                     section 
                         div
-                            input(type="text" placeholder="휴대폰 번호를 입력하세요")
-                            button 조회
-                        div
-                            - let buttonValue = [1,2,3,4,5,6,7,8,9, "010", 0, "<"];
+                            p#point_input_box
+                            button#point_lookup_button 조회
+                        div#point_keypad
+                            - let buttonValue = [1,2,3,4,5,6,7,8,9, "010", 0, ""];
                             - for(let i = 0; i < 12; i++)
                                 button #{buttonValue[i]}
                     section 
@@ -204,7 +204,7 @@ html( lang="ko" )
                     section 
                         article 
                             div.inquiry_box
-                                p 
+                                p.inquiry_input_box
                             div.inquiry_keypad
                                 - buttonValue = [1,2,3,4,5,6,7,8,9, "CLEAR", 0, ""];
                                 - for(let i = 0; i < 12; i++)
@@ -233,10 +233,13 @@ html( lang="ko" )
                                     div.gifticon_element
                                         button
                                         p 설빙 5000원권
-                                        p 남은 금액: p
+                                        p 남은 금액: 
                                         p 3,500원
                     section 
                         button 뒤로가기
                         button 사용하기
+            main#reset_timer_modal_background
+                section#reset_time_modal 
+                section#reset_time_guide 60초 후 처음화면으로 돌아갑니다.
 
         script(src="./js/mainPage.js")
