@@ -15,7 +15,6 @@ router.get ( `/`, ( req, res, next ) => {
 
     con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption, ( err, result ) => {
         if( err ) throw err;
-        console.log(result[0]);
         res.render( `adminProduct`, {
             menu: result[0],
             menuInProduct: result[1],
