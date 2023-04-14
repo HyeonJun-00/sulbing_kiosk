@@ -1119,8 +1119,10 @@ $color-line: rgb(220, 220, 220);
                 height: 5rem;
                 font-size: 2rem;
                 margin: 0.35rem 0.8rem;
+
                 &:last-child {
                     transform: rotate(180deg);
+
                     &::after {
                         font-family: xeicon;
                         content: "\e9b2";
@@ -1151,6 +1153,27 @@ $color-line: rgb(220, 220, 220);
                 margin-top: 1rem;
                 font-size: 1.7rem;
                 height: 4rem;
+
+                &>button {
+                    display: none;
+                    border-radius: 0.2rem;
+                    color: #fff;
+                    background-color: #777;
+                    border: 1px solid #333;
+                    margin-left: 1rem;
+                    padding: 0.5rem;
+                    font-size: 1.3rem;
+
+                    &.backgroundFlag {
+                        background-color: #f2da5e;
+                        color: #333;
+                        border: 1px solid #dbc555;
+                    }
+
+                    &.displayFlag {
+                        display: inline-block;
+                    }
+                }
             }
 
             & p:nth-child(3n + 1) {
@@ -1159,6 +1182,7 @@ $color-line: rgb(220, 220, 220);
                 margin-top: 1rem;
                 font-size: 1.7rem;
                 height: 4rem;
+
             }
 
             & hr {
@@ -1189,62 +1213,7 @@ $color-line: rgb(220, 220, 220);
     }
 }
 
-.point_modal_sub {
-    top: 15.5rem;
-    left: 50%;
-    transform: translate(-50%, 0);
-    position: relative;
-    width: 45rem;
-    height: 70rem;
-    display: none;
 
-    &.displayFlag {
-        display: block;
-    }
-
-    section {
-        background-color: #f7f4ec;
-        border: 1px solid #777;
-        width: 33rem;
-        height: 15rem;
-        top: 10rem;
-        left: 50%;
-        transform: translate(-50%, 0);
-        position: relative;
-        border-radius: 1.5rem;
-
-        & div {
-            & p {
-                border-radius: 1.5rem 1.5rem 0 0;
-                padding-top: 1rem;
-                padding-bottom: 1rem;
-                background-color: #2E1F1A;
-                text-align: center;
-                font-size: 2rem;
-                color: white;
-            }
-        }
-
-        & div:nth-child(2) {
-            display: flex;
-            justify-content: center;
-
-            & button {
-                border: 1px solid #aaa;
-                margin: 2rem;
-                background-color: #f2da5e;
-                font-size: 1.7rem;
-                border-radius: 0.5rem;
-                width: 8rem;
-                height: 4rem;
-            }
-
-            & button:nth-child(1) {
-                background-color: #fff;
-            }
-        }
-    }
-}
 
 .paying_modal_background {
     top: 0;
@@ -1419,8 +1388,9 @@ $color-line: rgb(220, 220, 220);
                         width: 25rem;
                         height: 5rem;
 
-                        &>p {
+                        &>input {
                             @include flexCenter();
+                            text-align: center;
                             font-size: 1rem;
                             border: 1px solid #999;
                             width: 95%;
@@ -1443,19 +1413,23 @@ $color-line: rgb(220, 220, 220);
                             height: 5rem;
                             font-size: 2rem;
                             margin: 0.35rem 0.35rem;
+
                             &:last-child {
                                 transform: rotate(180deg);
+
                                 &::after {
                                     font-family: xeicon;
                                     content: "\e9b2";
                                     //content: "\e9b1";
                                 }
                             }
+
                             &:nth-child(10) {
                                 font-size: 1.5rem;
                             }
                         }
                     }
+
                     &>.inquiry_button {
                         @include flexCenter();
                         justify-content: space-around;
@@ -1477,9 +1451,10 @@ $color-line: rgb(220, 220, 220);
                 &:nth-child(2) {
                     width: 45%;
                     margin-right: 0.5rem;
-                    
+
                     @include flexCenter();
-                    & > .view_window {
+
+                    &>.view_window {
                         width: 90%;
                         height: 75%;
                         border: 1px solid #666;
@@ -1487,9 +1462,11 @@ $color-line: rgb(220, 220, 220);
                         flex-direction: column;
                         justify-content: start;
                         align-items: center;
-                        & > div:nth-child(1) {
+
+                        &>div:nth-child(1) {
                             width: 100%;
                             @include flexCenter();
+
                             &::before {
                                 @include flexCenter();
                                 content: "기프티콘 목록";
@@ -1498,11 +1475,13 @@ $color-line: rgb(220, 220, 220);
                                 border-bottom: 1px solid #aaa;
                             }
                         }
-                        & > div:nth-child(n + 2) {
+
+                        &>div:nth-child(n + 2) {
                             height: 100%;
                             width: 100%;
                             overflow: scroll;
-                            & > .gifticon_element {
+
+                            &>.gifticon_element {
                                 position: relative;
                                 margin: 1rem;
                                 margin-left: 10%;
@@ -1510,8 +1489,9 @@ $color-line: rgb(220, 220, 220);
                                 height: 6.5rem;
                                 border: 1px solid #333;
                                 border-radius: 0.5rem;
-                                background: linear-gradient(180deg, rgba(#EFD5B0,1) 33%, rgba(#B38959,1) 33%, rgba(#B38959,1) 67%, rgba(#EFD5B0, 1) 67%);
-                                & > p {
+                                background: linear-gradient(180deg, rgba(#EFD5B0, 1) 33%, rgba(#B38959, 1) 33%, rgba(#B38959, 1) 67%, rgba(#EFD5B0, 1) 67%);
+
+                                &>p {
                                     &:nth-child(2) {
                                         @include flexCenter();
                                         color: white;
@@ -1522,7 +1502,8 @@ $color-line: rgb(220, 220, 220);
                                         top: 50%;
                                         left: 50%;
                                         transform: translate(-50%, -50%);
-                                    } 
+                                    }
+
                                     &:nth-child(3) {
                                         color: #534139;
                                         text-align: left;
@@ -1531,7 +1512,8 @@ $color-line: rgb(220, 220, 220);
                                         font-size: 1rem;
                                         bottom: 0;
                                         left: 0.5rem;
-                                    } 
+                                    }
+
                                     &:nth-child(4) {
                                         color: #534139;
                                         text-align: right;
@@ -1540,12 +1522,14 @@ $color-line: rgb(220, 220, 220);
                                         font-size: 1rem;
                                         bottom: 0;
                                         right: 0.5rem;
-                                    } 
+                                    }
                                 }
-                                & > button {
+
+                                &>button {
                                     position: absolute;
                                     right: .5rem;
                                     background-color: transparent;
+
                                     &::before {
                                         cursor: pointer;
                                         font-size: 1.5rem;
@@ -1563,6 +1547,7 @@ $color-line: rgb(220, 220, 220);
             height: 14%;
             @include flexCenter();
             align-items: start;
+
             & button {
                 background-color: #fff;
                 border: 1px solid #aaa;
@@ -1570,13 +1555,15 @@ $color-line: rgb(220, 220, 220);
                 width: 40%;
                 font-size: 2rem;
                 margin: 1rem;
+
                 &:nth-child(2) {
                     background-color: #f2da5e;
                 }
-            } 
+            }
         }
     }
 }
+
 #reset_timer_modal_background {
     top: 0;
     z-index: 99999999;
@@ -1585,10 +1572,12 @@ $color-line: rgb(220, 220, 220);
     position: absolute;
     background-color: rgba(#000, 0.4);
     display: none;
+
     &.displayFlag {
         display: block;
     }
 }
+
 #reset_time_modal {
     display: inline-block;
     position: absolute;
@@ -1600,6 +1589,7 @@ $color-line: rgb(220, 220, 220);
     border-radius: 50%;
     background: conic-gradient(#f2da5e 360deg, rgba(245, 245, 245, 0) 360deg);
 }
+
 #reset_time_guide {
     display: inline-block;
     position: absolute;
@@ -1607,7 +1597,116 @@ $color-line: rgb(220, 220, 220);
     left: 50%;
     width: 100%;
     text-align: center;
-    transform: translate(-50%, -50%);   
+    transform: translate(-50%, -50%);
     color: #fff;
     font-size: 2rem;
+}
+
+#card_terminal_modal_background {
+    top: 0;
+    z-index: 99999999;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(#000, 0.4);
+    display: none;
+
+    &.displayFlag {
+        display: block;
+    }
+}
+
+#card_terminal_modal {
+    top: 27.5rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+    border-radius: 2rem;
+    width: 45rem;
+    height: 35rem;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & section:nth-child(1) {
+        height: 13%;
+        width: 100%;
+        border-radius: 1.5rem 1.5rem 0 0;
+        text-align: center;
+
+        &::after {
+            position: relative;
+            top: 3rem;
+            color: #2E1F1A;
+            font-size: 2.5rem;
+            content: "결제 진행중입니다...";
+        }
+    }
+
+    &>div:nth-child(2) {
+        position: relative;
+        width: 30rem;
+        height: 20rem;
+        @include flexCenter();
+        justify-content: space-around;
+        flex-direction: column;
+        transform-style: preserve-3d;
+        &>div {
+            margin-top: 41.8rem;
+            margin-left: -30.2rem;
+            transform: skew(359deg, 1.36deg) rotateY(308deg) rotateX(76deg) translateZ(341px) translateX(18rem);
+            position: absolute;
+            width: 9.5rem;
+            height: 13rem;
+            overflow: hidden;
+            & > img {
+                width: 100%;
+                height: 100%;
+                border-radius: 0.7rem;
+                animation-name: identifier;
+                animation-timing-function: cubic-bezier(0.96, 0.83, 0.46, 0.88);
+                animation-duration: 4s;
+                animation-fill-mode: forwards;
+            }
+            @keyframes identifier {
+                100% {
+                    margin-top: -100%;
+                }
+                
+            }
+        }
+
+    }
+    & > div:nth-child(3) {
+        margin-top: 11rem;
+        position: absolute;
+        transform-style: preserve-3d;
+        height: 4.7rem;
+        width: 10.2rem;
+        perspective: 90rem;
+        & >div {
+            @include flexCenter();
+            border-radius: 0.5rem;
+            width: 100%;
+            height: 100%;
+            background-color: #80b21d;
+            color: #444;
+            transform: skew(190.2deg, 4.36deg) rotateY(317deg) rotateX(30deg) translateZ(1rem) translateX(-1rem) rotateZ(-4deg);
+            & > p {
+                @include flexCenter();
+                font-size: 1rem;
+            }
+        }
+    }
+    & button {
+        position: relative;
+        background-color: #fff;
+        border: 1px solid #aaa;
+        margin: 2rem;
+        font-size: 1.7rem;
+        border-radius: 0.5rem;
+        width: 8rem;
+        height: 4rem;
+    }
 }
