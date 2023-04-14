@@ -182,6 +182,7 @@
                 document.querySelector(`#modalConfirmBak`).style.display = `none`;
                 if( e.target.getAttribute(`data-modal-confirm`) ) {
                     let modeClassArr= { wait: `orderWait`, complete: ``, refund: `orderRefund` };
+                    let modeTextArr= { wait: `대기`, complete: `완료`, refund: `환불` };
                     switch ( qMode ) {
                         case 'remarkUpdate':
                             let targetElem= document.querySelector( `.modifyMode [name=remark]` );
@@ -198,13 +199,14 @@
                         case 'refund':
                             if( await axios.post( `/admin_order/statusUpdate`, { id: tId, orderMode: qMode } ) ) {
                                 let targetRow= document.querySelector( `.orderReadRow input[name=id][data-origin-value="${ tId }"]` ).parentElement.parentElement;
+                                loadJs();
+                                targetRow.querySelector( `li:nth-of-type(3)` ).innerHTML= modeTextArr[qMode];
                                 targetRow.setAttribute( `class`, `orderColSet` );
                                 targetRow.classList.add( modeClassArr[qMode] );
                                 [...targetRow.querySelectorAll( `input.fixCol` )].forEach( v => {
                                     if( qMode == `refund` ) { v.disabled= true; }
                                     else { v.removeAttribute( `disabled` ); }
                                 });
-                                loadJs();
                             }
                             break;
                         default:
