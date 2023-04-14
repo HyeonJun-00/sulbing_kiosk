@@ -1,5 +1,6 @@
 ( loadJs= () => {
-    document.querySelector( `#searchDay` ).valueAsDate= new Date();
+    const offset = 1000 * 60 * 60 * 9;
+    ( !document.querySelector( `#searchDay` ).value ) && ( document.querySelector( `#searchDay` ).valueAsDate= new Date(( new Date() ).getTime() + offset ) );
 
     let searchPaging= async ( targetPaging= 0, targetStatus= 'all' ) => {
         const targetDay= document.querySelector( `#searchDay` ).value;
@@ -71,20 +72,20 @@
                                 <li>${( v.save_stamp )? v.save_stamp: '-'}</li>
                                 <li>${( v.take_out == '' )? '매장': '포장'}</li>
                                 <li>
-                                    <input data-origin-value="${(v.remark) ? v.remark : ''}" value="${(v.remark) ? v.remark : ''}" disabled>
-                                    <input class="remarkUpdateBtn" type="button" value="수정" disabled>
+                                    <input name="remark" data-origin-value="${(v.remark) ? v.remark : ''}" value="${(v.remark) ? v.remark : ''}" disabled>
+                                    <input class="remarkUpdateBtn" type="button" data-origin-value="수정" value="수정" disabled>
                                 </li>
                                 <li>${( v.user_tel )? v.user_tel: '-'}</li> 
                                 <li>${v.purchase_date}</li>
                                 <li>${( v.refund_date )? v.refund_date: '-'}</li>
                                 <li>
-                                    <input class="completeBtn" type="button" value="완료">                            
+                                    <input class="fixCol" type="button" value="완료" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                                 <li>
-                                    <input class="waitBtn" type="button" value="대기">                            
+                                    <input class="fixCol" type="button" value="대기" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                                 <li>
-                                    <input class="refundBtn" type="button" value="환불">                            
+                                    <input class="fixCol" type="button" value="환불" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                             </ul>
                             ${ tempChildRow }
@@ -94,7 +95,10 @@
             } else {
                 tempHtml= `<li class="emptyRow">게시물이 존재하지 않습니다.</li>`;
             }
-
+            [...document.querySelectorAll( `.searchBox > input[type=button]` )].forEach( v => {
+                v.classList.remove( `targetStatus` );
+                ( v.getAttribute( `data-status` ) == targetStatus ) && ( v.classList.add( `targetStatus` ) );
+            });
             document.querySelector( `.orderReadRowSet` ).innerHTML= tempHtml;
             document.querySelector( `.tablePaging` ).innerHTML= ``;
             let pageCnt= ( ( res.data.orderTotCnt[0].cnt / 10 ) < 1 )? 1 : ( res.data.orderTotCnt[0].cnt / 10 ) - 1;
@@ -106,6 +110,33 @@
             console.error( err );
         }
     }
+
+    [...document.querySelectorAll( `.orderReadRow` )].forEach( ( v, i, a) => {
+        v.ondblclick= e => {
+            a.forEach( vRow => {
+                [...vRow.querySelectorAll( `input:not( .fixCol ), select` )].forEach( vi => {
+                    vi.disabled = true;
+                    vi.value= vi.getAttribute( `data-origin-value` );
+                    vRow.classList.remove( `modifyMode` );
+                });
+            });
+            [...e.currentTarget.querySelectorAll( `input:not( .fixCol ), select` )].forEach( vi => {
+                vi.disabled = false;
+                v.classList.add( `modifyMode` );
+            });
+        }
+        v.onclick= e => {
+            if( !e.currentTarget.classList.contains( `modifyMode` ) ) {
+                a.forEach( vRow => {
+                    [...vRow.querySelectorAll( `input:not( .fixCol ), select` )].forEach( vi => {
+                        vi.disabled = true;
+                        vi.value= vi.getAttribute( `data-origin-value` );
+                        vRow.classList.remove( `modifyMode` );
+                    });
+                });
+            }
+        }
+    });
 
     [...document.querySelectorAll( `a[data-page-idx]` )].forEach( v => {
         v.onclick= e => {
@@ -120,4 +151,69 @@
             searchPaging( nowPage, targetStatus );
         }
     });
+    document.querySelector(`#searchDay`).onchange = () => {
+        let targetStatus = document.querySelector(`.targetStatus`).getAttribute(`data-status`);
+        let nowPage = document.querySelector(`a[data-page=true]`).getAttribute(`data-page-idx`);
+        searchPaging(nowPage, targetStatus);
+    }
+
+    [...document.querySelectorAll( `.remarkUpdateBtn` )].forEach( ( v, i ) => {
+        v.onclick= e => { // 사용자 수정 완료
+            modalCon(`주문 정보(메모)를 수정하시겠습니까?`);
+            resultCon(`remarkUpdate`, document.querySelector( `.orderReadRow:nth-of-type( ${ i + 1 } ) [name=id]` ).value );
+        }
+    });
+    [...document.querySelectorAll( `.orderReadRow .fixCol` )].forEach( ( v, i ) => {
+        v.onclick= e => { // 사용자 수정 완료
+            modalCon(`주문 상태를 ${ e.target.value }로 변경하시겠습니까?`);
+            resultCon( e.target.getAttribute( 'data-change-status' ), e.target.parentElement.parentElement.querySelector( `[name=id]` ).value );
+        }
+    });
+    let modalCon= ( tCon, conM= true ) => { // 모달
+        document.querySelector( `#modalConfirmBak > .modalConfirm > p` ).innerText= tCon;
+        document.querySelector( `#modalConfirmBak` ).style.display= `block`;
+        document.querySelector( `.modalBtn[data-modal-confirm]` ).style.display= 'block';
+        ( !conM ) && ( document.querySelector( `.modalBtn[data-modal-confirm]` ).style.display= 'none' );
+    };
+
+    let resultCon= ( qMode, tId= null ) => {
+        [...document.querySelectorAll(`.modalBtn`)].forEach( v => {
+            v.onclick= async e => {
+                document.querySelector(`#modalConfirmBak`).style.display = `none`;
+                if( e.target.getAttribute(`data-modal-confirm`) ) {
+                    let modeClassArr= { wait: `orderWait`, complete: ``, refund: `orderRefund` };
+                    let modeTextArr= { wait: `대기`, complete: `완료`, refund: `환불` };
+                    switch ( qMode ) {
+                        case 'remarkUpdate':
+                            let targetElem= document.querySelector( `.modifyMode [name=remark]` );
+                            let afterRemark= targetElem.value.trim();
+                            if( await axios.post( `/admin_order/remarkUpdate`, { id: tId, remark: afterRemark } ) ) {
+                                targetElem.setAttribute( `data-origin-value`, afterRemark );
+                                targetElem.value= afterRemark;
+                                targetElem.disabled= true;
+                                document.querySelector(`.modifyMode`).classList.remove(`modifyMode`);
+                            }
+                            break;
+                        case 'wait':
+                        case 'complete':
+                        case 'refund':
+                            if( await axios.post( `/admin_order/statusUpdate`, { id: tId, orderMode: qMode } ) ) {
+                                let targetRow= document.querySelector( `.orderReadRow input[name=id][data-origin-value="${ tId }"]` ).parentElement.parentElement;
+                                loadJs();
+                                targetRow.querySelector( `li:nth-of-type(3)` ).innerHTML= modeTextArr[qMode];
+                                targetRow.setAttribute( `class`, `orderColSet` );
+                                targetRow.classList.add( modeClassArr[qMode] );
+                                [...targetRow.querySelectorAll( `input.fixCol` )].forEach( v => {
+                                    if( qMode == `refund` ) { v.disabled= true; }
+                                    else { v.removeAttribute( `disabled` ); }
+                                });
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        });
+    }
 })();

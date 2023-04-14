@@ -20,7 +20,7 @@ html
                 li
                     a( href="/admin_order" ) 주문현황
                 li
-                    a( href="/admin_product" ) 상품재고
+                    a( href="/admin_product" ) 상품관리
                 li
                     a( href="/admin_sales" ) 매출
                 li
@@ -42,12 +42,12 @@ html
                                             input(type="hidden" name="nameMenu" value=`${menuList.name}`)
                                             input(type="hidden" name="isMain" value="true")
                                             input(type="hidden" name="checkMenu" value="active")
-                                            input(type="submit" value="AVTIVE")
+                                            input(type="submit" value="ACTIVE")
                                         form(action="/admin_menu/menuCheck" method="POST")
                                             input(type="hidden" name="nameMenu" value=`${menuList.name}`)
                                             input(type="hidden" name="isMain" value="true")
                                             input(type="hidden" name="checkMenu" value="inactive")
-                                            input(type="submit" value="INAVTIVE")
+                                            input(type="submit" value="INACTIVE")
                                 else
                                     li(id=`menu${i+1}` data-id = `${menuList.name}` )
                                         span(style="color:red") #{menuList.name}
