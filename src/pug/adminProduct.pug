@@ -27,98 +27,83 @@ html
                     a( href="/admin_user" ) 회원관리
             section.adminPage
                 section.headFrame
-                    h1 상품관리
+                    h1 주문현황
                 section.mainContent
                     section.searchBox
-                    div.leftBox
-                        div.productInventory
-                            div
-                                button.borderFlag 빙수
-                                button 음료
-                                button 디저트
-                                button 세트메뉴
-                            div.displayFlag
-                                button 제품 추가
-                                section
-                                    article
-                                        p No
-                                        p 제품
-                                        p 가격
-                                        p 재고
-                                        p 대분류
-                                        p 소분류
-                                        p 기능
-                                    -for(let i = 0; i < 5; i++)
-                                        article
-                                            p #{i + 1}
-                                            p 킹망고빙수
-                                            p 14,900
-                                            p 10
-                                            p 빙수
-                                            p 과일빙수
-                                            button 수정
-                                            button 삭제
-                            div
-                                button 제품 추가
-                                section
-                                    article
-                                        p No
-                                        p 제품
-                                        p 가격
-                                        p 재고
-                                        p 대분류
-                                        p 소분류
-                                        p 기능
-                                    -for(let i = 0; i < 12; i++)
-                                        article
-                                            p #{i + 1}
-                                            p 아이스 아메리카노
-                                            p 1,900
-                                            p 21
-                                            p 음료
-                                            p 커피
-                                            button 수정
-                                            button 삭제
-                            div
-                                button 제품 추가
-                                section
-                                    article
-                                        p No
-                                        p 제품
-                                        p 가격
-                                        p 재고
-                                        p 대분류
-                                        p 소분류
-                                        p 기능
-                                    -for(let i = 0; i < 8; i++)
-                                        article
-                                            p #{i + 1}
-                                            p 허니브레드
-                                            p 9,900
-                                            p 8
-                                            p 디저트
-                                            p 빵
-                                            button 수정
-                                            button 삭제
-                            div
-                                button 제품 추가
-                                section
-                                    article
-                                        p No
-                                        p 제품
-                                        p 가격
-                                        p 재고
-                                        p 대분류
-                                        p 소분류
-                                        p 기능
-                                    -for(let i = 0; i < 3; i++)
-                                        article
-                                            p #{i + 1}
-                                            p 아이스 아메리카노
-                                            p 1,900
-                                            p 24
-                                            p 커피
-                                            p 원두커피
-                                            button 수정
-                                            button 삭제
-        script(src="./js/admin.js")
+                        input.targetStatus( type="button", value="전체", data-status="all" )
+                        input( type="button", value="대기", data-status="wait" )
+                        input( type="button", value="완료", data-status="complete" )
+                        input( type="button", value="환불", data-status="refund" )
+                        form#searchDayform
+                            input.searchInput#searchDay( type="date", name="day" )
+                            button
+                            i.xi-refresh( onclick="location.reload();" )
+                    section.postTable
+                        - let menuObjLv1= {}; // 메뉴 레벨 1 --> 출력
+                            for item in menu
+                                - menuObjLv1[item.lv1_id] = item.lv1_name;
+                                - menuObjLv1[item.lv1_id] = item.lv1_name;
+                            //- console.log( menuObjLv1 );
+                        - let menuObjLv2= {}; // 메뉴 레벨 2 --> 출력
+                            for item in menu
+                                - (!menuObjLv2[item.lv1_id]) && (menuObjLv2[item.lv1_id] = []);
+                                - menuObjLv2[item.lv1_id].push({lv2_id: item.lv2_id, lv2_name: item.lv2_name});
+                            //- console.log( menuObjLv2 );
+                        -let productOptionObj = {};
+                            for item, key in productOption
+                                - (!productOptionObj[item.product_id]) && (productOptionObj[item.product_id] = {});
+                                - (!productOptionObj[item.product_id][item.option_category]) && (productOptionObj[item.product_id][item.option_category] = []);
+                                - productOptionObj[item.product_id][item.option_category].push(item);
+                            - console.log(productOptionObj);
+                        - let productObj= {}; // 상품
+                            for item, key in product
+                                - productObj[item.product_id] = item;
+                                    - productObj[item.product_id][`option`] = productOptionObj[item.product_id];
+                            //- console.log( productObj );
+                        - let menuInProductObj= {}; // 메뉴와 상품 매핑 --> 출력
+                            for item in menuInProduct
+                                - (!menuInProductObj[item.menu_id]) && (menuInProductObj[item.menu_id] = []);
+                                - menuInProductObj[item.menu_id].push(item);
+                            //- console.log( menuInProductObj );
+                        section
+                            .productDetail.modalFrame( style="background-color:pink; width: 100px; height: 100px;" )
+                            ul.menuLv1
+                                for item, key in menuObjLv1
+                                    if key == 1
+                                        li.active( data-lv1-id=`${key}` )= item
+                                    else
+                                        li( data-lv1-id=`${key}` )= item
+                            for item, key in menuObjLv2
+                                if key == 1
+                                    ul.menuLv2.active
+                                        li.active( data-lv2-pid=`${key}_all` ) all
+                                        for v in item
+                                            li( data-lv2-pid=`${key}`, data-lv2-id=`${v.lv2_id}` )= v.lv2_name
+                                else
+                                    ul.menuLv2
+                                        li( data-lv2-pid=`${key}_all` ) all
+                                        for v in item
+                                            li( data-lv2-pid=`${key}`, data-lv2-id=`${v.lv2_id}` )= v.lv2_name
+                            section
+                                for item, key in menuInProductObj
+                                    ul( data-menu-id=`${key}` )
+                                        for v, vk in item
+                                            li( data-product-id=`${v.product_id}`,
+                                                data-isNew=`${productObj[v.product_id].isNew}`,
+                                                data-stock=`${productObj[v.product_id].stock}` )
+                                                span= productObj[v.product_id].name
+                                                - let finalPrice= Number( productObj[v.product_id].price ) - ( ( Number( productObj[v.product_id].price ) / 100 ) * Number( productObj[v.product_id].discount ) );
+                                                span( data-product-price=`${finalPrice}` )= finalPrice
+                                                .hiddenDetail
+                                                    span( data-product-discription=`${productObj[v.product_id].discription}` )
+                                                    span( data-product-allergy=`${productObj[v.product_id].allergy}` )
+                                                unless !productObj[v.product_id].option
+                                                    .hiddenOption
+                                                        for oc, ok in productObj[v.product_id].option
+                                                            ul( data-option-category=`${ok}` )
+                                                                for oo in productObj[v.product_id].option[ok]
+                                                                    li( data-option-id=`${oo.option_id}` )
+                                                                        span( data-option-name=`${oo.option_name}` )
+                                                                        - let finalOptionPrice= Number( oo.option_price ) - ( ( Number( oo.option_price ) / 100 ) * Number( oo.option_discount ) );
+                                                                        span( data-option-price=`${finalOptionPrice}` )
+        script(src="./js/adminProduct.js")
