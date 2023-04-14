@@ -54,4 +54,10 @@ router.post('/menuCheck', (req, res)=>{
     res.redirect('/admin_menu');
 })
 
+router.post('/test', async (req, res)=>{
+    let test = await req.body.jsonData;
+    console.log(test);
+    res.json('asdf');
+})
+
 module.exports= router;
