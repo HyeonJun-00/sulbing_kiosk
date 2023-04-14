@@ -8,7 +8,7 @@ html
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet")
-        link(rel="stylesheet", href="./css/admin.css")
+        link(rel="stylesheet", href="./css/admin_menu.css")
         script( src="https://unpkg.com/axios/dist/axios.min.js")
         script(src="./js/adminMenu.js")
     body
@@ -42,12 +42,12 @@ html
                                             input(type="hidden" name="nameMenu" value=`${menuList.name}`)
                                             input(type="hidden" name="isMain" value="true")
                                             input(type="hidden" name="checkMenu" value="active")
-                                            input(type="submit" value="ACTIVE")
+                                            input(type="submit" value="사용")
                                         form(action="/admin_menu/menuCheck" method="POST")
                                             input(type="hidden" name="nameMenu" value=`${menuList.name}`)
                                             input(type="hidden" name="isMain" value="true")
                                             input(type="hidden" name="checkMenu" value="inactive")
-                                            input(type="submit" value="INACTIVE")
+                                            input(type="submit" value="미사용")
                                 else
                                     li(id=`menu${i+1}` data-id = `${menuList.name}` )
                                         span(style="color:red") #{menuList.name}
@@ -55,12 +55,12 @@ html
                                             input(type="hidden" name="nameMenu" value=`${menuList.name}`)
                                             input(type="hidden" name="isMain" value="true")
                                             input(type="hidden" name="checkMenu" value="active")
-                                            input(type="submit" value="ACTIVE")
+                                            input(type="submit" value="사용")
                                         form(action="/admin_menu/menuCheck" method="POST")
                                             input(type="hidden" name="nameMenu" value=`${menuList.name}`)
                                             input(type="hidden" name="isMain" value="true")
                                             input(type="hidden" name="checkMenu" value="inactive")
-                                            input(type="submit" value="INACTIVE")
+                                            input(type="submit" value="미사용")
                                 ul
                                     for menuName, j in menu[1]
                                         if menuName.pid == menuList.name
@@ -70,19 +70,19 @@ html
                                                     form(action="/admin_menu/menuCheck" method="POST")
                                                         input(type="hidden" name="nameMenu" value=`${menuName.name}`)
                                                         input(type="hidden" name="checkMenu" value="active")
-                                                        input(type="submit" value="ACTIVE")
+                                                        input(type="submit" value="사용")
                                                     form(action="/admin_menu/menuCheck" method="POST")
                                                         input(type="hidden" name="nameMenu" value=`${menuName.name}`)
                                                         input(type="hidden" name="checkMenu" value="inactive")
-                                                        input(type="submit" value="INACTIVE")
+                                                        input(type="submit" value="미사용")
                                             else
                                                 li(id=`list${j+1}` data-id = `${menuName.name}`)
                                                     span(style="color:red") #{menuName.name}
                                                     form(action="/admin_menu/menuCheck" method="POST")
                                                         input(type="hidden" name="nameMenu" value=`${menuName.name}`)
                                                         input(type="hidden" name="checkMenu" value="active")
-                                                        input(type="submit" value="ACTIVE")
+                                                        input(type="submit" value="사용")
                                                     form(action="/admin_menu/menuCheck" method="POST")
                                                         input(type="hidden" name="nameMenu" value=`${menuName.name}`)
                                                         input(type="hidden" name="checkMenu" value="inactive")
-                                                        input(type="submit" value="INACTIVE")
+                                                        input(type="submit" value="미사용")

@@ -1,0 +1,354 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    list-style: none;
+}
+
+a { color: inherit; text-decoration: none; font-size: 1rem; }
+a:link { }
+a:visited { }
+a:hover { }
+a:active { }
+
+html,
+body {
+    background-color: rgba(#fafaea, 0.5);
+}
+
+@mixin mainMenu {
+    transition: all 1s ease-in-out .1s;
+    width: 105rem;
+    height: 100%;
+    background-color: #fff;
+}
+
+@mixin rightAndLeftBox {
+    margin: 0 1rem 0 1rem;
+    width: 42.5rem;
+    height: 80rem;
+}
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.mainDisplay {
+    width: 100%;
+    height: 100%;
+    @include flexCenter();
+}
+
+.adminPage {
+    @include mainMenu();
+    display: flex; flex-direction: column;
+    align-items: center;
+
+    .headFrame {
+        width: 100%; height: 4rem;
+        display: flex;
+        justify-content: flex-start; align-items: center;
+        h1 {
+            font-size: 2rem;
+            padding-left: 2rem;
+        }
+    }
+    .mainContent {
+        width: 95%; height: 80%;
+        position: relative;
+        section.searchBox { width: 100%; height: 2rem;
+            display: flex; justify-content: flex-end; align-items: center;
+            label {}
+            input.searchInput { border: 0.01rem solid #ddd; margin: 0 0.6rem; height: 2rem; }
+            i { cursor: pointer; background-color: white; }
+        }
+        section.menuBox{
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+
+            .menuWrap{
+                width: 100%;
+                height: 10%;
+                display: flex;
+                flex: 1 1 auto;
+
+                &>li{
+                    width: 30%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-evenly;
+                    margin: 1rem;
+                    background-color: pink;
+
+                    &>span{
+                        width: 40%;
+                    }
+                }
+
+                &>ul{
+                    width: 70%;
+
+                    &>li{
+                        display:flex;
+                        flex-direction: row;
+                        justify-content: space-evenly;
+                        margin: 1rem;
+                        background-color: yellow;
+
+                        &>span{
+                            width: 40%;
+                            margin-bottom: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+        section.postTable {
+            ul { list-style-type: none; }
+            ul.userRowSet, ul.userReadRowSet {
+                display: flex; flex-direction: column;
+                li {
+                    &.userReadRow, ul.userReadRowSet {
+                        border-top: 0.01rem solid #ddd;
+                        border-bottom: 0.01rem solid #ddd;
+                        border-left: 0.01rem solid transparent;
+                        border-right: 0.01rem solid transparent;
+                        cursor: pointer;
+                        input[disabled] { cursor: pointer; }
+                        &:hover { border: 0.01rem solid black; }
+                    }
+                    &.emptyRow { width: 100%; height: 3rem;
+                        display: flex; justify-content: center; align-items: center;
+                    }
+                    ul.userColSet {
+                        display: flex;
+                        li {
+                            display: inline-flex;
+                            justify-content: center; align-items: center;
+                            //border-top: 0.01rem solid #ddd;
+                            //border-bottom: 0.01rem solid #ddd;
+                            width: 10%; height: 3rem;
+                            input, select {
+                                width: 100%; height: 100%;
+                                border: 0.01rem solid #ddd;
+                                &[type=button] {
+                                    cursor: pointer;
+                                }
+                                &[type=number] {
+                                    text-align: center;
+                                }
+                                &[disabled] {
+                                    border: transparent;
+                                    color: black;
+                                    cursor: auto;
+                                }
+                            }
+                            input::-webkit-outer-spin-button,
+                            input::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                            }
+                            &:nth-of-type(1) { width: 3%; justify-content: center; }
+                            &:nth-of-type(2) { width: 10%; }
+                            &:nth-of-type(3) { width: 13%; }
+                            &:nth-of-type(4) { width: 5%; }
+                            &:nth-of-type(5) {}
+                            &:nth-of-type(6) { width: 4%; }
+                            &:nth-of-type(7) { width: 7%; }
+                            &:nth-of-type(8) {}
+                            &:nth-of-type(9) {}
+                            &:nth-of-type(10) { width: 18%; }
+                            &:nth-of-type(11) { width: 5%; }
+                            &:nth-of-type(12) { width: 5%; }
+                        }
+                    }
+                    &:nth-of-type(1) > ul > li {
+                        justify-content: center;
+                        &:nth-of-type(11) { width: 10%; }
+                    }
+                    &.userInsertRow {
+                        margin: 0.5rem 0;
+                        form {
+                            ul {
+                                li {
+                                }
+                                .userColEmpty {
+                                    border: 0.01rem solid transparent;
+                                    display: flex; justify-content: center;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        section.tablePaging {
+            display: flex; align-items: center;
+            width: calc( 100% - 2rem ); height: 2rem;
+            padding: 1rem;
+            a {
+                display: inline-block;
+                width: 2rem; height: 2rem;
+                text-align: center; line-height: 2rem;
+                cursor: pointer;
+                &[data-page=true] {
+                    color: rgb( 181, 51, 60);
+                }
+            }
+        }
+        section.modalConfirmBak {
+            display: none;
+            width: 105rem; height: 87.5em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba( 0, 0, 0, 0.5 );
+            section.modalConfirm {
+                width: 50rem;
+                height: 16rem;
+                padding: 2rem;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: flex; flex-direction: column;
+                background-color: white;
+                border-radius: 0.5rem;
+                p {
+                    width: 100%; height: 60%;
+                    display: flex; justify-content: center; align-items: center;
+                    font-size: 1.8rem;
+                }
+                .modalBtnSet {
+                    width: 100%; height: 40%;
+                    display: flex; justify-content: center; align-items: center;
+                    button {
+                        width: 10rem;
+                        font-size: 1.2rem;
+                        border-radius: 0.5rem;
+                        cursor: pointer;
+                        margin: 0 2rem;
+                        padding: 1rem;
+                    }
+                    button:hover {
+                        background-color: #a2a2a2;
+                    }
+                }
+            }
+        }
+    }
+    .footerPaging {}
+}
+
+.mainMenu {
+    top: 1rem;
+    list-style: none;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 15rem;
+    background-color: rgb(46, 31, 26);
+
+    .logo { width: 100%; }
+
+    & li:nth-child(1) a {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        width: 6rem;
+        height: 6rem;
+        font-size: 3rem;
+        @include flexCenter();
+        display: inline-flex;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    & li:nth-child(n + 2) a {
+        cursor: pointer;
+        height: 5rem;
+        width: 15rem;
+        @include flexCenter();
+        font-size: 1.5rem;
+        color: white;
+
+        &:hover {
+            background-color: rgba(#000000, 0.2);
+        }
+        &.backgroundFlag {
+            background-color: rgba(#000000, 0.2);
+        }
+    }
+}
+//sale page css starts here
+.tapBtn{
+    background-color: lightgray;
+    width: 5rem;
+    height: 3rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    &:hover{
+        cursor: pointer;
+    }
+}
+.displayMonthlySale, .displayDailySale, .displayYearlySale {
+    border-bottom: 1px solid #666;
+    height: 90%;
+    width: 100%;
+    display: none;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-evenly;
+
+    .dataGraph {
+        width: 5%;
+        height: 50%;
+        display: flex;
+        align-items: flex-end;
+
+        .dataValue, .dayValue, .yearValue, .lastYearValue {
+            width: 100%;
+            height: 50%;
+            background-color: lightsalmon;
+            text-align: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-evenly;
+
+            .nameTag {
+                position: relative;
+                top: 3.5rem;
+            }
+        }
+    }
+}
+.displayBestSale{
+        width: 100%;
+        height: 100%;
+        display: none;
+    &>ul{
+        background-color: lightsalmon;
+        position: absolute;
+        width: 70%;
+        height: 70%;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        border-radius: 2rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        &>li{
+            font-size: 1.6rem;
+            color: white;
+        }
+    }
+}
