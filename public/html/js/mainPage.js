@@ -15,13 +15,11 @@
         ],
         stamp: { use: false, save: 0 }, // 사용 10, 적립 2
         payment: [
-            { id: 0, amount: 0 },
         ],
         take_out: true,
         remark: ''
     };
     const gifticonId = [];
-
     const totalSet = () => {
         let totalAmount = 0;
         let totalCount = 0;
@@ -33,6 +31,14 @@
             $(".product_result_price").eq(i).html(putComma($(".product_result_price").eq(i).attr("data-this-price") * transferData.item[i].cnt) + " 원");
             totalAmount += parseInt(String($(".product_result_price").eq(i).html()).replace(/,/g, ""));
         }
+        for (let i = 0; i < transferData.payment.length; i++) {
+            totalAmount -= transferData.payment[i].amount;
+        }
+        if (transferData.stamp.use) {
+            totalAmount -= 5000;
+        }
+        console.log(transferData.payment);
+        $("#final_amount").html(`${putComma(totalAmount)} 원`);
         $("#total_number").html(`총 수량(${totalCount})`);
         $("#total_amount").html(`${putComma(totalAmount)} 원`);
     }
@@ -53,6 +59,7 @@
     let menuBar1_num = 0;
     let menuBar2_num = 0;
     let productPrice = 0;
+    let userPhoneNumber = null;
 
     $("#reset_timer_modal_background").on("click", () => {
         $("#reset_time_modal").css("background", `conic-gradient(#f2da5e 0deg, rgba(245, 245, 245, 0) 0deg)`);
@@ -67,6 +74,8 @@
                 $("#have_stamp").html(`${res.data[0].stamp}/10`);
                 (res.data[0].stamp >= 10) && $("#stamp_use_button").addClass("displayFlag");
             }
+            userPhoneNumber = res.data[0].tel;
+            console.log(res.data[0]);
             $("#accumulate_stamp").html(`${transferData.stamp.save}개`);
         } catch (err) {
             console.error(err);
@@ -102,13 +111,13 @@
             $(".gifticon_element button").on("click", function () {
                 $(this).parent().remove();
             });
+        $(`.inquiry_input_box`).val("");
 
             console.log(res.data);
         } catch (err) {
             console.error(err);
         }
     });
-
 
     menuBar1.eq(0).addClass("backgroundFlag");
     menuBar2.eq(0).addClass("displayFlag");
@@ -292,7 +301,7 @@
         $(this).parent().children("p").html(spoonNumber);
     });
     $(".spoon_number_plus").on("click", function () {
-        const spoonNumber = parseInt($(this).parent().children("p").html()) + 1;
+        const spoonNumber = parseInt($(".spoon_number_plus").parent().children("p").html()) + 1;
         $(this).parent().children("p").html(spoonNumber);
     });
     $(".modal2_pay").on("click", function () {
@@ -325,22 +334,78 @@
         transferData.item = [];
         totalSet();
     });
-    $(".point_modal_x_button").on("click", () => {
+    const pointModalReset = () => {
         $(".point_modal_background").removeClass("displayFlag")
         $("#point_input_box").html("");
         $("#have_stamp").html(`/10`);
         $("#accumulate_stamp").html(`개`);
         $("#stamp_use_button").removeClass("displayFlag")
         $("#stamp_use_button").removeClass("backgroundFlag")
-    });
+        $("#point_deduction").remove();
+        transferData.stamp.use = false;
+        totalSet();
+    }
+    $(".point_modal_x_button").on("click", () => pointModalReset());
     $(".point_modal_o_button").on("click", () => {
-        $(".point_modal_background").removeClass("displayFlag")
+        const optionString =`
+                    <div id = "point_deduction" class="option">
+                        <p> 스탬프 차감 </p>
+                        <p> </p>
+                        <p> -5000원 </p>
+                    </div> `
+        $(".point_modal_background").removeClass("displayFlag");
+        console.log($("#point_deduction").length);
+        console.log($("#stamp_use_button").hasClass("displayFlag backgroundFlag"));
+        if ($("#stamp_use_button").hasClass("displayFlag backgroundFlag") && $("#point_deduction").length == 0) {
+            $(".payment_modal_order_box > aside").append(`
+                ${optionString}
+            `);
+            transferData.stamp.use = true;
+        } else if (!$("#stamp_use_button").hasClass("displayFlag backgroundFlag")) {
+            $("#point_deduction").remove();
+            transferData.stamp.use = false;
+        }
+        totalSet();
     });
-    $(".payment_modal_x_button").on("click", () => $(".payment_modal").removeClass("displayFlag"));
+    transferData.payment.push({ id: 6, amount: 0 });
+    $(".voucher_modal section:nth-child(4) button:nth-child(2)").on("click", () => {
+        let ehs = 0;
+        for (let i = 0; i < transferData.payment.length; i++) {
+            if (transferData.payment[i].id == 6) {
+                for (let j = 0; j < $(".gifticon_element").length; j++) {
+                    ehs += drawNumber($(".gifticon_element p:last-child").eq(j).html());
+                }
+                transferData.payment[i].amount = ehs;
+            }
+        }
+        const optionString =`
+                    <div id = "gifticon_deduction" class="option">
+                        <p> 기프티콘 차감 </p>
+                        <p> </p>
+                        <p> -${ehs}원 </p>
+                    </div> `
+            $(".payment_modal_order_box > aside").append(`
+                ${optionString}
+            `);
+        $(".voucher_modal_background").removeClass("displayFlag");
+        totalSet();
+    });
+    $(".payment_modal_x_button").on("click", () => {
+        $(".payment_modal").removeClass("displayFlag");
+        $(".spoon_number_plus").parent().children("p").html("0");
+        $(".dryice_number_plus").parent().children("p").html("0");
+        $(".voucher_modal_background").removeClass("displayFlag")
+        $(".gifticon_element").remove();
+        pointModalReset();
+    });
     $(".option_modal_x_button").on("click", () => $(".modalBackground").removeClass("displayFlag"));
     $("#point_payment").on("click", () => $(".point_modal_background").addClass("displayFlag"));
     $("#voucher_payment").on("click", () => $(".voucher_modal_background").addClass("displayFlag"));
-    $(".voucher_modal section:nth-child(4) button:nth-child(1)").on("click", () => $(".voucher_modal_background").removeClass("displayFlag"));
+    $(".voucher_modal section:nth-child(4) button:nth-child(1)").on("click", () => {
+        $(".voucher_modal_background").removeClass("displayFlag")
+        $(".gifticon_element").remove();
+    });
+
     $("#payment_button").on("click", () => $(".paying_modal_background").addClass("displayFlag"));
     $(".paying_modal section:last-child button").on("click", () => $(".paying_modal_background").removeClass("displayFlag"));
     $(".modal2_o_button").on("click", () => $(".modal2WrapBox").removeClass("displayFlag"));
