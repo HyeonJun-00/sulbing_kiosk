@@ -7,9 +7,12 @@
     ::-webkit-scrollbar {
         display: none;
     }
+
     font-size: 20px;
 }
-html, body {
+
+html,
+body {
     font-size: 20px;
 }
 
@@ -54,6 +57,7 @@ $color-line: rgb(220, 220, 220);
         left: 50%;
         top: 1rem;
         transform: translate(-50%, 0);
+
         &>img {
             left: 50%;
             transform: translate(-50%, 0);
@@ -81,7 +85,7 @@ $color-line: rgb(220, 220, 220);
 
     .menuBar1 {
         display: flex;
-        width: 100%;
+        width: 80%;
         height: 4rem;
         list-style: none;
         justify-content: space-around;
@@ -269,6 +273,7 @@ $color-line: rgb(220, 220, 220);
 
                 &::before {
                     @include flexCenter();
+                    font-size: 1.2rem;
                     height: 1.5rem;
                     width: 1.5rem;
                     margin-top: -.5rem;
@@ -335,6 +340,7 @@ $color-line: rgb(220, 220, 220);
                         margin: 0.2rem;
                         width: 1.5rem;
                         height: 1.5rem;
+                        font-size: 1.2rem;
                     }
                 }
             }
@@ -411,11 +417,6 @@ $color-line: rgb(220, 220, 220);
             right: 1.5rem;
             background-color: transparent;
 
-            &::after {
-                color: #2e1f1a;
-                font-size: 4rem;
-                content: "\00d7";
-            }
         }
     }
 
@@ -651,19 +652,6 @@ $color-line: rgb(220, 220, 220);
             font-size: 2.5rem;
             content: "옵션과 결제 정보를 선택하세요";
         }
-
-        & button {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            background-color: transparent;
-
-            &::after {
-                color: #2E1F1A;
-                font-size: 3.5rem;
-                content: "\00d7";
-            }
-        }
     }
 
     & section:nth-child(2) {
@@ -683,7 +671,7 @@ $color-line: rgb(220, 220, 220);
             height: 10rem;
 
             &>button {
-                border: 1px solid #ccc;
+                border: 1px solid #555;
                 background-color: #fff;
                 font-size: 1.7rem;
                 border-radius: 0.2rem;
@@ -703,7 +691,7 @@ $color-line: rgb(220, 220, 220);
             align-items: center;
             width: 9rem;
             height: 9rem;
-            border: 1px solid #ccc;
+            border: 1px solid #999;
             margin-bottom: 0.3rem;
             border-radius: .4rem;
 
@@ -711,11 +699,11 @@ $color-line: rgb(220, 220, 220);
                 margin: 0.5rem;
 
                 &::after {
-                    transform: rotate(-45deg);
+                    transform: rotate(-0deg);
                     display: inline-block;
                     content: "\f2e5";
                     font: var(--fa-font-solid);
-                    font-size: 3rem;
+                    font-size: 2.5rem;
                 }
             }
 
@@ -763,7 +751,7 @@ $color-line: rgb(220, 220, 220);
                     display: inline-block;
                     content: "\f017";
                     font: var(--fa-font-solid);
-                    font-size: 3rem;
+                    font-size: 2.5rem;
                 }
             }
 
@@ -901,8 +889,8 @@ $color-line: rgb(220, 220, 220);
             border-radius: .4rem;
             background-color: #fff;
 
-            & img {
-                width: 100%;
+            & i {
+                font-size: 4rem;
             }
 
             & p {
@@ -925,7 +913,7 @@ $color-line: rgb(220, 220, 220);
             font-size: 1.7rem;
             border-radius: 0.2rem;
             width: 15rem;
-            height: 3rem;
+            height: 4rem;
             margin: 0 1.9rem 2.8rem 1.9rem;
         }
 
@@ -1073,7 +1061,7 @@ $color-line: rgb(220, 220, 220);
             top: 2rem;
             color: #2E1F1A;
             font-size: 2.5rem;
-            content: "설빙 맴버쉽 포인트 조회";
+            content: "설빙 스탬프 사용/조회";
         }
 
         & button {
@@ -1082,11 +1070,6 @@ $color-line: rgb(220, 220, 220);
             right: 1.5rem;
             background-color: transparent;
 
-            &::after {
-                color: #2E1F1A;
-                font-size: 4rem;
-                content: "\00d7";
-            }
         }
     }
 
@@ -1252,6 +1235,336 @@ $color-line: rgb(220, 220, 220);
             & button:nth-child(1) {
                 background-color: #fff;
             }
+        }
+    }
+}
+
+.paying_modal_background {
+    top: 0;
+    z-index: 99999999;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: none;
+
+    &.displayFlag {
+        display: block;
+    }
+}
+
+.paying_modal {
+    top: 13.5rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+    border-radius: 2rem;
+    width: 45rem;
+    height: 70rem;
+    background-color: #fff;
+
+    &>section {
+        &:nth-child(1) {
+            height: 20%;
+            @include flexCenter();
+            flex-direction: column;
+            justify-content: space-evenly;
+
+            &::before {
+                color: #666;
+                margin-top: 2rem;
+                position: relative;
+                color: #2E1F1A;
+                font-size: 3.5rem;
+                content: "결제";
+            }
+
+            & p {
+                font-weight: bold;
+                margin-top: 2rem;
+                font-size: 2rem;
+            }
+        }
+
+        &:nth-child(2) {
+            height: 60%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+
+            & button {
+                width: 15rem;
+                height: 12rem;
+                @include flexCenter();
+                justify-content: space-around;
+                border-radius: 0.5rem;
+                border: 1px solid #aaa;
+                margin: 0.5rem;
+                background-color: #fff;
+
+                & i {
+                    font-size: 4rem;
+                }
+
+                & p {
+                    font-size: 4rem;
+                    margin-right: 7rem;
+                }
+
+                & img {
+                    height: 4rem;
+                }
+
+                &:last-child {
+                    width: 65%;
+                    color: #ddd;
+                    background-color: #1332c5;
+                }
+            }
+        }
+
+        &:nth-child(3) {
+            height: 20%;
+            @include flexCenter();
+
+            & button {
+                background-color: #fff;
+                border: 1px solid #aaa;
+                height: 40%;
+                width: 40%;
+                font-size: 2rem;
+                margin-bottom: 4rem;
+            }
+        }
+    }
+}
+
+.voucher_modal_background {
+    top: 0;
+    z-index: 99999999;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: none;
+
+    &.displayFlag {
+        display: block;
+    }
+}
+
+.voucher_modal {
+    top: 13.5rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+    border-radius: 2rem;
+    width: 45rem;
+    height: 70rem;
+    background-color: #fff;
+
+    & section {
+        &:nth-child(1) {
+            height: 13%;
+            width: 100%;
+            border-radius: 1.5rem 1.5rem 0 0;
+            text-align: center;
+
+            &::after {
+                position: relative;
+                top: 3rem;
+                color: #2E1F1A;
+                font-size: 2.5rem;
+                content: "기프티콘";
+            }
+        }
+
+        &:nth-child(2) {
+            height: 13%;
+            @include flexCenter();
+
+            &>button {
+                border: 1px solid #aaa;
+                border-radius: 0.5rem;
+                height: 5rem;
+                width: 70%;
+                font-size: 2.5rem;
+                background-color: #ddd;
+            }
+        }
+
+        &:nth-child(3) {
+            height: 60%;
+            @include flexCenter();
+
+            & article {
+                height: 100%;
+
+                &:nth-child(1) {
+                    @include flexCenter();
+                    flex-direction: column;
+                    align-items: end;
+                    width: 60%;
+                    margin-left: 1rem;
+
+                    &>.inquiry_box {
+                        @include flexCenter();
+                        justify-content: space-around;
+                        width: 25rem;
+                        height: 5rem;
+
+                        &>p {
+                            font-size: 1rem;
+                            border: 1px solid #999;
+                            width: 95%;
+                            height: 70%;
+                        }
+
+                    }
+
+                    &>.inquiry_keypad {
+                        width: 24.8rem;
+                        height: 22.75rem;
+
+                        & button {
+                            background-color: white;
+                            border: 1px solid #aaa;
+                            border-radius: 0.5rem;
+                            color: #666;
+                            width: 7.5rem;
+                            height: 5rem;
+                            font-size: 2rem;
+                            margin: 0.35rem 0.35rem;
+                            &:last-child {
+                                transform: rotate(180deg);
+                                &::after {
+                                    font-family: xeicon;
+                                    content: "\e9b2";
+                                    //content: "\e9b1";
+                                }
+                            }
+                            &:nth-child(10) {
+                                font-size: 1.5rem;
+                            }
+                        }
+                    }
+                    &>.inquiry_button {
+                        @include flexCenter();
+                        justify-content: space-around;
+                        width: 25rem;
+                        height: 5rem;
+
+                        &>button {
+                            position: relative;
+                            background-color: #f2da5e;
+                            border: 1px solid #dbc555;
+                            font-size: 1.5rem;
+                            width: 15%;
+                            width: 95%;
+                            height: 70%;
+                        }
+                    }
+                }
+
+                &:nth-child(2) {
+                    width: 45%;
+                    margin-right: 0.5rem;
+                    
+                    @include flexCenter();
+                    & > .view_window {
+                        width: 90%;
+                        height: 75%;
+                        border: 1px solid #666;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: start;
+                        align-items: center;
+                        & > div:nth-child(1) {
+                            width: 100%;
+                            @include flexCenter();
+                            &::before {
+                                @include flexCenter();
+                                content: "기프티콘 목록";
+                                height: 3.7rem;
+                                font-size: 2rem;
+                                border-bottom: 1px solid #aaa;
+                            }
+                        }
+                        & > div:nth-child(n + 2) {
+                            height: 100%;
+                            width: 100%;
+                            overflow: scroll;
+                            & > .gifticon_element {
+                                position: relative;
+                                margin: 1rem;
+                                margin-left: 10%;
+                                width: 80%;
+                                height: 6.5rem;
+                                border: 1px solid #333;
+                                border-radius: 0.5rem;
+                                background: linear-gradient(180deg, rgba(#EFD5B0,1) 33%, rgba(#B38959,1) 33%, rgba(#B38959,1) 67%, rgba(#EFD5B0, 1) 67%);
+                                & > p {
+                                    &:nth-child(2) {
+                                        @include flexCenter();
+                                        color: white;
+                                        position: absolute;
+                                        height: 2rem;
+                                        font-size: 1rem;
+                                        width: 10rem;
+                                        top: 50%;
+                                        left: 50%;
+                                        transform: translate(-50%, -50%);
+                                    } 
+                                    &:nth-child(3) {
+                                        color: #534139;
+                                        text-align: left;
+                                        position: absolute;
+                                        height: 2rem;
+                                        font-size: 1rem;
+                                        bottom: 0;
+                                        left: 0.5rem;
+                                    } 
+                                    &:nth-child(4) {
+                                        color: #534139;
+                                        text-align: right;
+                                        position: absolute;
+                                        height: 2rem;
+                                        font-size: 1rem;
+                                        bottom: 0;
+                                        right: 0.5rem;
+                                    } 
+                                }
+                                & > button {
+                                    position: absolute;
+                                    right: .5rem;
+                                    background-color: transparent;
+                                    &::before {
+                                        cursor: pointer;
+                                        font-size: 1.5rem;
+                                        content: "\00d7";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &:nth-child(4) {
+            height: 14%;
+            @include flexCenter();
+            align-items: start;
+            & button {
+                background-color: #fff;
+                border: 1px solid #aaa;
+                height: 40%;
+                width: 40%;
+                font-size: 2rem;
+                margin: 1rem;
+                &:nth-child(2) {
+                    background-color: #f2da5e;
+                }
+            } 
         }
     }
 }

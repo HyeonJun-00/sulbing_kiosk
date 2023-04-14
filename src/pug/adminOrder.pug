@@ -1,4 +1,4 @@
-hmtl
+html
     head
         title 설빙 - 관리자 페이지
         link( rel="stylesheet", href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" )
@@ -31,10 +31,10 @@ hmtl
                     h1 주문현황
                 section.mainContent
                     section.searchBox
-                        input.searchAllBtn.targetStatus( type="button", value="전체", data-status="all" )
-                        input.searchWaitBtn( type="button", value="대기", data-status="wait" )
-                        input.searchCompleteBtn( type="button", value="완료", data-status="complete" )
-                        input.searchRefuncBtn( type="button", value="환불", data-status="refund" )
+                        input.targetStatus( type="button", value="전체", data-status="all" )
+                        input( type="button", value="대기", data-status="wait" )
+                        input( type="button", value="완료", data-status="complete" )
+                        input( type="button", value="환불", data-status="refund" )
                         form#searchDayform
                             input.searchInput#searchDay( type="date", name="day" )
                             button
@@ -66,7 +66,11 @@ hmtl
                                 - ( !pP.dif_id && !pP['option'] ) && ( pP['option'] = [] );
                                 - ( !pP.dif_id ) && ( proPostObj[pP.id].push( pP ) );
                                 - ( pP.dif_id && !optionObj[pP.dif_id] ) && ( optionObj[pP.dif_id]= [] );
-                                - ( pP.dif_id ) && ( optionObj[pP.dif_id].push( pP ) )
+                                - ( pP.dif_id ) && ( optionObj[pP.dif_id].push( pP ) );
+                            - let payPostObj= {};
+                            each pP in paymentPost
+                                - ( !payPostObj[pP.id] ) && ( payPostObj[pP.id]= [] );
+                                - payPostObj[pP.id].push( pP );
                             each item, i in readPost
                                 li.orderReadRow
                                     form.orderSetForm
@@ -84,17 +88,25 @@ hmtl
                                             li= ( item.save_stamp )? item.save_stamp: '-'
                                             li= ( item.take_out == '' )? '매장': '포장'
                                             li
-                                                input( data-origin-value=`${ ( item.remark )? item.remark: '' }`, value=`${ ( item.remark )? item.remark: '' }`, disabled )
-                                                input.remarkUpdateBtn( type="button", value="수정", disabled )
+                                                input( name="remark", data-origin-value=`${ ( item.remark )? item.remark: '' }`, value=`${ ( item.remark )? item.remark: '' }`, disabled )
+                                                input.remarkUpdateBtn( type="button", data-origin-value="수정", value="수정", disabled )
                                             li= ( item.user_tel )? item.user_tel: '-'
                                             li= item.purchase_date
                                             li= ( item.refund_date )? item.refund_date: '-'
-                                            li
-                                                input.completeBtn( type="button", value="완료" )
-                                            li
-                                                input.waitBtn( type="button", value="대기" )
-                                            li
-                                                input.refundBtn( type="button", value="환불" )
+                                            if item.status == `refund`
+                                                li
+                                                    input.completeBtn.fixCol( type="button", value="완료", disabled )
+                                                li
+                                                    input.waitBtn.fixCol( type="button", value="대기", disabled )
+                                                li
+                                                    input.refundBtn.fixCol( type="button", value="환불", disabled )
+                                            else
+                                                li
+                                                    input.completeBtn.fixCol( type="button", value="완료" )
+                                                li
+                                                    input.waitBtn.fixCol( type="button", value="대기" )
+                                                li
+                                                    input.refundBtn.fixCol( type="button", value="환불" )
                                         each pP, pI in proPostObj[item.id]
                                             ul.orderColSet.productColSet
                                                 li= ( pI + 1 ) + `. ` + pP.product_name
@@ -106,6 +118,12 @@ hmtl
                                                         li= '- ' + oP.option_name
                                                         li= oP.option_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                                                         li
+                                        each pP in payPostObj[item.id]
+                                            ul.orderColSet.paymentColSet
+                                                li= pP.name
+                                                li= `결제 금액: ` + pP.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                                li= `할인율: ` + pP.discount + `%`
+                                                li= `수수료: ` + pP.charge + `%`
                             else
                                 li.emptyRow 게시물이 존재하지 않습니다.
                     section.tablePaging
@@ -119,4 +137,5 @@ hmtl
                                 button.modalBtn( data-modal-confirm=true ) YES
                                 button.modalBtn( data-modal-confirm=false ) CANCEL
                 section.footer
-        script(src="./js/adminOrder.js")
+    script( src="https://unpkg.com/axios/dist/axios.min.js")
+    script(src="./js/adminOrder.js")

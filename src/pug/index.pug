@@ -137,35 +137,14 @@ html( lang="ko" )
                                 p#final_amount
                     section
                         button#point_payment
-                            img(src="images/pay_img/kakaopay.png", alt="")
-                            p 포인트 적립
-                        button#card_payment
-                            img(src="images/pay_img/kakaopay.png", alt="")
-                            p 카드 결제
-                        button#pay_payment
-                            img(src="images/pay_img/kakaopay.png", alt="")
-                            p 페이 결제
+                            i.xi-star-o
+                            p 스탬프 사용/적립
                         button#voucher_payment
-                            img(src="images/pay_img/kakaopay.png", alt="")
+                            i.xi-gift-o
                             p 기프티콘 결제
                     section
                         button.payment_modal_x_button 취소
-                        button 결제하기
-                div.modal2WrapBox
-                    div.modal2
-                        section 
-                            button.modal2_x_button
-                        section.modal2_pay
-                            img(src="images/pay_img/applepayre.png", alt="")
-                        section.modal2_pay
-                            img(src="images/pay_img/kakaopay.png", alt="")
-                        section.modal2_pay 
-                            img(src="images/pay_img/naverpay2.png", alt="")
-                        section.modal2_pay 
-                            img(src="images/pay_img/samsungpay2.png", alt="")
-                        section
-                            button.modal2_x_button 취소하기
-                            button.modal2_o_button 선택하기
+                        button#payment_button 결제하기
             main.point_modal_background
                 div.point_modal
                     section 
@@ -175,7 +154,7 @@ html( lang="ko" )
                             input(type="text" placeholder="휴대폰 번호를 입력하세요")
                             button 조회
                         div
-                            - const buttonValue = [1,2,3,4,5,6,7,8,9, "010", 0, "<"];
+                            - let buttonValue = [1,2,3,4,5,6,7,8,9, "010", 0, "<"];
                             - for(let i = 0; i < 12; i++)
                                 button #{buttonValue[i]}
                     section 
@@ -199,5 +178,65 @@ html( lang="ko" )
                         div
                             button 취소
                             button 적립
+            main.paying_modal_background
+                div.paying_modal
+                    section 
+                        p 결제금액: 42,900원
+                    section 
+                        button
+                            img(src="images/pay_img/applepayre.png", alt="")
+                        button
+                            img(src="images/pay_img/kakaopay.png", alt="")
+                        button
+                            img(src="images/pay_img/naverpay2.png", alt="")
+                        button
+                            img(src="images/pay_img/samsungpay2.png", alt="")
+                        button 
+                            i.xi-cc-visa
+                            p 카드
+                    section 
+                        button 뒤로가기
+            main.voucher_modal_background
+                div.voucher_modal
+                    section 
+                    section 
+                        button QR코드/바코드 스캔
+                    section 
+                        article 
+                            div.inquiry_box
+                                p 
+                            div.inquiry_keypad
+                                - buttonValue = [1,2,3,4,5,6,7,8,9, "CLEAR", 0, ""];
+                                - for(let i = 0; i < 12; i++)
+                                    button #{buttonValue[i]}
+                            div.inquiry_button
+                                button 사용
+                        article 
+                            div.view_window
+                                div
+                                div
+                                    div.gifticon_element
+                                        button
+                                        p 설빙 5000원권
+                                        p 남은 금액: 
+                                        p 3,500원
+                                    div.gifticon_element
+                                        button
+                                        p 설빙 5000원권
+                                        p 남은 금액: 
+                                        p 3,500원
+                                    div.gifticon_element
+                                        button
+                                        p 설빙 5000원권
+                                        p 남은 금액: 
+                                        p 3,500원
+                                    div.gifticon_element
+                                        button
+                                        p 설빙 5000원권
+                                        p 남은 금액: p
+                                        p 3,500원
+                    section 
+                        button 뒤로가기
+                        button 사용하기
 
         script(src="./js/mainPage.js")
