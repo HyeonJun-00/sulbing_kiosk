@@ -29,14 +29,16 @@ html( lang="ko" )
                     - let menuIndex = [];
                     - let pageNum = 0;
                     - menuIdCheck = 0;
+                    - let checkId = 0;
                     - for (let i = 0; i < menu.length; i++)
                         -if (menu[i].lv1_id != menuIdCheck)
                             li
                                 -for(let j = 0; j < menu.length; j++)
                                     -if (j == 0)
-                                        - menuIndex.push([`${pageNum + 1}_all`]);
-                                        div All
-                                    -if (menu[j].lv1_id == 1 + menuIdCheck)
+                                        - menuIndex.push([`${menu[i].lv1_id}_all`]);
+                                        div All 
+                                        - checkId = menu[i].lv1_id;
+                                    -if (menu[j].lv1_id == checkId)
                                         div #{menu[j].lv2_name}
                                         - menuIndex[pageNum].push(menu[j].lv2_id);
                             - menuIdCheck = menu[i].lv1_id
@@ -180,14 +182,14 @@ html( lang="ko" )
                     section 
                         p 결제금액: 42,900원
                     section 
-                        button
-                            img(src="images/pay_img/applepayre.png", alt="")
-                        button
-                            img(src="images/pay_img/kakaopay.png", alt="")
-                        button
-                            img(src="images/pay_img/naverpay2.png", alt="")
-                        button
+                        button.pay_payment_window_button
                             img(src="images/pay_img/samsungpay2.png", alt="")
+                        button.pay_payment_window_button
+                            img(src="images/pay_img/applepayre.png", alt="")
+                        button.pay_payment_window_button
+                            img(src="images/pay_img/kakaopay.png", alt="")
+                        button.pay_payment_window_button
+                            img(src="images/pay_img/naverpay2.png", alt="")
                         button#card_payment_window_button
                             i.xi-cc-visa
                             p 카드
@@ -205,9 +207,22 @@ html( lang="ko" )
                             div#card_terminal_price
                                 p 25,000원 결제
                         button 취소하기
+                main#pay_terminal_modal_background
+                    section#pay_terminal_modal
+                        section 
+                            p 결제 진행중입니다
+                        div
+                            img(src="images/pay_img/카드단말기.jpg", alt="")
+                            div
+                                img(src="images/pay_img/mobilePay.png", alt="")
+                        div
+                            div#pay_terminal_price
+                                p 25,000원 결제
+                        button 취소하기
             main.voucher_modal_background
                 div.voucher_modal
                     section 
+                        div#gifticon_price 19,000원
                     section 
                         button QR코드/바코드 스캔
                     section 
