@@ -79,13 +79,13 @@
                                 <li>${v.purchase_date}</li>
                                 <li>${( v.refund_date )? v.refund_date: '-'}</li>
                                 <li>
-                                    <input class="fixCol" type="button" value="완료" data-change-status="${ v.status }" ${ v.status == 'refund'? 'disabled': '' }>                            
+                                    <input class="fixCol" type="button" value="완료" data-change-status="complete" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                                 <li>
-                                    <input class="fixCol" type="button" value="대기" data-change-status="${ v.status }" ${ v.status == 'refund'? 'disabled': '' }>                            
+                                    <input class="fixCol" type="button" value="대기" data-change-status="wait" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                                 <li>
-                                    <input class="fixCol" type="button" value="환불" data-change-status="${ v.status }" ${ v.status == 'refund'? 'disabled': '' }>                            
+                                    <input class="fixCol" type="button" value="환불" data-change-status="refund" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                             </ul>
                             ${ tempChildRow }
@@ -199,10 +199,9 @@
                         case 'refund':
                             if( await axios.post( `/admin_order/statusUpdate`, { id: tId, orderMode: qMode } ) ) {
                                 let targetRow= document.querySelector( `.orderReadRow input[name=id][data-origin-value="${ tId }"]` ).parentElement.parentElement;
-                                loadJs();
                                 targetRow.querySelector( `li:nth-of-type(3)` ).innerHTML= modeTextArr[qMode];
                                 targetRow.setAttribute( `class`, `orderColSet` );
-                                targetRow.classList.add( modeClassArr[qMode] );
+                                ( qMode != 'complete' ) && ( targetRow.classList.add( modeClassArr[qMode] ) );
                                 [...targetRow.querySelectorAll( `input.fixCol` )].forEach( v => {
                                     if( qMode == `refund` ) { v.disabled= true; }
                                     else { v.removeAttribute( `disabled` ); }
@@ -212,7 +211,6 @@
                         default:
                             break;
                     }
-                    //loadJs();
                 }
             }
         });
