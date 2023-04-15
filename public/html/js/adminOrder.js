@@ -79,13 +79,13 @@
                                 <li>${v.purchase_date}</li>
                                 <li>${( v.refund_date )? v.refund_date: '-'}</li>
                                 <li>
-                                    <input class="fixCol" type="button" value="완료" ${ v.status == 'refund'? 'disabled': '' }>                            
+                                    <input class="fixCol" type="button" value="완료" data-change-status="${ v.status }" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                                 <li>
-                                    <input class="fixCol" type="button" value="대기" ${ v.status == 'refund'? 'disabled': '' }>                            
+                                    <input class="fixCol" type="button" value="대기" data-change-status="${ v.status }" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                                 <li>
-                                    <input class="fixCol" type="button" value="환불" ${ v.status == 'refund'? 'disabled': '' }>                            
+                                    <input class="fixCol" type="button" value="환불" data-change-status="${ v.status }" ${ v.status == 'refund'? 'disabled': '' }>                            
                                 </li>
                             </ul>
                             ${ tempChildRow }
@@ -212,6 +212,7 @@
                         default:
                             break;
                     }
+                    //loadJs();
                 }
             }
         });
