@@ -4,7 +4,6 @@
     border: 0;
     font-size: 10px;
     font-family: 'Noto Sans KR', sans-serif;
-    list-style: none;
 }
 
 a { color: inherit; text-decoration: none; font-size: 1rem; }
@@ -12,7 +11,7 @@ a:link { }
 a:visited { }
 a:hover { }
 a:active { }
-
+ul { list-style-type: none; }
 html,
 body {
     background-color: rgba(#fafaea, 0.5);
@@ -44,6 +43,7 @@ body {
     @include flexCenter();
 }
 
+
 .adminPage {
     @include mainMenu();
     display: flex; flex-direction: column;
@@ -61,54 +61,58 @@ body {
     .mainContent {
         width: 95%; height: 80%;
         position: relative;
-        section.searchBox { width: 100%; height: 2rem;
+        section.searchBox { width: 100%; height: 4rem;
             display: flex; justify-content: flex-end; align-items: center;
-            label {}
-            input.searchInput { border: 0.01rem solid #ddd; margin: 0 0.6rem; height: 2rem; }
-            i { cursor: pointer; background-color: white; }
-        }
-        section.menuBox{
-            display: flex;
-            flex-direction: column;
+            .menuSet {
+                display: flex; flex-direction: column;
 
-            .menuWrap{
-                width: 100%;
-                height: 10%;
-                display: flex;
-
-                &>li{
-                    width: 15rem;
+                .menuLv1, .menuLv2 {
                     display: flex;
-                    flex-direction: row;
-                    justify-content: space-evenly;
-                    &>span{
-                        width: 40%;
+                    justify-content: flex-end;
+                    li {
+                        margin: 0 0.5rem 0.5rem 0;
+                        cursor: pointer;
                     }
                 }
-
-                &>ul{
-                    width: 20rem;
-
-                    &>li{
-                        display:flex;
-                        flex-direction: row;
-                        justify-content: space-evenly;
-
-                        &>span{
-                            width: 40%;
-                            margin-bottom: 1rem;
-                        }
+                .menuLv1 {
+                    li {
+                        font-size: 1.2rem;
+                        &.active { color: #b5333c; }
                     }
                 }
+                .menuLv2 {
+                    li { color: #2e1f1a; }
+                }
+                .menuLv2:not( .active ) {
+                    display: none;
+                }
+            }
+            form {
+                label {}
+                input[type=button] {
+                    width: 4rem; color: #b5333c;
+                    cursor: pointer;
+                    background-color: white;
+                    &:not( .targetStatus ) { color: gray; }
+                }
+                input.searchInput { border: 0.01rem solid #ddd; margin: 0 0.6rem; height: 2rem;
+                }
+                i { cursor: pointer; background-color: white; }
             }
         }
         section.postTable {
-            height: 100%;
             ul { list-style-type: none; }
-            ul.userRowSet, ul.userReadRowSet {
+            ul.productRowSet, ul.productReadRowSet {
                 display: flex; flex-direction: column;
+                &.productReadRowSet {
+                    height: 60rem;
+                    overflow-y: auto;
+                    &::-webkit-scrollbar { width: 0.2rem; }
+                    &::-webkit-scrollbar-thumb { background-color: gray; }
+                    &::-webkit-scrollbar-track { background-color: white; }
+                }
                 li {
-                    &.userReadRow, ul.userReadRowSet {
+                    &.productReadRow, ul.productReadRowSet {
                         border-top: 0.01rem solid #ddd;
                         border-bottom: 0.01rem solid #ddd;
                         border-left: 0.01rem solid transparent;
@@ -116,23 +120,37 @@ body {
                         cursor: pointer;
                         input[disabled] { cursor: pointer; }
                         &:hover { border: 0.01rem solid black; }
+                        &.soldOut { color: red; input:not( [data-event-mode] ) { color: red !important; } }
+                        &.inactive {
+                            color: gray;
+                            input:not( [data-event-mode=active] ) { color: gray !important; }
+                        }
+                        &:not( .inactive ) {
+                            input[data-event-mode=active] { color: gray !important; }
+                        }
                     }
                     &.emptyRow { width: 100%; height: 3rem;
                         display: flex; justify-content: center; align-items: center;
                     }
-                    ul.userColSet {
+                    ul.productColSet {
                         display: flex;
+                        .hiddenOption { display: none; }
+                        &.productNoneActive { color: red; li { color: red !important; } }
                         li {
                             display: inline-flex;
                             justify-content: center; align-items: center;
                             //border-top: 0.01rem solid #ddd;
                             //border-bottom: 0.01rem solid #ddd;
-                            width: 10%; height: 3rem;
+                            height: 3rem;
                             input, select {
                                 width: 100%; height: 100%;
                                 border: 0.01rem solid #ddd;
+                                &.remarkUpdateBtn { width: 30%; }
                                 &[type=button] {
                                     cursor: pointer;
+                                    &[disabled] {
+                                        color: gray;
+                                    }
                                 }
                                 &[type=number] {
                                     text-align: center;
@@ -141,6 +159,7 @@ body {
                                     border: transparent;
                                     color: black;
                                     cursor: auto;
+                                    text-overflow: ellipsis;
                                 }
                             }
                             input::-webkit-outer-spin-button,
@@ -148,34 +167,33 @@ body {
                                 -webkit-appearance: none;
                                 margin: 0;
                             }
-                            &:nth-of-type(1) { width: 3%; justify-content: center; }
-                            &:nth-of-type(2) { width: 10%; }
-                            &:nth-of-type(3) { width: 13%; }
-                            &:nth-of-type(4) { width: 5%; }
-                            &:nth-of-type(5) {}
-                            &:nth-of-type(6) { width: 4%; }
-                            &:nth-of-type(7) { width: 7%; }
-                            &:nth-of-type(8) {}
-                            &:nth-of-type(9) {}
-                            &:nth-of-type(10) { width: 18%; }
-                            &:nth-of-type(11) { width: 5%; }
-                            &:nth-of-type(12) { width: 5%; }
+                            &:nth-of-type(1) { width: 3%; justify-content: center; } // No
+                            &:nth-of-type(2) { width: 5%; justify-content: center; input{ text-align: center } } // 대메뉴
+                            &:nth-of-type(3) { width: 10%; justify-content: center; input{ text-align: center } } // 소메뉴
+                            &:nth-of-type(4) { width: 12%; justify-content: center; input{ text-align: center } } // 상품명
+                            &:nth-of-type(5) { width: 20%; } // 안내문구
+                            &:nth-of-type(6) { width: 5%; } // 재고
+                            &:nth-of-type(7) { width: 12%; } // 알러지 정보
+                            &:nth-of-type(8) { width: 7%; } // 가격
+                            &:nth-of-type(9) { width: 5%; } // 할인율
+                            &:nth-of-type(10) { width: 8%; } // 출시일
+                            &:nth-of-type(11) { width: 14%; } // 기능
                         }
                     }
-                    &:nth-of-type(1) > ul > li {
-                        justify-content: center;
-                        &:nth-of-type(11) { width: 10%; }
-                    }
-                    &.userInsertRow {
+                    &.productSearchRow {
                         margin: 0.5rem 0;
-                        form {
-                            ul {
-                                li {
+                        ul {
+                            li {
+                                input { margin: 0 0.1rem; }
+                                .searchResetBtn {
+                                    font-size: 2.6rem;
+                                    color: #5e5e5e;
+                                    cursor: pointer;
                                 }
-                                .userColEmpty {
-                                    border: 0.01rem solid transparent;
-                                    display: flex; justify-content: center;
-                                }
+                            }
+                            .productColEmpty {
+                                border: 0.01rem solid transparent;
+                                display: flex; justify-content: center;
                             }
                         }
                     }
@@ -279,82 +297,5 @@ body {
         &.backgroundFlag {
             background-color: rgba(#000000, 0.2);
         }
-    }
-}
-//sale page css starts here
-.tapBtn{
-    background-color: lightgray;
-    width: 5rem;
-    height: 3rem;
-    margin: 1rem;
-    border-radius: 0.5rem;
-    &:hover{
-        cursor: pointer;
-    }
-}
-.displayMonthlySale, .displayDailySale, .displayYearlySale {
-    border-bottom: 1px solid #666;
-    height: 90%;
-    width: 100%;
-    display: none;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-evenly;
-
-    .dataGraph {
-        width: 5%;
-        height: 50%;
-        display: flex;
-        align-items: flex-end;
-
-        .dataValue, .dayValue, .yearValue, .lastYearValue {
-            width: 100%;
-            height: 50%;
-            background-color: lightsalmon;
-            text-align: center;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-evenly;
-
-            .nameTag {
-                position: relative;
-                top: 3.5rem;
-            }
-        }
-    }
-}
-.displayBestSale{
-        width: 100%;
-        height: 100%;
-        display: none;
-    &>ul{
-        background-color: lightsalmon;
-        position: absolute;
-        width: 70%;
-        height: 70%;
-        top: 60%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        border-radius: 2rem;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-        &>li{
-            font-size: 1.6rem;
-            color: white;
-        }
-    }
-}
-
-//here starts product page
-.productRow{
-    background-color: rebeccapurple;
-
-    &>article{
-        background-color: #dbc555;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
     }
 }

@@ -9,7 +9,7 @@ html
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet")
-        link(rel="stylesheet", href="./css/admin.css")
+        link(rel="stylesheet", href="./css/admin_product.css")
     body
         main.mainDisplay
             ul.mainMenu
@@ -30,77 +30,132 @@ html
                 section.headFrame
                     h1 주문현황
                 section.mainContent
+                    - let menuObjLv1= {}; // 메뉴 레벨 1 --> 출력
+                    for item in menu
+                        - menuObjLv1[item.lv1_id] = item.lv1_name;
+                        - menuObjLv1[item.lv1_id] = item.lv1_name;
+                    //- console.log( "menu1: ", menuObjLv1 );
+                    - let menuObjLv2= {}; // 메뉴 레벨 2 --> 출력
+                    for item in menu
+                        - (!menuObjLv2[item.lv1_id]) && (menuObjLv2[item.lv1_id] = []);
+                        - menuObjLv2[item.lv1_id].push({lv2_id: item.lv2_id, lv2_name: item.lv2_name});
+                    //- console.log( "menu2: ", menuObjLv2 );
+                    -let productOptionObj = {};
+                    for item, key in productOption
+                        - (!productOptionObj[item.product_id]) && (productOptionObj[item.product_id] = {});
+                        - (!productOptionObj[item.product_id][item.option_category]) && (productOptionObj[item.product_id][item.option_category] = []);
+                        - productOptionObj[item.product_id][item.option_category].push(item);
+                    //- console.log(productOptionObj);
+                    - let productObj= {}; // 상품
+                    for item, key in product
+                        - productObj[item.product_id] = item;
+                            - productObj[item.product_id][`option`] = productOptionObj[item.product_id];
+                    //- console.log( productObj );
+                    - let menuInProductObj= {}; // 메뉴와 상품 매핑 --> 출력
+                    for item in menuInProduct
+                        - (!menuInProductObj[item.menu_id]) && (menuInProductObj[item.menu_id] = []);
+                        - menuInProductObj[item.menu_id].push(item);
+                    //- console.log( menuInProductObj );
                     section.searchBox
-                        form#searchProductform
-                            label 상품명
-                            input.searchInput#searchProduct( type="text", name="productName" )
-                            button
-                            i.xi-refresh( onclick="location.reload();" )
-                    section.postTable
-                        - let menuObjLv1= {}; // 메뉴 레벨 1 --> 출력
-                            for item in menu
-                                - menuObjLv1[item.lv1_id] = item.lv1_name;
-                                - menuObjLv1[item.lv1_id] = item.lv1_name;
-                            //- console.log( menuObjLv1 );
-                        - let menuObjLv2= {}; // 메뉴 레벨 2 --> 출력
-                            for item in menu
-                                - (!menuObjLv2[item.lv1_id]) && (menuObjLv2[item.lv1_id] = []);
-                                - menuObjLv2[item.lv1_id].push({lv2_id: item.lv2_id, lv2_name: item.lv2_name});
-                            //- console.log( menuObjLv2 );
-                        -let productOptionObj = {};
-                            for item, key in productOption
-                                - (!productOptionObj[item.product_id]) && (productOptionObj[item.product_id] = {});
-                                - (!productOptionObj[item.product_id][item.option_category]) && (productOptionObj[item.product_id][item.option_category] = []);
-                                - productOptionObj[item.product_id][item.option_category].push(item);
-                            - console.log(productOptionObj);
-                        - let productObj= {}; // 상품
-                            for item, key in product
-                                - productObj[item.product_id] = item;
-                                    - productObj[item.product_id][`option`] = productOptionObj[item.product_id];
-                            //- console.log( productObj );
-                        - let menuInProductObj= {}; // 메뉴와 상품 매핑 --> 출력
-                            for item in menuInProduct
-                                - (!menuInProductObj[item.menu_id]) && (menuInProductObj[item.menu_id] = []);
-                                - menuInProductObj[item.menu_id].push(item);
-                            //- console.log( menuInProductObj );
-                        section
+                        section.menuSet
                             ul.menuLv1
                                 for item, key in menuObjLv1
-                                    if key == 1
-                                        li.active( data-lv1-id=`${key}` )= item
-                                    else
-                                        li( data-lv1-id=`${key}` )= item
+                                    li( class=`${ key == 1? 'active': '' }`, data-lv1-id=`${key}` )= item
                             for item, key in menuObjLv2
-                                if key == 1
-                                    ul.menuLv2.active
-                                        li.active( data-lv2-pid=`${key}_all` ) all
-                                        for v in item
-                                            li( data-lv2-pid=`${key}`, data-lv2-id=`${v.lv2_id}` )= v.lv2_name
+                                ul.menuLv2( class=`${ key == 1? 'active': '' }` )
+                                    for v in item
+                                        li( data-lv2-pid=`${key}`, data-lv2-id=`${v.lv2_id}` )= v.lv2_name
+                    section.postTable
+                        ul.productRowSet
+                            li
+                                ul.productColSet
+                                    li No
+                                    li 대메뉴
+                                    li 소메뉴
+                                    li 상품명
+                                    li 안내문구
+                                    li 재고
+                                    li 알러지정보
+                                    li 가격(원)
+                                    li 할인율(%)
+                                    li 출시일
+                                    li 기능
+                            li.productSearchRow
+                                ul.productColSet
+                                    li.productColEmpty
+                                        i.xi-search
+                                    li
+                                        input( type="text", name="menuLv1Name", placeholder="all" )
+                                    li
+                                        input( type="text", name="menuLv2Name", placeholder="all" )
+                                    li
+                                        input( type="text", name="name" )
+                                    li
+                                        input( type="text", name="description" )
+                                    li
+                                        input( type="number", name="stock" )
+                                    li
+                                        input( type="text", name="allergy")
+                                    li
+                                        input( type="number", name="price" )
+                                    li
+                                        input( type="number", name="discount")
+                                    li
+                                        input( type="text", name="release_date" )
+                                    li
+                                        i.xi-eraser-o.searchResetBtn
+                            ul.productReadRowSet
+                                - let idxNo= 1;
+                                each item, key in menuInProductObj
+                                    //ul( data-menu-id=`${key}` )
+                                    for v, vk in item
+                                        li.productReadRow(
+                                            class=`${productObj[v.product_id].deleted_date == null ?'': 'inactive'} ${productObj[v.product_id].stock != 0 ?'': 'soldOut'}` )
+                                            form
+                                                ul.productColSet
+                                                    li= idxNo++
+                                                        input.fixCol( type="hidden", name="id", data-origin-value=`${v.product_id}`, value=`${v.product_id}` disabled )
+                                                    li
+                                                        input.fixCol( type="text", name="menuLv1Name", data-origin-value=`${productObj[v.product_id].lv1_menu_name}`, value=`${productObj[v.product_id].lv1_menu_name}`, disabled )
+                                                    li
+                                                        input( type="text", name="menuLv2Name", data-origin-value=`${productObj[v.product_id].lv2_menu_name}`, value=`${productObj[v.product_id].lv2_menu_name}`, disabled )
+                                                    li
+                                                        input( type="text", name="name", data-origin-value=`${productObj[v.product_id].name}`, value=`${productObj[v.product_id].name}`, disabled )
+                                                    li
+                                                        input( type="text", name="discription", data-origin-value=`${productObj[v.product_id].discription?productObj[v.product_id].discription:''}`, value=`${productObj[v.product_id].discription?productObj[v.product_id].discription:''}`, disabled )
+                                                    li
+                                                        input( type="number", name="stock", data-origin-value=`${productObj[v.product_id].stock}`, value=`${productObj[v.product_id].stock}`, disabled )
+                                                    li
+                                                        input( type="text", name="allergy", data-origin-value=`${productObj[v.product_id].allergy?productObj[v.product_id].allergy:''}`, value=`${productObj[v.product_id].allergy?productObj[v.product_id].allergy:''}`, disabled )
+                                                    li= productObj[v.product_id].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                                        input( type="hidden", name="price", data-origin-value=`${productObj[v.product_id].price}`, value=`${productObj[v.product_id].price}`, disabled )
+                                                    li
+                                                        input( type="number", name="discount", data-origin-value=`${productObj[v.product_id].discount}`, value=`${productObj[v.product_id].discount}`, disabled )
+                                                    li= productObj[v.product_id].release_date
+                                                    li
+                                                        input.fixCol( type="button", data-event-mode="option", value="옵션" )
+                                                        input( type="button", data-event-mode="update", data-origin-value="수정", value="수정", disabled )
+                                                        input.fixCol( type="button", data-event-mode="active", value="사용" )
+                                                        input.fixCol( type="button", data-event-mode="inactive", value="미사용" )
+                                                    unless !productObj[v.product_id].option
+                                                        .hiddenOption
+                                                            for oc, ok in productObj[v.product_id].option
+                                                                ul( data-option-category=`${ok}` )
+                                                                    for oo in productObj[v.product_id].option[ok]
+                                                                        li( data-option-id=`${oo.option_id}` )
+                                                                            span( data-option-name=`${oo.option_name}` )
+                                                                            - let finalOptionPrice= Number( oo.option_price ) - ( ( Number( oo.option_price ) / 100 ) * Number( oo.option_discount ) );
+                                                                            span( data-option-price=`${finalOptionPrice}` )
                                 else
-                                    ul.menuLv2
-                                        li( data-lv2-pid=`${key}_all` ) all
-                                        for v in item
-                                            li( data-lv2-pid=`${key}`, data-lv2-id=`${v.lv2_id}` )= v.lv2_name
-                            section
-                                for item, key in menuInProductObj
-                                    ul( data-menu-id=`${key}` )
-                                        for v, vk in item
-                                            li( data-product-id=`${v.product_id}`,
-                                                data-isNew=`${productObj[v.product_id].isNew}`,
-                                                data-stock=`${productObj[v.product_id].stock}` )
-                                                span= productObj[v.product_id].name
-                                                - let finalPrice= Number( productObj[v.product_id].price ) - ( ( Number( productObj[v.product_id].price ) / 100 ) * Number( productObj[v.product_id].discount ) );
-                                                span( data-product-price=`${finalPrice}` )= finalPrice
-                                                .hiddenDetail
-                                                    span( data-product-discription=`${productObj[v.product_id].discription}` )
-                                                    span( data-product-allergy=`${productObj[v.product_id].allergy}` )
-                                                unless !productObj[v.product_id].option
-                                                    .hiddenOption
-                                                        for oc, ok in productObj[v.product_id].option
-                                                            ul( data-option-category=`${ok}` )
-                                                                for oo in productObj[v.product_id].option[ok]
-                                                                    li( data-option-id=`${oo.option_id}` )
-                                                                        span( data-option-name=`${oo.option_name}` )
-                                                                        - let finalOptionPrice= Number( oo.option_price ) - ( ( Number( oo.option_price ) / 100 ) * Number( oo.option_discount ) );
-                                                                        span( data-option-price=`${finalOptionPrice}` )
+                                    li.emptyRow 게시물이 존재하지 않습니다.
+                        //section.tablePaging
+                            - let pageCnt= ( ( orderTotCnt[0].cnt / 10 ) < 1 )? 1 : ( orderTotCnt[0].cnt / 10 ) - 1;
+                            - for( let i= 0; i < pageCnt; i++ )
+                            a( data-page-idx=`${i}`, data-page=`${i == nowPage}` )= i + 1
+                        section.modalConfirmBak#modalConfirmBak
+                            section.modalConfirm
+                                p 수정하시겠습니까
+                                .modalBtnSet
+                                    button.modalBtn( data-modal-confirm=true ) YES
+                                    button.modalBtn( data-modal-confirm=false ) CANCEL
         script(src="./js/adminProduct.js")

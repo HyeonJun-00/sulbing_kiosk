@@ -10,12 +10,11 @@ con.connect( err => {
 router.get ( `/`, ( req, res, next ) => {
     let sqlGetMenu= `select * from v_menu;`;
     let sqlGetMenuInProduct= `select * from v_menu_in_product;`;
-    let sqlGetProduct= `select * from v_product;`;
+    let sqlGetProduct= `select * from v_product_admin;`;
     let sqlGetProductOption= `select * from v_product_option;`;
 
     con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption, ( err, result ) => {
         if( err ) throw err;
-        console.log(result[0]);
         res.render( `adminProduct`, {
             menu: result[0],
             menuInProduct: result[1],
