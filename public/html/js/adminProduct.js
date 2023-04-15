@@ -14,6 +14,7 @@
                 });
                 e.target.classList.add( `active` );
                 document.querySelector( `.productSearchRow [name=menuLv1Name]` ).value= e.target.innerHTML;
+                document.querySelector( `.productSearchRow [name=menuLv2Name]` ).value= '';
                 [...document.querySelectorAll( `.menuLv2` )].forEach( ( v2, i2 ) => {
                     if( i == i2 ) { v2.classList.add( `active` );
                     } else {
@@ -22,6 +23,7 @@
                 })
             } else {
                 document.querySelector( `.productSearchRow [name=menuLv2Name]` ).value= e.target.innerHTML;
+                document.querySelector( `.productSearchRow [name=menuLv1Name]` ).value= document.querySelector( '[data-lv1-id=' + `"${ e.target.getAttribute( 'data-lv2-pid' )}"` + ']' ).innerHTML;
             }
         }
     });
