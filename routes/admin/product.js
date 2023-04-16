@@ -12,14 +12,19 @@ router.get ( `/`, ( req, res, next ) => {
     let sqlGetMenuInProduct= `select * from v_menu_in_product_admin;`;
     let sqlGetProduct= `select * from v_product_admin;`;
     let sqlGetProductOption= `select * from v_product_option;`;
+    let sqlGetOptionCmm= `select id, category, name, price, discount from product_option_cmm`;
 
-    con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption, ( err, result ) => {
+    con.query( sqlGetMenu + sqlGetMenuInProduct +
+            sqlGetProduct +
+            sqlGetProductOption +
+            sqlGetOptionCmm, ( err, result ) => {
         if( err ) throw err;
         res.render( `adminProduct`, {
             menu: result[0],
             menuInProduct: result[1],
             product: result[2],
-            productOption: result[3]
+            productOption: result[3],
+            productOptionCmm: result[4]
         });
     });
 });

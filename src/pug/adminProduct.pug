@@ -40,7 +40,7 @@ html
                         - (!menuObjLv2[item.lv1_id]) && (menuObjLv2[item.lv1_id] = []);
                         - menuObjLv2[item.lv1_id].push({lv2_id: item.lv2_id, lv2_name: item.lv2_name});
                     //- console.log( "menu2: ", menuObjLv2 );
-                    -let productOptionObj = {};
+                    - let productOptionObj = {};
                     for item, key in productOption
                         - (!productOptionObj[item.product_id]) && (productOptionObj[item.product_id] = {});
                         - (!productOptionObj[item.product_id][item.option_category]) && (productOptionObj[item.product_id][item.option_category] = []);
@@ -49,6 +49,11 @@ html
                     for item, key in product
                         - item[`option`] = productOptionObj[item.product_id];
                     //- console.log( product );
+                    - productOptionCmmObj= {};
+                    for item in productOptionCmm
+                        - ( !productOptionCmmObj[item.category] ) && ( productOptionCmmObj[item.category]= [] );
+                        - productOptionCmmObj[item.category].push( item );
+                    -console.log( productOptionCmmObj );
                     - let menuInProductObj= {}; // 메뉴와 상품 매핑 --> 출력
                     for item in menuInProduct
                         - (!menuInProductObj[item.menu_id]) && (menuInProductObj[item.menu_id] = []);
@@ -155,5 +160,21 @@ html
                                 .modalBtnSet
                                     button.modalBtn( data-modal-confirm=true ) YES
                                     button.modalBtn( data-modal-confirm=false ) CANCEL
+                        section.modalOptionBak
+                            section.modalOption
+                                p.productTitle 상품명
+                                section.optionList
+                                    each item, key in productOptionCmmObj
+                                        h3= key
+                                        ul
+                                            each op in item
+                                                li( data-modal-option-id=`${ op.id }` )
+                                                    label.container= op.name
+                                                        input( type="checkbox" )
+                                                        span.checkmark
+                                                    //span= ( Number( op.price ) - ( ( Number( op.price ) / 100 ) * Number( op.discount ) ) ).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                .modalBtnSet
+                                    button.modalOptionBtn( data-modal-option=true ) 변경하기
+                                    button.modalOptionBtn( data-modal-option=false ) CANCEL
         script( src="https://unpkg.com/axios/dist/axios.min.js")
         script(src="./js/adminProduct.js")

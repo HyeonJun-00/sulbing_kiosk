@@ -71,6 +71,7 @@ html
                             each pP in paymentPost
                                 - ( !payPostObj[pP.id] ) && ( payPostObj[pP.id]= [] );
                                 - payPostObj[pP.id].push( pP );
+                            - console.log( paymentPost );
                             each item, i in readPost
                                 li.orderReadRow
                                     form.orderSetForm
