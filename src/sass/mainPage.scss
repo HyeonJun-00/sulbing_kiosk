@@ -199,10 +199,54 @@ $color-line: rgb(220, 220, 220);
                 }
 
                 & p {
+                    @include flexCenter();
                     color: #444;
-
+                    width: 100%;
                     &:nth-child(2) {
                         font-size: 1.2rem;
+                        position: relative;
+                        &>span {
+                            display: none;
+                                color: black;
+                                top: -13.8rem;
+                                left: 7.5rem;
+                                width: 6rem;
+                                height: 2rem;
+                                position: absolute;
+                                &.backgroundFlag {
+                                    @include flexCenter();
+                                color: #f35;
+                            }
+                            &.displayFlag {
+                                transform: rotate(31deg);
+                                font-weight: bold;
+                                font-size: .6rem;
+                                @include flexCenter();
+                                text-align: center;
+                                position: absolute;
+                                z-index: 2;
+
+                            }
+                            &.sold_out {
+                                display: block;
+                                background-color: rgba(#555, 0.3) ;
+                                width: 12.3rem;
+                                height: 18.8rem;
+                                border-radius: 0.8rem;
+                                border: 0;
+                                top: -14.1rem;
+                                width: 100%;
+                                left: 0;
+                                &::before {
+                                    cursor: default;
+                                    margin-top: -5rem;
+                                    margin-left: -4.2rem;
+                                    display: block;
+                                    content: url(../images/sold_out.png); 
+                                    transform: scale(51%);
+                                }
+                            }
+                        }
                     }
 
                     &:nth-child(3) {
@@ -1595,7 +1639,7 @@ $color-line: rgb(220, 220, 220);
     width: 20rem;
     height: 20rem;
     border-radius: 50%;
-    background: conic-gradient(#f2da5e 360deg, rgba(245, 245, 245, 0) 360deg);
+    background: conic-gradient(#f6d73d 360deg, rgba(245, 245, 245, 0) 360deg);
 }
 
 #reset_time_guide {
