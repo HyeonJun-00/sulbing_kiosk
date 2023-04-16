@@ -75,12 +75,12 @@ router.post( `/isTel`, async ( req, res ) => {
 
 router.post( `/insert`, ( req, res ) => {
     const targetValue= req.body;
-    const name= ( targetValue.name.trim() == '' )? null: '\'' + targetValue.name.trim() + '\'';
-    const tel= ( targetValue.tel.trim() == '' )? null: '\'' + targetValue.tel.trim() + '\'';
+    const name= ( targetValue.name == '' )? null: '\'' + targetValue.name + '\'';
+    const tel= ( targetValue.tel == '' )? null: '\'' + targetValue.tel + '\'';
     const sex= ( targetValue.sex == '' )? null: '\'' + targetValue.sex + '\'';
     const birth_date= ( targetValue.birth_date == '' )? null: '\'' + targetValue.birth_date + '\'';
     const auth= ( targetValue.auth == '' )? null: '\'' + targetValue.auth + '\'';
-    const remark= ( targetValue.remark.trim() == '' )? null: '\'' + targetValue.remark.trim() + '\'';
+    const remark= ( targetValue.remark == '' )? null: '\'' + targetValue.remark + '\'';
 
     let sql= `
         insert into user (
@@ -102,12 +102,12 @@ router.post( `/insert`, ( req, res ) => {
 router.post( `/update`, async ( req, res ) => {
     const targetValue= await req.body;
     const id= targetValue.id;
-    const name= ( targetValue.name.trim() == '' )? null: '\'' + targetValue.name.trim() + '\'';
-    const tel= ( targetValue.tel.trim() == '' )? null: '\'' + targetValue.tel.trim() + '\'';
+    const name= ( targetValue.name == '' )? null: '\'' + targetValue.name + '\'';
+    const tel= ( targetValue.tel == '' )? null: '\'' + targetValue.tel + '\'';
     const sex= ( targetValue.sex == '' )? null: '\'' + targetValue.sex + '\'';
     const birth_date= ( targetValue.birth_date == '' )? null: '\'' + targetValue.birth_date + '\'';
     const auth= ( targetValue.auth == '' )? null: '\'' + targetValue.auth + '\'';
-    const remark= ( targetValue.remark.trim() == '' )? null: '\'' + targetValue.remark.trim() + '\'';
+    const remark= ( targetValue.remark() == '' )? null: '\'' + targetValue.remark + '\'';
 
     let sql= `update user set 
                 name= ${ name },
