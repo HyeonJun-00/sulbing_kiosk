@@ -15,7 +15,7 @@
         ],
         stamp: { use: false, save: 0 }, // 사용 10, 적립 2
         payment: [
-            {id : 6, amount: 0, gifticon: []}
+            { id: 6, amount: 0, gifticon: [] }
         ],
         take_out: 0,
         remark: ''
@@ -36,11 +36,27 @@
             totalAmount -= 5000;
         }
         totalAmount -= transferData.payment[0].amount;
-        totalAmount = totalAmount < 0 ? 0 : totalAmount; 
+        totalAmount = totalAmount < 0 ? 0 : totalAmount;
         $("#final_amount").html(`${putComma(totalAmount)} 원`);
         $("#total_number").html(`총 수량(${totalCount})`);
         $("#total_amount").html(`${putComma(totalAmount)} 원`);
         $("#gifticon_price").html(`${putComma(totalAmount)}원`);
+        console.log(transferData);
+    }
+    const stockSet = checkID => {
+        if (checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") < 6 && checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") > 0) {
+            checkID.removeClass("sold_out");
+            checkID.addClass("backgroundFlag displayFlag");
+            checkID.html(`${checkID.attr("data-product-stock") - checkID.attr("data-minus-stock")}개 남았어요`);
+        } else if (checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") == 0) {
+            checkID.removeClass("displayFlag backgroundFlag");
+            checkID.addClass("sold_out");
+            checkID.html("");
+        } else if (checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") < 11) {
+            checkID.removeClass("backgroundFlag sold_out");
+            checkID.addClass("displayFlag");
+            checkID.html(`${checkID.attr("data-product-stock") - checkID.attr("data-minus-stock")}개 남았어요`);
+        }
     }
     const resetTimer = time => {
         $("#reset_time_modal").css("background", `conic-gradient(#f6d73d ${time}deg, rgba(245, 245, 245, 0) ${time}deg)`);
@@ -90,12 +106,12 @@
         $(this).toggleClass("backgroundFlag");
     });
     $("#inquiry_add_button").on("click", async () => {
-        if (totalAmount == 0) return ;
+        if (totalAmount == 0) return;
         const code = $(`.inquiry_input_box`).val();
         try {
             const res = await axios.post(`/getGifticon`, { code });
 
-            
+
             console.log();
             if (!transferData.payment[0].gifticon.some(item => item.id == res.data[0].id)) {
                 transferData.payment[0].amount += res.data[0].save_amount;
@@ -129,7 +145,7 @@
             console.error(err);
         }
     });
-
+    let endCheck = true;
     menuBar1.eq(0).addClass("backgroundFlag");
     menuBar2.eq(0).addClass("displayFlag");
     productListWrapBox.eq(0).addClass("displayFlag");
@@ -194,20 +210,24 @@
                     })()}`);
                     if (dot < 7 && cardTerminal && cardTerminalCheck) {
                         setThreeDots();
-                    } else if (cardTerminal && cardTerminalCheck) {
+                    } else if (cardTerminal && cardTerminalCheck && endCheck) {
+                        endCheck = false;
                         if (transferData.payment.some(item => item.id == 1)) {
                             transferData.payment[1].amount = totalAmount;
                         } else {
-                            transferData.payment.push({id : 1, amount: totalAmount});
+                            transferData.payment.push({ id: 1, amount: totalAmount });
                         }
                         transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
                         const jsonData = transferData;
                         try {
-                            const res = await axios.post(`/cart`, { jsonData });
+                            if (await axios.post(`/cart`, { jsonData })) {
+                                setTimeout(() => {
+                                    location.reload()
+                                }, 500);
+                            }
                         } catch (err) {
                             console.error(err);
                         }
-                        location.reload();
                     } else {
                         clearTimeout(setThreeDots);
                         $("#card_terminal_modal > section > p").html(`결제 진행중입니다`);
@@ -219,7 +239,7 @@
             }
         }, 3000);
     });
-    $(".pay_payment_window_button").on("click",  function() {
+    $(".pay_payment_window_button").on("click", function () {
         $("#pay_terminal_modal_background").addClass("displayFlag");
 
         payTerminalCheck = true;
@@ -238,25 +258,28 @@
                     })()}`);
                     if (dot < 7 && payTerminal && payTerminalCheck) {
                         setThreeDots();
-                    } else if (payTerminal && payTerminalCheck) {
+                    } else if (payTerminal && payTerminalCheck && endCheck) {
+                        endCheck = false;
                         if (transferData.payment.some(item => item.id == $(this).index() + 2)) {
                             transferData.payment[1].amount = totalAmount;
                             transferData.payment[1].id = $(this).index() + 2;
                         } else {
-                            transferData.payment.push({id : $(this).index() + 2, amount: totalAmount});
+                            transferData.payment.push({ id: $(this).index() + 2, amount: totalAmount });
                         }
-                        console.log($(this).index());
                         transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
                         const jsonData = transferData;
                         try {
-                            const res = await axios.post(`/cart`, { jsonData });
+                            if (await axios.post(`/cart`, { jsonData })) {
+                                setTimeout(() => {
+                                    location.reload()
+                                }, 500);
+                            }
                         } catch (err) {
                             console.error(err);
                         }
-                        //location.reload();
                     } else {
                         clearTimeout(setThreeDots);
-                        $("#pay_terminal_modal > section > p").html(`결제 진행중입니다`);
+                        $("#card_terminal_modal > section > p").html(`결제 진행중입니다`);
                     }
                 };
                 $("#pay_terminal_price").addClass("backgroundFlag");
@@ -297,14 +320,13 @@
                                 </div>           
             ` + optionSubString;
         }
-        //console.log(orderProduct.eq(0).children("div").eq(0).children("p").eq(0).html());
         $(".payment_modal_order_box > aside").html("");
         $(".payment_modal_order_box > aside").append(`${optionString}`);
         $(".payment_modal").addClass("displayFlag");
     });
     productItem.on("click", function () {
         if ($(this).children().children().hasClass("sold_out")) {
-            return ;
+            return;
         }
         productPrice = $(this).find(".productPrice").html();
         $(".modalBackground").addClass("displayFlag");
@@ -331,29 +353,14 @@
                 }
                 return true;
             }
-            const stockSet = () => {
-                if (thisStock.attr("data-product-stock") < 6 && thisStock.attr("data-product-stock") > 0) {
-                    thisStock.removeClass("sold_out");
-                    thisStock.addClass("backgroundFlag displayFlag");
-                    thisStock.html(`${thisStock.attr("data-product-stock")}개 남았어요`);
-                } else if (thisStock.attr("data-product-stock") == 0) {
-                    thisStock.removeClass("displayFlag backgroundFlag");
-                    thisStock.addClass("sold_out");
-                    thisStock.html("");
-                } else if (thisStock.attr("data-product-stock") < 11){
-                    thisStock.removeClass("backgroundFlag sold_out");
-                    thisStock.addClass("displayFlag");
-                    thisStock.html(`${thisStock.attr("data-product-stock")}개 남았어요`);
-                }
-            }
             let duplicationCheck = true;
             let optionString = "";
 
-            thisStock.attr("data-product-stock", thisStock.attr("data-product-stock") - 1);
-            stockSet();
+            thisStock.attr("data-minus-stock", drawNumber(thisStock.attr("data-minus-stock")) + 1);
+            stockSet(thisStock);
             for (let i = 0; i < $(".optionButton").length; i++) {
                 if ($(".optionButton").eq(i).hasClass("backgroundFlag")) {
-                    optionId.push($(".optionButton").eq(i).attr("data-option-id"))
+                    optionId.push({id : $(".optionButton").eq(i).attr("data-option-id"), price : $(".optionButton").eq(i).attr("data-option-price"), discount : $(".optionButton").eq(i).attr("data-option-discount") })
                     optionString += `<p>${$(".optionButton").eq(i).html()}</p>`;
                 }
             }
@@ -368,7 +375,7 @@
                     <div>
                         <button class="orderXButton"></button>
                         <img class="product_image" src="${$(this).children().eq(0).attr("src")}" alt="">
-                        <p> ${$(this).children().eq(1).text().match(/^[^\d]+/)} </p>
+                        <p product-id = "${$(this).children().eq(1).attr("data-product-id")}"> ${$(this).children().eq(1).text().match(/^[^\d]+/)} </p>
                         <div>
                             ${optionString}
                         </div>
@@ -382,32 +389,39 @@
                         </div>
                     </div>
             `);
-                transferData.item.push({ id: $(this).attr("data-product-id"), cnt: 1, option: optionId });
+                transferData.item.push({ id: $(this).attr("data-product-id"), cnt: 1, option: optionId, price : $(this).attr("data-product-price"), discount : $(this).attr("data-product-discount") });
                 $(".product_number_minus").off();
                 $(".product_number_plus").off();
                 $(".orderXButton").off();
                 $(".product_number_minus").on("click", function () {
                     const productNumber = $(this).parent().children("p").html();
+                    const productID = $(this).parent().parent().parent().children("p").eq(0).attr("product-id");
+                    const checkID = $(`[data-check-id=${productID}]`);
+
                     if (productNumber == 1) return;
                     else transferData.item[$(this).parent().parent().parent().index()].cnt--;
-                    thisStock.attr("data-product-stock", drawNumber(thisStock.attr("data-product-stock")) + 1);
-                    stockSet();
+                    checkID.attr("data-minus-stock", drawNumber(checkID.attr("data-minus-stock")) - 1);
+                    stockSet(checkID);
                     totalSet();
                 });
                 $(".product_number_plus").on("click", function () {
-                    const productNumber = $(this).parent().children("p").html();
+                    const productID = $(this).parent().parent().parent().children("p").eq(0).attr("product-id");
+                    const checkID = $(`[data-check-id=${productID}]`);
 
-                    if (thisStock.attr("data-product-stock") == 0) return;
+                    if (checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") == 0) return;
                     else transferData.item[$(this).parent().parent().parent().index()].cnt++;
-                    thisStock.attr("data-product-stock", thisStock.attr("data-product-stock") - 1);
-                    stockSet();
+                    checkID.attr("data-minus-stock", drawNumber(checkID.attr("data-minus-stock")) + 1);
+                    stockSet(checkID);
                     totalSet();
                 });
                 $(".orderXButton").on("click", function () {
+                    const productID = $(this).parent().children("p").eq(0).attr("product-id");
+                    const checkID = $(`[data-check-id=${productID}]`);
+
                     transferData.item.splice($(this).parent().index(), 1);
                     $(this).parent().remove();
-                    thisStock.attr("data-product-stock", drawNumber(thisStock.attr("data-product-stock")) + 1);
-                    stockSet();
+                    checkID.attr("data-minus-stock", 0);
+                    stockSet(checkID);
                     totalSet();
                 });
             }
@@ -462,8 +476,13 @@
         }
     });
     $("#reset_button").on("click", () => {
-        $(".orderBox").html("")
+        $(".orderBox").html("");
         transferData.item = [];
+        const checkID = $(".this_stock");
+        for (let i = 0; i < checkID.length; i++) {
+            checkID.eq(i).attr("data-minus-stock", 0);
+            stockSet(checkID.eq(i));
+        }
         totalSet();
     });
     const pointModalReset = () => {
@@ -483,7 +502,7 @@
         transferData.tel = null;
     });
     $(".point_modal_o_button").on("click", () => {
-        const optionString =`
+        const optionString = `
                     <div id = "point_deduction" class="option">
                         <p> 스탬프 차감 </p>
                         <p> </p>

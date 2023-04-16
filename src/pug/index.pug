@@ -2,6 +2,7 @@ html( lang="ko" )
     head
         meta( charset="utf-8")
         title 설빙 키오스크
+        meta(http-equiv="Expires" content="-1")
         link(rel="icon" type="image/png" href="./images/bingsoo_img/preview.png")
         script(src="http://code.jquery.com/jquery-latest.min.js")
         link( rel="stylesheet", href="./css/mainPage.css" )
@@ -57,16 +58,16 @@ html( lang="ko" )
                                         -if (menuInProduct[j].menu_id == menuIndex[pageNum - 1][lv2Index])
                                             - for (let k = 0; k < product.length; k++)
                                                 - if (menuInProduct[j].product_id == product[k].product_id)
-                                                    div.productItem(data-product-id = `${product[k].product_id}`)
+                                                    div.productItem(data-product-id = `${product[k].product_id}`, data-product-price = `${product[k].price}`, data-product-discount = `${product[k].discount}`)
                                                         img(src=`images/${product[k].image_path}`, alt="")
-                                                        p #{product[k].name}
+                                                        p(data-product-id = `${product[k].product_id}`) #{product[k].name}
                                                             - if (product[k].stock <= 10 && product[k].stock > 0)
                                                                 - if (product[k].stock <= 5)
-                                                                    span.this_stock.displayFlag.backgroundFlag(data-product-stock = product[k].stock data-minus-stock = 0) #{product[k].stock}개 남았어요
+                                                                    span.this_stock.displayFlag.backgroundFlag(data-product-stock = product[k].stock data-minus-stock = 0 data-check-id = product[k].product_id) #{product[k].stock}개 남았어요
                                                                 - else 
-                                                                    span.this_stock.displayFlag(data-product-stock = product[k].stock data-minus-stock = 0) #{product[k].stock}개 남았어요
+                                                                    span.this_stock.displayFlag(data-product-stock = product[k].stock data-minus-stock = 0 data-check-id = product[k].product_id) #{product[k].stock}개 남았어요
                                                             - else if (product[k].stock > 10)
-                                                                span.this_stock(data-product-stock = product[k].stock data-minus-stock = 0) #{product[k].stock}개 남았어요
+                                                                span.this_stock(data-product-stock = product[k].stock data-minus-stock = 0 data-check-id = product[k].product_id) #{product[k].stock}개 남았어요
                                                             - else
                                                                 span.this_stock.sold_out
                                                         p #{Number(String(product[k].price - (product[k].price / 100 * product[k].discount)).replace(/[^0-9,]/g, '')).toLocaleString()}원
@@ -96,7 +97,7 @@ html( lang="ko" )
                                                                                 div
                                                                                     p #{productOptionArray[product[k].product_id][i][0]}
                                                                                     - for (let ac = 0; productOptionArray[product[k].product_id].length > ac + i && productOptionArray[product[k].product_id][i][0] == productOptionArray[product[k].product_id][i + ac][0]; ac++ )
-                                                                                        button.optionButton(data-option-id = `${productOptionArray[product[k].product_id][i + ac][4]}`) #{productOptionArray[product[k].product_id][i + ac][1]} #{productOptionArray[product[k].product_id][i + ac][2] - ((productOptionArray[product[k].product_id][i + ac][2]) / 100 * productOptionArray[product[k].product_id][i + ac][3]) }원
+                                                                                        button.optionButton(data-option-id = `${productOptionArray[product[k].product_id][i + ac][4]}` data-option-price = `${productOptionArray[product[k].product_id][i + ac][2]}`, data-option-discount = `${productOptionArray[product[k].product_id][i + ac][3]}`) #{productOptionArray[product[k].product_id][i + ac][1]} #{productOptionArray[product[k].product_id][i + ac][2] - ((productOptionArray[product[k].product_id][i + ac][2]) / 100 * productOptionArray[product[k].product_id][i + ac][3]) }원
                                                                                     - productOptionCheck = productOptionArray[product[k].product_id][i][0]
                                                                     - else
                                                                             div.option_modal_basket
