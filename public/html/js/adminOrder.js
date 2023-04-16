@@ -113,13 +113,13 @@
 
     [...document.querySelectorAll( `.orderReadRow` )].forEach( ( v, i, a) => {
         v.ondblclick= e => {
-            a.forEach( vRow => {
+            /*a.forEach( vRow => {
                 [...vRow.querySelectorAll( `input:not( .fixCol ), select` )].forEach( vi => {
                     vi.disabled = true;
                     vi.value= vi.getAttribute( `data-origin-value` );
                     vRow.classList.remove( `modifyMode` );
                 });
-            });
+            });*/
             [...e.currentTarget.querySelectorAll( `input:not( .fixCol ), select` )].forEach( vi => {
                 vi.disabled = false;
                 v.classList.add( `modifyMode` );

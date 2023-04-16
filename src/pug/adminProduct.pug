@@ -109,34 +109,34 @@ html
                                 each item, key in menuInProductObj
                                     //ul( data-menu-id=`${key}` )
                                     for v, vk in item
-                                        li.productReadRow(
-                                            class=`${productObj[v.product_id].deleted_date == null ?'': 'inactive'} ${productObj[v.product_id].stock != 0 ?'': 'soldOut'}` )
+                                        li.productReadRow
                                             form
-                                                ul.productColSet
+                                                ul.productColSet( data-use=`${productObj[v.product_id].deleted_date == null ?'active': 'inactive'}`, data-stock=`${productObj[v.product_id].stock != 0 ?'': 'soldout'}` )
                                                     li= idxNo++
                                                         input.fixCol( type="hidden", name="id", data-origin-value=`${v.product_id}`, value=`${v.product_id}` disabled )
                                                     li
                                                         input.fixCol( type="text", name="menuLv1Name", data-origin-value=`${productObj[v.product_id].lv1_menu_name}`, value=`${productObj[v.product_id].lv1_menu_name}`, disabled )
                                                     li
-                                                        input( type="text", name="menuLv2Name", data-origin-value=`${productObj[v.product_id].lv2_menu_name}`, value=`${productObj[v.product_id].lv2_menu_name}`, disabled )
+                                                        input.fixCol( type="text", name="menuLv2Name", data-origin-value=`${productObj[v.product_id].lv2_menu_name}`, value=`${productObj[v.product_id].lv2_menu_name}`, disabled )
                                                     li
                                                         input( type="text", name="name", data-origin-value=`${productObj[v.product_id].name}`, value=`${productObj[v.product_id].name}`, disabled )
                                                     li
-                                                        input( type="text", name="discription", data-origin-value=`${productObj[v.product_id].discription?productObj[v.product_id].discription:''}`, value=`${productObj[v.product_id].discription?productObj[v.product_id].discription:''}`, disabled )
+                                                        input( type="text", name="description", data-origin-value=`${productObj[v.product_id].description?productObj[v.product_id].description:''}`, value=`${productObj[v.product_id].description?productObj[v.product_id].description:''}`, disabled )
                                                     li
                                                         input( type="number", name="stock", data-origin-value=`${productObj[v.product_id].stock}`, value=`${productObj[v.product_id].stock}`, disabled )
                                                     li
                                                         input( type="text", name="allergy", data-origin-value=`${productObj[v.product_id].allergy?productObj[v.product_id].allergy:''}`, value=`${productObj[v.product_id].allergy?productObj[v.product_id].allergy:''}`, disabled )
-                                                    li= productObj[v.product_id].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                                    li
+                                                        input( type="text", name="view_price", data-origin-value=`${productObj[v.product_id].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`, value=`${productObj[v.product_id].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`, disabled )
                                                         input( type="hidden", name="price", data-origin-value=`${productObj[v.product_id].price}`, value=`${productObj[v.product_id].price}`, disabled )
                                                     li
                                                         input( type="number", name="discount", data-origin-value=`${productObj[v.product_id].discount}`, value=`${productObj[v.product_id].discount}`, disabled )
                                                     li= productObj[v.product_id].release_date
                                                     li
-                                                        input.fixCol( type="button", data-event-mode="option", value="옵션" )
-                                                        input( type="button", data-event-mode="update", data-origin-value="수정", value="수정", disabled )
-                                                        input.fixCol( type="button", data-event-mode="active", value="사용" )
-                                                        input.fixCol( type="button", data-event-mode="inactive", value="미사용" )
+                                                        input.fixCol( type="button", data-event-mode="option", value="옵션", class=`${ productObj[v.product_id].option?'': 'optionNot' }` )
+                                                        input.productUpdateBtn( type="button", data-event-mode="update", data-origin-value="수정", value="수정", disabled )
+                                                        input.fixCol( type="button", data-event-mode="active", value="판매" )
+                                                        input.fixCol( type="button", data-event-mode="inactive", value="미판매" )
                                                     unless !productObj[v.product_id].option
                                                         .hiddenOption
                                                             for oc, ok in productObj[v.product_id].option
@@ -158,4 +158,5 @@ html
                                 .modalBtnSet
                                     button.modalBtn( data-modal-confirm=true ) YES
                                     button.modalBtn( data-modal-confirm=false ) CANCEL
+        script( src="https://unpkg.com/axios/dist/axios.min.js")
         script(src="./js/adminProduct.js")

@@ -24,4 +24,37 @@ router.get ( `/`, ( req, res, next ) => {
     });
 });
 
+router.post( `/update`, async ( req, res ) => {
+    const targetValue= await req.body;
+    const id= targetValue.id;
+    const name= '\'' + targetValue.name + '\'';
+    const price= targetValue.price != ''? targetValue.price: 0;
+    const discount= targetValue.discount != ''? targetValue.discount: 0;
+    const stock= targetValue.stock != ''? targetValue.stock: 0;
+    const description= targetValue.description != ''? '\'' + targetValue.description + '\'': null;
+    //const discription= targetValue.discription != ''? '\'' + targetValue.discription + '\'': null;
+
+    let sql= `update product set 
+                name= ${ name },
+               
+            where id= ${ id };`;
+    console.log( sql );
+    con.query( sql, ( err, result ) => {
+        if( err ) throw err;
+        res.status( 201 ).json( result );
+    });
+});
+
+router.post( '/isActive', async ( req, res ) => {
+    const reqBody= await req.body;
+    const id= reqBody.id;
+    const isActive= reqBody.isActive == `active`? `null`: `now()`;
+
+    let sql= `update product set deleted_date = ${ isActive } where id = ${ id }`;
+    con.query( sql, ( err, result ) => {
+        if( err ) throw err;
+        res.status( 201 ).json( result );
+    })
+});
+
 module.exports= router;
