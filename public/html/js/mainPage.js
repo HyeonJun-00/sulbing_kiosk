@@ -43,7 +43,7 @@
         $("#gifticon_price").html(`${putComma(totalAmount)}원`);
     }
     const resetTimer = time => {
-        $("#reset_time_modal").css("background", `conic-gradient(#f2da5e ${time}deg, rgba(245, 245, 245, 0) ${time}deg)`);
+        $("#reset_time_modal").css("background", `conic-gradient(#f6d73d ${time}deg, rgba(245, 245, 245, 0) ${time}deg)`);
         $("#reset_time_guide").html(`${Math.floor(time / 6 + 0.5)}초 후 시작화면으로 돌아갑니다.`);
         if (time > 0 && loadTimeValue > 50) setTimeout(resetTimer, 1000 / 6, time - 1);
         else if (loadTimeValue > 50) location.reload();
@@ -67,7 +67,7 @@
     let userPhoneNumber = null;
 
     $("#reset_timer_modal_background").on("click", () => {
-        $("#reset_time_modal").css("background", `conic-gradient(#f2da5e 0deg, rgba(245, 245, 245, 0) 0deg)`);
+        $("#reset_time_modal").css("background", `conic-gradient(#f6d73d 0deg, rgba(245, 245, 245, 0) 0deg)`);
         $("#reset_timer_modal_background").removeClass("displayFlag");
     });
 
@@ -207,7 +207,7 @@
                         } catch (err) {
                             console.error(err);
                         }
-                        //location.reload();
+                        location.reload();
                     } else {
                         clearTimeout(setThreeDots);
                         $("#card_terminal_modal > section > p").html(`결제 진행중입니다`);
@@ -303,6 +303,9 @@
         $(".payment_modal").addClass("displayFlag");
     });
     productItem.on("click", function () {
+        if ($(this).children().children().hasClass("sold_out")) {
+            return ;
+        }
         productPrice = $(this).find(".productPrice").html();
         $(".modalBackground").addClass("displayFlag");
         $(".option_modal_main").html("");
@@ -319,6 +322,7 @@
         $(".option_modal_x_button").on("click", () => $(".modalBackground").removeClass("displayFlag"));
         $(".add_order_button").on("click", () => {
             const optionId = [];
+            const thisStock = $(this).children().eq(1).children().eq(0);
             const arrayComparison = (inputArray1, inputArray2) => {
                 const arrayLength = inputArray1.length > inputArray2.length ? inputArray1.length : inputArray2.length;
 
@@ -327,9 +331,26 @@
                 }
                 return true;
             }
+            const stockSet = () => {
+                if (thisStock.attr("data-product-stock") < 6 && thisStock.attr("data-product-stock") > 0) {
+                    thisStock.removeClass("sold_out");
+                    thisStock.addClass("backgroundFlag displayFlag");
+                    thisStock.html(`${thisStock.attr("data-product-stock")}개 남았어요`);
+                } else if (thisStock.attr("data-product-stock") == 0) {
+                    thisStock.removeClass("displayFlag backgroundFlag");
+                    thisStock.addClass("sold_out");
+                    thisStock.html("");
+                } else if (thisStock.attr("data-product-stock") < 11){
+                    thisStock.removeClass("backgroundFlag sold_out");
+                    thisStock.addClass("displayFlag");
+                    thisStock.html(`${thisStock.attr("data-product-stock")}개 남았어요`);
+                }
+            }
             let duplicationCheck = true;
             let optionString = "";
 
+            thisStock.attr("data-product-stock", thisStock.attr("data-product-stock") - 1);
+            stockSet();
             for (let i = 0; i < $(".optionButton").length; i++) {
                 if ($(".optionButton").eq(i).hasClass("backgroundFlag")) {
                     optionId.push($(".optionButton").eq(i).attr("data-option-id"))
@@ -347,7 +368,7 @@
                     <div>
                         <button class="orderXButton"></button>
                         <img class="product_image" src="${$(this).children().eq(0).attr("src")}" alt="">
-                        <p> ${$(this).children().eq(1).html()} </p>
+                        <p> ${$(this).children().eq(1).text().match(/^[^\d]+/)} </p>
                         <div>
                             ${optionString}
                         </div>
@@ -367,21 +388,26 @@
                 $(".orderXButton").off();
                 $(".product_number_minus").on("click", function () {
                     const productNumber = $(this).parent().children("p").html();
-
                     if (productNumber == 1) return;
                     else transferData.item[$(this).parent().parent().parent().index()].cnt--;
+                    thisStock.attr("data-product-stock", drawNumber(thisStock.attr("data-product-stock")) + 1);
+                    stockSet();
                     totalSet();
                 });
                 $(".product_number_plus").on("click", function () {
                     const productNumber = $(this).parent().children("p").html();
 
-                    if (productNumber == 99999999) return;
+                    if (thisStock.attr("data-product-stock") == 0) return;
                     else transferData.item[$(this).parent().parent().parent().index()].cnt++;
+                    thisStock.attr("data-product-stock", thisStock.attr("data-product-stock") - 1);
+                    stockSet();
                     totalSet();
                 });
                 $(".orderXButton").on("click", function () {
                     transferData.item.splice($(this).parent().index(), 1);
                     $(this).parent().remove();
+                    thisStock.attr("data-product-stock", drawNumber(thisStock.attr("data-product-stock")) + 1);
+                    stockSet();
                     totalSet();
                 });
             }

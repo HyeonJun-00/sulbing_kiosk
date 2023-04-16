@@ -8,6 +8,7 @@ html( lang="ko" )
         link( rel="stylesheet", href="./css/optionmodal.css")
         link( rel="preconnect" href="https://fonts.googleapis.com" )
         link( rel="preconnect" href="https://fonts.gstatic.com" crossorigin )
+        link(href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet")
         link( href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" )
         link(rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css")
         script( src="https://unpkg.com/axios/dist/axios.min.js")
@@ -59,6 +60,15 @@ html( lang="ko" )
                                                     div.productItem(data-product-id = `${product[k].product_id}`)
                                                         img(src=`images/${product[k].image_path}`, alt="")
                                                         p #{product[k].name}
+                                                            - if (product[k].stock <= 10 && product[k].stock > 0)
+                                                                - if (product[k].stock <= 5)
+                                                                    span.this_stock.displayFlag.backgroundFlag(data-product-stock = product[k].stock data-minus-stock = 0) #{product[k].stock}개 남았어요
+                                                                - else 
+                                                                    span.this_stock.displayFlag(data-product-stock = product[k].stock data-minus-stock = 0) #{product[k].stock}개 남았어요
+                                                            - else if (product[k].stock > 10)
+                                                                span.this_stock(data-product-stock = product[k].stock data-minus-stock = 0) #{product[k].stock}개 남았어요
+                                                            - else
+                                                                span.this_stock.sold_out
                                                         p #{Number(String(product[k].price - (product[k].price / 100 * product[k].discount)).replace(/[^0-9,]/g, '')).toLocaleString()}원
                                                         div
                                                             section 
@@ -68,8 +78,8 @@ html( lang="ko" )
                                                                 div.option_modal_text
                                                                     p(data-product-id = `${product[k].product_id}`) #{product[k].name}
                                                                     p.productPrice #{Number(String(product[k].price - (product[k].price / 100 * product[k].discount)).replace(/[^0-9,]/g, '')).toLocaleString()}원
-                                                                    p #{product[k].discription}
-                                                                    p 알레르기정보 : #{product[k].allergy}
+                                                                    p #{product[k].description}
+                                                                    p 알레르기 정보 : #{product[k].allergy}
                                                                 div.totalPrice
                                                                     div 
                                                                         hr
