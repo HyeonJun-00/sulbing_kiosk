@@ -22,6 +22,13 @@
         remark: ''
     };
     let totalAmount = 0;
+    let menuBar1_num = 0;
+    let menuBar2_num = 0;
+    let productPrice = 0;
+    let cardTerminalCheck = true;
+    let cardTerminal = true;
+    let payTerminalCheck = true;
+    let payTerminal = true;
     const totalSet = () => {
         let totalCount = 0;
         totalAmount = 0;
@@ -78,15 +85,12 @@
         (loadTimeValue == 0) && (loadTime());
         loadTimeValue = 1;
     });
-    let menuBar1_num = 0;
-    let menuBar2_num = 0;
-    let productPrice = 0;
+
 
     $("#reset_timer_modal_background").on("click", () => {
         $("#reset_time_modal").css("background", `conic-gradient(#f6d73d 0deg, rgba(245, 245, 245, 0) 0deg)`);
         $("#reset_timer_modal_background").removeClass("displayFlag");
     });
-
     $("#point_lookup_button").on("click", async () => {
         const tel = $(`#point_input_box`).html();
         try {
@@ -176,10 +180,6 @@
         menuBar2.removeClass("displayFlag");
         $(this).addClass("displayFlag");
     });
-    let cardTerminalCheck = true;
-    let cardTerminal = true;
-    let payTerminalCheck = true;
-    let payTerminal = true;
     $("#card_terminal_modal button").on("click", () => {
         $("#card_terminal_modal_background").removeClass("displayFlag");
         $("#card_terminal_price").removeClass("backgroundFlag");
@@ -687,6 +687,12 @@
                     }
                     const nowDate = new Date();
                     receiptStrig += `
+                                        <div>
+                                            <p style = "color:#666;">기프티콘 차감</p>
+                                            <p></p>
+                                            <p></p>
+                                            <p>-${putComma(transferData.totalAmount)}</p>
+                                        </div>
                                         <span></span>
                                         <div id="receipt_result_price">
                                             <p>판매금액</p>
