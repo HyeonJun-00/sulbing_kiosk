@@ -102,6 +102,21 @@
             resultCon( e.target.getAttribute( `data-event-mode` ), e.target.parentElement.parentElement.querySelector( `[name=id]` ).value );
         }
     });
+
+    [...document.querySelectorAll( `input[data-event-mode=option]` )].forEach( v => {
+        v.onclick= e => {
+            let targetName= e.target.parentElement.parentElement
+            //modalOptionCon( e.parentElement.parentElement );
+            console.log( targetName );
+        }
+    });
+
+    let modalOptionCon= ( tCon ) => { // 모달
+        document.querySelector( `#modalOptionBak .productTitle` ).innerText= tCon;
+        document.querySelector( `#modalOptionBak` ).style.display= `block`;
+        document.querySelector( `.modalOptionBtn[data-modal-option]` ).style.display= 'block';
+    };
+
     let modalCon= ( tCon, conM= true ) => { // 모달
         document.querySelector( `#modalConfirmBak > .modalConfirm > p` ).innerText= tCon;
         document.querySelector( `#modalConfirmBak` ).style.display= `block`;
