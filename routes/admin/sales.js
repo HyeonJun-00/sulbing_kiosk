@@ -26,19 +26,28 @@ router.get ( `/`, ( req, res, next ) => {
     let sqlSaleYear = `SELECT YEAR(purchase_date) AS date, sum(total_price) AS totalPrice, FORMAT(sum(total_Price) , 0) AS totalPriceComma FROM purchase WHERE YEAR(purchase_date) LIKE '${year}' GROUP BY date`;
     let sqlSaleLastYear = `SELECT YEAR(purchase_date) AS date, sum(total_price) AS totalPrice, FORMAT(sum(total_Price) , 0) AS totalPriceComma FROM purchase WHERE YEAR(purchase_date) LIKE '${lastYear}' GROUP BY date`;
     let sqlBestItem = `SELECT pT.name, COUNT(pI.product_id) AS purchaseCnt FROM purchase_item pI INNER JOIN product pT ON pI.product_id = pT.id GROUP BY pI.product_id ORDER BY purchaseCnt DESC LIMIT 10`;
+    let sqlBestItemMonthly = `SELECT pT.name,  COUNT(pI.product_id) AS purchaseCnt
+                        FROM purchase_item pI
+                            INNER JOIN product pT ON pI.product_id = pT.id
+                            INNER JOIN purchase pU ON pI.purchase_id= pU.id
+                        WHERE pU.purchase_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND NOW()
+                        GROUP BY pT.name
+                        ORDER BY purchaseCnt
+                        DESC LIMIT 10`;
 
     con.query(sqlSaleDay, (err, resultDay)=>{
         con.query(sqlSaleMonth, (err, resultMonth)=>{
             con.query(sqlSaleYear, (err, resultYear)=>{
                 con.query(sqlSaleLastYear, (err, resultLastYear)=>{
-                    con.query(sqlBestItem, (err, bestItem)=>{
+                    con.query(sqlBestItemMonthly, (err, bestItem)=>{
                         if (err) throw err;
                         console.log(resultDay, resultMonth, resultYear, resultLastYear, bestItem);
                         res.render(`adminSales`, {saleDay: resultDay, saleMonth: resultMonth, saleYear: resultYear, saleLastYear: resultLastYear ,bestItem: bestItem });
                     });
                 });
             });
-        });
+        })
+
     });
 });
 

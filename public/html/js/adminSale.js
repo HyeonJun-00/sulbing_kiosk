@@ -44,38 +44,30 @@ $(document).ready(()=>{
                 $('.displayBestSale').css('display', 'none');
                 if($('.displayMonthlySale').css('display') === 'none'){
                     $('.displayMonthlySale').css('display','flex');
-                } else {
-                    $('.displayMonthlySale').css('display', 'none');
                 }
                 break;
             case 'dailySale' :
                 $('.displayMonthlySale').css('display', 'none');
                 $('.displayYearlySale').css('display', 'none');
                 $('.displayBestSale').css('display', 'none');
-                if($('.displayDailySale').css('display') === 'none'){
-                    $('.displayDailySale').css('display','flex');
-                } else {
-                    $('.displayDailySale').css('display', 'none');
+                if($('.displayDailySale').css('display') === 'none') {
+                    $('.displayDailySale').css('display', 'flex');
                 }
                 break;
             case 'yearlySale' :
                 $('.displayDailySale').css('display', 'none');
                 $('.displayMonthlySale').css('display', 'none');
                 $('.displayBestSale').css('display', 'none');
-                if($('.displayYearlySale').css('display') === 'none'){
-                    $('.displayYearlySale').css('display','flex');
-                } else {
-                    $('.displayYearlySale').css('display', 'none');
+                if($('.displayYearlySale').css('display') === 'none') {
+                    $('.displayYearlySale').css('display', 'flex');
                 }
                 break;
             case 'bestMenu' :
                 $('.displayDailySale').css('display', 'none');
                 $('.displayMonthlySale').css('display', 'none');
                 $('.displayYearlySale').css('display', 'none');
-                if($('.displayBestSale').css('display') === 'none'){
-                    $('.displayBestSale').css('display','block');
-                } else {
-                    $('.displayBestSale').css('display', 'none');
+                if($('.displayBestSale').css('display') === 'none') {
+                    $('.displayBestSale').css('display', 'block');
                 }
                 break;
         }
