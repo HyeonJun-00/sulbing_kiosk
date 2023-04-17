@@ -44,6 +44,7 @@ router.get ( `/`, ( req, res, next ) => {
         order by id desc;`;
     con.query( sqlOrderTotCnt + sqlReadPost + sqlProductPost + sqlPaymentPost, ( err, result ) => {
         if( err ) throw err;
+        console.log(result[0]);
         res.render(`adminOrder`, {
             orderTotCnt: result[0],
             readPost: result[1],

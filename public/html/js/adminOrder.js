@@ -103,12 +103,11 @@
             document.querySelector( `.orderReadRowSet` ).innerHTML= tempHtml;
             document.querySelector( `.tablePaging` ).innerHTML= ``;
             console.log( res.data.orderTotCnt[0].cnt, res.data.nowPage );
-            let pageCnt= ( ( ( res.data.orderTotCnt[0].cnt / 10 ) -1 ) < 1 )? 1 : ( res.data.orderTotCnt[0].cnt / 10 ) - 1;
-            console.log( pageCnt );
+            let pageCnt= ( ( res.data.orderTotCnt[0].cnt / 20 ) < 1 )? 1 : ( res.data.orderTotCnt[0].cnt / 20 );
             for( let i= 0; i < pageCnt; i++ ) {
-                document.querySelector( `.tablePaging` ).innerHTML+= `<a data-page-idx=${ i } data-page=${ i == res.data.nowPage }>${ i + 1 }</a>`;
+                document.querySelector( `.tablePaging` ).innerHTML+= `<a data-page-idx="${ i }" data-page="${ i == res.data.nowPage }">${ i + 1 }</a>`;
             }
-            //loadJs();
+            loadJs();
         } catch ( err ) {
             console.error( err );
         }

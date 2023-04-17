@@ -65,9 +65,9 @@
             }
             document.querySelector( `.userReadRowSet` ).innerHTML= tempHtml;
             document.querySelector( `.tablePaging` ).innerHTML= ``;
-            let pageCnt= ( ( ( res.data.userTotCnt[0].cnt / 10 ) -1 ) < 1 )? 1 : ( res.data.userTotCnt[0].cnt / 10 ) - 1;
+            let pageCnt= ( ( res.data.userTotCnt[0].cnt / 20 ) < 1 )? 1 : ( res.data.userTotCnt[0].cnt / 20 );
             for( let i= 0; i < pageCnt; i++ ) {
-                document.querySelector( `.tablePaging` ).innerHTML+= `<a data-page-idx=${ i } data-page=${ i == res.data.nowPage }>${ i + 1 }</a>`;
+                document.querySelector( `.tablePaging` ).innerHTML+= `<a data-page-idx="${ i }" data-page="${ i == res.data.nowPage }">${ i + 1 }</a>`;
             }
             loadJs();
         } catch ( err ) {
