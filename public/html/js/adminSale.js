@@ -34,14 +34,24 @@ $(document).ready(()=>{
         v.style.height = `${(heightV/heightMax)*100}%`;
     });
 
-    console.log(heightMax);
+    heightValue = [];
+    $(".itemValue").each((i,v)=>{
+        heightValue.push(Number(v.getAttribute('data-price')));
+    });
+    heightValue.sort((a,b)=> b-a);
+    heightMax = heightValue[0];
+    $(".itemValue").each((i,v)=>{
+        let heightV = Number(v.getAttribute('data-price'));
+        v.style.height = `${(heightV/heightMax)*100}%`;
+    });
+
     this.addEventListener('click', (e)=>{
         console.log(e.target.id);
         switch (e.target.id){
             case 'monthlySale' :
                 $('.displayDailySale').css('display', 'none');
                 $('.displayYearlySale').css('display', 'none');
-                $('.displayBestSale').css('display', 'none');
+                $('.displayBestSales').css('display', 'none');
                 if($('.displayMonthlySale').css('display') === 'none'){
                     $('.displayMonthlySale').css('display','flex');
                 }
@@ -49,7 +59,7 @@ $(document).ready(()=>{
             case 'dailySale' :
                 $('.displayMonthlySale').css('display', 'none');
                 $('.displayYearlySale').css('display', 'none');
-                $('.displayBestSale').css('display', 'none');
+                $('.displayBestSales').css('display', 'none');
                 if($('.displayDailySale').css('display') === 'none') {
                     $('.displayDailySale').css('display', 'flex');
                 }
@@ -57,7 +67,7 @@ $(document).ready(()=>{
             case 'yearlySale' :
                 $('.displayDailySale').css('display', 'none');
                 $('.displayMonthlySale').css('display', 'none');
-                $('.displayBestSale').css('display', 'none');
+                $('.displayBestSales').css('display', 'none');
                 if($('.displayYearlySale').css('display') === 'none') {
                     $('.displayYearlySale').css('display', 'flex');
                 }
@@ -66,8 +76,8 @@ $(document).ready(()=>{
                 $('.displayDailySale').css('display', 'none');
                 $('.displayMonthlySale').css('display', 'none');
                 $('.displayYearlySale').css('display', 'none');
-                if($('.displayBestSale').css('display') === 'none') {
-                    $('.displayBestSale').css('display', 'block');
+                if($('.displayBestSales').css('display') === 'none') {
+                    $('.displayBestSales').css('display', 'flex');
                 }
                 break;
         }
