@@ -1953,10 +1953,78 @@ $color-line: rgb(220, 220, 220);
         font-size: 2.5rem;
         content: "영수증";
     }
-    & > article {
+
+    &>article {
+        overflow: hidden;
         display: inline-block;
         width: 100%;
         height: 100%;
-        background-color: #80b21d;
+
+        &>div {
+            letter-spacing: 0.1rem;
+            margin-left: 5%;
+            width: 90%;
+            font-size: 1.5rem;
+            display: flex;
+
+            &:nth-child(7) {
+                display: flex;
+            }
+
+            &>p {
+                font-size: 1.5rem;
+                text-align: right;
+
+                &:nth-child(1) {
+                    text-align: left;
+                    width: 50%;
+                }
+
+                &:nth-child(2) {
+                    width: 15%;
+                }
+
+                &:nth-child(3) {
+                    width: 10%;
+                }
+
+                &:nth-child(4) {
+                    width: 25%;
+                }
+            }
+        }
+
+        #receipt_result_price {
+            justify-content: space-between;
+            &>p {
+                font-size: 2rem;
+                &:nth-child(1) {
+                    text-align: left;
+                }
+                width: 20%;
+                text-align: right;
+            }
+        }
+
+        .receipt_date {
+            margin-bottom: 1rem;
+        }
+
+        &>span {
+            display: inline-block;
+            margin: 0.5rem;
+            margin-left: 5%;
+            width: 90%;
+            height: 0.2rem;
+            border: 0.15rem dashed#777;
+            border-left: transparent;
+            border-right: transparent;
+
+            &:nth-of-type(3) {
+                margin-top: 0.5rem;
+                border-bottom: transparent;
+                height: 0rem;
+            }
+        }
     }
 }
