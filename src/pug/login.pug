@@ -12,12 +12,19 @@ html( lang="ko" )
         link( href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" )
         link( rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css")
         script( src="https://unpkg.com/axios/dist/axios.min.js")
+        script(src="./js/adminLogin.js")
         script( src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
     body
     main.mainSection 
         img(src="./images/bingsoo_img/설빙.jpg", alt="")
         form(action="/index", method="get" id="indexForm") 
             button(type="submit") 키오스크 페이지
-        form(action="/admin_order", method="get" id="adminForm") 
+        #adminForm
             button(type="submit") 관리자 페이지
-        
+    section.modalConfirmBak#modalConfirmBak
+        section.modalConfirm
+            p 비밀번호를 입력하세요.
+            .modalBtnSet
+                form(action="/login" method="POST")
+                    input(type="text" name="pwValue" id="pwValue" maxlength=12)
+                    button.modalBtn( data-modal-confirm=false ) SUBMIT
