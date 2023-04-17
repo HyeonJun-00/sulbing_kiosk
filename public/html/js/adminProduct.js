@@ -1,5 +1,31 @@
 ( loadJs= () => {
 
+    let searchFunc= () => {
+        let targetRow= [...document.querySelectorAll( `.productReadRow` )];
+        let searchVIn= [...document.querySelectorAll( `.productSearchRow input` )];
+        let searchRow = document.querySelector(`.productSearchRow`);
+        return ( e ) => {
+            targetRow.forEach( v => {
+                if(
+                    v.querySelector( `[name=${ searchVIn[0].getAttribute('name')}]` ).value.match( searchRow.querySelector( `[name=${ searchVIn[0].getAttribute('name')}]` ).value ) &&
+                    v.querySelector( `[name=${ searchVIn[1].getAttribute('name')}]` ).value.match( searchRow.querySelector( `[name=${ searchVIn[1].getAttribute('name')}]` ).value ) &&
+                    v.querySelector( `[name=${ searchVIn[2].getAttribute('name')}]` ).value.match( searchRow.querySelector( `[name=${ searchVIn[2].getAttribute('name')}]` ).value ) &&
+                    v.querySelector( `[name=${ searchVIn[3].getAttribute('name')}]` ).value.match( searchRow.querySelector( `[name=${ searchVIn[3].getAttribute('name')}]` ).value ) &&
+                    ( Number( v.querySelector( `[name=${ searchVIn[4].getAttribute('name')}]` ).value ) <= Number( searchRow.querySelector( `[name=${ searchVIn[4].getAttribute('name')}]` ).value ) ||
+                        searchRow.querySelector( `[name=${ searchVIn[4].getAttribute('name')}]` ).value == '' )&&
+                    v.querySelector( `[name=${ searchVIn[5].getAttribute('name')}]` ).value.match( searchRow.querySelector( `[name=${ searchVIn[5].getAttribute('name')}]` ).value ) &&
+                    v.querySelector( `[name=${ searchVIn[6].getAttribute('name')}]` ).value.match( searchRow.querySelector( `[name=${ searchVIn[6].getAttribute('name')}]` ).value ) &&
+                    v.querySelector( `[name=${ searchVIn[7].getAttribute('name')}]` ).value.match( searchRow.querySelector( `[name=${ searchVIn[7].getAttribute('name')}]` ).value )
+                ) {
+                    v.style.display= `block`;
+                } else v.style.display= `none`;
+            })
+        };
+    }
+
+    let searchInput= [...document.querySelectorAll( `.productSearchRow input` )];
+    searchInput.forEach( v => v.oninput= searchFunc() );
+
     [...document.querySelectorAll( `.productReadRow` )].forEach( ( v, i, a) => {
         v.ondblclick= e => {
             /*a.forEach( vRow => {
@@ -40,7 +66,10 @@
 
     document.querySelector( `.searchResetBtn` ).onclick= () => {
         [...document.querySelectorAll( `.productSearchRow input` )].forEach( v => {
-            v.value= '';
+            v.value= ``;
+        });
+        [...document.querySelectorAll( `.productReadRow` )].forEach( v => {
+            v.style.display= `block`;
         });
     }
 
@@ -63,6 +92,7 @@
                 document.querySelector( `.productSearchRow [name=menuLv2Name]` ).value= e.target.innerHTML;
                 document.querySelector( `.productSearchRow [name=menuLv1Name]` ).value= document.querySelector( '[data-lv1-id=' + `"${ e.target.getAttribute( 'data-lv2-pid' )}"` + ']' ).innerHTML;
             }
+            searchFunc()();
         }
     });
 
@@ -72,6 +102,21 @@
             resultCon( e.target.getAttribute( `data-event-mode` ), e.target.parentElement.parentElement.querySelector( `[name=id]` ).value );
         }
     });
+
+    [...document.querySelectorAll( `input[data-event-mode=option]` )].forEach( v => {
+        v.onclick= e => {
+            let targetName= e.target.parentElement.parentElement.querySelector( `[name=name]` );
+            //modalOptionCon( e.parentElement.parentElement );
+            console.log( targetName );
+        }
+    });
+
+    let modalOptionCon= ( tCon ) => { // 모달
+        document.querySelector( `#modalOptionBak .productTitle` ).innerText= tCon;
+        document.querySelector( `#modalOptionBak` ).style.display= `block`;
+        document.querySelector( `.modalOptionBtn[data-modal-option]` ).style.display= 'block';
+    };
+
     let modalCon= ( tCon, conM= true ) => { // 모달
         document.querySelector( `#modalConfirmBak > .modalConfirm > p` ).innerText= tCon;
         document.querySelector( `#modalConfirmBak` ).style.display= `block`;
@@ -103,7 +148,25 @@
                                 modalCon( `상품명을 입력해주세요.`, false );
                                 return false;
                             }
-                            console.log( targetValue);
+                            if( await axios.post( `/admin_product/update`, targetValue ) ) {
+                                [...document.querySelectorAll(`.modifyMode input:not( .fixCol ), .modifyMode select`)].forEach(v => {
+                                    ( v.getAttribute(`name`) == `name`) && (v.setAttribute(`data-origin-value`, targetValue.name) );
+                                    ( v.getAttribute(`name`) == `price`) && (v.setAttribute(`data-origin-value`, targetValue.price != '' ? targetValue.price : 0) );
+                                    ( v.getAttribute(`name`) == `view_price`) && (v.setAttribute(`data-origin-value`, targetValue.price != '' ? targetValue.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0) );
+                                    ( v.getAttribute(`name`) == `discount`) && (v.setAttribute(`data-origin-value`, targetValue.discount != '' ? targetValue.discount : 0) );
+                                    ( v.getAttribute(`name`) == `stock`) && (v.setAttribute(`data-origin-value`, targetValue.stock != '' ? targetValue.stock : 0) );
+                                    ( v.getAttribute(`name`) == `description`) && (v.setAttribute(`data-origin-value`, targetValue.description) );
+                                    ( v.getAttribute(`name`) == `allergy`) && (v.setAttribute(`data-origin-value`, targetValue.allergy) );
+                                    if( targetValue.stock == 0 || targetValue.stock == '' ) {
+                                        v.parentElement.parentElement.setAttribute(`data-stock`, `soldout` );
+                                    } else { v.parentElement.parentElement.setAttribute(`data-stock`, `` ) }
+                                    ( v.getAttribute( `name` ) == `price` ) && ( v.setAttribute( `type`, `hidden` ) );
+                                    ( v.getAttribute( `name` ) == `view_price` ) && ( v.setAttribute( `type`, `text` ) );
+                                    v.disabled = true;
+                                    v.value = v.getAttribute(`data-origin-value`);
+                                });
+                                document.querySelector(`.modifyMode`).classList.remove(`modifyMode`);
+                            }
                             break;
                         default:
                             break;

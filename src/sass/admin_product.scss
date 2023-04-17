@@ -120,22 +120,22 @@ body {
                         cursor: pointer;
                         input[disabled] { cursor: pointer; }
                         &:hover { border: 0.01rem solid black; }
-                        &.soldOut { color: red; input:not( [data-event-mode] ) { color: red !important; } }
-                        &.inactive {
-                            color: gray;
-                            input:not( [data-event-mode=active] ) { color: gray !important; }
-                        }
-                        &:not( .inactive ) {
-                            input[data-event-mode=active] { color: gray !important; }
-                        }
                     }
                     &.emptyRow { width: 100%; height: 3rem;
                         display: flex; justify-content: center; align-items: center;
                     }
                     ul.productColSet {
                         display: flex;
+                        &[data-stock=soldout] { color: red; input:not( [data-event-mode] ) { color: red !important; } }
+                        &[data-use=active] {
+                            color: initial;
+                            input[data-event-mode=active] { color: gray !important; }
+                        }
+                        &[data-use=inactive] {
+                            color: gray !important;
+                            input:not( [data-event-mode=active] ) { color: gray !important; }
+                        }
                         .hiddenOption { display: none; }
-                        &.productNoneActive { color: red; li { color: red !important; } }
                         li {
                             display: inline-flex;
                             justify-content: center; align-items: center;
@@ -145,7 +145,7 @@ body {
                             input, select {
                                 width: 100%; height: 100%;
                                 border: 0.01rem solid #ddd;
-                                &.remarkUpdateBtn { width: 30%; }
+                                &.optionNot { visibility: hidden; }
                                 &[type=button] {
                                     cursor: pointer;
                                     &[disabled] {
@@ -173,7 +173,7 @@ body {
                             &:nth-of-type(4) { width: 12%; justify-content: center; input{ text-align: center } } // 상품명
                             &:nth-of-type(5) { width: 20%; } // 안내문구
                             &:nth-of-type(6) { width: 5%; } // 재고
-                            &:nth-of-type(7) { width: 12%; } // 알러지 정보
+                            &:nth-of-type(7) { width: 11%; } // 알러지 정보
                             &:nth-of-type(8) { width: 7%; } // 가격
                             &:nth-of-type(9) { width: 5%; } // 할인율
                             &:nth-of-type(10) { width: 8%; } // 출시일
@@ -240,6 +240,137 @@ body {
                 }
                 .modalBtnSet {
                     width: 100%; height: 40%;
+                    display: flex; justify-content: center; align-items: center;
+                    button {
+                        width: 10rem;
+                        font-size: 1.2rem;
+                        border-radius: 0.5rem;
+                        cursor: pointer;
+                        margin: 0 2rem;
+                        padding: 1rem;
+                    }
+                    button:hover {
+                        background-color: #a2a2a2;
+                    }
+                }
+            }
+        }
+        section.modalOptionBak {
+            display: none; // flex
+            width: 105rem; height: 87.5em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba( 0, 0, 0, 0.5 );
+            section.modalOption {
+                width: 48rem;
+                height: 66rem;
+                padding: 2rem 4rem;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: flex; flex-direction: column;
+                align-items: center;
+                background-color: white;
+                border-radius: 0.5rem;
+                .productTitle {
+                    width: 100%; height: 6%;
+                    display: flex; justify-content: center; align-items: center;
+                    font-size: 1.8rem;
+                }
+                .optionList {
+                    width: 90%; height: 84%;
+                    display: flex;
+                    flex-direction: column; justify-content: center;
+                    overflow-y: auto;
+                    &::-webkit-scrollbar { width: 0.2rem; }
+                    &::-webkit-scrollbar-thumb { background-color: gray; }
+                    &::-webkit-scrollbar-track { background-color: white; }
+                    h3 {
+                        width: 90%;
+                        font-size: 1.6rem; padding-left: 3rem;
+                    }
+                    ul {
+                        display: flex;
+                        flex-wrap: wrap;
+                        padding: 1rem;
+                        margin: 0 1rem 0.6rem;
+                        li {
+                            flex: 0 1 auto;
+                            /* The container */
+                            .container {
+                                display: block;
+                                position: relative;
+                                padding-left: 3.5rem;
+                                margin: 1.2rem;
+                                cursor: pointer;
+                                font-size: 1.2rem;
+                                -webkit-user-select: none;
+                                -moz-user-select: none;
+                                -ms-user-select: none;
+                                user-select: none;
+                            }
+
+                            /* Hide the browser's default checkbox */
+                            .container input {
+                                position: absolute;
+                                opacity: 0;
+                                cursor: pointer;
+                                height: 0;
+                                width: 0;
+                            }
+
+                            /* Create a custom checkbox */
+                            .checkmark {
+                                position: absolute;
+                                top: -0.3rem;
+                                left: 0;
+                                height: 2.5rem;
+                                width: 2.5rem;
+                                background-color: #eee;
+                            }
+
+                            /* On mouse-over, add a grey background color */
+                            .container:hover input ~ .checkmark {
+                                background-color: #ccc;
+                            }
+
+                            /* When the checkbox is checked, add a blue background */
+                            .container input:checked ~ .checkmark {
+                                background-color: #2196F3;
+                            }
+
+                            /* Create the checkmark/indicator (hidden when not checked) */
+                            .checkmark:after {
+                                content: "";
+                                position: absolute;
+                                display: none;
+                            }
+
+                            /* Show the checkmark when checked */
+                            .container input:checked ~ .checkmark:after {
+                                display: block;
+                            }
+
+                            /* Style the checkmark/indicator */
+                            .container .checkmark:after {
+                                left: 0.9rem;
+                                top: 0.5rem;
+                                width: 0.5rem;
+                                height: 1rem;
+                                border: solid white;
+                                border-width: 0 0.3rem 0.3rem 0;
+                                -webkit-transform: rotate(45deg);
+                                -ms-transform: rotate(45deg);
+                                transform: rotate(45deg);
+                            }
+                        }
+                    }
+                }
+                .modalBtnSet {
+                    width: 100%; height: 10%;
                     display: flex; justify-content: center; align-items: center;
                     button {
                         width: 10rem;

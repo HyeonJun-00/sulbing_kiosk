@@ -9,17 +9,22 @@ con.connect( err => {
 
 router.get ( `/`, ( req, res, next ) => {
     let sqlGetMenu= `select * from v_menu;`;
-    let sqlGetMenuInProduct= `select * from v_menu_in_product;`;
+    let sqlGetMenuInProduct= `select * from v_menu_in_product_admin;`;
     let sqlGetProduct= `select * from v_product_admin;`;
     let sqlGetProductOption= `select * from v_product_option;`;
+    let sqlGetOptionCmm= `select id, category, name, price, discount from product_option_cmm`;
 
-    con.query( sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption, ( err, result ) => {
+    con.query( sqlGetMenu + sqlGetMenuInProduct +
+            sqlGetProduct +
+            sqlGetProductOption +
+            sqlGetOptionCmm, ( err, result ) => {
         if( err ) throw err;
         res.render( `adminProduct`, {
             menu: result[0],
             menuInProduct: result[1],
             product: result[2],
-            productOption: result[3]
+            productOption: result[3],
+            productOptionCmm: result[4]
         });
     });
 });
@@ -32,11 +37,16 @@ router.post( `/update`, async ( req, res ) => {
     const discount= targetValue.discount != ''? targetValue.discount: 0;
     const stock= targetValue.stock != ''? targetValue.stock: 0;
     const description= targetValue.description != ''? '\'' + targetValue.description + '\'': null;
-    //const discription= targetValue.discription != ''? '\'' + targetValue.discription + '\'': null;
+    const allergy= targetValue.allergy != ''? '\'' + targetValue.allergy + '\'': null;
 
-    let sql= `update product set 
-                name= ${ name },
-               
+    let sql= `
+        update product set 
+            name= ${ name },
+            price= ${ price },
+            discount= ${ discount },
+            stock= ${ stock },
+            description= ${ description },
+            allergy= ${ allergy }
             where id= ${ id };`;
     console.log( sql );
     con.query( sql, ( err, result ) => {

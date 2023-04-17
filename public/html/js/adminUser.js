@@ -183,6 +183,7 @@
                             [...document.querySelectorAll(`.modifyMode input, .modifyMode select`)].forEach(v => {
                                 targetValue[v.getAttribute(`name`)] = v.value.trim();
                             });
+                            console.log( targetValue );
                             if( targetValue.tel.trim() == '' ) {
                                 modalCon( `연락처를 입력해주세요.`, false );
                                 return false;
