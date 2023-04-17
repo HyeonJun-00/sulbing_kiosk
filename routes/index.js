@@ -114,10 +114,17 @@ router.post(`/cart`, async (req, res, next) => {
                     sql = "";
                     for (let i = 0; i < cartItem.payment.length; i++) {
                         if (cartItem.payment[i].amount != 0) {
-                            sql += `
-                                INSERT INTO purchase_payment (id, purchase_id, payment_method_id, amount, discount, charge)
-                                VALUES (null, ${purchaseId}, ${cartItem.payment[i].id}, ${cartItem.payment[i].amount}, 0, 0);
-                            `
+                            if (resultPrice < cartItem.payment[i].amount) {
+                                 sql += `
+                                    INSERT INTO purchase_payment (id, purchase_id, payment_method_id, amount, discount, charge)
+                                    VALUES (null, ${purchaseId}, ${cartItem.payment[i].id}, ${resultPrice}, 0, 0);
+                                `
+                            } else {
+                                sql += `
+                                    INSERT INTO purchase_payment (id, purchase_id, payment_method_id, amount, discount, charge)
+                                    VALUES (null, ${purchaseId}, ${cartItem.payment[i].id}, ${cartItem.payment[i].amount}, 0, 0);
+                                `
+                            }
                         }
                     }
                     con.query(sql, async (err, result) => {
@@ -174,10 +181,17 @@ router.post(`/cart`, async (req, res, next) => {
                 sql = "";
                 for (let i = 0; i < cartItem.payment.length; i++) {
                     if (cartItem.payment[i].amount != 0) {
-                        sql += `
-                                INSERT INTO purchase_payment (id, purchase_id, payment_method_id, amount, discount, charge)
-                                VALUES (null, ${purchaseId}, ${cartItem.payment[i].id}, ${cartItem.payment[i].amount}, 0, 0);
-                            `
+                            if (resultPrice < cartItem.payment[i].amount) {
+                                 sql += `
+                                    INSERT INTO purchase_payment (id, purchase_id, payment_method_id, amount, discount, charge)
+                                    VALUES (null, ${purchaseId}, ${cartItem.payment[i].id}, ${resultPrice}, 0, 0);
+                                `
+                            } else {
+                                sql += `
+                                    INSERT INTO purchase_payment (id, purchase_id, payment_method_id, amount, discount, charge)
+                                    VALUES (null, ${purchaseId}, ${cartItem.payment[i].id}, ${cartItem.payment[i].amount}, 0, 0);
+                                `
+                            }
                     }
                 }
                 con.query(sql, async (err, result) => {

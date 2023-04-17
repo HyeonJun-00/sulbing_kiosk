@@ -272,11 +272,11 @@ $color-line: rgb(220, 220, 220);
 
                 &.new {
                     &::before {
-                        margin-left: -135rem;
-                        margin-top: -230.5rem;
+                        margin-left: -100rem;
+                        margin-top: -169.9rem;
                         position: absolute;
                         content: url(../images/new.png);
-                        zoom: 0.07;
+                        zoom: 0.09;
                     }
                 }
             }
