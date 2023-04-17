@@ -105,7 +105,7 @@
 
     [...document.querySelectorAll( `input[data-event-mode=option]` )].forEach( v => {
         v.onclick= e => {
-            let targetName= e.target.parentElement.parentElement
+            let targetName= e.target.parentElement.parentElement.qu
             //modalOptionCon( e.parentElement.parentElement );
             console.log( targetName );
         }

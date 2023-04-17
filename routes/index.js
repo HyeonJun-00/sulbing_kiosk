@@ -37,7 +37,7 @@ router.get(`/`, (req, res) => {
 
 router.post(`/getUserStamp`, async (req, res, next) => {
     let tel = await req.body.tel;
-    let sql = `select id, name, tel, stamp, join_date from user where tel= '${tel}';`;
+    let sql = `select id, name, tel, stamp, auth, join_date from user where tel= '${tel}';`;
     con.query(sql, (err, result) => {
         if (err) throw err;
         res.status(201).json(result);
