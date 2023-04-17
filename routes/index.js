@@ -62,16 +62,13 @@ router.post(`/cart`, async (req, res, next) => {
     try {
         let cartItem = await req.body.jsonData;
         let stamp = cartItem.stamp.save;
-        let resultPrice = 0;
+        let resultPrice = cartItem.totalAmount;
         let userId = null;
         let purchaseId = "";
         let sql = "";
         stamp -= cartItem.stamp.use ? 10 : 0;
         res.status(201).json(cartItem);
 
-        cartItem.payment.forEach(element => {
-            resultPrice += element.amount;
-        });
 
         if (await cartItem.tel) {
             sql = `    
@@ -216,6 +213,25 @@ router.post(`/cart`, async (req, res, next) => {
         console.error(err);
         next(err);
     }
+});
+
+
+router.post ( `/login`, async ( req, res ) => {
+    let pwGet = await req.body.pwValue;
+    let pwSql = `SELECT tel FROM user WHERE auth = 'S'`;
+    let flagPW = false;
+    con.query(pwSql, (err, result)=>{
+        if (err) throw err;
+        result.forEach((v)=>{
+            console.log(v.tel);
+            (v.tel == pwGet) && (flagPW = true)
+        });
+        if(flagPW != true) {
+            res.redirect('/admin_order');
+        } else {
+            res.redirect('/');
+        }
+    });
 });
 
 module.exports= router;

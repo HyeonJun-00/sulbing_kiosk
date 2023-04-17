@@ -58,7 +58,7 @@ html( lang="ko" )
                                         -if (menuInProduct[j].menu_id == menuIndex[pageNum - 1][lv2Index])
                                             - for (let k = 0; k < product.length; k++)
                                                 - if (menuInProduct[j].product_id == product[k].product_id)
-                                                    div.productItem(data-product-id = `${product[k].product_id}`, data-product-price = `${product[k].price}`, data-product-discount = `${product[k].discount}` class=`${product[k].isNew}`)
+                                                    div.productItem(data-product-id = `${product[k].product_id}`, data-product-price = `${product[k].price}`, data-product-discount = `${product[k].discount}` data-product-name = product[k].name class=`${product[k].isNew}`)
                                                         img(src=`images/${product[k].image_path}`, alt="")
                                                         p(data-product-id = `${product[k].product_id}`) #{product[k].name}
                                                             - if (product[k].stock <= 10 && product[k].stock > 0)
@@ -97,7 +97,7 @@ html( lang="ko" )
                                                                                 div
                                                                                     p #{productOptionArray[product[k].product_id][i][0]}
                                                                                     - for (let ac = 0; productOptionArray[product[k].product_id].length > ac + i && productOptionArray[product[k].product_id][i][0] == productOptionArray[product[k].product_id][i + ac][0]; ac++ )
-                                                                                        button.optionButton(data-option-id = `${productOptionArray[product[k].product_id][i + ac][4]}` data-option-price = `${productOptionArray[product[k].product_id][i + ac][2]}`, data-option-discount = `${productOptionArray[product[k].product_id][i + ac][3]}`) #{productOptionArray[product[k].product_id][i + ac][1]} #{productOptionArray[product[k].product_id][i + ac][2] - ((productOptionArray[product[k].product_id][i + ac][2]) / 100 * productOptionArray[product[k].product_id][i + ac][3]) }원
+                                                                                        button.optionButton(data-option-id = `${productOptionArray[product[k].product_id][i + ac][4]}` data-option-price = `${productOptionArray[product[k].product_id][i + ac][2]}`, data-option-discount = `${productOptionArray[product[k].product_id][i + ac][3]}`, data-option-name = `${productOptionArray[product[k].product_id][i + ac][1]}`) #{productOptionArray[product[k].product_id][i + ac][1]} #{productOptionArray[product[k].product_id][i + ac][2] - ((productOptionArray[product[k].product_id][i + ac][2]) / 100 * productOptionArray[product[k].product_id][i + ac][3]) }원
                                                                                     - productOptionCheck = productOptionArray[product[k].product_id][i][0]
                                                                     - else
                                                                             div.option_modal_basket
@@ -126,14 +126,14 @@ html( lang="ko" )
                         div
                             button.store_or_packaging.backgroundFlag 매장에서 
                             button.store_or_packaging 포장하기
-                        div 
+                        div.disabled
                             p
                             p 스푼 개수
                             span 
                                 button.spoon_number_minus -
                                 p 0
                                 button.spoon_number_plus +
-                        div
+                        div.disabled
                             p
                             p 드라이아이스
                             span 
@@ -245,15 +245,6 @@ html( lang="ko" )
                                 p 수량
                                 p 금액
                             span 
-                            div
-                                p 킹망고빙수
-                                p 13,900
-                                p 2
-                                p 27,800
-                            span 
-                            div#receipt_result_price
-                                p 판매금액
-                                p 27,800
             main.voucher_modal_background
                 div.voucher_modal
                     section 
