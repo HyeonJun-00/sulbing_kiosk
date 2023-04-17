@@ -17,7 +17,7 @@
         payment: [
             { id: 6, amount: 0, gifticon: [] }
         ],
-        totalAmount : 0,
+        totalAmount: 0,
         take_out: 0,
         remark: ''
     };
@@ -119,7 +119,7 @@
                 transferData.payment[0].gifticon.push({ id: res.data[0].id, price: res.data[0].save_amount - totalAmount < 0 ? 0 : res.data[0].save_amount - totalAmount });
                 console.log(transferData.payment[0].gifticon);
                 $("#gifticon_box").append(
-            `
+                    `
                 <div class="gifticon_element">
                     <button></button>
                     <p> ${res.data[0].name}</p>
@@ -218,6 +218,7 @@
                         } else {
                             transferData.payment.push({ id: 1, amount: totalAmount });
                         }
+                        if (transferData.take_out)
                         transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
                         const jsonData = transferData;
                         try {
@@ -225,7 +226,7 @@
                                 $("#card_terminal_modal_background").removeClass("displayFlag");
                                 $("#receipt_modal_background").addClass("displayFlag");
                                 let receiptStrig = "";
-                                
+
                                 for (let i = 0; i < transferData.item.length; i++) {
                                     receiptStrig += `
                                         <div>
@@ -236,14 +237,14 @@
                                         </div>
                                     `;
                                     for (let j = 0; j < transferData.item[i].option.length; j++) {
-                                     receiptStrig += `
+                                        receiptStrig += `
                                             <div>
                                                 <p style = "color:#666;">${transferData.item[i].option[j].name}</p>
                                                 <p>${putComma(transferData.item[i].option[j].price)}</p>
                                                 <p>${transferData.item[i].cnt}</p>
                                                 <p>${putComma(transferData.item[i].cnt * transferData.item[i].option[j].price)}</p>
                                             </div>
-                                        `;                                       
+                                        `;
                                     }
                                 }
                                 const nowDate = new Date();
@@ -304,6 +305,7 @@
                         } else {
                             transferData.payment.push({ id: $(this).index() + 2, amount: totalAmount });
                         }
+                        if (transferData.take_out)
                         transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
                         const jsonData = transferData;
                         try {
@@ -311,7 +313,7 @@
                                 $("#pay_terminal_modal_background").removeClass("displayFlag");
                                 $("#receipt_modal_background").addClass("displayFlag");
                                 let receiptStrig = "";
-                                
+
                                 for (let i = 0; i < transferData.item.length; i++) {
                                     receiptStrig += `
                                         <div>
@@ -322,14 +324,14 @@
                                         </div>
                                     `;
                                     for (let j = 0; j < transferData.item[i].option.length; j++) {
-                                     receiptStrig += `
+                                        receiptStrig += `
                                             <div>
                                                 <p style = "color:#666;">${transferData.item[i].option[j].name}</p>
                                                 <p>${putComma(transferData.item[i].option[j].price)}</p>
                                                 <p>${transferData.item[i].cnt}</p>
                                                 <p>${putComma(transferData.item[i].cnt * transferData.item[i].option[j].price)}</p>
                                             </div>
-                                        `;                                       
+                                        `;
                                     }
                                 }
                                 const nowDate = new Date();
@@ -434,7 +436,7 @@
             stockSet(thisStock);
             for (let i = 0; i < $(".optionButton").length; i++) {
                 if ($(".optionButton").eq(i).hasClass("backgroundFlag")) {
-                    optionId.push({id : $(".optionButton").eq(i).attr("data-option-id"), price : $(".optionButton").eq(i).attr("data-option-price"), discount : $(".optionButton").eq(i).attr("data-option-discount"), name : $(".optionButton").eq(i).attr("data-option-name") })
+                    optionId.push({ id: $(".optionButton").eq(i).attr("data-option-id"), price: $(".optionButton").eq(i).attr("data-option-price"), discount: $(".optionButton").eq(i).attr("data-option-discount"), name: $(".optionButton").eq(i).attr("data-option-name") })
                     optionString += `<p>${$(".optionButton").eq(i).html()}</p>`;
                 }
             }
@@ -463,7 +465,7 @@
                         </div>
                     </div>
             `);
-                transferData.item.push({ id: $(this).attr("data-product-id"), cnt: 1, option: optionId, price : $(this).attr("data-product-price"), discount : $(this).attr("data-product-discount"), name : $(this).attr("data-product-name") });
+                transferData.item.push({ id: $(this).attr("data-product-id"), cnt: 1, option: optionId, price: $(this).attr("data-product-price"), discount: $(this).attr("data-product-discount"), name: $(this).attr("data-product-name") });
                 $(".product_number_minus").off();
                 $(".product_number_plus").off();
                 $(".orderXButton").off();
@@ -655,6 +657,7 @@
         totalSet();
         $(".paying_modal_background").addClass("displayFlag");
         if (totalAmount == 0) {
+            if (transferData.take_out)
             transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
             const jsonData = transferData;
             try {
@@ -712,4 +715,3 @@
         $(".modal2WrapBox").removeClass("displayFlag");
     });
 })();
-
