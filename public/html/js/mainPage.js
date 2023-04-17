@@ -41,7 +41,6 @@
         $("#total_number").html(`총 수량(${totalCount})`);
         $("#total_amount").html(`${putComma(totalAmount)} 원`);
         $("#gifticon_price").html(`${putComma(totalAmount)}원`);
-        console.log(transferData);
     }
     const stockSet = checkID => {
         if (checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") < 6 && checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") > 0) {
@@ -80,7 +79,6 @@
     let menuBar1_num = 0;
     let menuBar2_num = 0;
     let productPrice = 0;
-    let userPhoneNumber = null;
 
     $("#reset_timer_modal_background").on("click", () => {
         $("#reset_time_modal").css("background", `conic-gradient(#f6d73d 0deg, rgba(245, 245, 245, 0) 0deg)`);
@@ -94,9 +92,9 @@
             const res = await axios.post(`/getUserStamp`, { tel });
             if (res.data.length > 0) {
                 $("#have_stamp").html(`${res.data[0].stamp}/10`);
+                console.log(res.data[0]);
                 (res.data[0].stamp >= 10) && ($("#stamp_use_button").addClass("displayFlag"), $("#stamp_use").html("5000원 할인"));
             }
-            userPhoneNumber = res.data[0].tel;
             $("#accumulate_stamp").html(`${transferData.stamp.save}개`);
         } catch (err) {
             console.error(err);
@@ -111,8 +109,6 @@
         try {
             const res = await axios.post(`/getGifticon`, { code });
 
-
-            console.log();
             if (!transferData.payment[0].gifticon.some(item => item.id == res.data[0].id)) {
                 transferData.payment[0].amount += res.data[0].save_amount;
                 transferData.payment[0].gifticon.push({ id: res.data[0].id, price: res.data[0].save_amount - totalAmount < 0 ? 0 : res.data[0].save_amount - totalAmount });
@@ -506,7 +502,7 @@
                     <div id = "point_deduction" class="option">
                         <p> 스탬프 차감 </p>
                         <p> </p>
-                        <p> -5000원 </p>
+                        <p> -5,000원 </p>
                     </div> `
         $(".point_modal_background").removeClass("displayFlag");
         if ($("#stamp_use_button").hasClass("displayFlag backgroundFlag") && $("#point_deduction").length == 0) {
