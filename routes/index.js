@@ -229,7 +229,7 @@ router.post ( `/login`, async ( req, res ) => {
             console.log(v.tel);
             (v.tel == pwGet) && (flagPW = true)
         });
-        if(flagPW == true) {
+        if(flagPW != true) {
             res.redirect('/admin_order');
         } else {
             res.redirect('/');
