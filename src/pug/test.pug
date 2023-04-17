@@ -1,0 +1,88 @@
+html( lang="ko" )
+    head
+        meta( charset="utf-8" )
+        link( rel="stylesheet", href="./css/mainPage.css" )
+        link( rel="preconnect" href="https://fonts.googleapis.com" )
+        link( rel="preconnect" href="https://fonts.gstatic.com" crossorigin )
+        link( href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" )
+        link(rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css")
+        script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
+    body
+        - let menuObjLv1= {}; // 메뉴 레벨 1 --> 출력
+            for item in menu
+                - menuObjLv1[item.lv1_id]= item.lv1_name;
+                - menuObjLv1[item.lv1_id]= item.lv1_name;
+            //- console.log( menuObjLv1 );
+        - let menuObjLv2= {}; // 메뉴 레벨 2 --> 출력
+            for item in menu
+                - ( !menuObjLv2[item.lv1_id] ) && ( menuObjLv2[item.lv1_id]= [] );
+                - menuObjLv2[item.lv1_id].push( { lv2_id: item.lv2_id, lv2_name: item.lv2_name } );
+            //- console.log( menuObjLv2 );
+        -let productOptionObj= {};
+            for item, key in productOption
+                - ( !productOptionObj[item.product_id] ) && ( productOptionObj[item.product_id]= {} );
+                - ( !productOptionObj[item.product_id][item.option_category] ) && ( productOptionObj[item.product_id][item.option_category]= [] );
+                - productOptionObj[item.product_id][item.option_category].push( item );
+            - console.log( productOptionObj );
+        - let productObj= {}; // 상품
+            for item, key in product
+                - productObj[item.product_id]= item;
+                    - productObj[item.product_id][`option`]= productOptionObj[item.product_id];
+            //- console.log( productObj );
+        - let menuInProductObj= {}; // 메뉴와 상품 매핑 --> 출력
+            for item in menuInProduct
+                - ( !menuInProductObj[item.menu_id] ) && ( menuInProductObj[item.menu_id]= [] );
+                - menuInProductObj[item.menu_id].push( item );
+            //- console.log( menuInProductObj );
+        section
+            .productDetail.modalFrame( style="background-color:pink; width: 100px; height: 100px;" )
+            ul.menuLv1
+                for item, key in menuObjLv1
+                    if key == 1
+                        li.active( data-lv1-id=`${ key }` )= item
+                    else
+                        li( data-lv1-id=`${ key }` )= item
+            for item, key in menuObjLv2
+                if key == 1
+                    ul.menuLv2.active
+                        li.active( data-lv2-pid=`${ key }_all` ) all
+                        for v in item
+                            li( data-lv2-pid=`${ key }`, data-lv2-id=`${ v.lv2_id }` )= v.lv2_name
+                else
+                    ul.menuLv2
+                        li( data-lv2-pid=`${ key }_all` ) all
+                        for v in item
+                            li( data-lv2-pid=`${ key }`, data-lv2-id=`${ v.lv2_id }` )= v.lv2_name
+            section
+                for item, key in menuInProductObj
+                    ul( data-menu-id=`${ key }` )
+                        for v, vk in item
+                            li( data-product-id=`${ v.product_id }`,
+                                data-isNew=`${ productObj[v.product_id].isNew }`,
+                                data-stock=`${ productObj[v.product_id].stock }` )
+                                span= productObj[v.product_id].name
+                                - let finalPrice= Number( productObj[v.product_id].price ) - ( ( Number( productObj[v.product_id].price ) / 100 ) * Number( productObj[v.product_id].discount ) );
+                                span( data-product-price=`${ finalPrice }` )= finalPrice
+                                .hiddenDetail
+                                    span( data-product-discription=`${ productObj[v.product_id].discription }` )
+                                    span( data-product-allergy=`${ productObj[v.product_id].allergy }` )
+                                unless !productObj[v.product_id].option
+                                    .hiddenOption
+                                        for oc, ok in productObj[v.product_id].option
+                                            ul( data-option-category=`${ ok }` )
+                                                for oo in productObj[v.product_id].option[ok]
+                                                    li( data-option-id=`${ oo.option_id }` )
+                                                        span( data-option-name=`${ oo.option_name }` )
+                                                        - let finalOptionPrice= Number( oo.option_price ) - ( ( Number( oo.option_price ) / 100 ) * Number( oo.option_discount ) );
+                                                        span( data-option-price=`${ finalOptionPrice }` )
+            form#getUserStamp
+                input( type="text", name="tel" )
+                input( type="submit", value="getStamp" )
+            form#mobileGifticon
+                input( type="text", name="code" )
+                input( type="submit", value="getGifticon" )
+            form#cartForm
+                input( type="text", name="jsonData" )
+                input( type="submit", value="cartJson" )
+        script( src="https://unpkg.com/axios/dist/axios.min.js")
+        script( src="./js/index.js" )
