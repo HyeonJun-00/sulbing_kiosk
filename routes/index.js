@@ -218,4 +218,23 @@ router.post(`/cart`, async (req, res, next) => {
     }
 });
 
+
+router.post ( `/login`, async ( req, res ) => {
+    let pwGet = await req.body.pwValue;
+    let pwSql = `SELECT tel FROM user WHERE auth = 'S'`;
+    let flagPW = false;
+    con.query(pwSql, (err, result)=>{
+        if (err) throw err;
+        result.forEach((v)=>{
+            console.log(v.tel);
+            (v.tel == pwGet) && (flagPW = true)
+        });
+        if(flagPW == true) {
+            res.redirect('/admin_order');
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+
 module.exports= router;
