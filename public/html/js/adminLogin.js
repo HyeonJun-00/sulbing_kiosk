@@ -6,4 +6,6 @@ $(document).ready( ()=>{
         console.log('aaa');
         $('#pwValue').val($('#pwValue').val().replace(/[^\d]/, ""));
     });
+
+
 });
