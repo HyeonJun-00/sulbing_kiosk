@@ -282,6 +282,8 @@ body {
                 }
                 .optionList {
                     width: 90%; height: 84%;
+                    display: flex;
+                    flex-direction: column; justify-content: center;
                     overflow-y: auto;
                     &::-webkit-scrollbar { width: 0.2rem; }
                     &::-webkit-scrollbar-thumb { background-color: gray; }

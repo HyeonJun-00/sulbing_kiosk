@@ -107,7 +107,7 @@ router.post( `/update`, async ( req, res ) => {
     const sex= ( targetValue.sex == '' )? null: '\'' + targetValue.sex + '\'';
     const birth_date= ( targetValue.birth_date == '' )? null: '\'' + targetValue.birth_date + '\'';
     const auth= ( targetValue.auth == '' )? null: '\'' + targetValue.auth + '\'';
-    const remark= ( targetValue.remark() == '' )? null: '\'' + targetValue.remark + '\'';
+    const remark= ( targetValue.remark == '' )? null: '\'' + targetValue.remark + '\'';
 
     let sql= `update user set 
                 name= ${ name },
