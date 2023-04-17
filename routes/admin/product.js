@@ -48,7 +48,6 @@ router.post( `/update`, async ( req, res ) => {
             description= ${ description },
             allergy= ${ allergy }
             where id= ${ id };`;
-    console.log( sql );
     con.query( sql, ( err, result ) => {
         if( err ) throw err;
         res.status( 201 ).json( result );
@@ -64,7 +63,16 @@ router.post( '/isActive', async ( req, res ) => {
     con.query( sql, ( err, result ) => {
         if( err ) throw err;
         res.status( 201 ).json( result );
-    })
+    });
+});
+
+router.post( `/optionUpdate`, async ( req, res ) => {
+    const sql= await req.body.sql;
+    con.query( sql, ( err, result ) => {
+        if( err ) throw err;
+        //res.status( 201 ).json( result );
+        res.redirect( `/admin_product` )
+    });
 });
 
 module.exports= router;

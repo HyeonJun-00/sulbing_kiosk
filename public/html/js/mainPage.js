@@ -220,9 +220,45 @@
                         const jsonData = transferData;
                         try {
                             if (await axios.post(`/cart`, { jsonData })) {
-                                setTimeout(() => {
-                                    location.reload()
-                                }, 500);
+                                $("#card_terminal_modal_background").removeClass("displayFlag");
+                                $("#receipt_modal_background").addClass("displayFlag");
+                                let receiptStrig = "";
+                                
+                                for (let i = 0; i < transferData.item.length; i++) {
+                                    receiptStrig += `
+                                        <div>
+                                            <p>${transferData.item[i].name}</p>
+                                            <p>${putComma(transferData.item[i].price)}</p>
+                                            <p>${transferData.item[i].cnt}</p>
+                                            <p>${putComma(transferData.item[i].cnt * transferData.item[i].price)}</p>
+                                        </div>
+                                    `;
+                                    for (let j = 0; j < transferData.item[i].option.length; j++) {
+                                     receiptStrig += `
+                                            <div>
+                                                <p style = "color:#666;">${transferData.item[i].option[j].name}</p>
+                                                <p>${putComma(transferData.item[i].option[j].price)}</p>
+                                                <p>${transferData.item[i].cnt}</p>
+                                                <p>${putComma(transferData.item[i].cnt * transferData.item[i].option[j].price)}</p>
+                                            </div>
+                                        `;                                       
+                                    }
+                                }
+                                const nowDate = new Date();
+                                receiptStrig += `
+                                        <span></span>
+                                        <div id="receipt_result_price">
+                                            <p>판매금액</p>
+                                            <p>${putComma(totalAmount)}</p>
+                                        </div>
+                                        <div id="order_number" style="margin-top: 1rem;">
+                                            <p>주문번호</p>
+                                            <p>${$(".main_page").attr("data-purchase-id")}</p>
+                                            <p>${transferData.take_out ? "포장" : "매장"}</p>
+                                        </div>
+                                `
+                                $("#receipt_modal article").append(receiptStrig);
+                                $(".receipt_date").html(`${nowDate.getFullYear()}-${String(nowDate.getMonth() + 1).padStart(2, '0')}-${String(nowDate.getDate()).padStart(2, '0')} ${String(nowDate.getHours()).padStart(2, '0')}:${String(nowDate.getMinutes()).padStart(2, '0')}`);
                             }
                         } catch (err) {
                             console.error(err);
@@ -269,9 +305,45 @@
                         const jsonData = transferData;
                         try {
                             if (await axios.post(`/cart`, { jsonData })) {
-                                setTimeout(() => {
-                                    location.reload()
-                                }, 500);
+                                $("#pay_terminal_modal_background").removeClass("displayFlag");
+                                $("#receipt_modal_background").addClass("displayFlag");
+                                let receiptStrig = "";
+                                
+                                for (let i = 0; i < transferData.item.length; i++) {
+                                    receiptStrig += `
+                                        <div>
+                                            <p>${transferData.item[i].name}</p>
+                                            <p>${putComma(transferData.item[i].price)}</p>
+                                            <p>${transferData.item[i].cnt}</p>
+                                            <p>${putComma(transferData.item[i].cnt * transferData.item[i].price)}</p>
+                                        </div>
+                                    `;
+                                    for (let j = 0; j < transferData.item[i].option.length; j++) {
+                                     receiptStrig += `
+                                            <div>
+                                                <p style = "color:#666;">${transferData.item[i].option[j].name}</p>
+                                                <p>${putComma(transferData.item[i].option[j].price)}</p>
+                                                <p>${transferData.item[i].cnt}</p>
+                                                <p>${putComma(transferData.item[i].cnt * transferData.item[i].option[j].price)}</p>
+                                            </div>
+                                        `;                                       
+                                    }
+                                }
+                                const nowDate = new Date();
+                                receiptStrig += `
+                                        <span></span>
+                                        <div id="receipt_result_price">
+                                            <p>판매금액</p>
+                                            <p>${putComma(totalAmount)}</p>
+                                        </div>
+                                        <div id="order_number" style="margin-top: 1rem;">
+                                            <p>주문번호</p>
+                                            <p>${$(".main_page").attr("data-purchase-id")}</p>
+                                            <p>${transferData.take_out ? "포장" : "매장"}</p>
+                                        </div>
+                                `
+                                $("#receipt_modal article").append(receiptStrig);
+                                $(".receipt_date").html(`${nowDate.getFullYear()}-${String(nowDate.getMonth() + 1).padStart(2, '0')}-${String(nowDate.getDate()).padStart(2, '0')} ${String(nowDate.getHours()).padStart(2, '0')}:${String(nowDate.getMinutes()).padStart(2, '0')}`);
                             }
                         } catch (err) {
                             console.error(err);
@@ -359,7 +431,7 @@
             stockSet(thisStock);
             for (let i = 0; i < $(".optionButton").length; i++) {
                 if ($(".optionButton").eq(i).hasClass("backgroundFlag")) {
-                    optionId.push({id : $(".optionButton").eq(i).attr("data-option-id"), price : $(".optionButton").eq(i).attr("data-option-price"), discount : $(".optionButton").eq(i).attr("data-option-discount") })
+                    optionId.push({id : $(".optionButton").eq(i).attr("data-option-id"), price : $(".optionButton").eq(i).attr("data-option-price"), discount : $(".optionButton").eq(i).attr("data-option-discount"), name : $(".optionButton").eq(i).attr("data-option-name") })
                     optionString += `<p>${$(".optionButton").eq(i).html()}</p>`;
                 }
             }
@@ -388,7 +460,7 @@
                         </div>
                     </div>
             `);
-                transferData.item.push({ id: $(this).attr("data-product-id"), cnt: 1, option: optionId, price : $(this).attr("data-product-price"), discount : $(this).attr("data-product-discount") });
+                transferData.item.push({ id: $(this).attr("data-product-id"), cnt: 1, option: optionId, price : $(this).attr("data-product-price"), discount : $(this).attr("data-product-discount"), name : $(this).attr("data-product-name") });
                 $(".product_number_minus").off();
                 $(".product_number_plus").off();
                 $(".orderXButton").off();
@@ -563,6 +635,9 @@
         $(".voucher_modal_background").removeClass("displayFlag")
         $(".gifticon_element").remove();
         totalSet();
+    });
+    $("#receipt_modal").on("click", () => {
+        location.reload();
     });
     $("#payment_button").on("click", () => {
         $(".paying_modal_background").addClass("displayFlag");
