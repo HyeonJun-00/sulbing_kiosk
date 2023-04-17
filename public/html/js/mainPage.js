@@ -8,7 +8,9 @@
         if (inputString == "") return "";
         return Number(String(inputString.replace(/[^0-9]/g, "")));
     };
+
     const putComma = inputString => Number(String(inputString).replace(/[^0-9]/g, '')).toLocaleString();
+
     const transferData = {
         tel: null,
         item: [
@@ -21,6 +23,7 @@
         take_out: 0,
         remark: ''
     };
+
     let totalAmount = 0;
     let menuBar1_num = 0;
     let menuBar2_num = 0;
@@ -29,6 +32,8 @@
     let cardTerminal = true;
     let payTerminalCheck = true;
     let payTerminal = true;
+    let endCheck = true;
+
     const totalSet = () => {
         let totalCount = 0;
         totalAmount = 0;
@@ -150,7 +155,6 @@
             console.error(err);
         }
     });
-    let endCheck = true;
     menuBar1.eq(0).addClass("backgroundFlag");
     menuBar2.eq(0).addClass("displayFlag");
     productListWrapBox.eq(0).addClass("displayFlag");
