@@ -59,10 +59,22 @@ html
                             .dataGraph
                                 .yearValue(id=`dataVal${index}` data-price=`${saleYears.totalPrice}`)
                                     span.nameTag #{saleYears.date}년<br>#{saleYears.totalPriceComma}
-                    section.displayBestSale
-                        ul
-                            for bestItems, index in bestItem
-                                li #{index + 1}위 #{bestItems.name} (#{bestItems.purchaseCnt})
+                    section.displayBestSales
+                        for bestItems, index in bestItem
+                            .dataGraph
+                                .itemValue(id=`dataVal${index}` data-price=`${bestItems.purchaseCnt}`)
+                                    span.nameTag #{bestItems.name}(#{bestItems.purchaseCnt})
+                    .axisInfo
+                        .axis
+                            span 100%
+                        .axis
+                            span 75%
+                        .axis
+                            span 50%
+                        .axis
+                            span 25%
+                        .axis
+                            span 0%
                     //section.postTable
                         ul.salesRowSet
                             li
