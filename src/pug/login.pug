@@ -1,0 +1,23 @@
+html( lang="ko" )
+    head
+        meta( charset="utf-8")
+        title 설빙 페이지
+        meta( http-equiv="Expires" content="-1")
+        link( rel="icon" type="image/png" href="./images/bingsoo_img/preview.png")
+        script( src="http://code.jquery.com/jquery-latest.min.js")
+        link( rel="stylesheet", href="./css/login.css" )
+        link( rel="preconnect" href="https://fonts.googleapis.com" )
+        link( rel="preconnect" href="https://fonts.gstatic.com" crossorigin )
+        link( href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet")
+        link( href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" )
+        link( rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css")
+        script( src="https://unpkg.com/axios/dist/axios.min.js")
+        script( src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
+    body
+    main.mainSection 
+        img(src="./images/bingsoo_img/설빙.jpg", alt="")
+        form(action="/index", method="get" id="indexForm") 
+            button(type="submit") 키오스크 페이지
+        form(action="/admin_order", method="get" id="adminForm") 
+            button(type="submit") 관리자 페이지
+        
