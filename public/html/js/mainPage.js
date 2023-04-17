@@ -92,8 +92,11 @@
             const res = await axios.post(`/getUserStamp`, { tel });
             if (res.data.length > 0) {
                 $("#have_stamp").html(`${res.data[0].stamp}/10`);
-                console.log(res.data[0]);
-                (res.data[0].stamp >= 10) && ($("#stamp_use_button").addClass("displayFlag"), $("#stamp_use").html("5000원 할인"));
+                if (res.data[0].auth != "G") {
+                    (res.data[0].stamp >= 10) && ($("#stamp_use_button").addClass("displayFlag"), $("#stamp_use").html("5000원 할인"));
+                } else {
+                    ($("#stamp_use").html("가입 후 사용가능"));
+                }
             }
             $("#accumulate_stamp").html(`${transferData.stamp.save}개`);
         } catch (err) {
@@ -114,7 +117,7 @@
                 transferData.payment[0].gifticon.push({ id: res.data[0].id, price: res.data[0].save_amount - totalAmount < 0 ? 0 : res.data[0].save_amount - totalAmount });
                 console.log(transferData.payment[0].gifticon);
                 $("#gifticon_box").append(
-                    `                                    
+            `
                 <div class="gifticon_element">
                     <button></button>
                     <p> ${res.data[0].name}</p>

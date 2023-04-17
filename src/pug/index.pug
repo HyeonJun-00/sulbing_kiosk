@@ -16,7 +16,7 @@ html( lang="ko" )
         script(src="https://kit.fontawesome.com/90abd907ab.js" crossorigin="anonymous")
     body
         //img(src="./images/temporary.jpg", alt="" class="temporary_img")
-        main.main_page
+        main.main_page(data-purchase-id = purchaseId[0]["max(id)"])
             section.logoBox
                 div
                     img(src="./images/sulbingLogo.png", alt="")
@@ -58,7 +58,7 @@ html( lang="ko" )
                                         -if (menuInProduct[j].menu_id == menuIndex[pageNum - 1][lv2Index])
                                             - for (let k = 0; k < product.length; k++)
                                                 - if (menuInProduct[j].product_id == product[k].product_id)
-                                                    div.productItem(data-product-id = `${product[k].product_id}`, data-product-price = `${product[k].price}`, data-product-discount = `${product[k].discount}`)
+                                                    div.productItem(data-product-id = `${product[k].product_id}`, data-product-price = `${product[k].price}`, data-product-discount = `${product[k].discount}` class=`${product[k].isNew}`)
                                                         img(src=`images/${product[k].image_path}`, alt="")
                                                         p(data-product-id = `${product[k].product_id}`) #{product[k].name}
                                                             - if (product[k].stock <= 10 && product[k].stock > 0)
@@ -230,6 +230,10 @@ html( lang="ko" )
                             div#pay_terminal_price
                                 p 
                         button 취소하기
+                main#receipt_modal_background
+                    section#receipt_modal
+                        article 
+                            div 상호: (주) 설빙 안산 라인점
             main.voucher_modal_background
                 div.voucher_modal
                     section 

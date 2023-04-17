@@ -15,14 +15,14 @@ html,
 body {
     font-size: 20px;
 }
-
+/*
 $color-mainH: rgb(46, 31, 26);
 $color-sub1: rgb(247, 244, 236);
 $color-sub2: rgb(127, 127, 127);
 $color-point: rgb(242, 218, 94);
 $color-sub2-font: rgb(94, 94, 94);
 $color-line: rgb(220, 220, 220);
-
+*/
 @mixin flexCenter {
     display: flex;
     justify-content: center;
@@ -43,7 +43,7 @@ $color-line: rgb(220, 220, 220);
     height: 96rem;
     left: 50%;
     transform: translate(-50%);
-    background: $color-mainH;
+    background: rgb(46, 31, 26);
 }
 
 .logoBox {
@@ -69,7 +69,7 @@ $color-line: rgb(220, 220, 220);
             font-size: .7rem;
             margin-left: 1.6rem;
             top: 7rem;
-            color: $color-sub1;
+            color: rgb(247, 244, 236);
             position: absolute;
             content: "KOREAN DESSERT CAFE";
         }
@@ -106,7 +106,7 @@ $color-line: rgb(220, 220, 220);
                 color: #fff;
             }*/
             &.backgroundFlag {
-                background-color: $color-mainH;
+            background-color: rgb(46, 31, 26);
                 color: #fff;
             }
         }
@@ -202,21 +202,25 @@ $color-line: rgb(220, 220, 220);
                     @include flexCenter();
                     color: #444;
                     width: 100%;
+
                     &:nth-child(2) {
                         font-size: 1.2rem;
                         position: relative;
+
                         &>span {
                             display: none;
-                                color: black;
-                                top: -13.8rem;
-                                left: 7.5rem;
-                                width: 6rem;
-                                height: 2rem;
-                                position: absolute;
-                                &.backgroundFlag {
-                                    @include flexCenter();
+                            color: black;
+                            top: -13.8rem;
+                            left: 7.5rem;
+                            width: 6rem;
+                            height: 2rem;
+                            position: absolute;
+
+                            &.backgroundFlag {
+                                @include flexCenter();
                                 color: #f35;
                             }
+
                             &.displayFlag {
                                 transform: rotate(31deg);
                                 font-weight: bold;
@@ -227,9 +231,10 @@ $color-line: rgb(220, 220, 220);
                                 z-index: 2;
 
                             }
+
                             &.sold_out {
                                 display: block;
-                                background-color: rgba(#555, 0.3) ;
+                                background-color: rgba(#555, 0.3);
                                 width: 12.3rem;
                                 height: 18.8rem;
                                 border-radius: 0.8rem;
@@ -237,12 +242,13 @@ $color-line: rgb(220, 220, 220);
                                 top: -14.1rem;
                                 width: 100%;
                                 left: 0;
+
                                 &::before {
                                     cursor: default;
                                     margin-top: -5rem;
                                     margin-left: -4.2rem;
                                     display: block;
-                                    content: url(../images/sold_out.png); 
+                                    content: url(../images/sold_out.png);
                                     transform: scale(51%);
                                 }
                             }
@@ -259,6 +265,16 @@ $color-line: rgb(220, 220, 220);
 
                 &>div:nth-child(n + 3) {
                     display: none;
+                }
+
+                &.new {
+                    &::before {
+                        margin-left: -135rem;
+                        margin-top: -230.5rem;
+                        position: absolute;
+                        content: url(../images/new.png);
+                        zoom: 0.07;
+                    }
                 }
             }
 
@@ -1198,31 +1214,33 @@ $color-line: rgb(220, 220, 220);
                 font-size: 1.7rem;
                 height: 4rem;
             }
+
             & #stamp_use {
                 right: 0;
                 position: relative;
                 width: 50%;
             }
+
             &>button {
-                    display: none;
-                    border-radius: 0.2rem;
-                    color: #fff;
-                    background-color: #777;
-                    border: 1px solid #333;
-                    margin-left: 1rem;
-                    padding: 0.5rem;
-                    font-size: 1.3rem;
+                display: none;
+                border-radius: 0.2rem;
+                color: #fff;
+                background-color: #777;
+                border: 1px solid #333;
+                margin-left: 1rem;
+                padding: 0.5rem;
+                font-size: 1.3rem;
 
-                    &.backgroundFlag {
-                        background-color: #f2da5e;
-                        color: #333;
-                        border: 1px solid #dbc555;
-                    }
-
-                    &.displayFlag {
-                        display: inline-block;
-                    }
+                &.backgroundFlag {
+                    background-color: #f2da5e;
+                    color: #333;
+                    border: 1px solid #dbc555;
                 }
+
+                &.displayFlag {
+                    display: inline-block;
+                }
+            }
 
             & p:nth-child(3n + 1) {
                 display: inline-block;
@@ -1270,6 +1288,8 @@ $color-line: rgb(220, 220, 220);
     height: 100%;
     position: absolute;
     display: none;
+        display: block;
+
     &.displayFlag {
         display: block;
     }
@@ -1369,6 +1389,7 @@ $color-line: rgb(220, 220, 220);
     height: 100%;
     position: absolute;
     display: none;
+
     &.displayFlag {
         display: block;
     }
@@ -1398,7 +1419,8 @@ $color-line: rgb(220, 220, 220);
                 font-size: 2.5rem;
                 content: "기프티콘";
             }
-            & > div {
+
+            &>div {
                 position: absolute;
                 font-size: 3rem;
                 transform: translate(-50%, 0);
@@ -1703,6 +1725,7 @@ $color-line: rgb(220, 220, 220);
         justify-content: space-around;
         flex-direction: column;
         transform-style: preserve-3d;
+
         &>div {
             margin-top: 41.8rem;
             margin-left: -30.2rem;
@@ -1711,7 +1734,8 @@ $color-line: rgb(220, 220, 220);
             width: 9.5rem;
             height: 13rem;
             overflow: hidden;
-            & > img {
+
+            &>img {
                 width: 100%;
                 height: 100%;
                 border-radius: 0.7rem;
@@ -1720,23 +1744,26 @@ $color-line: rgb(220, 220, 220);
                 animation-duration: 3s;
                 animation-fill-mode: forwards;
             }
+
             @keyframes identifier {
                 100% {
                     margin-top: -100%;
                 }
-                
+
             }
         }
 
     }
-    & > div:nth-child(3) {
+
+    &>div:nth-child(3) {
         margin-top: 11rem;
         position: absolute;
         transform-style: preserve-3d;
         height: 4.7rem;
         width: 10.2rem;
         perspective: 90rem;
-        & >div {
+
+        &>div {
             @include flexCenter();
             border-radius: 0.5rem;
             width: 100%;
@@ -1744,15 +1771,18 @@ $color-line: rgb(220, 220, 220);
             background-color: #444;
             color: #444;
             transform: skew(190.2deg, 4.36deg) rotateY(319deg) rotateX(28.5deg) translateZ(1rem) translateX(-1rem) rotateZ(-4deg);
+
             &.backgroundFlag {
                 background-color: #80b21d;
             }
-            & > p {
+
+            &>p {
                 @include flexCenter();
                 font-size: 1rem;
             }
         }
     }
+
     & button {
         position: relative;
         background-color: #fff;
@@ -1764,6 +1794,7 @@ $color-line: rgb(220, 220, 220);
         height: 4rem;
     }
 }
+
 #pay_terminal_modal_background {
     top: 0;
     z-index: 99999999;
@@ -1813,6 +1844,7 @@ $color-line: rgb(220, 220, 220);
         justify-content: space-around;
         flex-direction: column;
         transform-style: preserve-3d;
+
         &>div {
             margin-top: 41.8rem;
             margin-left: -30.2rem;
@@ -1821,7 +1853,8 @@ $color-line: rgb(220, 220, 220);
             width: 9.5rem;
             height: 13rem;
             overflow: hidden;
-            & > img {
+
+            &>img {
                 width: 100%;
                 height: 100%;
                 border-radius: 0.7rem;
@@ -1830,28 +1863,32 @@ $color-line: rgb(220, 220, 220);
                 animation-duration: 2s;
                 animation-fill-mode: forwards;
             }
+
             @keyframes identifier2 {
                 0% {
                     margin-top: 30%;
                     margin-left: 5%;
                 }
+
                 100% {
                     margin-top: 0%;
                     margin-left: 0%;
                 }
-                
+
             }
         }
 
     }
-    & > div:nth-child(3) {
+
+    &>div:nth-child(3) {
         margin-top: 11rem;
         position: absolute;
         transform-style: preserve-3d;
         height: 4.7rem;
         width: 10.2rem;
         perspective: 90rem;
-        & >div {
+
+        &>div {
             @include flexCenter();
             border-radius: 0.5rem;
             width: 100%;
@@ -1859,15 +1896,18 @@ $color-line: rgb(220, 220, 220);
             background-color: #444;
             color: #444;
             transform: skew(190.2deg, 4.36deg) rotateY(319deg) rotateX(28.5deg) translateZ(1rem) translateX(-1rem) rotateZ(-4deg);
+
             &.backgroundFlag {
                 background-color: #80b21d;
             }
-            & > p {
+
+            &>p {
                 @include flexCenter();
                 font-size: 1rem;
             }
         }
     }
+
     & button {
         position: relative;
         background-color: #fff;
@@ -1877,5 +1917,46 @@ $color-line: rgb(220, 220, 220);
         border-radius: 0.5rem;
         width: 8rem;
         height: 4rem;
+    }
+}
+#receipt_modal_background {
+    top: 0;
+    z-index: 99999999;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(#000, 0.4);
+    display: none;
+        display: block;
+
+    &.displayFlag {
+        display: block;
+    }
+}
+#receipt_modal {
+    top: 10.5rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+    border-radius: .2rem;
+    width: 45rem;
+    height: 75rem;
+    background-color: #f1f0e7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &::before {
+        @include flexCenter();
+        height: 8rem;
+        color: #000000;
+        font-size: 2.5rem;
+        content: "영수증";
+    }
+    & > article {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        background-color: #80b21d;
     }
 }
