@@ -134,19 +134,34 @@
                     [...document.querySelectorAll( `.optionList [data-modal-option-id]` )].forEach( vOp => {
                         if( vOp.querySelector( `[type=checkbox]` ).checked ) {
                             sql+= `insert into product_option ( product_id, product_option_cmm_id )
-                                    values ( ${ tId }, ${ vOp.getAttribute( 'data-modal-option-id' ) } )
-                                    on duplicate key
-                                        update product_id= ${ tId }, product_option_cmm_id= ${ vOp.getAttribute( 'data-modal-option-id' ) };`;
+                                    select ${ tId }, ${ vOp.getAttribute( 'data-modal-option-id' ) } from dual
+                                    where not exists 
+                                        ( select id from product_option where
+                                            product_id= ${ tId } and
+                                            product_option_cmm_id= ${ vOp.getAttribute( 'data-modal-option-id' ) });`;
                         } else {
                             sql+= `delete from product_option
                                     where product_id= ${ tId } and
                                             product_option_cmm_id= ${ vOp.getAttribute( 'data-modal-option-id' ) };`;
                         }
                     });
-                    console.log( sql);
-                    if( await axios.post( `/admin_product/optionUpdate`, { sql } ) ) {
-                        alert( `ok` );
-                    }
+                    const res= await axios.post( `/admin_product/optionUpdate`, { sql, tId } );
+                    let targetElm= document.querySelector( `.productReadRow [name=id][value="${ tId }"]` ).parentElement.parentElement.querySelector( `.hiddenOption` );
+                    let optionObj= {};
+                    let tempHtml= ``;
+                    res.data.targetOption.forEach( v => {
+                        ( !optionObj[v.category] ) && ( optionObj[v.category]= [] );
+                        optionObj[v.category].push( { id: v.option_id, name: v.name } );
+                    });
+                    for( let v in optionObj ) {
+                        tempHtml+= `<ul data-option-category="${ v }">`
+                        for( let vV in optionObj[v] ) {
+                            tempHtml+= `<li data-option-id="${ optionObj[v][vV].id }"><span data-option-name="${ optionObj[v][vV].name }"></span></li>`;
+                            console.log( optionObj[v][vV] );
+                        }
+                        tempHtml+= `</ul>`
+                    };
+                    targetElm.innerHTML= tempHtml;
                 }
             }
         });

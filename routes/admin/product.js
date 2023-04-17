@@ -68,10 +68,16 @@ router.post( '/isActive', async ( req, res ) => {
 
 router.post( `/optionUpdate`, async ( req, res ) => {
     const sql= await req.body.sql;
-    con.query( sql, ( err, result ) => {
+    const tId= await req.body.tId;
+    const sqlGetOption= `
+            select product_id, product_option_cmm_id option_id,
+                   name, category, price
+            from product_option A
+                join product_option_cmm B on A.product_option_cmm_id = B.id
+                where product_id= ${ tId };`;
+    con.query( sql + sqlGetOption, ( err, result ) => {
         if( err ) throw err;
-        //res.status( 201 ).json( result );
-        res.redirect( `/admin_product` )
+        res.status( 201 ).json( { targetOption: result[result.length-1] } );
     });
 });
 

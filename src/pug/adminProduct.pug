@@ -109,7 +109,6 @@ html
                             ul.productReadRowSet
                                 - let idxNo= 1;
                                 each item, key in product
-                                    //ul( data-menu-id=`${key}` )
                                     li.productReadRow
                                         form
                                             ul.productColSet( data-use=`${item.deleted_date == null ?'active': 'inactive'}`, data-stock=`${item.stock != 0 ?'': 'soldout'}` )
@@ -146,8 +145,8 @@ html
                                                                 for oo in item.option[ok]
                                                                     li( data-option-id=`${oo.option_id}` )
                                                                         span( data-option-name=`${oo.option_name}` )
-                                                                        - let finalOptionPrice= Number( oo.option_price ) - ( ( Number( oo.option_price ) / 100 ) * Number( oo.option_discount ) );
-                                                                        span( data-option-price=`${finalOptionPrice}` )
+                                                                        //- let finalOptionPrice= Number( oo.option_price ) - ( ( Number( oo.option_price ) / 100 ) * Number( oo.option_discount ) );
+                                                                        //span( data-option-price=`${finalOptionPrice}` )
                                 else
                                     li.emptyRow 게시물이 존재하지 않습니다.
                         //section.tablePaging
@@ -165,8 +164,8 @@ html
                                 p.productTitle 상품명
                                 section.optionList
                                     each item, key in productOptionCmmObj
-                                        h3= key
-                                        ul
+                                        ul.optionUl
+                                            h3.categoryTitle= key
                                             each op in item
                                                 li( data-modal-option-id=`${ op.id }` )
                                                     label.container= op.name
