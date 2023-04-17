@@ -63,6 +63,7 @@ body {
         position: relative;
         section.searchBox { width: 100%; height: 2rem;
             display: flex; justify-content: flex-end; align-items: center;
+            &.salesBtnSet { height: 7rem; }
             label {}
             input.searchInput { border: 0.01rem solid #ddd; margin: 0 0.6rem; height: 2rem; }
             i { cursor: pointer; background-color: white; }
