@@ -62,16 +62,13 @@ router.post(`/cart`, async (req, res, next) => {
     try {
         let cartItem = await req.body.jsonData;
         let stamp = cartItem.stamp.save;
-        let resultPrice = 0;
+        let resultPrice = cartItem.totalAmount;
         let userId = null;
         let purchaseId = "";
         let sql = "";
         stamp -= cartItem.stamp.use ? 10 : 0;
         res.status(201).json(cartItem);
 
-        cartItem.payment.forEach(element => {
-            resultPrice += element.amount;
-        });
 
         if (await cartItem.tel) {
             sql = `    
