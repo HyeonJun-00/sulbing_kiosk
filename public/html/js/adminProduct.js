@@ -132,14 +132,21 @@
                 if( e.target.getAttribute(`data-modal-option` ) ) {
                     let sql= ``;
                     [...document.querySelectorAll( `.optionList [data-modal-option-id]` )].forEach( vOp => {
-                        if( vOp.querySelector( `[type=checkbox]` ) ) {
-                            sql= `insert into product_option ( product_id, product_option_cmm_id )
-                                    values ( ${ tId }, ${ v.getAttribute( 'data-modal-option-id' ) } )
+                        if( vOp.querySelector( `[type=checkbox]` ).checked ) {
+                            sql+= `insert into product_option ( product_id, product_option_cmm_id )
+                                    values ( ${ tId }, ${ vOp.getAttribute( 'data-modal-option-id' ) } )
                                     on duplicate key
-                                        update product_id= ${ tId }, product_option_cmm_id= ${ v.getAttribute( 'data-modal-option-id' ) };`;
+                                        update product_id= ${ tId }, product_option_cmm_id= ${ vOp.getAttribute( 'data-modal-option-id' ) };`;
                         } else {
+                            sql+= `delete from product_option
+                                    where product_id= ${ tId } and
+                                            product_option_cmm_id= ${ vOp.getAttribute( 'data-modal-option-id' ) };`;
                         }
                     });
+                    console.log( sql);
+                    if( await axios.post( `/admin_product/optionUpdate`, { sql } ) ) {
+                        alert( `ok` );
+                    }
                 }
             }
         });
@@ -157,8 +164,6 @@
             v.onclick= async e => {
                 document.querySelector(`#modalConfirmBak`).style.display = `none`;
                 if( e.target.getAttribute(`data-modal-confirm`) ) {
-                    //let modeClassArr= { wait: `orderWait`, complete: ``, refund: `orderRefund` };
-                    //let modeTextArr= { wait: `대기`, complete: `완료`, refund: `환불` };
                     switch ( qMode ) {
                         case `active`:
                         case `inactive`:
