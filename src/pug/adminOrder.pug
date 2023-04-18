@@ -71,7 +71,7 @@ html
                             each pP in paymentPost
                                 - ( !payPostObj[pP.id] ) && ( payPostObj[pP.id]= [] );
                                 - payPostObj[pP.id].push( pP );
-                            - console.log( paymentPost );
+                            //- console.log( paymentPost );
                             each item, i in readPost
                                 li.orderReadRow
                                     form.orderSetForm
@@ -130,7 +130,7 @@ html
                     section.tablePaging
                         - let pageCnt= ( ( orderTotCnt[0].cnt / 20 ) < 1 )? 1 : ( orderTotCnt[0].cnt / 20 );
                         - for( let i= 0; i < pageCnt; i++ )
-                            a( data-page-idx=`${i}`, data-page=`${i == nowPage}` )= i + 1
+                            a( data-page-idx=`${ i }`, data-page=`${ i == nowPage }` )= i + 1
                     section.modalConfirmBak#modalConfirmBak
                         section.modalConfirm
                             p 수정하시겠습니까
