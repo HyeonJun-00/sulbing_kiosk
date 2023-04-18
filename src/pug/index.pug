@@ -5,6 +5,8 @@ html( lang="ko" )
         meta(http-equiv="Expires" content="-1")
         link(rel="icon" type="image/png" href="./images/bingsoo_img/preview.png")
         script(src="http://code.jquery.com/jquery-latest.min.js")
+        script(src="https://printjs-4de6.kxcdn.com/print.min.js")
+        link( rel="stylesheet", href="https://printjs-4de6.kxcdn.com/print.min.css" )
         link( rel="stylesheet", href="./css/mainPage.css" )
         link( rel="stylesheet", href="./css/optionmodal.css")
         link( rel="preconnect" href="https://fonts.googleapis.com" )
@@ -130,16 +132,20 @@ html( lang="ko" )
                             p
                             p 스푼 개수
                             span 
-                                button.spoon_number_minus -
+                                button.spoon_number_minus
+                                    i.xi-minus-min
                                 p 0
-                                button.spoon_number_plus +
+                                button.spoon_number_plus
+                                    i.xi-plus-min
                         div.disabled
                             p
                             p 드라이아이스
                             span 
-                                button.dryice_number_minus -
+                                button.dryice_number_minus 
+                                    i.xi-minus-min
                                 p 0
-                                button.dryice_number_plus +
+                                button.dryice_number_plus 
+                                    i.xi-plus-min
                     section 
                         div.payment_modal_order_box
                             div.option
@@ -164,7 +170,7 @@ html( lang="ko" )
             main.point_modal_background
                 div.point_modal
                     section 
-                        button.point_modal_x_button
+                        button: i.xi-error-o
                     section 
                         div
                             p#point_input_box
@@ -188,6 +194,26 @@ html( lang="ko" )
                         div
                             button.point_modal_x_button 취소
                             button.point_modal_o_button 적립하기
+                main.tel_modal_background
+                    div.tel_modal
+                        section 
+                            button &#x2715;
+                            div
+                                p 이 문서는 사용자 데이터베이스에 있는 정보입니다.
+                                p 쉽게 사용할 수 있도록 제공됩니다.
+                                p 사용하고자 하는 번호를 클릭하거나 직접 입력하여 사용하실 수 있습니다.
+                        section 
+                            article 
+                                p 회원등급
+                                p tel
+                                p stamp
+                            article.tel_save
+                                - for (let i = 0; i < stamp.length; i++)
+                                    button 
+                                        - let user = stamp[i].auth == "G" ? "비회원" : "회원";
+                                        p #{user}
+                                        p #{stamp[i].tel}
+                                        p #{stamp[i].stamp}
             main.paying_modal_background
                 div.paying_modal
                     section 
@@ -245,10 +271,14 @@ html( lang="ko" )
                                 p 수량
                                 p 금액
                             span 
+                        article 
+                            button 인쇄하기
+                            button 완료
             main.voucher_modal_background
                 div.voucher_modal
                     section 
                         div#gifticon_price 
+                        button: i.xi-error-o
                     section 
                         button QR코드/바코드 스캔
                     section 
@@ -268,9 +298,27 @@ html( lang="ko" )
                     section
                         button 취소
                         button 적용하기
+                main.gifticon_modal_background
+                    div.gifticon_modal
+                        section 
+                            button &#x2715;
+                            div
+                                p 이 문서는 사용자 데이터베이스에 있는 정보입니다.
+                                p 쉽게 사용할 수 있도록 제공됩니다.
+                                p 사용하고자 하는 번호를 클릭하거나 직접 입력하여 사용하실 수 있습니다.
+                        section 
+                            article 
+                                p 상품권명
+                                p 핀 번호
+                                p 남은잔액
+                            article.gifticon_save
+                                - for (let i = 0; i < gifticon.length; i++)
+                                    button 
+                                        p #{gifticon[i].name}
+                                        p #{gifticon[i].code}
+                                        p #{gifticon[i].save_amount}
             main#reset_timer_modal_background
                 section#reset_time_modal 
                 section#reset_time_guide 60초 후 시작화면으로 돌아갑니다.
-
-
+        div(id="container" style="width: 100%; height: 100%;")
         script(src="./js/mainPage.js")

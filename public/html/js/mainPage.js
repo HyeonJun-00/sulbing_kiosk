@@ -86,9 +86,18 @@
         loadTimeValue++;
         setTimeout(loadTime, 1000);
     }
-    $("html").on("click", () => {
+    $("html").on("click", event => {
         (loadTimeValue == 0) && (loadTime());
         loadTimeValue = 1;
+        var circle = $('<div class="circle"></div>');
+        $('body').append(circle);
+        circle.css({
+            left: event.clientX - 10 + 'px',
+            top: event.clientY - 10 + 'px',
+        });
+        setTimeout(() => {
+            circle.remove();
+        }, 500);
     });
 
 
@@ -102,9 +111,10 @@
             transferData.tel = tel;
             const res = await axios.post(`/getUserStamp`, { tel });
             if (res.data.length > 0) {
-                $("#have_stamp").html(`${res.data[0].stamp}/10`);
+                $("#have_stamp").html(`${res.data[0].stamp > 0 ? res.data[0].stamp : 0 }/10`);
                 if (res.data[0].auth != "G") {
-                    (res.data[0].stamp >= 10) && ($("#stamp_use_button").addClass("displayFlag"), $("#stamp_use").html("5000원 할인"));
+                    ((res.data[0].stamp >= 10) && ($("#stamp_use_button").addClass("displayFlag"), $("#stamp_use").html("5000원 할인")))
+                    || $("#stamp_use_button").removeClass("displayFlag");
                 } else {
                     ($("#stamp_use").html("가입 후 사용가능"));
                 }
@@ -264,7 +274,7 @@
                                             <p>${transferData.take_out ? "포장" : "매장"}</p>
                                         </div>
                                 `
-                                $("#receipt_modal article").append(receiptStrig);
+                                $("#receipt_modal article:first-child").append(receiptStrig);
                                 $(".receipt_date").html(`${nowDate.getFullYear()}-${String(nowDate.getMonth() + 1).padStart(2, '0')}-${String(nowDate.getDate()).padStart(2, '0')} ${String(nowDate.getHours()).padStart(2, '0')}:${String(nowDate.getMinutes()).padStart(2, '0')}`);
                             }
                         } catch (err) {
@@ -577,7 +587,7 @@
     const pointModalReset = () => {
         $(".point_modal_background").removeClass("displayFlag")
         $("#point_input_box").html("");
-        $("#have_stamp").html(`/10`);
+        $("#have_stamp").html(`0/10`);
         $("#accumulate_stamp").html(`개`);
         $("#stamp_use_button").removeClass("displayFlag");
         $("#stamp_use_button").removeClass("backgroundFlag");
@@ -654,9 +664,40 @@
         $(".gifticon_element").remove();
         totalSet();
     });
-    $("#receipt_modal").on("click", () => {
-        location.reload();
+    let receiptModal = () => {
+        $("#receipt_modal button:nth-child(1)").on("click", () => {
+            $("#receipt_modal button").remove();
+            printJS({ printable: 'receipt_modal', type: 'html', css: ['../css/mainPage.css'], scanStyles: false });
+            $("#receipt_modal").append("<article><button>인쇄하기</button><button>완료</button></article>");
+            receiptModal();
+        });
+        $("#receipt_modal button:nth-child(2)").off();
+        $("#receipt_modal button:nth-child(2)").on("click", () => {
+            location.reload();
+        });
+    }
+    $(".voucher_modal section:nth-child(1) > button").on("click", () => {
+        $(".gifticon_modal_background").addClass("displayFlag");
     });
+    $(".point_modal section:nth-child(1) > button").on("click", () => {
+        $(".tel_modal_background").addClass("displayFlag");
+    });
+    $(".tel_modal section:nth-child(1) > button").on("click", () => {
+        $(".tel_modal_background").removeClass("displayFlag");
+    });
+    $(".tel_save > button").on("click", function() {
+        $("#point_input_box").html($(this).children().eq(1).html());
+        $(".tel_modal_background").removeClass("displayFlag");
+    });
+    $(".gifticon_modal section:nth-child(1) > button").on("click", () => {
+        $(".gifticon_modal_background").removeClass("displayFlag");
+    });
+    $(".gifticon_save > button").on("click", function() {
+        $(".inquiry_input_box").val($(this).children().eq(1).html());
+        $(".gifticon_modal_background").removeClass("displayFlag");
+    });
+    receiptModal();
+
     $("#payment_button").on("click", async () => {
         totalSet();
         $(".paying_modal_background").addClass("displayFlag");

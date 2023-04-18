@@ -15,11 +15,12 @@ router.get(`/index`, (req, res) => {
     let sqlGetProduct = `select * from v_product;`;
     let sqlGetProductOption = `select * from v_product_option;`;
     let sqlPurchaseId = `select max(id) from purchase;`;
+    let sqlTel = `select tel, stamp, auth from user;`;
+    let sqlGifticon = `select name, code, save_amount from gifticon_info;`;
 
-    con.query(sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption + sqlPurchaseId, (err, result) => {
+    con.query(sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption + sqlPurchaseId + sqlTel + sqlGifticon, (err, result) => {
         if (err) throw err;
         let productOptionArray = [];
-
 
         for (let i = 0; i < result[2].length; i++) {
             productOptionArray[result[2][i].product_id] = [];
@@ -35,7 +36,9 @@ router.get(`/index`, (req, res) => {
             product: result[2],
             productOption: result[3],
             productOptionArray: productOptionArray,
-            purchaseId : result[4]
+            purchaseId : result[4],
+            stamp : result[5],
+            gifticon : result[6]
         });
     });
 });
