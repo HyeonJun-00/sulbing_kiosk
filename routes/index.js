@@ -229,7 +229,7 @@ router.post(`/cart`, async (req, res, next) => {
     }
 });
 
-
+/*
 router.post ( `/login`, async ( req, res ) => {
     let pwGet = await req.body.pwValue;
     let pwSql = `SELECT tel FROM user WHERE auth = 'S'`;
@@ -247,5 +247,5 @@ router.post ( `/login`, async ( req, res ) => {
         }
     });
 });
-
+*/
 module.exports= router;

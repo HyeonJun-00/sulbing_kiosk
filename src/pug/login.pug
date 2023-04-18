@@ -19,12 +19,7 @@ html( lang="ko" )
         img(src="./images/bingsoo_img/설빙.jpg", alt="")
         form(action="/index", method="get" id="indexForm") 
             button(type="submit") 키오스크 페이지
-        #adminForm
+        //#adminForm
+        form(action="/admin_order", method="get" id="adminForm")
             button(type="submit") 관리자 페이지
-    section.modalConfirmBak#modalConfirmBak
-        section.modalConfirm
-            p 비밀번호를 입력하세요.
-            .modalBtnSet
-                form(action="/login" method="POST")
-                    input(type="text" name="pwValue" id="pwValue" maxlength=12)
-                    button.modalBtn( data-modal-confirm=false ) SUBMIT
+
