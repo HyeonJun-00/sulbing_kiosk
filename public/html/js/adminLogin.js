@@ -1,3 +1,4 @@
+/*
 $(document).ready( ()=>{
     $('#adminForm > button').on('click', async ()=>{
         $('.modalConfirmBak').css('display', 'block');
@@ -8,4 +9,4 @@ $(document).ready( ()=>{
     });
 
 
-});
+});*/
