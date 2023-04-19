@@ -89,15 +89,6 @@
     $("html").on("click", event => {
         (loadTimeValue == 0) && (loadTime());
         loadTimeValue = 1;
-        var circle = $('<div class="circle"></div>');
-        $('body').append(circle);
-        circle.css({
-            left: event.clientX - 10 + 'px',
-            top: event.clientY - 10 + 'px',
-        });
-        setTimeout(() => {
-            circle.remove();
-        }, 500);
     });
 
 
@@ -106,7 +97,7 @@
         $("#reset_timer_modal_background").removeClass("displayFlag");
     });
     $("#point_lookup_button").on("click", async () => {
-        const tel = $(`#point_input_box`).html();
+        const tel = $(`#point_input_box`).html() == "" ? null : $(`#point_input_box`).html();
         try {
             transferData.tel = tel;
             const res = await axios.post(`/getUserStamp`, { tel });
@@ -361,7 +352,7 @@
                                             <p>${transferData.take_out ? "포장" : "매장"}</p>
                                         </div>
                                 `
-                                $("#receipt_modal article").append(receiptStrig);
+                                $("#receipt_modal article:first-child").append(receiptStrig);
                                 $(".receipt_date").html(`${nowDate.getFullYear()}-${String(nowDate.getMonth() + 1).padStart(2, '0')}-${String(nowDate.getDate()).padStart(2, '0')} ${String(nowDate.getHours()).padStart(2, '0')}:${String(nowDate.getMinutes()).padStart(2, '0')}`);
                             }
                         } catch (err) {
@@ -679,19 +670,13 @@
     $(".voucher_modal section:nth-child(1) > button").on("click", () => {
         $(".gifticon_modal_background").addClass("displayFlag");
     });
-    $(".point_modal section:nth-child(1) > button").on("click", () => {
-        $(".tel_modal_background").addClass("displayFlag");
-    });
-    $(".tel_modal section:nth-child(1) > button").on("click", () => {
-        $(".tel_modal_background").removeClass("displayFlag");
-    });
+    $(".point_modal section:nth-child(1) > button").on("click", () => $(".tel_modal_background").addClass("displayFlag"));
+    $(".tel_modal section:nth-child(1) > button").on("click", () => $(".tel_modal_background").removeClass("displayFlag"));
     $(".tel_save > button").on("click", function() {
         $("#point_input_box").html($(this).children().eq(1).html());
         $(".tel_modal_background").removeClass("displayFlag");
     });
-    $(".gifticon_modal section:nth-child(1) > button").on("click", () => {
-        $(".gifticon_modal_background").removeClass("displayFlag");
-    });
+    $(".gifticon_modal section:nth-child(1) > button").on("click", () => $(".gifticon_modal_background").removeClass("displayFlag"));
     $(".gifticon_save > button").on("click", function() {
         $(".inquiry_input_box").val($(this).children().eq(1).html());
         $(".gifticon_modal_background").removeClass("displayFlag");
