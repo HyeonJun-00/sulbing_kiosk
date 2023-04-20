@@ -40,39 +40,40 @@ html
                             button
                                 i.xi-search
                             i.xi-refresh( onclick="location.reload();" )
-                    section.displayMonthlySale
-                        for saleMonths, index in saleMonth
-                            .dataGraph
-                                .dataValue(id=`dataVal${index}` data-price=`${saleMonths.totalPrice}`)
-                                    span.nameTag #{saleMonths.date}월<br>#{saleMonths.totalPriceComma}
-                    section.displayDailySale
-                        for saleDays, index in saleDay
-                            .dataGraph
-                                .dayValue(id=`dataVal${index}` data-price=`${saleDays.totalPrice}`)
-                                    span.nameTag #{saleDays.date}일<br>#{saleDays.totalPriceComma}
-                    section.displayYearlySale
-                        for saleLastYears, index in saleLastYear
-                            .dataGraph
-                                .lastYearValue(id=`dataVal${index}` data-price=`${saleLastYears.totalPrice}`)
-                                    span.nameTag #{saleLastYears.date}년<br>#{saleLastYears.totalPriceComma}
-                        for saleYears, index in saleYear
-                            .dataGraph
-                                .yearValue(id=`dataVal${index}` data-price=`${saleYears.totalPrice}`)
-                                    span.nameTag #{saleYears.date}년<br>#{saleYears.totalPriceComma}
-                    section.displayBestSales
-                        for bestItems, index in bestItem
-                            .dataGraph
-                                .itemValue(id=`dataVal${index}` data-price=`${bestItems.purchaseCnt}`)
-                                    span.nameTag #{bestItems.name}(#{bestItems.purchaseCnt})
-                    .axisInfo
-                        .axis
-                            span 100%
-                        .axis
-                            span 75%
-                        .axis
-                            span 50%
-                        .axis
-                            span 25%
-                        .axis
-                            span 0%
+                    section.wrapBox
+                        section.displayMonthlySale
+                            for saleMonths, index in saleMonth
+                                .dataGraph
+                                    .dataValue(id=`dataVal${index}` data-price=`${saleMonths.totalPrice}`)
+                                        span.nameTag #{saleMonths.date}월<br>#{saleMonths.totalPriceComma}
+                        section.displayDailySale
+                            for saleDays, index in saleDay
+                                .dataGraph
+                                    .dayValue(id=`dataVal${index}` data-price=`${saleDays.totalPrice}`)
+                                        span.nameTag #{saleDays.date}일<br>#{saleDays.totalPriceComma}
+                        section.displayYearlySale
+                            for saleLastYears, index in saleLastYear
+                                .dataGraph
+                                    .lastYearValue(id=`dataVal${index}` data-price=`${saleLastYears.totalPrice}`)
+                                        span.nameTag #{saleLastYears.date}년<br>#{saleLastYears.totalPriceComma}
+                            for saleYears, index in saleYear
+                                .dataGraph
+                                    .yearValue(id=`dataVal${index}` data-price=`${saleYears.totalPrice}`)
+                                        span.nameTag #{saleYears.date}년<br>#{saleYears.totalPriceComma}
+                        section.displayBestSales
+                            for bestItems, index in bestItem
+                                .dataGraph
+                                    .itemValue(id=`dataVal${index}` data-price=`${bestItems.purchaseCnt}`)
+                                        span.nameTag #{bestItems.name}(#{bestItems.purchaseCnt})
+                        .axisInfo
+                            .axis
+                                span 100%
+                            .axis
+                                span 75%
+                            .axis
+                                span 50%
+                            .axis
+                                span 25%
+                            .axis
+                                span 0%
         script(src="./js/adminSale.js")
