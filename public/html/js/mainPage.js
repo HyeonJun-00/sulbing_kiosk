@@ -57,16 +57,14 @@
         $("#gifticon_price").html(`${putComma(totalAmount)}원`);
     }
     const stockSet = checkID => {
+        checkID.removeClass("backgroundFlag sold_out displayFlag");
         if (checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") < 6 && checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") > 0) {
-            checkID.removeClass("sold_out");
             checkID.addClass("backgroundFlag displayFlag");
             checkID.html(`${checkID.attr("data-product-stock") - checkID.attr("data-minus-stock")}개 남았어요`);
         } else if (checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") == 0) {
-            checkID.removeClass("displayFlag backgroundFlag");
             checkID.addClass("sold_out");
             checkID.html("");
         } else if (checkID.attr("data-product-stock") - checkID.attr("data-minus-stock") < 11) {
-            checkID.removeClass("backgroundFlag sold_out");
             checkID.addClass("displayFlag");
             checkID.html(`${checkID.attr("data-product-stock") - checkID.attr("data-minus-stock")}개 남았어요`);
         }
@@ -102,10 +100,10 @@
             transferData.tel = tel;
             const res = await axios.post(`/getUserStamp`, { tel });
             if (res.data.length > 0) {
-                $("#have_stamp").html(`${res.data[0].stamp > 0 ? res.data[0].stamp : 0 }/10`);
+                $("#have_stamp").html(`${res.data[0].stamp > 0 ? res.data[0].stamp : 0}/10`);
                 if (res.data[0].auth != "G") {
                     ((res.data[0].stamp >= 10) && ($("#stamp_use_button").addClass("displayFlag"), $("#stamp_use").html("5000원 할인")))
-                    || $("#stamp_use_button").removeClass("displayFlag");
+                        || $("#stamp_use_button").removeClass("displayFlag");
                 } else {
                     ($("#stamp_use").html("가입 후 사용가능"));
                 }
@@ -224,7 +222,7 @@
                             transferData.payment.push({ id: 1, amount: totalAmount });
                         }
                         if (transferData.take_out)
-                        transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
+                            transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
                         const jsonData = transferData;
                         try {
                             if (await axios.post(`/cart`, { jsonData })) {
@@ -311,7 +309,7 @@
                             transferData.payment.push({ id: $(this).index() + 2, amount: totalAmount });
                         }
                         if (transferData.take_out)
-                        transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
+                            transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
                         const jsonData = transferData;
                         try {
                             if (await axios.post(`/cart`, { jsonData })) {
@@ -529,6 +527,7 @@
         $(this).parent().children("p").html(dryIceNumber)
     });
     $(".dryice_number_plus").on("click", function () {
+        if ($(this).parent().children("p").html() == 180) return ;
         const dryIceNumber = parseInt($(this).parent().children("p").html()) + 5;
         $(this).parent().children("p").html(dryIceNumber)
     });
@@ -552,7 +551,7 @@
         } else if ($(this).html() == "CLEAR") {
             $(".inquiry_input_box").val("");
         }
-        else if ($(".inquiry_input_box").html().length < 20) {
+        else if ($(".inquiry_input_box").val().length <= 16) {
             $(".inquiry_input_box").val(($(".inquiry_input_box").val() + $(this).html()));
         }
     });
@@ -672,12 +671,12 @@
     });
     $(".point_modal section:nth-child(1) > button").on("click", () => $(".tel_modal_background").addClass("displayFlag"));
     $(".tel_modal section:nth-child(1) > button").on("click", () => $(".tel_modal_background").removeClass("displayFlag"));
-    $(".tel_save > button").on("click", function() {
+    $(".tel_save > button").on("click", function () {
         $("#point_input_box").html($(this).children().eq(1).html());
         $(".tel_modal_background").removeClass("displayFlag");
     });
     $(".gifticon_modal section:nth-child(1) > button").on("click", () => $(".gifticon_modal_background").removeClass("displayFlag"));
-    $(".gifticon_save > button").on("click", function() {
+    $(".gifticon_save > button").on("click", function () {
         $(".inquiry_input_box").val($(this).children().eq(1).html());
         $(".gifticon_modal_background").removeClass("displayFlag");
     });
@@ -688,7 +687,7 @@
         $(".paying_modal_background").addClass("displayFlag");
         if (totalAmount == 0) {
             if (transferData.take_out)
-            transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
+                transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
             const jsonData = transferData;
             try {
                 if (await axios.post(`/cart`, { jsonData })) {

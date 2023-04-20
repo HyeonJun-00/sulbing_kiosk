@@ -28,6 +28,25 @@ $color-line: rgb(220, 220, 220);
     justify-content: center;
     align-items: center;
 }
+@mixin check {
+    display: inline-flex;
+
+    &::after {
+        position: absolute;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        width: 10rem;
+        height: 4rem;
+        border-radius: 1rem;
+        content: "";
+    }
+
+    &.backgroundFlag {
+        &::after {
+            border: 3px solid #f2da5e;
+        }
+    }
+}
 
 /*.temporary_img {
     position: absolute;
@@ -678,26 +697,6 @@ $color-line: rgb(220, 220, 220);
                     background-color: rgba(#000, 0.05);
                 }
             }
-        }
-    }
-}
-
-@mixin check {
-    display: inline-flex;
-
-    &::after {
-        position: absolute;
-        cursor: pointer;
-        border: 1px solid #ccc;
-        width: 10rem;
-        height: 4rem;
-        border-radius: 1rem;
-        content: "";
-    }
-
-    &.backgroundFlag {
-        &::after {
-            border: 3px solid #f2da5e;
         }
     }
 }
@@ -2362,5 +2361,4 @@ $color-line: rgb(220, 220, 220);
             width: 10rem;
         }
     }
-
 }
