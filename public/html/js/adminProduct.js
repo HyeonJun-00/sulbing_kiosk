@@ -59,7 +59,7 @@
 
     [...document.querySelectorAll( `.productUpdateBtn` )].forEach( ( v, i, a ) => {
         v.onclick= e => { // 사용자 수정 완료
-            modalCon(`사용자 정보를 수정하시겠습니까?`);
+            modalCon(`상품 정보를 수정하시겠습니까?`);
             resultCon(`update`);
         }
     });

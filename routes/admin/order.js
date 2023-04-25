@@ -15,8 +15,7 @@ router.get ( `/`, ( req, res, next ) => {
             total_price, total_discount, total_charge, use_stamp,
             floor( total_price -
                    ((total_price / 100 * total_discount) +
-                    ( total_price / 100 * total_charge ) +
-                    ( case when use_stamp = true then 5000 else 0 end)) )
+                    ( total_price / 100 * total_charge )) )
                                                            final_price,
             save_stamp, take_out, A.remark, B.tel user_tel,
             date_format( purchase_date, '%Y-%m-%d %H:%i' ) purchase_date,
@@ -66,8 +65,7 @@ router.post ( `/`, async ( req, res, next ) => {
             total_price, total_discount, total_charge, use_stamp,
             floor( total_price -
                    ((total_price / 100 * total_discount) +
-                    ( total_price / 100 * total_charge ) +
-                    ( case when use_stamp = true then 5000 else 0 end)) )
+                    ( total_price / 100 * total_charge )) )
                                                            final_price,
             save_stamp, take_out, A.remark, B.tel user_tel,
             date_format( purchase_date, '%Y-%m-%d %H:%i' ) purchase_date,
