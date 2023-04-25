@@ -15,7 +15,7 @@ router.get(`/index`, (req, res) => {
     let sqlGetProduct = `select * from v_product;`;
     let sqlGetProductOption = `select * from v_product_option;`;
     let sqlPurchaseId = `select max(id) from purchase;`;
-    let sqlTel = `select tel, stamp, auth from user;`;
+    let sqlTel = `select tel, stamp, auth from user where deleted_date is null;`;
     let sqlGifticon = `select name, code, save_amount from gifticon_info;`;
 
     con.query(sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption + sqlPurchaseId + sqlTel + sqlGifticon, (err, result) => {
@@ -45,7 +45,7 @@ router.get(`/index`, (req, res) => {
 
 router.post(`/getUserStamp`, async (req, res, next) => {
     let tel = await req.body.tel;
-    let sql = `select id, name, tel, stamp, auth, join_date from user where tel= '${tel}';`;
+    let sql = `select id, name, tel, stamp, auth, join_date from user where tel= '${tel}' and deleted_date is null;`;
     con.query(sql, (err, result) => {
         if (err) throw err;
         res.status(201).json(result);

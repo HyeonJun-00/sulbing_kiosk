@@ -8,20 +8,18 @@
         if (inputString == "") return "";
         return Number(String(inputString.replace(/[^0-9]/g, "")));
     };
-
     const putComma = inputString => Number(String(inputString).replace(/[^0-9]/g, '')).toLocaleString();
 
     const transferData = {
-        tel: null,
-        item: [
-        ],
+        tel: null,                      // 스탬프를 조회 할때 사용하는 번호
+        item: [],                       // 상품과 옵션의 id 값들
         stamp: { use: false, save: 0 }, // 사용 10, 적립 2
-        payment: [
+        payment: [                      // 각종 결제 방식들
             { id: 6, amount: 0, gifticon: [] }
         ],
-        totalAmount: 0,
-        take_out: 0,
-        remark: ''
+        totalAmount: 0,                 // 총금액
+        take_out: 0,                    // 매장과 포장 정보
+        remark: ''                      // 숟가락과 드라이 아이스의 정보
     };
 
     let totalAmount = 0;
@@ -69,13 +67,15 @@
             checkID.html(`${checkID.attr("data-product-stock") - checkID.attr("data-minus-stock")}개 남았어요`);
         }
     }
-    const resetTimer = time => {
-        $("#reset_time_modal").css("background", `conic-gradient(#f6d73d ${time}deg, rgba(245, 245, 245, 0) ${time}deg)`);
-        $("#reset_time_guide").html(`${Math.floor(time / 6 + 0.5)}초 후 시작화면으로 돌아갑니다.`);
-        if (time > 0 && loadTimeValue > 50) setTimeout(resetTimer, 1000 / 6, time - 1);
-        else if (loadTimeValue > 50) location.reload();
-    }
+
     let loadTimeValue = 0;
+    const resetTimer = time => {
+        $("#reset_time_modal").css("background", 
+            `conic-gradient(#f6d73d ${time}deg, rgba(245, 245, 245, 0) ${time}deg)`);
+        $("#reset_time_guide").html(`${Math.floor(time / 6 + 0.5)}초 후 시작화면으로 돌아갑니다.`);
+        if (time > 0 && loadTimeValue >= 59) setTimeout(resetTimer, 1000 / 6, time - 1);
+        else if (loadTimeValue >= 59) location.reload();
+    }
     const loadTime = () => {
         if (loadTimeValue == 59) {
             $("#reset_timer_modal_background").addClass("displayFlag");
@@ -88,7 +88,6 @@
         (loadTimeValue == 0) && (loadTime());
         loadTimeValue = 1;
     });
-
 
     $("#reset_timer_modal_background").on("click", () => {
         $("#reset_time_modal").css("background", `conic-gradient(#f6d73d 0deg, rgba(245, 245, 245, 0) 0deg)`);
@@ -103,7 +102,7 @@
                 $("#have_stamp").html(`${res.data[0].stamp > 0 ? res.data[0].stamp : 0}/10`);
                 if (res.data[0].auth != "G") {
                     ((res.data[0].stamp >= 10) && ($("#stamp_use_button").addClass("displayFlag"), $("#stamp_use").html("5000원 할인")))
-                        || $("#stamp_use_button").removeClass("displayFlag");
+                    || $("#stamp_use_button").removeClass("displayFlag");
                 } else {
                     ($("#stamp_use").html("가입 후 사용가능"));
                 }
@@ -124,17 +123,19 @@
 
             if (!transferData.payment[0].gifticon.some(item => item.id == res.data[0].id)) {
                 transferData.payment[0].amount += res.data[0].save_amount;
-                transferData.payment[0].gifticon.push({ id: res.data[0].id, price: res.data[0].save_amount - totalAmount < 0 ? 0 : res.data[0].save_amount - totalAmount });
-                console.log(transferData.payment[0].gifticon);
+                transferData.payment[0].gifticon.push({ 
+                    id: res.data[0].id, 
+                    price: res.data[0].save_amount - totalAmount < 0 ? 0 : res.data[0].save_amount - totalAmount
+                 });
                 $("#gifticon_box").append(
-                    `
-                <div class="gifticon_element">
-                    <button></button>
-                    <p> ${res.data[0].name}</p>
-                    <p> 잔액: </p>
-                    <p> ${putComma(res.data[0].save_amount)}원 </p>
-                </div>
-            `)
+                `
+                    <div class="gifticon_element">
+                        <button></button>
+                        <p> ${res.data[0].name}</p>
+                        <p> 잔액: </p>
+                        <p> ${putComma(res.data[0].save_amount)}원 </p>
+                    </div>
+                `);
                 $(".gifticon_element button").off();
                 $(".gifticon_element button").on("click", function () {
                     transferData.payment[0].amount -= drawNumber($(".gifticon_element").eq($(this).parent().index()).children("p").eq(2).html());
@@ -310,7 +311,7 @@
                         }
                         if (transferData.take_out)
                             transferData.remark = `스푼: ${$(".spoon_number_plus").parent().children("p").html()}, 드라이아이스: ${$(".dryice_number_plus").parent().children("p").html()}`;
-                        const jsonData = transferData;
+                            const jsonData = transferData;
                         try {
                             if (await axios.post(`/cart`, { jsonData })) {
                                 $("#pay_terminal_modal_background").removeClass("displayFlag");
