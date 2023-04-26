@@ -26,7 +26,7 @@ document.querySelector( `#cartForm` ).addEventListener( `submit`,  async e => {
     try {
         const res= await axios.post( `/cart`, { jsonData } );
         console.log( res.data );
-    } catch ( err ) {
-        console.error( err );
+    } catch ( erre ) {
+        console.error( erre );
     }
 });
