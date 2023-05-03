@@ -16,7 +16,7 @@ router.get(`/index`, (req, res) => {
     let sqlGetProductOption = `select * from v_product_option;`;
     let sqlPurchaseId = `select max(id) from purchase;`;
     let sqlTel = `select tel, stamp, auth from user where deleted_date is null;`;
-    let sqlGifticon = `select name, code, save_amount from gifticon_info where is null;`;
+    let sqlGifticon = `select name, code, save_amount from gifticon_info where deleted_date is null;`;
 
     con.query(sqlGetMenu + sqlGetMenuInProduct + sqlGetProduct + sqlGetProductOption + sqlPurchaseId + sqlTel + sqlGifticon, (err, result) => {
         if (err) throw err;
